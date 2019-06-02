@@ -1,16 +1,19 @@
 import React, { ComponentType } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import HomePage from './HomePage';
 import { withBurner } from '../BurnerProvider';
+import HomePage from './HomePage';
+import ReceivePage from './ReceivePage';
 
 interface BurnerRouteProps {
   path: string,
   page: ComponentType,
+  exact: bool,
 }
 
-const BurnerRoute = ({ path, page }: BurnerRouteProps) => (
+const BurnerRoute = ({ path, page, exact }: BurnerRouteProps) => (
   <Route
     path={path}
+    exact={exact}
     render={() => {
       const Page = withBurner(page);
       return <Page />
@@ -20,7 +23,8 @@ const BurnerRoute = ({ path, page }: BurnerRouteProps) => (
 
 const App: React.FC = () => (
   <Switch>
-    <BurnerRoute path="/" page={HomePage as ComponentType} />
+    <BurnerRoute path="/" exact page={HomePage as ComponentType} />
+    <BurnerRoute path="/receive" page={ReceivePage as ComponentType} />
   </Switch>
 );
 
