@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Balances from './Balances';
 import { BurnerContext } from '../../BurnerProvider';
+import Page from '../../components/Page';
+import Balances from './Balances';
 
 const HomePage = ({ accounts, assets }: BurnerContext) => (
-  <div>
+  <Page>
     {accounts.length > 0 ? (
       <Balances
         account={accounts[0]}
@@ -19,7 +20,7 @@ const HomePage = ({ accounts, assets }: BurnerContext) => (
         <Link to="/send">Send</Link>
       </li>
     </ul>
-  </div>
+  </Page>
 );
 
 export default HomePage;

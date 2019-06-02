@@ -1,7 +1,8 @@
 import React from 'react';
+import './Header.css';
 
 const Header: React.FC = () => (
-  <div>Burner Wallet</div>
+  <header>Burner Wallet</header>
 );
 
 export default Header;
