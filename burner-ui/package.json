@@ -1,0 +1,13 @@
+{
+  "name": "burner-ui",
+  "main": "src/BurnerUI.tsx",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3"
+  },
+  "dependencies": {
+    "@types/react": "^16.8.19",
+    "react": "^16.8.6"
+  }
+}
