@@ -4,6 +4,7 @@ import Providers from './Providers';
 import Pages from './Pages';
 import Template from './Template';
 import Header from './components/Header';
+import Scanner from './components/Scanner';
 import './BurnerUI.css';
 
 interface BurnerUIProps {
@@ -17,6 +18,7 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
       <BurnerProvider core={this.props.core} assets={this.props.assets}>
         <Providers>
           <Template>
+            <Scanner />
             <Header />
             <Pages />
           </Template>

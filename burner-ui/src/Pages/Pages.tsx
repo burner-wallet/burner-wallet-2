@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { withBurner } from '../BurnerProvider';
 import HomePage from './HomePage';
 import ReceivePage from './ReceivePage';
+import SendPage from './SendPage';
 
 interface BurnerRouteProps {
   path: string,
@@ -25,6 +26,7 @@ const App: React.FC = () => (
   <Switch>
     <BurnerRoute path="/" exact page={HomePage as ComponentType} />
     <BurnerRoute path="/receive" page={ReceivePage as ComponentType} />
+    <BurnerRoute path="/send" page={SendPage as ComponentType} />
   </Switch>
 );
 

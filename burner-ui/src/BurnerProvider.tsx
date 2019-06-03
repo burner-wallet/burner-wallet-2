@@ -6,22 +6,35 @@ interface BurnerProviderProps {
   children: React.ReactNode,
 }
 
+interface Actions {
+  scanQrCode: () => Promise<string>,
+}
+
 export interface BurnerContext {
-  assets: any[],
+  actions: Actions,
   accounts: string[],
+  assets: any[],
+  completeScan?: (result?: string) => null
 }
 
 const { Provider, Consumer } = React.createContext<BurnerContext>({
   assets: [],
   accounts: [],
+  completeScan: null,
 });
 
 export default class BurnerProvider extends Component<BurnerProviderProps, any> {
   constructor(props: BurnerProviderProps) {
     super(props);
     props.assets.forEach(asset => asset.setCore(props.core));
+
+    this.actions = {
+      scanQrCode: this.scanQrCode.bind(this),
+    };
+
     this.state = {
       accounts: [],
+      completeScan: null,
     }
   }
 
@@ -32,11 +45,25 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
     this.props.core.onAccountChange((accounts: string[]) => this.setState({ accounts }));
   }
 
+  scanQrCode() {
+    return new Promise((resolve, reject) => {
+      const completeScan = result => {
+        this.setState({ completeScan: null });
+        if (result) {
+          resolve(result);
+        } else {
+          reject(new Error('User canceled'));
+        }
+      };
+      this.setState({ completeScan });
+    });
+  }
+
   render() {
     const { assets, children } = this.props;
-    const { accounts } = this.state;
+    const { accounts, completeScan } = this.state;
     return (
-      <Provider value={{assets, accounts}}>
+      <Provider value={{actions: this.actions, accounts, assets, completeScan}}>
         {children}
       </Provider>
     )
@@ -45,6 +72,6 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
 
 export const withBurner = <P extends object>(WrappedComponent: React.ComponentType<P>) => (props: P) => (
   <Consumer>
-    {props => <WrappedComponent {...props as P} />}
+    {burnerContext => <WrappedComponent {...burnerContext} {...props as P} />}
   </Consumer>
 )
