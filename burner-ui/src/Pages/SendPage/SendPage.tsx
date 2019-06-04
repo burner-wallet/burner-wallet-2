@@ -44,7 +44,7 @@ export default class SendPage extends Component<BurnerContext> {
 
     if (txHash) {
       return (
-        <Redirect to={`/receipt/${assets[asset].name}/${txHash}`} />
+        <Redirect to={`/receipt/${assets[asset].id}/${txHash}`} />
       )
     }
 
