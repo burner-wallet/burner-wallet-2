@@ -23,9 +23,11 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
       err: null,
     };
     this.timer = null;
+    this._isMounted = false;
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.fetchData();
     this.poll();
   }
@@ -33,6 +35,13 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
   componentDidUpdate(oldProps) {
     if (this.props !== oldProps) {
       this.fetchData();
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    if (this.timer) {
+      clearTimeout(this.timer);
     }
   }
 
@@ -52,6 +61,11 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
       const asset = assetList[0];
 
       const balance = await asset.getBalance(this.props.account);
+
+      if (!this._isMounted) {
+        return;
+      }
+
       const data = {
         balance,
         displayBalance: asset.getDisplayValue(balance),
