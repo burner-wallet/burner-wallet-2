@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
+const POLL_INTERVAL = 1000;
+
 interface AccountBalanceProps {
   asset: string,
   account: string,
@@ -20,16 +22,25 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
       data: null,
       err: null,
     };
+    this.timer = null;
   }
 
   componentDidMount() {
     this.fetchData();
+    this.poll();
   }
 
   componentDidUpdate(oldProps) {
     if (this.props !== oldProps) {
       this.fetchData();
     }
+  }
+
+  poll() {
+    this.timer = setTimeout(async () => {
+      await this.fetchData();
+      this.poll();
+    }, POLL_INTERVAL);
   }
 
   async fetchData() {
