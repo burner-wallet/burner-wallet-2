@@ -26,12 +26,13 @@ const HomePage = ({ accounts, assets }: BurnerContext) => (
         )}
       </ul>
     )  : 'Loading'}
-    <ul>
-      <li>
-        <Link to="/receive">Receive</Link>
+
+    <ul className={classes.buttons}>
+      <li className={classes.buttonContainer}>
+        <Link to="/receive" className={classes.button}>Receive</Link>
       </li>
-      <li>
-        <Link to="/send">Send</Link>
+      <li className={classes.buttonContainer}>
+        <Link to="/send" className={classes.button}>Send</Link>
       </li>
     </ul>
   </Page>
