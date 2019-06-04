@@ -1,0 +1,20 @@
+.qrContainer {
+  text-align: center;
+}
+
+.qrCode {
+  width: 100%;
+  height: initial;
+  max-width: 600px;
+  max-height: 60vh;
+}
+
+.addressContainer {
+  margin: 10px 40px;
+}
+.address {
+  width: 100%;
+  font-size: 18px;
+  color: #999999;
+  padding: 6px 12px;
+}
