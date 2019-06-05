@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import BurnerCore from '../../../burner-core/src/BurnerCore';
-import { xdai, dai, eth } from '../../../burner-core/src/assets';
-import { InjectedSigner, LocalSigner } from '../../../burner-core/src/signers';
-import { InfuraGateway, InjectedGateway, XDaiGateway } from '../../../burner-core/src/gateways';
+import BurnerCore from '../../../burner-core/core';
+import { xdai, dai, eth } from '../../../burner-core/assets';
+import { InjectedSigner, LocalSigner } from '../../../burner-core/core/src/signers';
+import { InfuraGateway, InjectedGateway, XDaiGateway } from '../../../burner-core/core/src/gateways';
 import BurnerUI from '../../burner-ui';
 
 const core = new BurnerCore({
