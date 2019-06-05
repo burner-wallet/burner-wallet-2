@@ -10,5 +10,6 @@ module.exports = override(
   babelInclude([
     path.resolve("src"),
     path.resolve("../burner-ui"),
+    path.resolve("../exchange"),
   ]),
 );

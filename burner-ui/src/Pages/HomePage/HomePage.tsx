@@ -5,7 +5,13 @@ import Page from '../../components/Page';
 import AccountBalance from '../../data-providers/AccountBalance';
 import classes from './HomePage.module.css';
 
-const HomePage = ({ accounts, assets }: BurnerContext) => (
+const HomeButton = ({ path, title }) => (
+  <li className={classes.buttonContainer}>
+    <Link to={path} className={classes.button}>{title}</Link>
+  </li>
+)
+
+const HomePage = ({ accounts, assets, pluginData }: BurnerContext) => (
   <Page>
     {accounts.length > 0 ? (
       <ul className={classes.balances}>
@@ -28,12 +34,11 @@ const HomePage = ({ accounts, assets }: BurnerContext) => (
     )  : 'Loading'}
 
     <ul className={classes.buttons}>
-      <li className={classes.buttonContainer}>
-        <Link to="/receive" className={classes.button}>Receive</Link>
-      </li>
-      <li className={classes.buttonContainer}>
-        <Link to="/send" className={classes.button}>Send</Link>
-      </li>
+      <HomeButton path="/receive" title="Receive" />
+      <HomeButton path="/send" title="Send" />
+      {pluginData.homeButtons.map(({ title, path }) => (
+        <HomeButton title={title} path={path} key={title} />
+      ))}
     </ul>
 
     <Link to="/advanced">Advanced</Link>

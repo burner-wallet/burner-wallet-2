@@ -1,0 +1,6 @@
+{
+  "name": "@burner-wallet/exchange",
+  "version": "0.0.1",
+  "main": "src/Exchange.ts",
+  "license": "MIT"
+}

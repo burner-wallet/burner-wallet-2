@@ -14,6 +14,7 @@ export interface BurnerContext {
   actions: Actions,
   accounts: string[],
   assets: any[],
+  pluginData: any,
   completeScan?: (result?: string) => null
 }
 
@@ -62,10 +63,16 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
   }
 
   render() {
-    const { assets, children } = this.props;
+    const { assets, pluginData, children } = this.props;
     const { accounts, completeScan } = this.state;
     return (
-      <Provider value={{actions: this.actions, accounts, assets, completeScan}}>
+      <Provider value={{
+        actions: this.actions,
+        accounts,
+        assets,
+        completeScan,
+        pluginData,
+      }}>
         {children}
       </Provider>
     )
