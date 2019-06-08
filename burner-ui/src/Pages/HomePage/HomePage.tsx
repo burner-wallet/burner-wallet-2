@@ -35,6 +35,8 @@ const HomePage = ({ accounts, assets }: BurnerContext) => (
         <Link to="/send" className={classes.button}>Send</Link>
       </li>
     </ul>
+
+    <Link to="/advanced">Advanced</Link>
   </Page>
 );
 

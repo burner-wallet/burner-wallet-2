@@ -1,6 +1,7 @@
 import React, { ComponentType } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { withBurner } from '../BurnerProvider';
+import AdvancedPage from './AdvancedPage';
 import HomePage from './HomePage';
 import ReceiptPage from './ReceiptPage';
 import ReceivePage from './ReceivePage';
@@ -29,6 +30,7 @@ const App: React.FC = () => (
     <BurnerRoute path="/receive" page={ReceivePage as ComponentType} />
     <BurnerRoute path="/send" page={SendPage as ComponentType} />
     <BurnerRoute path="/receipt/:asset/:txHash" page={ReceiptPage as ComponentType} />
+    <BurnerRoute path="/advanced" page={AdvancedPage as ComponentType} />
   </Switch>
 );
 

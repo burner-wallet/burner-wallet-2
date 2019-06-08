@@ -9,7 +9,6 @@
   "dependencies": {
     "@types/react": "^16.8.19",
     "qrcode.react": "^0.9.3",
-    "react": "^16.8.6",
     "react-qr-reader": "^2.2.1"
   }
 }

@@ -30,6 +30,8 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
 
     this.actions = {
       scanQrCode: this.scanQrCode.bind(this),
+      canCallSigner: props.core.canCallSigner.bind(props.core),
+      callSigner: props.core.callSigner.bind(props.core),
     };
 
     this.state = {
