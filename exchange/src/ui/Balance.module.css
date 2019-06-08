@@ -1,0 +1,10 @@
+.balance {
+  border-bottom: solid 1px #aaaaaa;
+  display: flex;
+  margin: 4px 0;
+  padding: 4px 0;
+}
+.balanceVal {
+  flex: 1 0;
+  text-align: right;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classes from './PairUI.module.css';
 
 export default class PairUI extends Component {
   constructor(props) {
@@ -23,9 +24,9 @@ export default class PairUI extends Component {
   render() {
     const { pair } = this.props
     return (
-      <div>
-        <div>From: {this.assetA.name}</div>
-        <div>To: {this.assetB.name}</div>
+      <div className={classes.pair}>
+        <button className={classes.exchangeBtn}>{this.assetA.name} to {this.assetB.name}</button>
+        <button className={classes.exchangeBtn}>{this.assetB.name} to {this.assetA.name}</button>
       </div>
     );
   }
