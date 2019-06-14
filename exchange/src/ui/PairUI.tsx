@@ -37,7 +37,8 @@ export default class PairUI extends Component {
 
       console.log(response);
       this.setState({ mode: 'default', loading: false });
-    } catch (e) {
+    } catch (err) {
+      console.error(err);
       this.setState({ loading: false });
     }
   }
