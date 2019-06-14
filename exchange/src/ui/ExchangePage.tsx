@@ -68,7 +68,7 @@ class ExchangePage extends Component {
             <Fragment key={i}>
               {pair.assetA !== lastAsset && getBalance(pair.assetA)}
 
-              <PairUI pair={pair} assets={assets} />
+              <PairUI pair={pair} assets={assets} account={account} />
 
               {getBalance(pair.assetB)}
             </Fragment>

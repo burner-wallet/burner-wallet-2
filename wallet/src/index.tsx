@@ -6,7 +6,7 @@ import { xdai, dai, eth } from '../../../burner-core/assets';
 import { InjectedSigner, LocalSigner } from '../../../burner-core/core/src/signers';
 import { InfuraGateway, InjectedGateway, XDaiGateway } from '../../../burner-core/core/src/gateways';
 import Exchange from '../../exchange';
-import { uniswapDai } from '../../exchange/src/pairs';
+import { xdaiBridge } from '../../exchange/src/pairs';
 import BurnerUI from '../../burner-ui';
 
 const core = new BurnerCore({
@@ -19,7 +19,7 @@ const core = new BurnerCore({
 });
 
 const exchange = new Exchange({
-  pairs: [uniswapDai],
+  pairs: [xdaiBridge],
 });
 
 const BurnerWallet = () =>

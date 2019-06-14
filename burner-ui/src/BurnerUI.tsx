@@ -27,6 +27,8 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
     this.pluginContext = {
       addPage: this.addPluginPage.bind(this),
       addHomeButton: this.addPluginHomeButton.bind(this),
+      getAssets: () => props.assets,
+      getWeb3: network => props.core.getWeb3(network),
     };
   }
 

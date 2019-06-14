@@ -21,6 +21,27 @@ export default class PairUI extends Component {
     throw new Error(`Could not find asset ${id}`);
   }
 
+  async exchange() {
+    const { pair, account } = this.props
+    const { mode, amount } = this.state;
+
+    this.setState({ loading: true });
+    try {
+      const exchangeProps = { account, ether: amount };
+
+      const response = await (
+        mode === 'AtoB'
+        ? pair.exchangeAtoB(exchangeProps)
+        : pair.exchangeBtoA(exchangeProps)
+      );
+
+      console.log(response);
+      this.setState({ mode: 'default', loading: false });
+    } catch (e) {
+      this.setState({ loading: false });
+    }
+  }
+
   buttons() {
     const { pair } = this.props
     return (
@@ -36,18 +57,23 @@ export default class PairUI extends Component {
   }
 
   form() {
-    const { mode, amount } = this.state;
+    const { mode, amount, loading } = this.state;
     const { assetA, assetB } = this;
     return (
       <Fragment>
         <div>
           {mode === 'AtoB' ? `${assetA.name} to ${assetB.name}` : `${assetB.name} to ${assetA.name}`}
         </div>
-        <input type="number" value={amount} onChange={e => this.setState({ amount: e.target.value })} />
-        <button type="button" onClick={() => this.setState({ mode: 'default', amount: '0' })}>
+        <input
+          type="number"
+          value={amount}
+          onChange={e => this.setState({ amount: e.target.value })}
+        />
+
+        <button onClick={() => this.setState({ mode: 'default', amount: '0' })} disabled={loading}>
           Cancel
         </button>
-        <button type="button" onClick={() => this.setState({ mode: 'default', amount: '0' })}>
+        <button onClick={() => this.exchange()} disabled={loading}>
           Exchange
         </button>
       </Fragment>
