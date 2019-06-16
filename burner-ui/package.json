@@ -9,7 +9,7 @@
     "cjs": "tsc -m commonjs",
     "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
     "build": "yarn run mjs && yarn run cjs && yarn run css",
-    "publish": "yarn build"
+    "publish": "yarn build && yarn publish --no-commit-hooks"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -19,6 +19,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "@burner-wallet/assets": "0.0.8",
     "@types/qrcode.react": "^0.8.2",
     "@types/react": "^16.8.19",
     "@types/react-qr-reader": "^2.1.2",

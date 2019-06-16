@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Asset } from '@burner-wallet/assets';
 import BurnerProvider from './BurnerProvider';
 import Providers from './Providers';
 import Pages from './Pages';
@@ -9,7 +10,7 @@ import './BurnerUI.css';
 
 interface BurnerUIProps {
   core: any,
-  assets: any[],
+  assets: Asset[],
   plugins: any[],
 }
 
@@ -28,10 +29,10 @@ export interface BurnerPluginData {
   homeButtons: PluginHomeButton[],
 }
 
-interface BurnerPluginContext {
+export interface BurnerPluginContext {
   addPage: (path: string, Component: React.ComponentType) => any,
   addHomeButton: (title: string, path: string) => any,
-  getAssets: () => any[],
+  getAssets: () => Asset[],
   getWeb3: (network: string) => any,
 }
 
