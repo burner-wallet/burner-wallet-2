@@ -1,5 +1,6 @@
 {
-  "name": "burner-ui",
+  "name": "@burner-wallet/ui",
+  "version": "0.0.1",
   "main": "src/BurnerUI.tsx",
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
