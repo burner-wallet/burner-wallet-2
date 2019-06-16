@@ -3,8 +3,16 @@ import { Redirect } from 'react-router-dom';
 import { BurnerContext } from '../../BurnerProvider';
 import Page from '../../components/Page';
 
-export default class SendPage extends Component<BurnerContext> {
-  constructor(props) {
+interface SendPageState {
+  to: string,
+  value: string,
+  asset: number,
+  sending: boolean,
+  txHash: string | null,
+}
+
+export default class SendPage extends Component<BurnerContext, SendPageState> {
+  constructor(props: BurnerContext) {
     super(props);
     this.state = {
       to: '',
@@ -52,7 +60,7 @@ export default class SendPage extends Component<BurnerContext> {
     return (
       <Page title="Send To Address">
         <div>
-          <select value={asset} onChange={e => this.setState({ asset: e.target.value })} disabled={sending}>
+          <select value={asset} onChange={e => this.setState({ asset: parseInt(e.target.value) })} disabled={sending}>
             {assets.map((_asset, index) => (
               <option value={index} key={index}>{_asset.name}</option>
             ))}

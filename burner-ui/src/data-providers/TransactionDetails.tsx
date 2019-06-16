@@ -4,7 +4,7 @@ import { withBurner, BurnerContext } from '../BurnerProvider';
 interface TransactionDetailsProps {
   asset: string,
   txHash: string,
-  render: (any) => React.ReactNode,
+  render: (err: Error, tx: any) => React.ReactNode,
 }
 
 interface Transaction {
@@ -16,7 +16,7 @@ interface Transaction {
 }
 
 class TransactionDetails extends Component<BurnerContext & TransactionDetailsProps, any> {
-  constructor(props) {
+  constructor(props: BurnerContext & TransactionDetailsProps) {
     super(props);
     this.state = {
       tx: null,
@@ -28,7 +28,7 @@ class TransactionDetails extends Component<BurnerContext & TransactionDetailsPro
     this.fetchData();
   }
 
-  componentDidUpdate(oldProps) {
+  componentDidUpdate(oldProps: BurnerContext & TransactionDetailsProps) {
     if (this.props !== oldProps) {
       this.fetchData();
     }

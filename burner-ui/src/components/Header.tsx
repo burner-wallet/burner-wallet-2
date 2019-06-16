@@ -9,4 +9,4 @@ const Header: React.FC<BurnerContext> = ({ accounts }) => (
   </header>
 );
 
-export default withBurner(Header);
+export default withBurner<{}>(Header);

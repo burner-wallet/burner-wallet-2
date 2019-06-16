@@ -5,14 +5,19 @@ import { BurnerContext } from '../../BurnerProvider';
 import Page from '../../components/Page';
 import AccountKeys from '../../data-providers/AccountKeys';
 
-const Section = ({ title, children }) => (
+interface SectionProps {
+  title: string,
+  children:  React.ReactNode,
+}
+
+const Section: React.FC<SectionProps> = ({ title, children }) => (
   <div>
     <h3>{title}</h3>
     {children}
   </div>
 )
 
-const AdvancedPage = ({ accounts }: BurnerContext) => {
+const AdvancedPage: React.FC<BurnerContext> = ({ accounts }) => {
   const [showPk, setShowPk] = React.useState(false);
   return (
     <Page title="Advanced">

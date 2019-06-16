@@ -13,8 +13,32 @@ interface BurnerUIProps {
   plugins: any[],
 }
 
+interface PluginPage {
+  path: string,
+  Component: React.ComponentType,
+}
+
+interface PluginHomeButton {
+  title: string,
+  path: string,
+}
+
+export interface BurnerPluginData {
+  pages: PluginPage[],
+  homeButtons: PluginHomeButton[],
+}
+
+interface BurnerPluginContext {
+  addPage: (path: string, Component: React.ComponentType) => any,
+  addHomeButton: (title: string, path: string) => any,
+  getAssets: () => any[],
+  getWeb3: (network: string) => any,
+}
+
 export default class BurnerUI extends Component<BurnerUIProps, any> {
-  constructor(props) {
+  private pluginContext: BurnerPluginContext;
+
+  constructor(props: BurnerUIProps) {
     super(props);
     this.state = {
       pluginData: {
@@ -28,7 +52,7 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
       addPage: this.addPluginPage.bind(this),
       addHomeButton: this.addPluginHomeButton.bind(this),
       getAssets: () => props.assets,
-      getWeb3: network => props.core.getWeb3(network),
+      getWeb3: (network: string) => props.core.getWeb3(network),
     };
   }
 
@@ -36,7 +60,7 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
     this.props.plugins.forEach(plugin => plugin.initializePlugin(this.pluginContext));
   }
 
-  addPluginPage(path, Component) {
+  addPluginPage(path: string, Component: React.ComponentType) {
     return this.setState({
       pluginData: {
         ...this.state.pluginData,
@@ -45,7 +69,7 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
     });
   }
 
-  addPluginHomeButton(title, path) {
+  addPluginHomeButton(title: string, path: string) {
     return this.setState({
       pluginData: {
         ...this.state.pluginData,

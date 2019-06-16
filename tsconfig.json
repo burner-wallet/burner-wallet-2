@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "target": "ES2017",
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noEmit": true,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "noErrorTruncation": true,
+    "paths": {
+      "@burner-wallet/ui": ["./burner-ui/src"],
+      "@burner-wallet/exchange": ["./exchange/src"]
+    }
+  },
+  "exclude": ["**/build/"]
+}

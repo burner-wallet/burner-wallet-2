@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import classes from './Page.module.css';
+const classes = require('./Page.module.css');
 
-const Page: React.FC = ({ children, title }) => (
+export interface PageProps {
+  children: React.ReactNode,
+  title?: string,
+}
+
+const Page: React.FC<PageProps> = ({ children, title }) => (
   <div className={classes.page}>
     {title && (
       <div className={classes.titleBar}>

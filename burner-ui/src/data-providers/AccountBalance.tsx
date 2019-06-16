@@ -6,17 +6,20 @@ const POLL_INTERVAL = 1000;
 interface AccountBalanceProps {
   asset: string,
   account: string,
-  render: (any) => React.ReactNode,
+  render: (err: Error, data: AccountBalanceData | null) => React.ReactNode,
 }
 
-interface Transaction {
+export interface AccountBalanceData {
   balance: string,
   displayBalance: string,
   usdBalance: string,
 }
 
 class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any> {
-  constructor(props) {
+  private timer: any;
+  private _isMounted: boolean;
+
+  constructor(props: BurnerContext & AccountBalanceProps) {
     super(props);
     this.state = {
       data: null,
@@ -32,7 +35,7 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
     this.poll();
   }
 
-  componentDidUpdate(oldProps) {
+  componentDidUpdate(oldProps: BurnerContext & AccountBalanceProps) {
     if (this.props !== oldProps) {
       this.fetchData();
     }
@@ -66,11 +69,10 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
         return;
       }
 
-      const data = {
+      const data: AccountBalanceData = {
         balance,
         displayBalance: asset.getDisplayValue(balance),
         usdBalance: asset.getUSDValue(balance),
-        asset,
       }
       this.setState({ data, err: null });
     } catch (err) {
@@ -84,4 +86,4 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
   }
 }
 
-export default withBurner(AccountBalance);
+export default withBurner<AccountBalanceProps>(AccountBalance);

@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.qrCode {
+.qrContainer svg {
   width: 100%;
   height: initial;
   max-width: 600px;

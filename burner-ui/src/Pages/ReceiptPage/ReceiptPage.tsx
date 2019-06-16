@@ -1,9 +1,15 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import Page from '../../components/Page';
 import TransactionDetails from '../../data-providers/TransactionDetails';
 
-const ReceiptPage: React.FC = ({ match }) => (
+interface MatchParams {
+  asset: string;
+  txHash: string;
+}
+
+const ReceiptPage: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => (
   <Page title="Receipt">
     <TransactionDetails
       asset={match.params.asset}

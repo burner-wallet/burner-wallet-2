@@ -1,12 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import burnerComponents from './components/burnerComponents';
+import { BurnerPluginData } from './BurnerUI';
 
 interface BurnerProviderProps {
   core: any,
   assets: any[],
+  pluginData: BurnerPluginData,
   children: React.ReactNode,
 }
 
 interface Actions {
+  callSigner: (action: string, prop: any) => string,
+  canCallSigner: (action: string, prop: any) => boolean,
   scanQrCode: () => Promise<string>,
 }
 
@@ -14,17 +19,30 @@ export interface BurnerContext {
   actions: Actions,
   accounts: string[],
   assets: any[],
-  pluginData: any,
-  completeScan?: (result?: string) => null
+  burnerComponents: object,
+  pluginData: BurnerPluginData,
+  completeScan: ((result: string | null) => any) | null,
 }
 
 const { Provider, Consumer } = React.createContext<BurnerContext>({
+  actions: {
+    callSigner: () => { throw new Error('Unavailable') },
+    canCallSigner: () => { throw new Error('Unavailable') },
+    scanQrCode: () => { throw new Error('Unavailable') },
+  },
   assets: [],
   accounts: [],
+  pluginData: {
+    pages: [],
+    homeButtons: [],
+  },
+  burnerComponents,
   completeScan: null,
 });
 
 export default class BurnerProvider extends Component<BurnerProviderProps, any> {
+  private actions: Actions;
+
   constructor(props: BurnerProviderProps) {
     super(props);
     props.assets.forEach(asset => asset.setCore(props.core));
@@ -49,8 +67,8 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
   }
 
   scanQrCode() {
-    return new Promise((resolve, reject) => {
-      const completeScan = result => {
+    return new Promise<string>((resolve, reject) => {
+      const completeScan = (result: string | null) => {
         this.setState({ completeScan: null });
         if (result) {
           resolve(result);
@@ -70,6 +88,7 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
         actions: this.actions,
         accounts,
         assets,
+        burnerComponents,
         completeScan,
         pluginData,
       }}>
@@ -79,8 +98,12 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
   }
 }
 
-export const withBurner = <P extends object>(WrappedComponent: React.ComponentType<P>) => (props: P) => (
-  <Consumer>
-    {burnerContext => <WrappedComponent {...burnerContext} {...props as P} />}
-  </Consumer>
-)
+export function withBurner<P>(WrappedComponent: React.ComponentType<BurnerContext & P>): React.ComponentType<P> {
+  return function(props) {
+    return (
+      <Consumer>
+        {(burnerContext: BurnerContext) => <WrappedComponent {...burnerContext} {...props as P} />}
+      </Consumer>
+    )
+  }
+}

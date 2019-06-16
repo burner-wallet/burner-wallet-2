@@ -5,7 +5,7 @@ const POLL_INTERVAL = 1000;
 
 interface AccountKeysProps {
   account: string,
-  render: (Keys) => React.ReactNode,
+  render: (keys: Keys | null) => React.ReactNode,
 }
 
 interface Keys {
@@ -14,7 +14,7 @@ interface Keys {
 }
 
 class AccountKeys extends Component<BurnerContext & AccountKeysProps, any> {
-  constructor(props) {
+  constructor(props: BurnerContext & AccountKeysProps) {
     super(props);
     this.state = {
       keys: null,
@@ -25,7 +25,7 @@ class AccountKeys extends Component<BurnerContext & AccountKeysProps, any> {
     this.updateKeys();
   }
 
-  componentDidUpdate(oldProps) {
+  componentDidUpdate(oldProps: BurnerContext & AccountKeysProps) {
     if (this.props !== oldProps) {
       this.updateKeys();
     }

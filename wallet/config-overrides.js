@@ -9,7 +9,6 @@ module.exports = override(
   removeModuleScopePlugin(),
   babelInclude([
     path.resolve("src"),
-    path.resolve("../burner-ui"),
     path.resolve("../exchange"),
   ]),
 );

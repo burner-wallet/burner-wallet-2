@@ -1,10 +1,10 @@
 import React, { ComponentType } from 'react';
 import QrReader from 'react-qr-reader';
 import { withBurner, BurnerContext } from '../BurnerProvider';
-import classes from './Scanner.module.css';
+const classes = require('./Scanner.module.css');
 
 const Scanner: React.FC<BurnerContext> = ({ children, completeScan }) =>
-  completeScan && (
+  completeScan ? (
     <div className={classes.overlay}>
       <button type="button" onClick={() => completeScan(null)}>Close</button>
       <QrReader
@@ -20,6 +20,6 @@ const Scanner: React.FC<BurnerContext> = ({ children, completeScan }) =>
         }}
       />
     </div>
-  )
+  ) : null
 
-export default withBurner(Scanner);
+export default withBurner<{}>(Scanner);
