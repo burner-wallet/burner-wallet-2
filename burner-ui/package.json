@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/ui",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "main": "dist/BurnerUI.js",
   "types": "dist/BurnerUI.d.ts",

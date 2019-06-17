@@ -30,7 +30,7 @@ export interface BurnerPluginData {
 }
 
 export interface BurnerPluginContext {
-  addPage: (path: string, Component: React.ComponentType) => any,
+  addPage: (path: string, Component: React.ComponentType<BurnerContext>) => any,
   addHomeButton: (title: string, path: string) => any,
   getAssets: () => Asset[],
   getWeb3: (network: string) => any,
@@ -63,7 +63,7 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
     this.props.plugins.forEach(plugin => plugin.initializePlugin(this.pluginContext));
   }
 
-  addPluginPage(path: string, Component: React.ComponentType) {
+  addPluginPage(path: string, Component: React.ComponentType<BurnerContext>) {
     return this.setState({
       pluginData: {
         ...this.state.pluginData,

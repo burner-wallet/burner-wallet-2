@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import burnerComponents from './components/burnerComponents';
+import BurnerComponents, * as burnerComponents from './components/burnerComponents';
 import { BurnerPluginData } from './BurnerUI';
 
 interface BurnerProviderProps {
@@ -19,7 +19,7 @@ export interface BurnerContext {
   actions: Actions,
   accounts: string[],
   assets: any[],
-  burnerComponents: object,
+  burnerComponents: BurnerComponents,
   pluginData: BurnerPluginData,
   completeScan: ((result: string | null) => any) | null,
 }

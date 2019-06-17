@@ -1,5 +1,8 @@
-import Page from './Page';
+import { ComponentType } from 'react';
+import { PageProps } from './Page';
 
-export default {
-  Page,
-};
+export default interface BurnerComponents {
+  Page: ComponentType<PageProps>,
+}
+
+export { default as Page } from './Page';
