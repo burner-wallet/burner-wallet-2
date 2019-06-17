@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Asset } from '@burner-wallet/assets';
-import BurnerProvider from './BurnerProvider';
+import BurnerProvider, { BurnerContext } from './BurnerProvider';
 import Providers from './Providers';
 import Pages from './Pages';
 import Template from './Template';
@@ -35,6 +35,8 @@ export interface BurnerPluginContext {
   getAssets: () => Asset[],
   getWeb3: (network: string) => any,
 }
+
+export type BurnerContext = BurnerContext;
 
 export default class BurnerUI extends Component<BurnerUIProps, any> {
   private pluginContext: BurnerPluginContext;
