@@ -1,9 +1,23 @@
 import React, { Component, Fragment } from 'react';
+import { Asset } from '@burner-wallet/assets';
+import { BurnerContext } from '@burner-wallet/ui';
+import Exchange from '../Exchange';
+import Pair from '../pairs/Pair';
 import Balance from './Balance';
 import PairUI from './PairUI';
 
-class ExchangePage extends Component {
-  constructor(props) {
+interface ExchangePageProps extends BurnerContext {
+  exchange: Exchange,
+}
+
+interface ExchangePageState {
+  balances: { [index:string] : string },
+}
+
+class ExchangePage extends Component<ExchangePageProps, ExchangePageState> {
+  private poll: any;
+
+  constructor(props: ExchangePageProps) {
     super(props);
     this.state = {
       balances: {},
@@ -25,7 +39,7 @@ class ExchangePage extends Component {
   updateBalances() {
     const { assets, accounts } = this.props;
 
-    const updateBalance = async asset => {
+    const updateBalance = async (asset: Asset) => {
       const balance = await asset.getDisplayBalance(accounts[0]);
       const balances = {
         ...this.state.balances,
@@ -51,19 +65,18 @@ class ExchangePage extends Component {
     }
     const [account] = accounts;
 
-    const getBalance = assetId => (
+    const getBalance = (assetId: string) => (
       <Balance
         assetId={assetId}
         assets={assets}
-        account={account}
         balances={balances}
       />
     )
 
-    let lastAsset = null;
+    let lastAsset: string;
     return (
       <Page title="Exchange">
-        {pairs.map((pair, i) => {
+        {pairs.map((pair: Pair, i: number) => {
           const response = (
             <Fragment key={i}>
               {pair.assetA !== lastAsset && getBalance(pair.assetA)}
@@ -81,6 +94,6 @@ class ExchangePage extends Component {
   }
 }
 
-const getPage = exchange => props => <ExchangePage exchange={exchange} {...props} />;
-
-export default getPage;
+export default function getPage(exchange: Exchange): React.ComponentType<BurnerContext> {
+  return (props: BurnerContext) => <ExchangePage exchange={exchange} {...props} />
+}

@@ -1,9 +1,24 @@
 {
   "name": "@burner-wallet/exchange",
   "version": "0.0.1",
-  "main": "src/Exchange.ts",
   "license": "MIT",
+  "main": "dist/Exchange.js",
+  "types": "dist/Exchange.d.ts",
+  "scripts": {
+    "mjs": "tsc -d",
+    "cjs": "tsc -m commonjs",
+    "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
+    "build": "yarn run mjs && yarn run cjs && yarn run css",
+    "publish": "yarn build && yarn publish --no-commit-hooks"
+  },
   "dependencies": {
+    "@burner-wallet/assets": "0.0.11",
+    "@burner-wallet/ui": "0.0.8",
+    "@types/react": "^16.8.20",
     "web3-utils": "1.0.0-beta.55"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.1.0",
+    "typescript": "^3.5.2"
   }
 }

@@ -6,7 +6,7 @@ import { xdai, dai, eth } from '../../../burner-core/assets';
 import { InjectedSigner, LocalSigner } from '../../../burner-core/core/src/signers';
 import { InfuraGateway, InjectedGateway, XDaiGateway } from '../../../burner-core/core/src/gateways';
 import Exchange from '../../exchange';
-import { xdaiBridge, uniswapDai } from '../../exchange/src/pairs';
+import { xdaiBridge, uniswapDai } from '../../exchange/dist/pairs';
 import BurnerUI from '../../burner-ui';
 
 const core = new BurnerCore({

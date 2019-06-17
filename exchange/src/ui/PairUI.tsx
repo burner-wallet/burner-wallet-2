@@ -1,18 +1,36 @@
 import React, { Component, Fragment } from 'react';
-import classes from './PairUI.module.css';
+import { Asset } from '@burner-wallet/assets';
+import Pair from '../pairs/Pair';
+const classes = require('./PairUI.module.css');
 
-export default class PairUI extends Component {
-  constructor(props) {
+interface PairUIProps {
+  pair: Pair,
+  account: string,
+  assets: Asset[],
+}
+
+interface PairUIState {
+  mode: string,
+  amount: string,
+  loading: boolean,
+}
+
+export default class PairUI extends Component<PairUIProps, PairUIState> {
+  private assetA: Asset;
+  private assetB: Asset;
+
+  constructor(props: PairUIProps) {
     super(props);
     this.state = {
       mode: 'default',
       amount: '0',
+      loading: false,
     }
     this.assetA = this.getAsset(props.pair.assetA);
     this.assetB = this.getAsset(props.pair.assetB);
   }
 
-  getAsset(id) {
+  getAsset(id: string) {
     for (const asset of this.props.assets) {
       if (asset.id === id) {
         return asset;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import classes from './Balance.module.css';
+import { Asset } from '@burner-wallet/assets';
+const classes = require('./Balance.module.css');
 
-const getAsset = (id, assets) => {
+const getAsset = (id: string, assets: Asset[]): Asset => {
   for (const asset of assets) {
     if (asset.id === id) {
       return asset;
@@ -10,7 +11,13 @@ const getAsset = (id, assets) => {
   throw new Error(`Could not find asset ${id}`);
 }
 
-const Balance = ({ assetId, assets, balances }) => {
+interface BalanceProps {
+  assetId: string,
+  assets: Asset[],
+  balances: { [index:string] : string },
+}
+
+const Balance: React.FC<BalanceProps> = ({ assetId, assets, balances }) => {
   const asset = getAsset(assetId, assets);
 
   return (

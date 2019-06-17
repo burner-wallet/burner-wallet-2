@@ -1,5 +1,5 @@
 const { toWei } = require('web3-utils');
-const Pair = require('./Pair');
+import Pair, { ExchangeParams } from './Pair';
 const abi = require('./abis/Uniswap.json');
 
 const toXdaiBridge = '0x4aa42145Aa6Ebf72e164C9bBC74fbD3788045016';
@@ -10,7 +10,7 @@ export default class XDaiBridge extends Pair {
     super({ assetA: 'xdai', assetB: 'dai' });
   }
 
-  exchangeAtoB({ account, value, ether }) {
+  exchangeAtoB({ account, value, ether }: ExchangeParams) {
     const _value = this._getValue({ value, ether });
     const xdai = this.exchange.getAsset('xdai');
     return xdai.send({
@@ -20,7 +20,7 @@ export default class XDaiBridge extends Pair {
     });
   }
 
-  exchangeBtoA({ account, value, ether }) {
+  exchangeBtoA({ account, value, ether }: ExchangeParams) {
     const _value = this._getValue({ value, ether });
 
     const xdai = this.exchange.getAsset('dai');
@@ -29,15 +29,5 @@ export default class XDaiBridge extends Pair {
       value: _value,
       to: toXdaiBridge,
     });
-  }
-
-  _getValue({ value, ether }) {
-    if (!value && !ether) {
-      throw new Error('Must provide value for transfer');
-    }
-    if (value) {
-      return value;
-    }
-    return toWei(ether, 'ether');
   }
 }
