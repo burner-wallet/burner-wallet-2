@@ -12,7 +12,7 @@
     "publish": "yarn build && yarn publish --no-commit-hooks"
   },
   "dependencies": {
-    "@burner-wallet/assets": "0.0.11",
+    "@burner-wallet/assets": "0.0.13",
     "@burner-wallet/ui": "0.0.8",
     "@types/react": "^16.8.20",
     "web3-utils": "1.0.0-beta.55"
