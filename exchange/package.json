@@ -1,15 +1,13 @@
 {
   "name": "@burner-wallet/exchange",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
-  "main": "dist/Exchange.js",
-  "types": "dist/Exchange.d.ts",
   "scripts": {
     "mjs": "tsc -d",
     "cjs": "tsc -m commonjs",
     "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
     "build": "yarn run mjs && yarn run cjs && yarn run css",
-    "publish": "yarn build && yarn publish --no-commit-hooks"
+    "distribute": "yarn build && scripts/publish.sh"
   },
   "dependencies": {
     "@burner-wallet/assets": "0.0.13",

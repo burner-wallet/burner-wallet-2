@@ -1,6 +1,5 @@
 const { toWei } = require('web3-utils');
 import Pair, { ExchangeParams } from './Pair';
-const abi = require('./abis/Uniswap.json');
 
 const toXdaiBridge = '0x4aa42145Aa6Ebf72e164C9bBC74fbD3788045016';
 const toDaiBridge = '0x7301cfa0e1756b71869e93d4e4dca5c7d0eb0aa6';
