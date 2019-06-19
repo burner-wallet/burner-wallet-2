@@ -29,7 +29,8 @@ const HomePage: React.FC<BurnerContext> = ({ accounts, assets, pluginData }) => 
               <li className={classes.balanceRow}>
                 <div className={classes.assetName}>{asset.name}</div>
                 <div className={classes.assetBalance}>
-                  {err || !data ? '-' : `$${data.usdBalance}`}
+                  {(err || !data) && '-'}
+                  {data && (data.usdBalance ? `$${data.usdBalance}` : data.displayBalance)}
                 </div>
               </li>
             )}

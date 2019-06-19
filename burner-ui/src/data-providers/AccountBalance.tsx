@@ -12,7 +12,7 @@ interface AccountBalanceProps {
 export interface AccountBalanceData {
   balance: string,
   displayBalance: string,
-  usdBalance: string,
+  usdBalance: string | null,
 }
 
 class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any> {
@@ -69,10 +69,15 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
         return;
       }
 
+      let usdBalance = null;
+      try {
+        usdBalance = asset.getUSDValue(balance);
+      } catch (e) {}
+
       const data: AccountBalanceData = {
         balance,
         displayBalance: asset.getDisplayValue(balance),
-        usdBalance: asset.getUSDValue(balance),
+        usdBalance,
       }
       this.setState({ data, err: null });
     } catch (err) {
