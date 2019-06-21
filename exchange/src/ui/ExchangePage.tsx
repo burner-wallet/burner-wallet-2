@@ -1,24 +1,22 @@
 import React, { Component, Fragment } from 'react';
 import { Asset } from '@burner-wallet/assets';
-import { BurnerContext } from '@burner-wallet/ui';
+import { PluginPageContext } from '@burner-wallet/ui';
 import Exchange from '../Exchange';
 import Pair from '../pairs/Pair';
 import Balance from './Balance';
 import PairUI from './PairUI';
 
-interface ExchangePageProps extends BurnerContext {
-  plugin: Exchange,
-}
-
 interface ExchangePageState {
   balances: { [index:string] : string },
 }
 
-export default class ExchangePage extends Component<ExchangePageProps, ExchangePageState> {
+export default class ExchangePage extends Component<PluginPageContext, ExchangePageState> {
   private poll: any;
+  private exchange: Exchange;
 
-  constructor(props: ExchangePageProps) {
+  constructor(props: PluginPageContext) {
     super(props);
+    this.exchange = props.plugin as Exchange;
     this.state = {
       balances: {},
     };
@@ -54,11 +52,11 @@ export default class ExchangePage extends Component<ExchangePageProps, ExchangeP
   }
 
   render() {
-    const { plugin, burnerComponents, assets, accounts } = this.props;
+    const { burnerComponents, assets, accounts } = this.props;
     const { balances } = this.state;
     const { Page } = burnerComponents;
 
-    const pairs = plugin.getPairs();
+    const pairs = this.exchange.getPairs();
 
     if (accounts.length === 0) {
       return null;
