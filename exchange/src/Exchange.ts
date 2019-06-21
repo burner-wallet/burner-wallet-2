@@ -1,13 +1,13 @@
 import { Asset } from '@burner-wallet/assets';
-import { BurnerPluginContext } from '@burner-wallet/ui';
+import { BurnerPluginContext, Plugin } from '../../burner-ui/src/BurnerUI';
 import Pair from './pairs/Pair';
-import getPage from './ui/ExchangePage';
+import ExchangePage from './ui/ExchangePage';
 
 interface ExchangeConstructor {
   pairs: Pair[],
 };
 
-export default class Exchange {
+export default class Exchange implements Plugin {
   private _pluginContext: BurnerPluginContext | null;
   private pairs: Pair[];
 
@@ -21,8 +21,7 @@ export default class Exchange {
 
     this.pairs.forEach(pair => pair.setExchange(this));
 
-    const page = getPage(this);
-    await pluginContext.addPage('/exchange', page);
+    await pluginContext.addPage('/exchange', ExchangePage);
     await pluginContext.addHomeButton('Exchange', '/exchange');
   }
 

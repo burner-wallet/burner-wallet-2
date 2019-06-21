@@ -7,14 +7,14 @@ import Balance from './Balance';
 import PairUI from './PairUI';
 
 interface ExchangePageProps extends BurnerContext {
-  exchange: Exchange,
+  plugin: Exchange,
 }
 
 interface ExchangePageState {
   balances: { [index:string] : string },
 }
 
-class ExchangePage extends Component<ExchangePageProps, ExchangePageState> {
+export default class ExchangePage extends Component<ExchangePageProps, ExchangePageState> {
   private poll: any;
 
   constructor(props: ExchangePageProps) {
@@ -54,11 +54,11 @@ class ExchangePage extends Component<ExchangePageProps, ExchangePageState> {
   }
 
   render() {
-    const { exchange, burnerComponents, assets, accounts } = this.props;
+    const { plugin, burnerComponents, assets, accounts } = this.props;
     const { balances } = this.state;
     const { Page } = burnerComponents;
 
-    const pairs = exchange.getPairs();
+    const pairs = plugin.getPairs();
 
     if (accounts.length === 0) {
       return null;
@@ -92,8 +92,4 @@ class ExchangePage extends Component<ExchangePageProps, ExchangePageState> {
       </Page>
     );
   }
-}
-
-export default function getPage(exchange: Exchange): React.ComponentType<BurnerContext> {
-  return (props: BurnerContext) => <ExchangePage exchange={exchange} {...props} />
 }
