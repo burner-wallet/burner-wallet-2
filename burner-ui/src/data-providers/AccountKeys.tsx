@@ -3,7 +3,7 @@ import { withBurner, BurnerContext } from '../BurnerProvider';
 
 const POLL_INTERVAL = 1000;
 
-interface AccountKeysProps {
+export interface AccountKeysProps {
   account: string,
   render: (keys: Keys | null) => React.ReactNode,
 }

@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import { Asset } from '@burner-wallet/assets';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
 const POLL_INTERVAL = 1000;
+const CACHE_EXPIRATION = 3000;
 
-interface AccountBalanceProps {
-  asset: string,
-  account: string,
+const balanceCache: { [key: string]: { timestamp: number, balance: string } } = {};
+const getCache = (key: string) => balanceCache[key] && (Date.now() - balanceCache[key].timestamp < CACHE_EXPIRATION)
+  ? balanceCache[key].balance
+  : null;
+const setCache = (key: string, balance: string) => {
+  balanceCache[key] = { balance, timestamp: Date.now() };
+}
+
+export interface AccountBalanceProps {
+  asset: string | Asset,
+  account?: string,
   render: (err: Error, data: AccountBalanceData | null) => React.ReactNode,
 }
 
@@ -55,15 +65,36 @@ class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any>
     }, POLL_INTERVAL);
   }
 
+  getAsset(): Asset {
+    const { asset, assets } = this.props;
+    if (typeof asset !== 'string') {
+      return asset;
+    }
+
+    const assetList = assets.filter(_asset => _asset.id == asset);
+    if (assetList.length == 0) {
+      throw new Error(`Unable to find asset ${asset}`);
+    }
+    return assetList[0];
+  }
+
+  async getBalance(asset: Asset) {
+    const account = this.props.account || this.props.accounts[0];
+    const cacheKey = `${asset.id}-${account}`;
+    const cachedVal = getCache(cacheKey);
+    if (cachedVal) {
+      return cachedVal;
+    }
+
+    const balance = await asset.getBalance(account);
+    setCache(cacheKey, balance);
+    return balance;
+  }
+
   async fetchData() {
     try {
-      const assetList = this.props.assets.filter(asset => asset.id == this.props.asset);
-      if (assetList.length == 0) {
-        throw new Error(`Unable to find asset ${this.props.asset}`);
-      }
-      const asset = assetList[0];
-
-      const balance = await asset.getBalance(this.props.account);
+      const asset = this.getAsset();
+      const balance = await this.getBalance(asset);
 
       if (!this._isMounted) {
         return;

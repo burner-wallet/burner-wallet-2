@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { Asset } from '@burner-wallet/assets';
 import { BurnerContext } from '../../BurnerProvider';
+import AssetSelector from '../../components/AssetSelector';
 import Page from '../../components/Page';
 
 interface SendPageState {
   to: string,
   value: string,
-  asset: number,
+  asset: Asset | null,
   sending: boolean,
   txHash: string | null,
 }
@@ -17,7 +19,7 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
     this.state = {
       to: '',
       value: '',
-      asset: 0,
+      asset: null,
       sending: false,
       txHash: null,
     };
@@ -32,10 +34,13 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
 
   async send() {
     const { asset, to, value } = this.state;
-    const { assets, accounts } = this.props;
+    const { accounts } = this.props;
+    if (!asset) {
+      throw new Error('Asset not selected');
+    }
     try {
       this.setState({ sending: true });
-      const receipt = await assets[asset].send({ from: accounts[0], to, ether: value });
+      const receipt = await asset.send({ from: accounts[0], to, ether: value });
       this.setState({
         sending: false,
         txHash: receipt.transactionHash,
@@ -48,24 +53,18 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
 
   render() {
     const { to, value, asset, sending, txHash } = this.state;
-    const { actions, assets } = this.props;
+    const { actions } = this.props;
 
-    if (txHash) {
+    if (txHash && asset) {
       return (
-        <Redirect to={`/receipt/${assets[asset].id}/${txHash}`} />
+        <Redirect to={`/receipt/${asset.id}/${txHash}`} />
       )
     }
 
-    const canSend = !sending && to.length == 42 && to;
+    const canSend = asset !== null && !sending && to.length == 42 && to;
     return (
       <Page title="Send To Address">
-        <div>
-          <select value={asset} onChange={e => this.setState({ asset: parseInt(e.target.value) })} disabled={sending}>
-            {assets.map((_asset, index) => (
-              <option value={index} key={index}>{_asset.name}</option>
-            ))}
-          </select>
-        </div>
+        <AssetSelector selected={asset} onChange={newAsset => this.setState({ asset: newAsset })} disabled={sending} />
         <div>To address:</div>
         <div>
           <input value={to} onChange={e => this.setState({ to: e.target.value })} disabled={sending} />

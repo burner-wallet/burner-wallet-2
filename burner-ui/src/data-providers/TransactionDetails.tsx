@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
-interface TransactionDetailsProps {
+export interface TransactionDetailsProps {
   asset: string,
   txHash: string,
   render: (err: Error, tx: any) => React.ReactNode,
