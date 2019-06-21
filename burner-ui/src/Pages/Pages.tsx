@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { Switch, Route, RouteComponentProps } from 'react-router-dom';
-import { withBurner, BurnerContext } from '../BurnerProvider';
-import { BurnerPluginData } from '../BurnerUI';
+import { withBurner, WithBurnerContext } from '../BurnerProvider';
+import { BurnerPluginData, BasePluginPageContext } from '../Plugins';
 import AdvancedPage from './AdvancedPage';
 import HomePage from './HomePage';
 import ReceiptPage from './ReceiptPage';
@@ -19,8 +19,11 @@ const Pages: React.FC<PageProps> = ({ pluginData }) => (
     <Route path="/send" component={withBurner(SendPage)} />
     <Route path="/receipt/:asset/:txHash" component={withBurner(ReceiptPage)} />
     <Route path="/advanced" component={withBurner(AdvancedPage)} />
-    {pluginData.pages.map(({ path, Component }) => (
-      <Route path={path} component={withBurner(Component as ComponentType<BurnerContext>)} key={path} />
+    {pluginData.pages.map(({ path, Component, plugin }) => (
+      <Route path={path} key={path} render={(props) => {
+        const WrappedComponent = withBurner(Component as ComponentType<WithBurnerContext<BasePluginPageContext>>) as ComponentType<BasePluginPageContext>;
+        return <WrappedComponent plugin={plugin} {...props} />
+      }} />
     ))}
   </Switch>
 );

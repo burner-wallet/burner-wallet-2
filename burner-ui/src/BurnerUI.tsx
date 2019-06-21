@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import BurnerProvider, { BurnerContext } from './BurnerProvider';
+export { BurnerContext } from './BurnerProvider';
 import Providers from './Providers';
 import Pages from './Pages';
 import Template from './Template';
 import Header from './components/Header';
 import Scanner from './components/Scanner';
+import Plugins from './Plugins';
+export { Plugin, BurnerPluginContext } from './Plugins';
 import './BurnerUI.css';
 
 interface BurnerUIProps {
@@ -14,71 +17,28 @@ interface BurnerUIProps {
   plugins: any[],
 }
 
-interface PluginPage {
-  path: string,
-  Component: React.ComponentType,
-}
-
-interface PluginHomeButton {
-  title: string,
-  path: string,
-}
-
-export interface BurnerPluginData {
-  pages: PluginPage[],
-  homeButtons: PluginHomeButton[],
-}
-
-export interface BurnerPluginContext {
-  addPage: (path: string, Component: React.ComponentType<BurnerContext>) => any,
-  addHomeButton: (title: string, path: string) => any,
-  getAssets: () => Asset[],
-  getWeb3: (network: string) => any,
-}
-
-export type BurnerContext = BurnerContext;
-
 export default class BurnerUI extends Component<BurnerUIProps, any> {
-  private pluginContext: BurnerPluginContext;
+  private plugins: Plugins;
 
   constructor(props: BurnerUIProps) {
     super(props);
-    this.state = {
-      pluginData: {
-        pages: [],
-        homeButtons: [],
-      },
-    };
+    this.plugins = new Plugins(props.plugins, this);
 
-    // TODO: These methods must be called asyncronously, the chagnes should be queued so that isn't necessary
-    this.pluginContext = {
-      addPage: this.addPluginPage.bind(this),
-      addHomeButton: this.addPluginHomeButton.bind(this),
-      getAssets: () => props.assets,
-      getWeb3: (network: string) => props.core.getWeb3(network),
+    this.state = {
+      pluginData: this.plugins.getData(),
     };
   }
 
   componentDidMount() {
-    this.props.plugins.forEach(plugin => plugin.initializePlugin(this.pluginContext));
+    this.plugins.onDataChange(pluginData => this.setState({ pluginData }));
   }
 
-  addPluginPage(path: string, Component: React.ComponentType<BurnerContext>) {
-    return this.setState({
-      pluginData: {
-        ...this.state.pluginData,
-        pages: [...this.state.pluginData.pages, { path, Component }],
-      }
-    });
+  getCore() {
+    return this.props.core;
   }
 
-  addPluginHomeButton(title: string, path: string) {
-    return this.setState({
-      pluginData: {
-        ...this.state.pluginData,
-        homeButtons: [...this.state.pluginData.homeButtons, { title, path }],
-      }
-    });
+  getAssets() {
+    return this.props.assets;
   }
 
   render() {

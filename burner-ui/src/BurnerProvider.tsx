@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BurnerComponents, * as burnerComponents from './components/burnerComponents';
-import { BurnerPluginData } from './BurnerUI';
+import { BurnerPluginData } from './Plugins';
 
 interface BurnerProviderProps {
   core: any,
@@ -97,6 +97,8 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
     )
   }
 }
+
+export type WithBurnerContext<T> = BurnerContext & T;
 
 export function withBurner<P>(WrappedComponent: React.ComponentType<BurnerContext & P>): React.ComponentType<P> {
   return function(props) {
