@@ -6,7 +6,7 @@ import Pages from './Pages';
 import Template from './Template';
 import Header from './components/Header';
 import Scanner from './components/Scanner';
-import Plugins, { Plugin, BurnerPluginContext } from './Plugins';
+import Plugins, { Plugin, BurnerPluginContext, PluginPage, PluginPageContext } from './Plugins';
 import './BurnerUI.css';
 
 interface BurnerUIProps {
@@ -18,6 +18,8 @@ interface BurnerUIProps {
 export type BurnerContext = BurnerContext;
 export type Plugin = Plugin;
 export type BurnerPluginContext = BurnerPluginContext;
+export type PluginPage = PluginPage;
+export type PluginPageContext = PluginPageContext;
 
 export default class BurnerUI extends Component<BurnerUIProps, any> {
   private plugins: Plugins;

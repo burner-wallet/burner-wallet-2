@@ -32,7 +32,7 @@ export interface BurnerPluginData {
 }
 
 export interface BurnerPluginContext {
-  addPage: (path: string, Component: ComponentType) => any,
+  addPage: (path: string, Component: PluginPage) => any,
   addHomeButton: (title: string, path: string) => any,
   getAssets: () => Asset[],
   getWeb3: (network: string) => any,
@@ -64,8 +64,7 @@ export default class Plugins {
 
   getPluginContext(plugin: Plugin): BurnerPluginContext {
     return {
-      addPage: (path: string, Component: ComponentType) =>
-        this.addPluginPage(plugin, path, Component as PluginPage),
+      addPage: (path: string, Component: PluginPage) => this.addPluginPage(plugin, path, Component),
       addHomeButton: (title: string, path: string) => this.addPluginHomeButton(plugin, title, path),
       getAssets: () => this.ui.getAssets(),
       getWeb3: (network: string) => this.ui.getCore().getWeb3(network),
