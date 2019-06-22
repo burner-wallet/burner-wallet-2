@@ -18,10 +18,11 @@ const AssetElement: React.FC<{asset: Asset}> = ({ asset }) => (
 export interface AssetSelectorProps {
   selected: Asset | null;
   onChange: (asset: Asset) => void;
+  network?: string;
   disabled?: boolean;
 }
 
-const AssetSelector: React.FC<AssetSelectorProps> = ({ selected, onChange, disabled }) => {
+const AssetSelector: React.FC<AssetSelectorProps> = ({ selected, onChange, disabled, network }) => {
   const [isOpen, setOpen] = useState(false);
   return (
     <Assets render={assets => {
@@ -36,7 +37,7 @@ const AssetSelector: React.FC<AssetSelectorProps> = ({ selected, onChange, disab
           </div>
           {isOpen && !disabled && (
             <div className={classes.selectDropdown}>
-              {assets.map(asset => (
+              {assets.filter(asset => !network || asset.network === network).map(asset => (
                 <div key={asset.id} className={classes.dropdownItem} onClick={() => {
                   setOpen(false);
                   onChange(asset);
