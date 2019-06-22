@@ -18,11 +18,14 @@
 .buttons {
   display: flex;
   padding: 0;
+  flex-wrap: wrap;
 }
 .buttonContainer {
   display: block;
   width: 50%;
   padding: 4px;
+  box-sizing: border-box;
+  flex: 0 0 50%;
 }
 .button {
   display: block;
