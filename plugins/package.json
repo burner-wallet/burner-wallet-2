@@ -1,0 +1,20 @@
+{
+  "name": "@burner-wallet/plugins",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "mjs": "tsc -d",
+    "cjs": "tsc -m commonjs",
+    "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
+    "build": "yarn run mjs && yarn run cjs && yarn run css",
+    "distribute": "yarn build && scripts/publish.sh"
+  },
+  "dependencies": {
+    "@burner-wallet/assets": "0.0.14",
+    "@burner-wallet/ui": "0.0.13"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.1.0",
+    "typescript": "^3.5.2"
+  }
+}
