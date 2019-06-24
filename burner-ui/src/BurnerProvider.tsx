@@ -1,5 +1,5 @@
 import React, { Component, ComponentType } from 'react';
-import BurnerComponents, * as burnerComponents from './components/burnerComponents';
+import BurnerComponents from './components/burnerComponents';
 import { BurnerPluginData } from './Plugins';
 
 interface BurnerProviderProps {
@@ -7,6 +7,7 @@ interface BurnerProviderProps {
   assets: any[],
   pluginData: BurnerPluginData,
   children: React.ReactNode,
+  burnerComponents: BurnerComponents,
 }
 
 interface Actions {
@@ -36,7 +37,7 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
     pages: [],
     homeButtons: [],
   },
-  burnerComponents,
+  burnerComponents: {} as BurnerComponents,
   completeScan: null,
 });
 
@@ -88,7 +89,7 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
         actions: this.actions,
         accounts,
         assets,
-        burnerComponents,
+        burnerComponents: this.props.burnerComponents,
         completeScan,
         pluginData,
       }}>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import BurnerProvider, { BurnerContext } from './BurnerProvider';
+import * as burnerComponents from './components/burnerComponents';
 import Providers from './Providers';
 import Pages from './Pages';
 import Template from './Template';
@@ -47,7 +48,12 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
 
   render() {
     return (
-      <BurnerProvider core={this.props.core} assets={this.props.assets} pluginData={this.state.pluginData}>
+      <BurnerProvider
+        core={this.props.core}
+        assets={this.props.assets}
+        pluginData={this.state.pluginData}
+        burnerComponents={burnerComponents}
+      >
         <Providers>
           <Template>
             <Scanner />
