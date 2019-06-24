@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { Switch, Route, RouteComponentProps } from 'react-router-dom';
+import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import { withBurner, WithBurnerContext } from '../BurnerProvider';
 import { BurnerPluginData, BasePluginPageContext } from '../Plugins';
 import AdvancedPage from './AdvancedPage';
@@ -25,6 +25,7 @@ const Pages: React.FC<PageProps> = ({ pluginData }) => (
         return <WrappedComponent plugin={plugin} {...props} />
       }} />
     ))}
+    <Redirect to="/" />
   </Switch>
 );
 
