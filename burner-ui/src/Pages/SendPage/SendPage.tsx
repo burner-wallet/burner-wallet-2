@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
 import { BurnerContext } from '../../BurnerProvider';
-import { Account } from '../types';
+import { Account } from '../../types';
 import AddressInputField from '../../components/AddressInputField';
 import AssetSelector from '../../components/AssetSelector';
 import Page from '../../components/Page';
@@ -73,7 +73,7 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
         <AddressInputField
           value={to}
           account={account}
-          onChange={(to, account) => this.setState({ to, account })}
+          onChange={(to: string, account: Account | null) => this.setState({ to, account })}
           scan={() => this.scanCode()}
           disabled={sending}
         />

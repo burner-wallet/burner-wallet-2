@@ -1,7 +1,8 @@
 import React, { ComponentType } from 'react';
 import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import { withBurner, WithBurnerContext } from '../BurnerProvider';
-import { BurnerPluginData, BasePluginPageContext } from '../Plugins';
+import { BurnerPluginData } from '../Plugins';
+import { BasePluginPageContext } from '../types';
 import AdvancedPage from './AdvancedPage';
 import HomePage from './HomePage';
 import ReceiptPage from './ReceiptPage';

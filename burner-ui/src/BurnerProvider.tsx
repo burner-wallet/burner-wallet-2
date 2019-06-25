@@ -1,6 +1,6 @@
 import React, { Component, ComponentType } from 'react';
 import BurnerComponents from './components/burnerComponents';
-import { BurnerPluginData } from './Plugins';
+import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
 
 interface BurnerProviderProps {
   core: any,
@@ -33,10 +33,7 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
   },
   assets: [],
   accounts: [],
-  pluginData: {
-    pages: [],
-    homeButtons: [],
-  },
+  pluginData: DEFAULT_PLUGIN_DATA,
   burnerComponents: {} as BurnerComponents,
   completeScan: null,
 });

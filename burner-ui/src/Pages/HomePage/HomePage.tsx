@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BurnerContext } from '../../BurnerProvider';
 import Page from '../../components/Page';
+import PluginElements from '../../components/PluginElements';
 import AccountBalance, { AccountBalanceData } from '../../data-providers/AccountBalance';
 const classes = require('./HomePage.module.css');
 
@@ -18,6 +19,7 @@ const HomeButton: React.FC<HomeButtonProps> = ({ path, title }) => (
 
 const HomePage: React.FC<BurnerContext> = ({ accounts, assets, pluginData }) => (
   <Page>
+    <PluginElements position="home-top" />
     {accounts.length > 0 ? (
       <ul className={classes.balances}>
         {assets.map(asset =>

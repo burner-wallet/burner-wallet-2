@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Asset } from '@burner-wallet/assets';
-import BurnerProvider, { BurnerContext } from './BurnerProvider';
+import BurnerProvider from './BurnerProvider';
 import * as burnerComponents from './components/burnerComponents';
 import Providers from './Providers';
 import Pages from './Pages';
 import Template from './Template';
 import Header from './components/Header';
 import Scanner from './components/Scanner';
-import Plugins, { Plugin, BurnerPluginContext, PluginPage, PluginPageContext } from './Plugins';
+import Plugins from './Plugins';
+import { Plugin } from './types';
 import './BurnerUI.css';
 
 interface BurnerUIProps {
@@ -16,18 +17,12 @@ interface BurnerUIProps {
   plugins: any[],
 }
 
-export type BurnerContext = BurnerContext;
-export type Plugin = Plugin;
-export type BurnerPluginContext = BurnerPluginContext;
-export type PluginPage = PluginPage;
-export type PluginPageContext = PluginPageContext;
-
 export default class BurnerUI extends Component<BurnerUIProps, any> {
   private plugins: Plugins;
 
   constructor(props: BurnerUIProps) {
     super(props);
-    this.plugins = new Plugins(props.plugins, this);
+    this.plugins = new Plugins(props.plugins as Plugin[], this);
 
     this.state = {
       pluginData: this.plugins.getData(),

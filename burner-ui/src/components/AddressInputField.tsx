@@ -6,14 +6,14 @@ const classes = require('./AddressInputField.module.css');
 const ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/i;
 
 interface AddressInputFieldProps {
-  value: string | null,
+  value: string,
   account?: Account | null,
-  onChange: (address: string, account?: Account | null) => void,
+  onChange: (address: string, account: Account | null) => void,
   scan?: () => any,
   disabled?: boolean,
 }
 
-const AddressInputField: React.FC = ({ value, account, onChange, scan, disabled }) => {
+const AddressInputField: React.FC<AddressInputFieldProps> = ({ value, account, onChange, scan, disabled }) => {
   let _account = account;
   if (!account && ADDRESS_REGEX.test(value)) {
     _account = { address: value };

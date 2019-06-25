@@ -1,23 +1,18 @@
 import { ComponentType } from 'react';
 import { Asset } from '@burner-wallet/assets';
+import { RouteComponentProps } from 'react-router-dom';
 import BurnerProvider, { BurnerContext } from './BurnerProvider';
 import BurnerUI from './BurnerUI';
-
-export interface Plugin {
-  initializePlugin(context: BurnerPluginContext): void;
-}
-
-export interface BasePluginPageContext {
-  plugin: Plugin;
-}
-
-export type PluginPageContext = BasePluginPageContext & BurnerContext;
-
-export type PluginPage = ComponentType<PluginPageContext>;
+import { Plugin, PluginPage, PluginElement } from './types';
 
 interface PluginPageData {
   path: string,
   Component: PluginPage,
+  plugin: Plugin,
+}
+
+export interface PluginElementData {
+  Component: PluginElement,
   plugin: Plugin,
 }
 
@@ -26,17 +21,30 @@ interface PluginHomeButton {
   path: string,
 }
 
+type AccountSearchFn = (query: string) => Promise<Account[]>;
+
 export interface BurnerPluginData {
   pages: PluginPageData[],
   homeButtons: PluginHomeButton[],
+  elements: { [position:string]: PluginElementData[] },
+  accountSearches: AccountSearchFn[], 
 }
 
 export interface BurnerPluginContext {
-  addPage: (path: string, Component: PluginPage) => any,
+  addElement: (position: string, Component: PluginElement) => void,
   addHomeButton: (title: string, path: string) => any,
+  addPage: (path: string, Component: PluginPage) => any,
   getAssets: () => Asset[],
   getWeb3: (network: string) => any,
+  onAccountSearch: (callback: AccountSearchFn) => void,
 }
+
+export const DEFAULT_PLUGIN_DATA = {
+  pages: [],
+  homeButtons: [],
+  elements: {},
+  accountSearches: [],
+};
 
 export default class Plugins {
   private changeListeners: ((data: BurnerPluginData) => void)[];
@@ -46,10 +54,7 @@ export default class Plugins {
   constructor(plugins: Plugin[], ui: BurnerUI) {
     this.changeListeners = [];
     this.ui = ui;
-    this.pluginData = {
-      pages: [],
-      homeButtons: [],
-    };
+    this.pluginData = DEFAULT_PLUGIN_DATA;
 
     plugins.forEach(plugin => plugin.initializePlugin(this.getPluginContext(plugin)));
   }
@@ -64,6 +69,9 @@ export default class Plugins {
 
   getPluginContext(plugin: Plugin): BurnerPluginContext {
     return {
+      addElement: (position: string, Component: PluginElement) =>
+        this.addPluginElement(plugin, position, Component),
+      onAccountSearch: (callback: AccountSearchFn) => this.addAccountSearch(callback),
       addPage: (path: string, Component: PluginPage) => this.addPluginPage(plugin, path, Component),
       addHomeButton: (title: string, path: string) => this.addPluginHomeButton(plugin, title, path),
       getAssets: () => this.ui.getAssets(),
@@ -88,6 +96,22 @@ export default class Plugins {
   addPluginHomeButton(plugin: Plugin, title: string, path: string) {
     this.setPluginData({
       homeButtons: [...this.pluginData.homeButtons, { plugin, title, path }],
+    });
+  }
+
+  addPluginElement(plugin: Plugin, position: string, Component: PluginElement) {
+    const existingElements = this.pluginData.elements[position] || [];
+    this.setPluginData({
+      elements: {
+        ...this.pluginData.elements,
+        [position]: [...existingElements, { plugin, Component }],
+      },
+    });
+  }
+
+  addAccountSearch(callback: AccountSearchFn) {
+    this.setPluginData({
+      accountSearches: [...this.pluginData.accountSearches, callback],
     });
   }
 }
