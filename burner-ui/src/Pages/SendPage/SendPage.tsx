@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
 import { BurnerContext } from '../../BurnerProvider';
+import { Account } from '../types';
+import AddressInputField from '../../components/AddressInputField';
 import AssetSelector from '../../components/AssetSelector';
 import Page from '../../components/Page';
 
@@ -11,6 +13,7 @@ interface SendPageState {
   asset: Asset | null,
   sending: boolean,
   txHash: string | null,
+  account: Account | null,
 }
 
 export default class SendPage extends Component<BurnerContext, SendPageState> {
@@ -22,6 +25,7 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
       asset: null,
       sending: false,
       txHash: null,
+      account: null,
     };
   }
 
@@ -52,7 +56,7 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
   }
 
   render() {
-    const { to, value, asset, sending, txHash } = this.state;
+    const { to, value, asset, sending, txHash, account } = this.state;
     const { actions } = this.props;
 
     if (txHash && asset) {
@@ -66,10 +70,13 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
       <Page title="Send To Address">
         <AssetSelector selected={asset} onChange={newAsset => this.setState({ asset: newAsset })} disabled={sending} />
         <div>To address:</div>
-        <div>
-          <input value={to} onChange={e => this.setState({ to: e.target.value })} disabled={sending} />
-          <button type="button" onClick={() => this.scanCode()} disabled={sending}>Scan</button>
-        </div>
+        <AddressInputField
+          value={to}
+          account={account}
+          onChange={(to, account) => this.setState({ to, account })}
+          scan={() => this.scanCode()}
+          disabled={sending}
+        />
 
         <div>Send Amount:</div>
         <div>

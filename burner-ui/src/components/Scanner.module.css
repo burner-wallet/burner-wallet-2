@@ -8,4 +8,5 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
+  z-index: 100;
 }

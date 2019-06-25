@@ -1,0 +1,22 @@
+.account {
+  display: flex;
+  flex: 1 0;
+  padding-left: 8px;
+  cursor: default;
+}
+.avatar {
+  height: 30px;
+  width: 30px;
+  background-size: cover;
+}
+.names {
+  flex: 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.title {
+}
+.subtitle {
+  color: #555555;
+}
