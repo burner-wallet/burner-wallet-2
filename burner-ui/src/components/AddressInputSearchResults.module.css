@@ -1,0 +1,28 @@
+.results {
+  max-height: 100px;
+  overflow-y: auto;
+  border: solid 1px #EEEEEE;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.listElement {
+  list-style: none;
+  padding: 1px 0;
+  margin: 1px;
+  border-bottom: solid 1px #EEEEEE;
+  color: #777777;
+}
+
+.listElement.enabled {
+  color: #000000;
+}
+.listElement.enabled:hover {
+  background: #EEEEEE;
+}

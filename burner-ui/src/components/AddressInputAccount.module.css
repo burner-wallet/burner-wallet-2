@@ -3,6 +3,7 @@
   flex: 1 0;
   padding-left: 8px;
   cursor: default;
+  height: 40px;
 }
 .avatar {
   height: 30px;

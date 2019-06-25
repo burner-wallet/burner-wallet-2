@@ -4,6 +4,7 @@ import { Asset } from '@burner-wallet/assets';
 import { BurnerContext } from '../../BurnerProvider';
 import { Account } from '../../types';
 import AddressInputField from '../../components/AddressInputField';
+import AddressInputSearchResults from '../../components/AddressInputSearchResults';
 import AssetSelector from '../../components/AssetSelector';
 import Page from '../../components/Page';
 
@@ -14,6 +15,7 @@ interface SendPageState {
   sending: boolean,
   txHash: string | null,
   account: Account | null,
+  accounts: Account[],
 }
 
 export default class SendPage extends Component<BurnerContext, SendPageState> {
@@ -26,7 +28,19 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
       sending: false,
       txHash: null,
       account: null,
+      accounts: [],
     };
+  }
+
+  componentDidMount() {
+    this.getAccounts('');
+  }
+
+  async getAccounts(search: string) {
+    const { pluginData } = this.props;
+    const _accounts = await Promise.all(pluginData.accountSearches.map(searchFn => searchFn(search)));
+    const accounts = Array.prototype.concat(..._accounts);
+    this.setState({ accounts });
   }
 
   async scanCode() {
@@ -56,7 +70,7 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
   }
 
   render() {
-    const { to, value, asset, sending, txHash, account } = this.state;
+    const { to, value, asset, sending, txHash, account, accounts } = this.state;
     const { actions } = this.props;
 
     if (txHash && asset) {
@@ -77,6 +91,7 @@ export default class SendPage extends Component<BurnerContext, SendPageState> {
           scan={() => this.scanCode()}
           disabled={sending}
         />
+        <AddressInputSearchResults accounts={accounts} onSelect={(account: Account) => this.setState({ account })} />
 
         <div>Send Amount:</div>
         <div>
