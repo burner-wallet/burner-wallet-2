@@ -6,7 +6,7 @@ import LinkPlugin from '../LinkPlugin';
 interface SendLinkPageState {
   value: string,
   asset: Asset | null,
-  sent: boolean,
+  status: string,
 }
 
 export default class SendLinkPage extends Component<PluginPageContext, SendLinkPageState> {
@@ -18,7 +18,7 @@ export default class SendLinkPage extends Component<PluginPageContext, SendLinkP
     this.state = {
       value: '0',
       asset: null,
-      sent: false,
+      status: 'waiting',
     };
   }
 
@@ -31,22 +31,28 @@ export default class SendLinkPage extends Component<PluginPageContext, SendLinkP
       throw new Error(`Can not send link on network ${asset.network}`);
     }
 
+    this.setState({ status: 'sending' })
     const { claimUrl, receipt } = await this.plugin.send(this.props.accounts[0], asset, value);
     console.log(receipt);
-    this.setState({ sent: true, claimUrl });
+    this.setState({ status: 'sent', claimUrl });
   }
 
   form() {
     const { AssetSelector } = this.props.burnerComponents;
-    const { value, asset } = this.state;
+    const { value, asset, status } = this.state;
     const canSend = asset && asset.network === '100' && +value > 0;
     return (
       <Fragment>
-        <AssetSelector selected={asset} onChange={newAsset => this.setState({ asset: newAsset })} />
+        <AssetSelector selected={asset} onChange={newAsset => this.setState({ asset: newAsset })} network="100" />
         <div>
-          <input value={value} type="num" onChange={e => this.setState({ value: e.target.value })} />
+          <input
+            value={value}
+            type="num"
+            disabled={status === 'sending'}
+            onChange={e => this.setState({ value: e.target.value })}
+          />
         </div>
-        <button disabled={!canSend} onClick={() => this.send()}>Send</button>
+        <button disabled={!canSend || status === 'sending'} onClick={() => this.send()}>Send</button>
       </Fragment>
     );
   }
@@ -55,8 +61,10 @@ export default class SendLinkPage extends Component<PluginPageContext, SendLinkP
     return (
       <Fragment>
         <div>Sent successfully!</div>
-        <div>{this.state.claimUrl}</div>
-        <button onClick={() => this.setState({ value: '0', sent: false })}>Send More</button>
+        <div>
+          <input value={this.state.claimUrl} />
+        </div>
+        <button onClick={() => this.setState({ value: '0', status: 'waiting' })}>Send More</button>
       </Fragment>
     );
   }
@@ -65,7 +73,7 @@ export default class SendLinkPage extends Component<PluginPageContext, SendLinkP
     const { Page } = this.props.burnerComponents;
     return (
       <Page title="Send with Link">
-        {this.state.sent ? this.success() : this.form()}
+        {this.state.status === 'sent' ? this.success() : this.form()}
       </Page>
     );
   }
