@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Asset } from '@burner-wallet/assets';
-import AccountBalance from '../data-providers/AccountBalance';
+import AccountBalance, { AccountBalanceData } from '../data-providers/AccountBalance';
 import Assets from '../data-providers/Assets';
 const classes = require('./AssetSelector.module.css');
 
 const AssetElement: React.FC<{asset: Asset}> = ({ asset }) => (
   <div className={classes.assetElement}>
     <div className={classes.assetName}>{asset.name}</div>
-    <AccountBalance asset={asset} render={(err, data) => data && (
+    <AccountBalance asset={asset} render={(err: Error, data: AccountBalanceData | null) => data && (
       <div className={classes.assetBalance}>
         {data.usdBalance ? `$${data.usdBalance}` : data.displayBalance}
       </div>
@@ -25,7 +25,7 @@ export interface AssetSelectorProps {
 const AssetSelector: React.FC<AssetSelectorProps> = ({ selected, onChange, disabled, network }) => {
   const [isOpen, setOpen] = useState(false);
   return (
-    <Assets render={assets => {
+    <Assets render={(assets: Asset[]) => {
       if (!selected) {
         onChange(assets[0]);
       }
