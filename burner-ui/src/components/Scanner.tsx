@@ -22,4 +22,4 @@ const Scanner: React.FC<BurnerContext> = ({ children, completeScan }) =>
     </div>
   ) : null
 
-export default withBurner<{}>(Scanner);
+export default withBurner<BurnerContext>(Scanner);

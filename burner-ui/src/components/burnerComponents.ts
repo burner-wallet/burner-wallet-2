@@ -7,7 +7,7 @@ import AccountKeys, { AccountKeysProps } from '../data-providers/AccountKeys';
 import Assets, { AssetsProps } from '../data-providers/Assets';
 import TransactionDetails, { TransactionDetailsProps } from '../data-providers/TransactionDetails';
 
-export default interface BurnerComponents {
+export interface BurnerComponents {
   Page: ComponentType<PageProps>,
   AssetSelector: ComponentType<AssetSelectorProps>,
 
@@ -17,7 +17,7 @@ export default interface BurnerComponents {
   TransactionDetails: ComponentType<TransactionDetailsProps>,
 };
 
-export {
+export default {
   Page, AssetSelector,
   AccountBalance, AccountKeys, Assets, TransactionDetails,
-};
+} as BurnerComponents;

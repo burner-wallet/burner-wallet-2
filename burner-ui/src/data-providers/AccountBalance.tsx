@@ -13,7 +13,7 @@ const setCache = (key: string, balance: string) => {
   balanceCache[key] = { balance, timestamp: Date.now() };
 }
 
-export interface AccountBalanceProps {
+export interface AccountBalanceProps extends BurnerContext {
   asset: string | Asset,
   account?: string,
   render: (err: Error, data: AccountBalanceData | null) => React.ReactNode,
@@ -25,7 +25,7 @@ export interface AccountBalanceData {
   usdBalance: string | null,
 }
 
-class AccountBalance extends Component<BurnerContext & AccountBalanceProps, any> {
+class AccountBalance extends Component<AccountBalanceProps, any> {
   private timer: any;
   private _isMounted: boolean;
 

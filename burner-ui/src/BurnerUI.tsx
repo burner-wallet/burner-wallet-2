@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import BurnerProvider from './BurnerProvider';
-import * as burnerComponents from './components/burnerComponents';
+import burnerComponents from './components/burnerComponents';
 import Providers from './Providers';
 import Pages from './Pages';
 import Template from './Template';

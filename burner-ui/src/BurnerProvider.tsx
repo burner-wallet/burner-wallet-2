@@ -1,6 +1,7 @@
 import React, { Component, ComponentType } from 'react';
-import BurnerComponents from './components/burnerComponents';
+import { BurnerComponents } from './components/burnerComponents';
 import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
+import { Diff } from './types';
 
 interface BurnerProviderProps {
   core: any,
@@ -96,9 +97,7 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
   }
 }
 
-export type WithBurnerContext<T> = BurnerContext & T;
-
-export function withBurner<P>(WrappedComponent: ComponentType<WithBurnerContext<P>>): ComponentType<P> {
+export function withBurner<P>(WrappedComponent: ComponentType<P>): ComponentType<Diff<P, BurnerContext>> {
   return function(props) {
     return (
       <Consumer>
