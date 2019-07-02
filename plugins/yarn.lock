@@ -25,14 +25,14 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.55"
 
-"@burner-wallet/ui@0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/ui/-/ui-0.0.13.tgz#a0ec4ee90f3c25f27c5f639a9ebfa38bea48a702"
-  integrity sha512-g4D7PzfeQOEjzuXM4GaUmKpkVQpLr2ZnuVlmY+5sSVuG9SXgHKHL75bsfbPi/b61MOtiasuxLfk0TvqPsfmtPQ==
+"@burner-wallet/ui@0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/ui/-/ui-0.0.18.tgz#944a13fb4458713582e161605ef8aa3c524e2fb3"
+  integrity sha512-ksf2fky2ZEdQRdISROkAX6UraaJuBYBZ9lzN6BPgu3tS1s+3g13SYYCAf6Q/e/TyR5sSsWeyj5+YPqLNIEqV6A==
   dependencies:
     "@burner-wallet/assets" "0.0.11"
     "@types/qrcode.react" "^0.8.2"
-    "@types/react" "^16.8.19"
+    "@types/react" "*"
     "@types/react-qr-reader" "^2.1.2"
     "@types/react-router-dom" "^4.3.4"
     qrcode.react "^0.9.3"
@@ -97,10 +97,10 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.8.19":
-  version "16.8.20"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.20.tgz#4f633ecbd0a4d56d0ccc50fff6f9321bbcd7d583"
-  integrity sha512-ZLmI+ubSJpfUIlQuULDDrdyuFQORBuGOvNnMue8HeA0GVrAJbWtZQhcBvnBPNRBI/GrfSfrKPFhthzC2SLEtLQ==
+"@types/react@*":
+  version "16.8.22"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.22.tgz#7f18bf5ea0c1cad73c46b6b1c804a3ce0eec6d54"
+  integrity sha512-C3O1yVqk4sUXqWyx0wlys76eQfhrQhiDhDlHBrjER76lR2S2Agiid/KpOU9oCqj1dISStscz7xXz1Cg8+sCQeA==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"

@@ -8,7 +8,7 @@ const LINK_XDAI_CONTRACT_ADDRESS = '0x9971B0E163795c49cAF5DefF06C271fCd8f3Ebe9';
 const LINK_XDAI_CONTRACT_CREATION_BLOCK = '2425065';
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
-const getClaimUrl = (claimId, claimKey) => `${window.location.origin}/claim/${claimId}/${claimKey}`;
+const getClaimUrl = (claimId: string, claimKey: string) => `${window.location.origin}/claim/${claimId}/${claimKey}`;
 
 export default class LinksPlugin implements Plugin {
   private _pluginContext: BurnerPluginContext | null;
@@ -22,7 +22,7 @@ export default class LinksPlugin implements Plugin {
     this._pluginContext = pluginContext;
 
     pluginContext.addPage('/link', SendLinkPage);
-    pluginContext.addPage('/claim/:claimId(0x[a-fA-F0-9]{64})/:claimKey(0x[a-fA-F0-9]{64})', ClaimPage)
+    pluginContext.addPage('/claim/:claimId(0x[a-fA-F0-9]{64})/:claimKey(0x[a-fA-F0-9]{64})', ClaimPage);
     pluginContext.addHomeButton('Link', '/link');
   }
 
@@ -91,12 +91,12 @@ export default class LinksPlugin implements Plugin {
     return events.length >= 0;
   }
 
-  signClaim(claimId, fund, account, claimKey) {
+  signClaim(claimId: string, nonce: number, account: string, claimKey: string) {
     const web3 = this.pluginContext.getWeb3('100');
     const claimHash = web3.utils.soliditySha3(
       { type: 'bytes32', value: claimId }, // fund id
       { type: 'address', value: account }, // destination address
-      { type: 'uint256', value: fund.nonce },
+      { type: 'uint256', value: nonce },
       { type: 'address', value: LINK_XDAI_CONTRACT_ADDRESS },
     );
     const claimSig = web3.eth.accounts.sign(claimHash, claimKey).signature;
@@ -108,7 +108,7 @@ export default class LinksPlugin implements Plugin {
     const linkContract = this.getContract();
     const fund = await this.getFund(claimId);
 
-    const { claimHash, claimSig } = this.signClaim(claimId, fund, account, claimKey);
+    const { claimHash, claimSig } = this.signClaim(claimId, fund.nonce, account, claimKey);
     const receipt = await linkContract.methods.claim(claimId, claimSig, claimHash, account).send({ from: account });
 
     return { receipt, amount: fund.amount };

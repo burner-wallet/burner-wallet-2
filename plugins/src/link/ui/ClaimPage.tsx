@@ -5,14 +5,14 @@ import LinkPlugin from '../LinkPlugin';
 
 interface ClaimPageState {
   status: 'waiting' | 'claiming' | 'complete' | 'error' | 'claimed';
-  amount: 'string',
+  amount: string,
 }
 
-export default class ClaimPage extends Component<PluginPageContext & { match?: any }, ClaimPageState> {
+export default class ClaimPage extends Component<PluginPageContext, ClaimPageState> {
   private plugin: LinkPlugin;
   private _isMounted: boolean;
 
-  constructor(props: PluginPageContext & { match?: any }) { // TODO: Add match to PluginPageContext
+  constructor(props: PluginPageContext) {
     super(props);
     this.plugin = props.plugin as LinkPlugin;
     this._isMounted = true;
@@ -26,7 +26,7 @@ export default class ClaimPage extends Component<PluginPageContext & { match?: a
     this.tryToClaim();
   }
 
-  componentDidUpdate(oldProps) {
+  componentDidUpdate(oldProps: PluginPageContext) {
     if (oldProps !== this.props && this.state.status === 'waiting') {
       this.tryToClaim();
     }
@@ -38,7 +38,7 @@ export default class ClaimPage extends Component<PluginPageContext & { match?: a
 
   async tryToClaim() {
     const { match, accounts } = this.props;
-    const { claimId, claimKey } = match.params;
+    const { claimId, claimKey } = (match.params as { claimId: string, claimKey: string });
 
     if (accounts.length === 0) {
       return;

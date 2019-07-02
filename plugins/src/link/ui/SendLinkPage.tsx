@@ -7,6 +7,7 @@ interface SendLinkPageState {
   value: string,
   asset: Asset | null,
   status: string,
+  claimUrl: string,
 }
 
 export default class SendLinkPage extends Component<PluginPageContext, SendLinkPageState> {
@@ -19,6 +20,7 @@ export default class SendLinkPage extends Component<PluginPageContext, SendLinkP
       value: '0',
       asset: null,
       status: 'waiting',
+      claimUrl: '',
     };
   }
 
@@ -43,7 +45,11 @@ export default class SendLinkPage extends Component<PluginPageContext, SendLinkP
     const canSend = asset && asset.network === '100' && +value > 0;
     return (
       <Fragment>
-        <AssetSelector selected={asset} onChange={newAsset => this.setState({ asset: newAsset })} network="100" />
+        <AssetSelector
+          selected={asset}
+          onChange={(newAsset: Asset) => this.setState({ asset: newAsset })}
+          network="100"
+        />
         <div>
           <input
             value={value}

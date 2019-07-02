@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "@burner-wallet/assets": "0.0.14",
-    "@burner-wallet/ui": "0.0.13"
+    "@burner-wallet/ui": "0.0.18"
   },
   "devDependencies": {
+    "@types/react": "*",
     "copyfiles": "^2.1.0",
     "typescript": "^3.5.2"
   }
