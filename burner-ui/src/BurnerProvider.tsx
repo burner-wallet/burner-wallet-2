@@ -1,7 +1,7 @@
 import React, { Component, ComponentType } from 'react';
 import { BurnerComponents } from './components/burnerComponents';
 import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
-import { Diff } from './types';
+import { Diff } from './';
 
 interface BurnerProviderProps {
   core: any,

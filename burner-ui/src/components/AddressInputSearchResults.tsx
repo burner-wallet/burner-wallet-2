@@ -1,5 +1,5 @@
 import React from 'react';
-import { Account } from '../types';
+import { Account } from '../';
 import AddressInputAccount from './AddressInputAccount';
 const classes = require('./AddressInputSearchResults.module.css');
 

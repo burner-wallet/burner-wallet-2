@@ -1,5 +1,5 @@
 import React from 'react';
-import { Account } from '../types';
+import { Account } from '../';
 const classes = require('./AddressInputAccount.module.css');
 
 const AddressInputAccount: React.FC<{account: Account}> = ({ account }) => (

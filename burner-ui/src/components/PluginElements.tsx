@@ -1,7 +1,7 @@
 import React, { Fragment, ComponentType } from 'react';
 import { PluginElementData } from '../Plugins';
 import { withBurner, BurnerContext } from '../BurnerProvider';
-import { Plugin, PluginElementContext } from '../types';
+import { Plugin, PluginElementContext } from '../';
 
 interface PluginElementsProps extends BurnerContext {
   position: string,

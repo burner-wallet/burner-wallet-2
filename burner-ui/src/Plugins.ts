@@ -3,7 +3,7 @@ import { Asset } from '@burner-wallet/assets';
 import { RouteComponentProps } from 'react-router-dom';
 import BurnerProvider, { BurnerContext } from './BurnerProvider';
 import BurnerUI from './BurnerUI';
-import { Plugin, PluginPage, PluginElement } from './types';
+import { Plugin, PluginPage, PluginElement } from './';
 
 interface PluginPageData {
   path: string,

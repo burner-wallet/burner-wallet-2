@@ -30,3 +30,5 @@ export interface Account {
   address: string,
   picture?: string,
 }
+
+export default BurnerUI;

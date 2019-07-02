@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Account } from '../types';
+import { Account } from '../';
 import AddressInputAccount from './AddressInputAccount';
 const classes = require('./AddressInputField.module.css');
 

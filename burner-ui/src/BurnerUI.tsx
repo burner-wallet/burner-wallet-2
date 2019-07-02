@@ -8,7 +8,7 @@ import Template from './Template';
 import Header from './components/Header';
 import Scanner from './components/Scanner';
 import Plugins from './Plugins';
-import { Plugin } from './types';
+import { Plugin } from './';
 import './BurnerUI.css';
 
 interface BurnerUIProps {

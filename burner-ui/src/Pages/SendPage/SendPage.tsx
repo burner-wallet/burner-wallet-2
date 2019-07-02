@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
 import { BurnerContext } from '../../BurnerProvider';
-import { Account } from '../../types';
+import { Account } from '../../';
 import AddressInputField from '../../components/AddressInputField';
 import AddressInputSearchResults from '../../components/AddressInputSearchResults';
 import AssetSelector from '../../components/AssetSelector';
