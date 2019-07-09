@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { BurnerContext } from '../../BurnerProvider';
 import Page from '../../components/Page';
 import PluginElements from '../../components/PluginElements';
@@ -17,8 +17,23 @@ const HomeButton: React.FC<HomeButtonProps> = ({ path, title }) => (
   </li>
 )
 
-const HomePage: React.FC<BurnerContext> = ({ accounts, assets, pluginData }) => (
+const ADDRESS_REGEX = /^(?:0x)?[0-9a-f]{40}$/i;
+const PK_REGEX = /^(?:0x)?[0-9a-f]{64}$/i;
+
+const HomePage: React.FC<BurnerContext & RouteComponentProps> = ({ accounts, actions, assets, pluginData, history }) => (
   <Page>
+    <button className={classes.scanBtn} onClick={async () => {
+      try {
+        const address = await actions.scanQrCode();
+        debugger;
+        if (ADDRESS_REGEX.test(address)) {
+          history.push('/send', { address });
+        } else if (PK_REGEX.test(address)) {
+          actions.callSigner('writeKey', accounts[0], address);
+        }
+      } catch (e) {}
+    }} />
+
     <PluginElements position="home-top" />
     {accounts.length > 0 ? (
       <ul className={classes.balances}>

@@ -12,8 +12,8 @@ interface BurnerProviderProps {
 }
 
 interface Actions {
-  callSigner: (action: string, prop: any) => string,
-  canCallSigner: (action: string, prop: any) => boolean,
+  callSigner: (action: string, ...props: any[]) => string,
+  canCallSigner: (action: string, ...props: any[]) => boolean,
   scanQrCode: () => Promise<string>,
 }
 

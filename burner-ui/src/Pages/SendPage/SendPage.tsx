@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
 import { BurnerContext } from '../../BurnerProvider';
 import { Account } from '../../';
@@ -18,11 +18,11 @@ interface SendPageState {
   accounts: Account[],
 }
 
-export default class SendPage extends Component<BurnerContext, SendPageState> {
-  constructor(props: BurnerContext) {
+export default class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageState> {
+  constructor(props: BurnerContext & RouteComponentProps) {
     super(props);
     this.state = {
-      to: '',
+      to: props.location.state && props.location.state.address || '',
       value: '',
       asset: null,
       sending: false,

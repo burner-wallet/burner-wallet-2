@@ -7,7 +7,7 @@
     "cjs": "tsc -m commonjs",
     "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
     "build": "yarn run mjs && yarn run cjs && yarn run css",
-    "distribute": "yarn build && scripts/publish.sh"
+    "distribute": "yarn build && scripts/distribute.sh"
   },
   "dependencies": {
     "@burner-wallet/assets": "0.0.14",
