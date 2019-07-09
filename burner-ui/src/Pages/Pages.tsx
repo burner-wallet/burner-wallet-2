@@ -19,12 +19,14 @@ const Pages: React.FC<PageProps> = ({ pluginData }) => (
     <Route path="/send" component={withBurner(SendPage)} />
     <Route path="/receipt/:asset/:txHash" component={withBurner(ReceiptPage)} />
     <Route path="/advanced" component={withBurner(AdvancedPage)} />
-    {pluginData.pages.map(({ path, Component, plugin }) => (
-      <Route path={path} key={path} render={(props) => {
-        const WrappedComponent = withBurner(Component);
-        return <WrappedComponent plugin={plugin} {...props} />
-      }} />
-    ))}
+    {pluginData.pages.map(({ path, Component, plugin }) => {
+      const WrappedComponent = withBurner(Component);
+      return (
+        <Route path={path} key={path} render={(props) => (
+          <WrappedComponent plugin={plugin} {...props} />
+        )} />
+      );
+    })}
     <Redirect to="/" />
   </Switch>
 );
