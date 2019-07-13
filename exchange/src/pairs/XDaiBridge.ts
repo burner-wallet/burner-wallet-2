@@ -22,8 +22,8 @@ export default class XDaiBridge extends Pair {
   exchangeBtoA({ account, value, ether }: ExchangeParams) {
     const _value = this._getValue({ value, ether });
 
-    const xdai = this.exchange.getAsset('dai');
-    return xdai.send({
+    const dai = this.exchange.getAsset('dai');
+    return dai.send({
       from: account,
       value: _value,
       to: toXdaiBridge,
