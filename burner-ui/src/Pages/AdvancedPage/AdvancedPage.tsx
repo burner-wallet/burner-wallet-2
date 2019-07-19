@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
-import { BurnerContext } from '../../BurnerProvider';
+import { BurnerContext, withBurner } from '../../BurnerProvider';
 import Page from '../../components/Page';
 import AccountKeys from '../../data-providers/AccountKeys';
 
@@ -51,4 +51,4 @@ const AdvancedPage: React.FC<BurnerContext> = ({ accounts }) => {
   );
 };
 
-export default AdvancedPage;
+export default withBurner(AdvancedPage);

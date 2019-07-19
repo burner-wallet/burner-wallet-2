@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { BurnerContext } from '../../BurnerProvider';
+import { BurnerContext, withBurner } from '../../BurnerProvider';
 import Page from '../../components/Page';
 import PluginElements from '../../components/PluginElements';
 import AccountBalance, { AccountBalanceData } from '../../data-providers/AccountBalance';
@@ -68,4 +68,4 @@ const HomePage: React.FC<BurnerContext & RouteComponentProps> = ({ accounts, act
   </Page>
 );
 
-export default HomePage;
+export default withBurner(HomePage);

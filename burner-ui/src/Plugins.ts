@@ -1,18 +1,18 @@
 import { ComponentType } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import { RouteComponentProps } from 'react-router-dom';
-import BurnerProvider, { BurnerContext } from './BurnerProvider';
+import { withBurner } from './BurnerProvider';
 import BurnerUI from './BurnerUI';
-import { Plugin, PluginPage, PluginElement } from './';
+import { Plugin, PluginPage, BasePluginContext, PluginElement } from './';
 
 interface PluginPageData {
   path: string,
-  Component: PluginPage,
+  Component: ComponentType<BasePluginContext & RouteComponentProps>,
   plugin: Plugin,
 }
 
 export interface PluginElementData {
-  Component: PluginElement,
+  Component: ComponentType<BasePluginContext>,
   plugin: Plugin,
 }
 
@@ -88,8 +88,9 @@ export default class Plugins {
   }
 
   addPluginPage(plugin: Plugin, path: string, Component: PluginPage) {
+    const WrappedComponent = withBurner(Component);
     this.setPluginData({
-      pages: [...this.pluginData.pages, { plugin, path, Component }],
+      pages: [...this.pluginData.pages, { plugin, path, Component: WrappedComponent }],
     });
   }
 
@@ -100,11 +101,12 @@ export default class Plugins {
   }
 
   addPluginElement(plugin: Plugin, position: string, Component: PluginElement) {
+    const WrappedComponent = withBurner(Component);
     const existingElements = this.pluginData.elements[position] || [];
     this.setPluginData({
       elements: {
         ...this.pluginData.elements,
-        [position]: [...existingElements, { plugin, Component }],
+        [position]: [...existingElements, { plugin, Component: WrappedComponent }],
       },
     });
   }

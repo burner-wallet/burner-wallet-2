@@ -1,6 +1,6 @@
 import React from 'react';
 import QRCode from 'qrcode.react';
-import { BurnerContext } from '../../BurnerProvider';
+import { BurnerContext, withBurner } from '../../BurnerProvider';
 import Page from '../../components/Page';
 const classes = require('./ReceivePage.module.css');
 
@@ -19,4 +19,4 @@ const ReceivePage: React.FC<BurnerContext> = ({ accounts }) => (
   </Page>
 );
 
-export default ReceivePage;
+export default withBurner(ReceivePage);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
-import { BurnerContext } from '../../BurnerProvider';
+import { BurnerContext, withBurner } from '../../BurnerProvider';
 import { Account } from '../../';
 import AddressInputField from '../../components/AddressInputField';
 import AddressInputSearchResults from '../../components/AddressInputSearchResults';
@@ -18,7 +18,7 @@ interface SendPageState {
   accounts: Account[],
 }
 
-export default class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageState> {
+class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageState> {
   constructor(props: BurnerContext & RouteComponentProps) {
     super(props);
     this.state = {
@@ -103,3 +103,5 @@ export default class SendPage extends Component<BurnerContext & RouteComponentPr
     );
   }
 }
+
+export default withBurner(SendPage);

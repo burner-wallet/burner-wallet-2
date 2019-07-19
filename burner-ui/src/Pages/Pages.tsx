@@ -1,6 +1,5 @@
-import React, { ComponentType } from 'react';
-import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
-import { withBurner } from '../BurnerProvider';
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { BurnerPluginData } from '../Plugins';
 import AdvancedPage from './AdvancedPage';
 import HomePage from './HomePage';
@@ -14,19 +13,16 @@ interface PageProps {
 
 const Pages: React.FC<PageProps> = ({ pluginData }) => (
   <Switch>
-    <Route path="/" exact component={withBurner(HomePage)} />
-    <Route path="/receive" component={withBurner(ReceivePage)} />
-    <Route path="/send" component={withBurner(SendPage)} />
-    <Route path="/receipt/:asset/:txHash" component={withBurner(ReceiptPage)} />
-    <Route path="/advanced" component={withBurner(AdvancedPage)} />
-    {pluginData.pages.map(({ path, Component, plugin }) => {
-      const WrappedComponent = withBurner(Component);
-      return (
-        <Route path={path} key={path} render={(props) => (
-          <WrappedComponent plugin={plugin} {...props} />
-        )} />
-      );
-    })}
+    <Route path="/" exact component={HomePage} />
+    <Route path="/receive" component={ReceivePage} />
+    <Route path="/send" component={SendPage} />
+    <Route path="/receipt/:asset/:txHash" component={ReceiptPage} />
+    <Route path="/advanced" component={AdvancedPage} />
+    {pluginData.pages.map(({ path, Component, plugin }) => (
+      <Route path={path} key={path} render={(props) => (
+        <Component plugin={plugin} {...props} />
+      )} />
+    ))}
     <Redirect to="/" />
   </Switch>
 );
