@@ -35,7 +35,7 @@ export interface BurnerPluginContext {
   addHomeButton: (title: string, path: string) => any,
   addPage: (path: string, Component: PluginPage) => any,
   getAssets: () => Asset[],
-  getWeb3: (network: string) => any,
+  getWeb3: (network: string, options?: any) => any,
   onAccountSearch: (callback: AccountSearchFn) => void,
 }
 
@@ -75,7 +75,7 @@ export default class Plugins {
       addPage: (path: string, Component: PluginPage) => this.addPluginPage(plugin, path, Component),
       addHomeButton: (title: string, path: string) => this.addPluginHomeButton(plugin, title, path),
       getAssets: () => this.ui.getAssets(),
-      getWeb3: (network: string) => this.ui.getCore().getWeb3(network),
+      getWeb3: (network: string, options?: any) => this.ui.getCore().getWeb3(network, options),
     };
   }
 
