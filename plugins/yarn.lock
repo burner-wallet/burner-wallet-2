@@ -25,10 +25,10 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.55"
 
-"@burner-wallet/ui@0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/ui/-/ui-0.0.18.tgz#944a13fb4458713582e161605ef8aa3c524e2fb3"
-  integrity sha512-ksf2fky2ZEdQRdISROkAX6UraaJuBYBZ9lzN6BPgu3tS1s+3g13SYYCAf6Q/e/TyR5sSsWeyj5+YPqLNIEqV6A==
+"@burner-wallet/ui@0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/ui/-/ui-0.0.20.tgz#3492506ee80340753f98d64a33f467df1c40e194"
+  integrity sha512-aZPo/95YgtgbRwTY9mcQho29STgU2R12t+SnnY/qZOd/tqD1Osh8CdfbgUWibn/l4UME9m8cv41+A0PaT6WF7Q==
   dependencies:
     "@burner-wallet/assets" "0.0.11"
     "@types/qrcode.react" "^0.8.2"
@@ -119,6 +119,11 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
+
+base64url@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/base64url/-/base64url-3.0.1.tgz#6399d572e2bc3f90a9a8b22d5dbb0a32d33f788d"
+  integrity sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==
 
 bn.js@4.11.6:
   version "4.11.6"

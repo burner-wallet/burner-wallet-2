@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@burner-wallet/assets": "0.0.14",
-    "@burner-wallet/ui": "0.0.18"
+    "@burner-wallet/ui": "0.0.20",
+    "base64url": "3.0.1"
   },
   "devDependencies": {
     "@types/react": "*",
