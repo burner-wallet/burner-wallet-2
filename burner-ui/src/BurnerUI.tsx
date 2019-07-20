@@ -15,6 +15,7 @@ interface BurnerUIProps {
   core: any,
   assets: Asset[],
   plugins: any[],
+  title?: string,
 }
 
 export default class BurnerUI extends Component<BurnerUIProps, any> {
@@ -52,7 +53,7 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
         <Providers>
           <Template>
             <Scanner />
-            <Header />
+            <Header title={this.props.title} />
             <Pages pluginData={this.state.pluginData} />
           </Template>
         </Providers>

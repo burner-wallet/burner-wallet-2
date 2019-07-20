@@ -2,11 +2,19 @@ import React from 'react';
 import './Header.css';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
-const Header: React.FC<BurnerContext> = ({ accounts }) => (
+interface HeaderProps {
+  title?: string,
+}
+
+const Header: React.FC<BurnerContext & HeaderProps> = ({ accounts, title }) => (
   <header>
     <div className="headerAccount">{accounts.length > 0 && accounts[0].substr(2, 8)}</div>
-    Burner Wallet
+    {title}
   </header>
 );
 
-export default withBurner<BurnerContext>(Header);
+Header.defaultProps = {
+  title: 'Burner Wallet',
+};
+
+export default withBurner<BurnerContext & HeaderProps>(Header);
