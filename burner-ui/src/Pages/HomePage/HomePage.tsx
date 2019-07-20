@@ -4,6 +4,7 @@ import { BurnerContext, withBurner } from '../../BurnerProvider';
 import Page from '../../components/Page';
 import PluginElements from '../../components/PluginElements';
 import AccountBalance, { AccountBalanceData } from '../../data-providers/AccountBalance';
+import BalanceRow from './BalanceRow';
 const classes = require('./HomePage.module.css');
 
 interface HomeButtonProps {
@@ -35,6 +36,7 @@ const HomePage: React.FC<BurnerContext & RouteComponentProps> = ({ accounts, act
     }} />
 
     <PluginElements position="home-top" />
+
     {accounts.length > 0 ? (
       <ul className={classes.balances}>
         {assets.map(asset =>
@@ -43,13 +45,11 @@ const HomePage: React.FC<BurnerContext & RouteComponentProps> = ({ accounts, act
             asset={asset.id}
             account={accounts[0]}
             render={(err: Error, data: AccountBalanceData | null) => (
-              <li className={classes.balanceRow}>
-                <div className={classes.assetName}>{asset.name}</div>
-                <div className={classes.assetBalance}>
-                  {(err || !data) && '-'}
-                  {data && (data.usdBalance ? `$${data.usdBalance}` : data.displayBalance)}
-                </div>
-              </li>
+              <BalanceRow
+                asset={asset}
+                usdBalance={data && data.usdBalance}
+                balance={data && data.balance}
+              />
             )}
           />
         )}

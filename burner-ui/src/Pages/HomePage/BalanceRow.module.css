@@ -1,0 +1,13 @@
+.balanceRow {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: solid 1px #f0f0f0;
+}
+.assetName {
+  flex: 1 0;
+  color: #919191;
+}
+.assetBalance {
+  font-size: 40px;
+}
