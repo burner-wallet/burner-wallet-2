@@ -7,12 +7,14 @@ import linkAbi from './abis/Links.json';
 const LINK_XDAI_CONTRACT_ADDRESS = '0x9971B0E163795c49cAF5DefF06C271fCd8f3Ebe9';
 const LINK_XDAI_CONTRACT_CREATION_BLOCK = '2425065';
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+const RELAY_GAS_PRICE = 1100000000;
 
 const getClaimUrl = (claimId: string, claimKey: string) => `${window.location.origin}/claim/${claimId}/${claimKey}`;
 
 export default class LinksPlugin implements Plugin {
   private _pluginContext: BurnerPluginContext | null;
   private contract: any;
+  private gaslessContract: any;
 
   constructor() {
     this._pluginContext = null;
@@ -33,13 +35,15 @@ export default class LinksPlugin implements Plugin {
     return this._pluginContext;
   }
 
-  getContract() {
-    if (this.contract) {
-      return this.contract;
+  getContract({ gasless=false }={}) {
+    const existingContract = gasless ? this.gaslessContract : this.contract;
+    if (existingContract) {
+      return existingContract;
     }
-    const web3 = this.pluginContext.getWeb3('100');
-    this.contract = new web3.eth.Contract(linkAbi, LINK_XDAI_CONTRACT_ADDRESS);
-    return this.contract;
+    const web3 = this.pluginContext.getWeb3('100', { gasless });
+    const contract = new web3.eth.Contract(linkAbi, LINK_XDAI_CONTRACT_ADDRESS);
+    this[gasless ? 'gaslessContract' : 'contract'] = contract;
+    return contract;
   }
 
   async send(fromAddress: string, asset: Asset, ether: string) {
@@ -104,7 +108,6 @@ export default class LinksPlugin implements Plugin {
   }
 
   async chainClaim(claimId: string, claimKey: string, account: string) {
-    const web3 = this.pluginContext.getWeb3('100');
     const linkContract = this.getContract();
     const fund = await this.getFund(claimId);
 
@@ -112,5 +115,20 @@ export default class LinksPlugin implements Plugin {
     const receipt = await linkContract.methods.claim(claimId, claimSig, claimHash, account).send({ from: account });
 
     return { receipt, amount: fund.amount };
+  }
+
+  async relayClaim(claimId: string, claimKey: string, account: string) {
+    const linkContract = this.getContract({ gasless: true });
+    const fund = await this.getFund(claimId);
+
+    const { claimHash, claimSig } = this.signClaim(claimId, fund.nonce, account, claimKey);
+    const receipt = await linkContract.methods.claim(claimId, claimSig, claimHash, account).send({
+      from: account,
+      gasPrice: RELAY_GAS_PRICE,
+      txfee: 12,
+    });
+
+    return { receipt, amount: fund.amount };
+
   }
 }

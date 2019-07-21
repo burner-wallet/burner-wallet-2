@@ -37,17 +37,26 @@ export default class ClaimPage extends Component<PluginPageContext, ClaimPageSta
   }
 
   async tryToClaim() {
-    const { match, accounts } = this.props;
+    const { match, accounts, assets } = this.props;
     const { claimId, claimKey } = (match.params as { claimId: string, claimKey: string });
 
     if (accounts.length === 0) {
       return;
     }
+    const account = accounts[0];
     
     this.setState({ status: 'claiming' });
     if (await this.plugin.canClaim(claimId)) {
-      const { receipt, amount } = await this.plugin.chainClaim(claimId, claimKey, accounts[0]);
-      this.setState({ status: 'complete', amount });
+      const balance = await this.getXDai().getDisplayBalance(account);
+      if (+balance < 0.005) {
+        console.log('Insuficent funds, claiming using relay');
+        const { receipt, amount } = await this.plugin.relayClaim(claimId, claimKey, account);
+        this.setState({ status: 'complete', amount });
+      } else {
+        console.log('Sufficent funds, claiming with normal transaction');
+        const { receipt, amount } = await this.plugin.chainClaim(claimId, claimKey, account);
+        this.setState({ status: 'complete', amount });
+      }
     } else {
       if (await this.plugin.isClaimed(claimId)) {
         this.setState({ status: 'claimed' })
@@ -57,6 +66,15 @@ export default class ClaimPage extends Component<PluginPageContext, ClaimPageSta
         setTimeout(() => this.tryToClaim(), 1500);
       }
     }
+  }
+
+  getXDai() {
+    for (const asset of this.props.assets) {
+      if (asset.id === 'xdai') {
+        return asset;
+      }
+    }
+    throw new Error('Could not find xDai asset');
   }
 
   render() {
@@ -80,8 +98,7 @@ export default class ClaimPage extends Component<PluginPageContext, ClaimPageSta
         {status === 'complete' && (
           <div>
             <div>Success!</div>
-            <div>You have redeemed {assets[0].getUSDValue(amount)} from this link</div>
-            {/* TODO: get the actual asset used ^ */}
+            <div>You have redeemed {this.getXDai().getUSDValue(amount)} from this link</div>
             <button onClick={() => history.push('/')}>Home</button>
             {/* TODO: use Link component ^ */}
           </div>
