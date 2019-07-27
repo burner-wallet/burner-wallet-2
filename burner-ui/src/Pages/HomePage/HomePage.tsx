@@ -56,6 +56,8 @@ const HomePage: React.FC<BurnerContext & RouteComponentProps> = ({ accounts, act
       </ul>
     )  : 'Loading'}
 
+    <PluginElements position="home-middle" />
+
     <ul className={classes.buttons}>
       <HomeButton path="/receive" title="Receive" />
       <HomeButton path="/send" title="Send" />
@@ -63,6 +65,8 @@ const HomePage: React.FC<BurnerContext & RouteComponentProps> = ({ accounts, act
         <HomeButton title={title} path={path} key={title} />
       ))}
     </ul>
+
+    <PluginElements position="home-bottom" />
 
     <Link to="/advanced">Advanced</Link>
   </Page>
