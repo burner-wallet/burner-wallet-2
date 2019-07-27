@@ -1,9 +1,10 @@
 import React, { Component, ComponentType } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { BurnerComponents } from './components/burnerComponents';
 import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
 import { Diff } from './';
 
-interface BurnerProviderProps {
+interface BurnerProviderProps extends RouteComponentProps {
   core: any,
   assets: any[],
   pluginData: BurnerPluginData,
@@ -11,10 +12,18 @@ interface BurnerProviderProps {
   burnerComponents: BurnerComponents,
 }
 
+interface SendParams {
+  asset: string,
+  ether: string,
+  to: string,
+  from: string,
+}
+
 interface Actions {
   callSigner: (action: string, ...props: any[]) => string,
   canCallSigner: (action: string, ...props: any[]) => boolean,
   scanQrCode: () => Promise<string>,
+  send: (params: SendParams) => void,
 }
 
 export interface BurnerContext {
@@ -31,6 +40,7 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
     callSigner: () => { throw new Error('Unavailable') },
     canCallSigner: () => { throw new Error('Unavailable') },
     scanQrCode: () => { throw new Error('Unavailable') },
+    send: () => { throw new Error('Unavailable') },
   },
   assets: [],
   accounts: [],
@@ -39,7 +49,7 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
   completeScan: null,
 });
 
-export default class BurnerProvider extends Component<BurnerProviderProps, any> {
+class BurnerProvider extends Component<BurnerProviderProps, any> {
   private actions: Actions;
 
   constructor(props: BurnerProviderProps) {
@@ -50,6 +60,7 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
       scanQrCode: this.scanQrCode.bind(this),
       canCallSigner: props.core.canCallSigner.bind(props.core),
       callSigner: props.core.callSigner.bind(props.core),
+      send: this.send.bind(this),
     };
 
     this.state = {
@@ -79,6 +90,10 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
     });
   }
 
+  send({ asset, ether, to, from }: SendParams) {
+    this.props.history.push('/confirm', { asset, ether, to, from });
+  }
+
   render() {
     const { assets, pluginData, children } = this.props;
     const { accounts, completeScan } = this.state;
@@ -96,6 +111,8 @@ export default class BurnerProvider extends Component<BurnerProviderProps, any> 
     )
   }
 }
+
+export default withRouter(BurnerProvider);
 
 export function withBurner<P>(WrappedComponent: ComponentType<P>): ComponentType<Diff<P, BurnerContext>> {
   return function(props) {

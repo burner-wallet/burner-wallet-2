@@ -50,23 +50,13 @@ class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageSt
     } catch (e) {}
   }
 
-  async send() {
+  send() {
     const { asset, to, value } = this.state;
-    const { accounts } = this.props;
+    const { accounts, actions } = this.props;
     if (!asset) {
       throw new Error('Asset not selected');
     }
-    try {
-      this.setState({ sending: true });
-      const receipt = await asset.send({ from: accounts[0], to, ether: value });
-      this.setState({
-        sending: false,
-        txHash: receipt.transactionHash,
-      })
-    } catch (err) {
-      this.setState({ sending: false });
-      console.error(err);
-    }
+    actions.send({ from: accounts[0], to, ether: value, asset: asset.id });
   }
 
   render() {

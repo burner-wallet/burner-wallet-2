@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
 import BurnerProvider from './BurnerProvider';
 import burnerComponents from './components/burnerComponents';
@@ -44,20 +45,20 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
 
   render() {
     return (
-      <BurnerProvider
-        core={this.props.core}
-        assets={this.props.assets}
-        pluginData={this.state.pluginData}
-        burnerComponents={burnerComponents}
-      >
-        <Providers>
+      <Router>
+        <BurnerProvider
+          core={this.props.core}
+          assets={this.props.assets}
+          pluginData={this.state.pluginData}
+          burnerComponents={burnerComponents}
+        >
           <Template>
             <Scanner />
             <Header title={this.props.title} />
             <Pages pluginData={this.state.pluginData} />
           </Template>
-        </Providers>
-      </BurnerProvider>
+        </BurnerProvider>
+      </Router>
     );
   }
 }
