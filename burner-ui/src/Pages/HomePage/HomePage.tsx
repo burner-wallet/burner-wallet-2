@@ -25,12 +25,13 @@ const HomePage: React.FC<BurnerContext & RouteComponentProps> = ({ accounts, act
   <Page>
     <button className={classes.scanBtn} onClick={async () => {
       try {
-        const address = await actions.scanQrCode();
-        debugger;
-        if (ADDRESS_REGEX.test(address)) {
-          history.push('/send', { address });
-        } else if (PK_REGEX.test(address)) {
-          actions.callSigner('writeKey', accounts[0], address);
+        const result = await actions.scanQrCode();
+        if (ADDRESS_REGEX.test(result)) {
+          history.push('/send', { address: result });
+        } else if (PK_REGEX.test(result)) {
+          actions.callSigner('writeKey', accounts[0], result);
+        } else if (result.indexOf(location.origin) === 0) {
+          history.push(result.substr(location.origin.length));
         }
       } catch (e) {}
     }} />
