@@ -1,4 +1,6 @@
 import { ComponentType } from 'react';
+import QRCode from 'qrcode.react';
+
 import Page, { PageProps } from './Page';
 import AssetSelector, { AssetSelectorProps } from './AssetSelector';
 
@@ -15,9 +17,12 @@ export interface BurnerComponents {
   AccountKeys: ComponentType<AccountKeysProps>,
   Assets: ComponentType<AssetsProps>,
   TransactionDetails: ComponentType<TransactionDetailsProps>,
+
+  QRCode: QRCode.QRCode,
 };
 
 export default {
   Page, AssetSelector,
   AccountBalance, AccountKeys, Assets, TransactionDetails,
+  QRCode,
 } as BurnerComponents;
