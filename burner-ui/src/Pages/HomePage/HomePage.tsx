@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BurnerContext, withBurner } from '../../BurnerProvider';
 import Page from '../../components/Page';
 import PluginElements from '../../components/PluginElements';
@@ -21,17 +21,17 @@ const HomeButton: React.FC<HomeButtonProps> = ({ path, title }) => (
 const ADDRESS_REGEX = /^(?:0x)?[0-9a-f]{40}$/i;
 const PK_REGEX = /^(?:0x)?[0-9a-f]{64}$/i;
 
-const HomePage: React.FC<BurnerContext & RouteComponentProps> = ({ accounts, actions, assets, pluginData, history }) => (
+const HomePage: React.FC<BurnerContext> = ({ accounts, actions, assets, pluginData }) => (
   <Page>
     <button className={classes.scanBtn} onClick={async () => {
       try {
         const result = await actions.scanQrCode();
         if (ADDRESS_REGEX.test(result)) {
-          history.push('/send', { address: result });
+          actions.navigateTo('/send', { address: result });
         } else if (PK_REGEX.test(result)) {
           actions.callSigner('writeKey', accounts[0], result);
         } else if (result.indexOf(location.origin) === 0) {
-          history.push(result.substr(location.origin.length));
+          actions.navigateTo(result.substr(location.origin.length));
         }
       } catch (e) {}
     }} />

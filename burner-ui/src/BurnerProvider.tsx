@@ -24,6 +24,7 @@ interface Actions {
   canCallSigner: (action: string, ...props: any[]) => boolean,
   scanQrCode: () => Promise<string>,
   send: (params: SendParams) => void,
+  navigateTo: (location: string | number, state?: any) => void,
 }
 
 export interface BurnerContext {
@@ -41,6 +42,7 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
     canCallSigner: () => { throw new Error('Unavailable') },
     scanQrCode: () => { throw new Error('Unavailable') },
     send: () => { throw new Error('Unavailable') },
+    navigateTo: () => { throw new Error('Unavailable') },
   },
   assets: [],
   accounts: [],
@@ -61,6 +63,10 @@ class BurnerProvider extends Component<BurnerProviderProps, any> {
       canCallSigner: props.core.canCallSigner.bind(props.core),
       callSigner: props.core.callSigner.bind(props.core),
       send: this.send.bind(this),
+      navigateTo: (location: string | number, state?: any) =>
+        Number.isInteger(location)
+        ? props.history.go(location)
+        : props.history.push(location, state),
     };
 
     this.state = {
