@@ -27,6 +27,8 @@ This is a monorepo that contains the following packages:
 
 The burner wallet functionality can be extended by passing plugin objects to the BurnerUI component.
 
+### Plugin Context
+
 When the wallet is loaded, the wallet will call the `initializePlugin(pluginContext)` function for
 each plugin. The plugin has access to the following methods of pluginContext object:
 
@@ -43,3 +45,28 @@ each plugin. The plugin has access to the following methods of pluginContext obj
 * `onAccountSearch: (callback: (query: string) => Promise<Account[]>) => void`: Provide a function
   to be called when the user types into an account input field. Used to suggest accounts to the user.
 
+### Burner Plugin Props
+
+Pages (added with `pluginContext.addPage`) and elements (added with `pluginContext.addElement`) will
+receive the following props:
+
+* `assets`: an array of Asset objects
+* `accounts`: an array of ethereum addresses that are available to use. Typically `account[0]` is
+  used. Note that the accounts array may be empty when the application is first loaded.
+* `actions`: an object containing a number of functions that plugins may call:
+  * `actions.scanQrCode()`: Opens a full-screen QR code scanner. Returns a promise, which is
+    resolved to the scanned value or rejected if the user cancels the scan.
+  * `actions.send({ to, from, asset, ether })`: Call to send an asset. Will redirect the user to a send
+    confirmation page.
+  * `actions.navigateTo(path, [state])`: Navigates the app to a new URL.
+  * `actions.callSigner(action, ...props)`: call functions in the signer objects. Used for burning
+    accounts or setting new private keys.
+  * `actions.canCallSigner(action, ...props)`: check if a function is available to call.
+* `burnerComponents`: an object containing a number of useful React components
+  * `burnerComponents.Page`: Container for a visual page component
+  * `burnerComponents.AssetSelector`: A drop down for selecting an asset
+  * `burnerComponents.AccountBalance`: Provides the balance of an account through a render prop
+  * `burnerComponents.AccountKeys`: Provides information about signing keys through a render prop
+  * `burnerComponents.Assets`: Provides an array of assets through a render prop
+  * `burnerComponents.TransactionDetails`: Provides details about a transaction through a render prop
+  * `burnerComponents.QRCode`: Renders a QR code
