@@ -49,7 +49,7 @@ const HomePage: React.FC<BurnerContext> = ({ accounts, actions, assets, pluginDa
               <BalanceRow
                 asset={asset}
                 usdBalance={data && data.usdBalance}
-                balance={data && data.balance}
+                balance={data && data.displayBalance}
               />
             )}
           />

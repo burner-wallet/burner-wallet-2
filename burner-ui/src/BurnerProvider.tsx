@@ -64,9 +64,9 @@ class BurnerProvider extends Component<BurnerProviderProps, any> {
       callSigner: props.core.callSigner.bind(props.core),
       send: this.send.bind(this),
       navigateTo: (location: string | number, state?: any) =>
-        Number.isInteger(location)
-        ? props.history.go(location)
-        : props.history.push(location, state),
+        Number.isInteger(location as number)
+        ? props.history.go(location as number)
+        : props.history.push(location as string, state),
     };
 
     this.state = {
