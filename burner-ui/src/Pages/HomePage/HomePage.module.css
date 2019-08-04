@@ -14,18 +14,6 @@
   box-sizing: border-box;
   flex: 0 0 50%;
 }
-.button {
-  display: block;
-  background-image: linear-gradient(rgb(250, 125, 54), rgb(247, 107, 28));
-  background-color: rgb(247, 107, 28);
-  color: rgb(255, 255, 255);
-  line-height: 1.5;
-  border-radius: 4px;
-  text-decoration: none;
-  padding: 6px 12px;
-  text-align: center;
-  font-size: 16px;
-}
 
 .scanBtn {
   position: fixed;

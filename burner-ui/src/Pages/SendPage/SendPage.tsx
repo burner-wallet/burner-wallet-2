@@ -6,6 +6,7 @@ import { Account } from '../../';
 import AddressInputField from '../../components/AddressInputField';
 import AddressInputSearchResults from '../../components/AddressInputSearchResults';
 import AssetSelector from '../../components/AssetSelector';
+import Button from '../../components/Button';
 import Page from '../../components/Page';
 
 interface SendPageState {
@@ -88,7 +89,7 @@ class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageSt
           <input value={value} type="num" onChange={e => this.setState({ value: e.target.value })} disabled={sending} />
         </div>
 
-        <button type="button" onClick={() => this.send()} disabled={!canSend}>Send</button>
+        <Button onClick={() => this.send()} disabled={!canSend}>Send</Button>
       </Page>
     );
   }

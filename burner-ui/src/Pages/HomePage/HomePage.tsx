@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BurnerContext, withBurner } from '../../BurnerProvider';
+import Button from '../../components/Button';
 import Page from '../../components/Page';
 import PluginElements from '../../components/PluginElements';
 import AccountBalance, { AccountBalanceData } from '../../data-providers/AccountBalance';
@@ -14,7 +15,7 @@ interface HomeButtonProps {
 
 const HomeButton: React.FC<HomeButtonProps> = ({ path, title }) => (
   <li className={classes.buttonContainer}>
-    <Link to={path} className={classes.button}>{title}</Link>
+    <Button to={path}>{title}</Button>
   </li>
 )
 

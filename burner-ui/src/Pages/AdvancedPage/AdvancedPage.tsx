@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import { BurnerContext, withBurner } from '../../BurnerProvider';
+import Button from '../../components/Button';
 import Page from '../../components/Page';
 import AccountKeys from '../../data-providers/AccountKeys';
 
@@ -25,13 +26,13 @@ const AdvancedPage: React.FC<BurnerContext> = ({ accounts }) => {
         account={accounts[0]}
         render={keys => keys && (
           <Section title="Private Key">
-            <div>
-              <button type="button" onClick={() => setShowPk(!showPk)}>
+            <div style={{ display: 'flex' }}>
+              <Button onClick={() => setShowPk(!showPk)}>
                 {showPk ? 'Hide' : 'Show'} PK
-              </button>
-              <button type="button" onClick={() => navigator.clipboard.writeText(keys.privateKey)}>
+              </Button>
+              <Button onClick={() => navigator.clipboard.writeText(keys.privateKey)}>
                 Copy PK
-              </button>
+              </Button>
             </div>
 
             {showPk && (
@@ -42,7 +43,7 @@ const AdvancedPage: React.FC<BurnerContext> = ({ accounts }) => {
             )}
 
             <div>
-              <button type="button" onClick={keys.burnAccount}>Burn PK</button>
+              <Button onClick={keys.burnAccount}>Burn PK</Button>
             </div>
           </Section>
         )}
