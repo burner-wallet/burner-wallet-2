@@ -1,0 +1,22 @@
+.inputContainer {
+  display: flex;
+  border: solid 1px #CCCCCC;
+  border-radius: 4px;
+  display: flex;
+  height: 40px;
+}
+
+.input {
+  flex: 1 0;
+  border: none;
+  font-size: 16px;
+  padding: 4px;
+  background: transparent;
+}
+
+.unit {
+  background: #d2d2d2;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}

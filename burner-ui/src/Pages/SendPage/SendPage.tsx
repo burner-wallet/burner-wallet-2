@@ -6,6 +6,7 @@ import { Account } from '../../';
 import AddressInputField from '../../components/AddressInputField';
 import AddressInputSearchResults from '../../components/AddressInputSearchResults';
 import AssetSelector from '../../components/AssetSelector';
+import AmountInput from '../../components/AmountInput';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
 
@@ -85,9 +86,12 @@ class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageSt
         <AddressInputSearchResults accounts={accounts} onSelect={(account: Account) => this.setState({ account })} />
 
         <div>Send Amount:</div>
-        <div>
-          <input value={value} type="num" onChange={e => this.setState({ value: e.target.value })} disabled={sending} />
-        </div>
+        <AmountInput
+          asset={asset}
+          value={value}
+          onChange={e => this.setState({ value: e.target.value })}
+          disabled={sending}
+        />
 
         <Button onClick={() => this.send()} disabled={!canSend}>Send</Button>
       </Page>
