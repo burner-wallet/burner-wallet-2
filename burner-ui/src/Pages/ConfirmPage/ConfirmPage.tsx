@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { BurnerContext, withBurner } from '../../BurnerProvider';
+import Button from '../../components/Button';
 import Page from '../../components/Page';
 
 const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, assets }) => {
@@ -30,9 +31,9 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, a
       <div>To: {to}</div>
       <div>From: {from}</div>
       <div>Amount: {ether} {_asset.name}</div>
-      <div>
-        <button disabled={sending} onClick={send}>Send</button>
-        <button disabled={sending} onClick={() => history.goBack()}>Cancel</button>
+      <div style={{ display: 'flex' }}>
+        <Button disabled={sending} onClick={send}>Send</Button>
+        <Button disabled={sending} onClick={() => history.goBack()}>Cancel</Button>
       </div>
     </Page>
   );
