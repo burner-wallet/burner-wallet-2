@@ -8,7 +8,7 @@ export interface AmountInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void,
   asset?: Asset | null,
   value: string,
-  disabled: boolean,
+  disabled?: boolean,
 }
 
 const AmountInput: React.FC<AmountInputProps> = ({ onChange, asset, value, disabled }) => {
@@ -17,7 +17,7 @@ const AmountInput: React.FC<AmountInputProps> = ({ onChange, asset, value, disab
   if (!isUSD && asset) {
     try {
       isUSD = asset.getUSDValue(ONE_ETH.toString()) === '1.00';
-      usdValue = asset.getUSDValue((parseInt(value) * ONE_ETH).toString());
+      usdValue = asset.getUSDValue((parseFloat(value) * ONE_ETH).toString());
     } catch (e) {}
   }
   return (
