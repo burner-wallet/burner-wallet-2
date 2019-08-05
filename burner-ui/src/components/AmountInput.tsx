@@ -4,14 +4,14 @@ const classes = require('./AmountInput.module.css');
 
 const ONE_ETH = 1000000000000000000;
 
-interface AmountInput {
+export interface AmountInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void,
   asset?: Asset | null,
   value: string,
   disabled: boolean,
 }
 
-const AmountInput: React.FC<AmountInput> = ({ onChange, asset, value, disabled }) => {
+const AmountInput: React.FC<AmountInputProps> = ({ onChange, asset, value, disabled }) => {
   let isUSD = false;
   let usdValue;
   if (!isUSD && asset) {
