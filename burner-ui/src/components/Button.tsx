@@ -11,15 +11,17 @@ export interface ButtonProps {
 const Button:React.FC<ButtonProps> = ({ to, onClick, disabled, children }) => {
   const clickHandler = disabled ? (e: MouseEvent) => e.preventDefault() : onClick;
 
+  const className = disabled ? [classes.button, classes.disabled].join(' ') : classes.button;
+
   if (to) {
     return (
-      <Link className={classes.button} to={to} onClick={clickHandler}>
+      <Link className={className} to={to} onClick={clickHandler}>
         {children}
       </Link>
     );
   } else {
     return (
-      <button className={classes.button} onClick={clickHandler} disabled={disabled}>
+      <button className={className} onClick={clickHandler} disabled={disabled}>
         {children}
       </button>
     );
