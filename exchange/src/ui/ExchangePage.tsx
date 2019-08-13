@@ -3,11 +3,13 @@ import { Asset } from '@burner-wallet/assets';
 import { PluginPageContext } from '@burner-wallet/ui';
 import Exchange from '../Exchange';
 import Pair from '../pairs/Pair';
-import Balance from './Balance';
-import PairUI from './PairUI';
+const classes = require('./ExchangePage.module.css');
 
 interface ExchangePageState {
-  balances: { [index:string] : string },
+  assetA: Asset,
+  assetB: Asset,
+  amount: string,
+  isExchanging: boolean,
 }
 
 export default class ExchangePage extends Component<PluginPageContext, ExchangePageState> {
@@ -17,76 +19,111 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
   constructor(props: PluginPageContext) {
     super(props);
     this.exchange = props.plugin as Exchange;
+    const [firstPair] = this.exchange.getPairs();
     this.state = {
-      balances: {},
+      assetA: this.exchange.getAsset(firstPair.assetA),
+      assetB: this.exchange.getAsset(firstPair.assetB),
+      amount: '',
+      isExchanging: false,
     };
-    this.poll = null;
   }
 
-  componentDidMount() {
-    this.updateBalances();
-    this.poll = setInterval(() => this.updateBalances(), 2500);
-  }
+  async runExchange() {
+    const { assetA, assetB, amount } = this.state;
+    const [account] = this.props.accounts;
 
-  componentWillUnmount() {
-    if (this.poll) {
-      clearInterval(this.poll);
+    const [pair] = this.exchange.getPairs().filter(_pair =>
+      (_pair.assetA === assetA.id && _pair.assetB === assetB.id)
+      || (_pair.assetA === assetB.id && _pair.assetB === assetA.id));
+    if (!pair) {
+      throw new Error('Invalid pair');
     }
+
+    const exchangeProps = { account, ether: amount };
+
+    this.setState({ isExchanging: true });
+    try {
+      const response = await (pair.assetA === assetA.id
+        ? pair.exchangeAtoB(exchangeProps)
+        : pair.exchangeBtoA(exchangeProps));
+    } catch (e) {
+      console.error(e);
+    }
+    this.setState({ isExchanging: false });
   }
 
-  updateBalances() {
-    const { assets, accounts } = this.props;
+  getPairOptions(asset: Asset) {
+    const pairs = this.exchange.getPairs();
 
-    const updateBalance = async (asset: Asset) => {
-      const balance = await asset.getDisplayBalance(accounts[0]);
-      const balances = {
-        ...this.state.balances,
-        [asset.id]: balance,
-      };
-      this.setState({ balances });
-    };
-
-    if (accounts.length > 0) {
-      assets.forEach(updateBalance);
+    const options = [];
+    for (const pair of pairs) {
+      if (pair.assetA === asset.id) {
+        options.push(this.exchange.getAsset(pair.assetB));
+      }
+      if (pair.assetB === asset.id) {
+        options.push(this.exchange.getAsset(pair.assetA));
+      }
     }
+    return options;
   }
 
   render() {
     const { burnerComponents, assets, accounts } = this.props;
-    const { balances } = this.state;
-    const { Page } = burnerComponents;
-
-    const pairs = this.exchange.getPairs();
+    const { assetA, assetB, amount, isExchanging } = this.state;
+    const { Page, AssetSelector, Button, AmountInput } = burnerComponents;
 
     if (accounts.length === 0) {
       return null;
     }
     const [account] = accounts;
 
-    const getBalance = (assetId: string) => (
-      <Balance
-        assetId={assetId}
-        assets={assets}
-        balances={balances}
-      />
-    )
+    const assetBOptions = this.getPairOptions(assetA);
+    const assetsProps = { assets: assetBOptions };
 
-    let lastAsset: string;
     return (
       <Page title="Exchange">
-        {pairs.map((pair: Pair, i: number) => {
-          const response = (
-            <Fragment key={i}>
-              {pair.assetA !== lastAsset && getBalance(pair.assetA)}
+        <div className={classes.fromContainer}>
+          <div>From:</div>
+          <AssetSelector
+            selected={assetA}
+            onChange={(newAsset: Asset) => {
+              this.setState({ assetA: newAsset });
+              const options = this.getPairOptions(newAsset);
+              if (options.length > 0 && options.indexOf(assetB) === -1) {
+                this.setState({ assetB: options[0] });
+              }
+            }}
+            disabled={isExchanging}
+          />
 
-              <PairUI pair={pair} assets={assets} account={account} />
+          <AmountInput
+            asset={assetA}
+            value={amount}
+            onChange={e => this.setState({ amount: e.target.value })}
+            disabled={isExchanging}
+          />
+        </div>
 
-              {getBalance(pair.assetB)}
-            </Fragment>
-          );
-          lastAsset = pair.assetB;
-          return response;
-        })}
+        {assetBOptions.length > 0 ? (
+          <Fragment>
+            <div>To:</div>
+            <AssetSelector
+              selected={assetB}
+              onChange={(newAsset: Asset) => this.setState({ assetB: newAsset })}
+              disabled={isExchanging}
+              {...assetsProps}
+            />
+          </Fragment>
+        ) : (
+          <div>No exchanges available for {assetA.name}</div>
+        )}
+
+        <Button
+          onClick={() => this.runExchange()}
+          disabled={isExchanging || assetBOptions.length === 0}
+        >
+          Exchange
+        </Button>
       </Page>
     );
   }
