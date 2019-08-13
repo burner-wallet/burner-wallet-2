@@ -5,11 +5,19 @@
 
 .selectBox {
   padding: 6px;
-  background: #EEE;
+  border: solid 1px #CCCCCC;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
 }
 .selectBox:hover {
-  background: #E4E4E4;
+  background: #EEE;
+}
+.selectBox:after {
+  content: '\25be';
+  margin: 4px;
+  color: #555;
+  display: block;
 }
 
 .selectDropdown {
@@ -30,6 +38,8 @@
   display: flex;
   align-items: center;
   padding: 4px 12px;
+  flex: 1 0;
+  cursor: default;
 }
 .assetName {
   flex: 1 0;
