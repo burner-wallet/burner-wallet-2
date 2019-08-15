@@ -36,13 +36,14 @@ export interface BurnerContext {
   completeScan: ((result: string | null) => any) | null,
 }
 
+const unavailable = () => { throw new Error('Unavailable') };
 const { Provider, Consumer } = React.createContext<BurnerContext>({
   actions: {
-    callSigner: () => { throw new Error('Unavailable') },
-    canCallSigner: () => { throw new Error('Unavailable') },
-    scanQrCode: () => { throw new Error('Unavailable') },
-    send: () => { throw new Error('Unavailable') },
-    navigateTo: () => { throw new Error('Unavailable') },
+    callSigner: unavailable,
+    canCallSigner: unavailable,
+    navigateTo: unavailable,
+    scanQrCode: unavailable,
+    send: unavailable,
   },
   assets: [],
   accounts: [],
