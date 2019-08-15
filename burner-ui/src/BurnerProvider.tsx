@@ -6,7 +6,6 @@ import { Diff } from './';
 
 interface BurnerProviderProps extends RouteComponentProps {
   core: any,
-  assets: any[],
   pluginData: BurnerPluginData,
   children: React.ReactNode,
   burnerComponents: BurnerComponents,
@@ -57,7 +56,6 @@ class BurnerProvider extends Component<BurnerProviderProps, any> {
 
   constructor(props: BurnerProviderProps) {
     super(props);
-    props.assets.forEach(asset => asset.setCore(props.core));
 
     this.actions = {
       scanQrCode: this.scanQrCode.bind(this),
@@ -102,14 +100,14 @@ class BurnerProvider extends Component<BurnerProviderProps, any> {
   }
 
   render() {
-    const { assets, pluginData, children } = this.props;
+    const { core, pluginData, children, burnerComponents } = this.props;
     const { accounts, completeScan } = this.state;
     return (
       <Provider value={{
         actions: this.actions,
         accounts,
-        assets,
-        burnerComponents: this.props.burnerComponents,
+        assets: core.getAssets(),
+        burnerComponents,
         completeScan,
         pluginData,
       }}>

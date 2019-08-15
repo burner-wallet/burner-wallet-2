@@ -16,6 +16,7 @@ const core = new BurnerCore({
     new InfuraGateway(process.env.REACT_APP_INFURA_KEY),
     new XDaiGateway(),
   ],
+  assets: [xdai, dai, eth],
 });
 
 const exchange = new Exchange({
@@ -24,8 +25,8 @@ const exchange = new Exchange({
 
 const BurnerWallet = () =>
   <BurnerUI
+    title="My Crypto Event"
     core={core}
-    assets={[xdai, dai, eth]}
     plugins={[exchange]}
   />
 

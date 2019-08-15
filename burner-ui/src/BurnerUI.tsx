@@ -14,7 +14,6 @@ import './BurnerUI.css';
 
 interface BurnerUIProps {
   core: any,
-  assets: Asset[],
   plugins: any[],
   title?: string,
 }
@@ -40,7 +39,7 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
   }
 
   getAssets() {
-    return this.props.assets;
+    return this.props.core.getAssets();
   }
 
   render() {
@@ -48,7 +47,6 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
       <Router>
         <BurnerProvider
           core={this.props.core}
-          assets={this.props.assets}
           pluginData={this.state.pluginData}
           burnerComponents={burnerComponents}
         >
