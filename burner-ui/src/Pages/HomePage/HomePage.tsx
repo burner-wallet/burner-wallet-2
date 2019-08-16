@@ -70,6 +70,15 @@ const HomePage: React.FC<BurnerContext> = ({ accounts, actions, assets, pluginDa
       ))}
     </ul>
 
+    {accounts.length > 0 && (
+      <History
+        account={accounts[0]}
+        render={(events: any[]) => events.map(event => (
+          <HistoryEvent key={JSON.stringify(event)} event={event} account={accounts[0]} />
+        ))}
+      />
+    )}
+
     <PluginElements position="home-bottom" />
 
     <Link to="/advanced">Advanced</Link>
