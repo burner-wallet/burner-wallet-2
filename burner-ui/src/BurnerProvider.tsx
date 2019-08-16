@@ -1,11 +1,13 @@
 import React, { Component, ComponentType } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Asset } from '@burner-wallet/assets';
+import BurnerCore from '@burner-wallet/core';
 import { BurnerComponents } from './components/burnerComponents';
 import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
 import { Diff } from './';
 
 interface BurnerProviderProps extends RouteComponentProps {
-  core: any,
+  core: BurnerCore,
   pluginData: BurnerPluginData,
   children: React.ReactNode,
   burnerComponents: BurnerComponents,
@@ -29,7 +31,7 @@ interface Actions {
 export interface BurnerContext {
   actions: Actions,
   accounts: string[],
-  assets: any[],
+  assets: Asset[],
   burnerComponents: BurnerComponents,
   pluginData: BurnerPluginData,
   completeScan: ((result: string | null) => any) | null,

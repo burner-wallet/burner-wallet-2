@@ -5,7 +5,9 @@ import Button from '../../components/Button';
 import Page from '../../components/Page';
 import PluginElements from '../../components/PluginElements';
 import AccountBalance, { AccountBalanceData } from '../../data-providers/AccountBalance';
+import History from '../../data-providers/History';
 import BalanceRow from './BalanceRow';
+import HistoryEvent from './HistoryEvent';
 const classes = require('./HomePage.module.css');
 
 interface HomeButtonProps {
