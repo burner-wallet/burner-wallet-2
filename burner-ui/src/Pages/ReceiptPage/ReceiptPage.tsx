@@ -27,6 +27,9 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => (
             <div>From: {tx.from}</div>
             <div>To: {tx.to}</div>
             <div>Value: {tx.displayValue} {tx.assetName}</div>
+            {tx.message && (
+              <div>Message: {tx.message}</div>
+            )}
           </div>
         )
       }}

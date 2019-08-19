@@ -12,13 +12,13 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, a
 
   const [sending, setSending] = useState(false);
 
-  const { to, from, ether, asset } = history.location.state;
+  const { to, from, ether, asset, message } = history.location.state;
   const [_asset] = assets.filter(a => a.id === asset);
 
   const send = async () => {
     setSending(true);
     try {
-      const receipt = await _asset.send({ from, to, ether: ether });
+      const receipt = await _asset.send({ from, to, ether, message });
       history.push(`/receipt/${_asset.id}/${receipt.transactionHash}`);
     } catch (err) {
       setSending(false);
@@ -31,6 +31,10 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, a
       <div>To: {to}</div>
       <div>From: {from}</div>
       <div>Amount: {ether} {_asset.name}</div>
+      {message && message.length > 0 && (
+        <div>Message: {message}</div>
+      )}
+
       <div style={{ display: 'flex' }}>
         <Button disabled={sending} onClick={send}>Send</Button>
         <Button disabled={sending} onClick={() => history.goBack()}>Cancel</Button>
