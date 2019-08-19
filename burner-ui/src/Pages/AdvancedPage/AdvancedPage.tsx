@@ -4,6 +4,7 @@ import QRCode from 'qrcode.react';
 import { BurnerContext, withBurner } from '../../BurnerProvider';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
+import PluginElements from '../../components/PluginElements';
 import AccountKeys from '../../data-providers/AccountKeys';
 
 interface SectionProps {
@@ -48,6 +49,8 @@ const AdvancedPage: React.FC<BurnerContext> = ({ accounts }) => {
           </Section>
         )}
       />
+
+      <PluginElements position="advanced" />
     </Page>
   );
 };
