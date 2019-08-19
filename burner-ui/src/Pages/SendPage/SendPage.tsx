@@ -34,10 +34,6 @@ class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageSt
     };
   }
 
-  componentDidMount() {
-    this.getAccounts('');
-  }
-
   async getAccounts(search: string) {
     const { pluginData } = this.props;
     const _accounts = await Promise.all(pluginData.accountSearches.map(searchFn => searchFn(search)));
@@ -79,11 +75,21 @@ class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageSt
         <AddressInputField
           value={to}
           account={account}
-          onChange={(to: string, account: Account | null) => this.setState({ to, account })}
+          onChange={(to: string, account: Account | null) => {
+            this.setState({ to, account });
+            if (account) {
+              this.setState({ accounts: [] });
+            } else {
+              this.getAccounts(to);
+            }
+          }}
           scan={() => this.scanCode()}
           disabled={sending}
         />
-        <AddressInputSearchResults accounts={accounts} onSelect={(account: Account) => this.setState({ account })} />
+        <AddressInputSearchResults
+          accounts={accounts}
+          onSelect={(account: Account) => this.setState({ account, accounts: [] })}
+        />
 
         <div>Send Amount:</div>
         <AmountInput
