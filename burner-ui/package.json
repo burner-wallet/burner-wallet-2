@@ -21,11 +21,15 @@
   "dependencies": {
     "@burner-wallet/assets": "0.0.17",
     "@burner-wallet/core": "0.0.19",
+    "@types/jss": "^9.5.8",
     "@types/qrcode.react": "^0.8.2",
     "@types/react": "*",
+    "@types/react-jss": "^8.6.4",
     "@types/react-qr-reader": "^2.1.2",
     "@types/react-router-dom": "^4.3.4",
+    "jss": "^9.8.7",
     "qrcode.react": "^0.9.3",
+    "react-jss": "^8.6.1",
     "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.0.1"
   }

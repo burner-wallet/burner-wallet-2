@@ -11,12 +11,12 @@ import Template from './Template';
 import HistoryProvider from './HistoryProvider';
 import Plugins from './Plugins';
 import { Plugin } from './';
-import './BurnerUI.css';
 
 interface BurnerUIProps {
   core: BurnerCore,
-  plugins: any[],
+  plugins?: any[],
   title?: string,
+  theme?: any,
 }
 
 export default class BurnerUI extends Component<BurnerUIProps, any> {
@@ -52,7 +52,7 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
           burnerComponents={burnerComponents}
         >
           <HistoryProvider core={this.props.core}>
-            <Template>
+            <Template theme={this.props.theme}>
               <Scanner />
               <Header title={this.props.title} />
               <Pages pluginData={this.state.pluginData} />
@@ -62,4 +62,8 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
       </Router>
     );
   }
+}
+
+BurnerUI.defaultProps = {
+  plugins: [],
 }
