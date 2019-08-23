@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import Page from '../../components/Page';
+import LineItem from '../../components/LineItem';
 import TransactionDetails from '../../data-providers/TransactionDetails';
 
 interface MatchParams {
@@ -24,12 +25,10 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => (
 
         return (
           <div>
-            <div>From: {tx.from}</div>
-            <div>To: {tx.to}</div>
-            <div>Value: {tx.displayValue} {tx.assetName}</div>
-            {tx.message && (
-              <div>Message: {tx.message}</div>
-            )}
+            <LineItem name="From" value={tx.from} classes={classes} />
+            <LineItem name="To" value={tx.to} classes={classes} />
+            <LineItem name="Amount" value={`${tx.displayValue} ${tx.assetName}`} classes={classes} />
+            {tx.message && <LineItem name="Message" value={tx.message} classes={classes} />}
           </div>
         )
       }}

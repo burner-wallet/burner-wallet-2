@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { BurnerContext, withBurner } from '../../BurnerProvider';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
+import LineItem from '../../components/LineItem';
 
 const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, assets }) => {
   if (!history.location.state) {
@@ -28,12 +29,10 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, a
 
   return (
     <Page title="Confirm">
-      <div>To: {to}</div>
-      <div>From: {from}</div>
-      <div>Amount: {ether} {_asset.name}</div>
-      {message && message.length > 0 && (
-        <div>Message: {message}</div>
-      )}
+      <LineItem name="From" value={from} />
+      <LineItem name="To" value={to} />
+      <LineItem name="Amount" value={`${ether} ${_asset.name}`} />
+      {message && <LineItem name="Message" value={message} />}
 
       <div style={{ display: 'flex' }}>
         <Button disabled={sending} onClick={send}>Send</Button>
