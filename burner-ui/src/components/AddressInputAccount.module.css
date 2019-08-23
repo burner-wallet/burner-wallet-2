@@ -4,6 +4,7 @@
   padding-left: 8px;
   cursor: default;
   height: 40px;
+  overflow: hidden;
 }
 .avatar {
   height: 30px;
@@ -15,9 +16,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
 }
 .title {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .subtitle {
   color: #555555;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

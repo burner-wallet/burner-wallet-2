@@ -1,5 +1,6 @@
 .qrContainer {
   text-align: center;
+  border: solid 10px '#CCCCCC';
 }
 
 .qrContainer svg {
