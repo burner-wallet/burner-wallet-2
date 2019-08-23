@@ -22,6 +22,10 @@ interface BurnerUIProps {
 export default class BurnerUI extends Component<BurnerUIProps, any> {
   private plugins: Plugins;
 
+  static defaultProps = {
+    plugins: [],
+  }
+
   constructor(props: BurnerUIProps) {
     super(props);
     this.plugins = new Plugins(props.plugins as Plugin[], this);
@@ -62,8 +66,4 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
       </Router>
     );
   }
-}
-
-BurnerUI.defaultProps = {
-  plugins: [],
 }

@@ -5,6 +5,10 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 const defaultTheme = {
   background: '#975422',
   font: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+  titleFont: null,
+  accentColor: '#f76b1c',
+  paperBackground: '#f2f2f2',
+  homeButtonColor: null,
 };
 
 const styles = (theme: any) => ({

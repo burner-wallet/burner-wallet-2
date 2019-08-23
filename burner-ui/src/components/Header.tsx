@@ -1,12 +1,40 @@
 import React from 'react';
+import injectSheet from 'react-jss';
 import { withBurner, BurnerContext } from '../BurnerProvider';
-const classes = require('./Header.module.css');
 
-interface HeaderProps {
+const styles = (theme: any) => ({
+  header: {
+    display: 'flex',
+    color: 'white',
+    height: 64,
+    alignItems: 'center',
+  },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  title: {
+    fontSize: 24,
+    fontFamily: theme.titleFont,
+  },
+  subtitle: {
+    fontSize: 12,
+  },
+  spacer: {
+    flex: '1 0',
+  },
+  headerAccount: {
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.7)',
+  },
+});
+
+interface HeaderProps extends BurnerContext {
   title?: string,
+  classes: any,
 }
 
-const Header: React.FC<BurnerContext & HeaderProps> = ({ accounts, title }) => (
+const Header: React.FC<HeaderProps> = ({ accounts, title, classes, actions }) => (
   <header className={classes.header}>
     <div className={classes.titleContainer}>
       <div className={classes.title}>{title}</div>
@@ -15,7 +43,9 @@ const Header: React.FC<BurnerContext & HeaderProps> = ({ accounts, title }) => (
       )}
     </div>
     <div className={classes.spacer}/>
-    <div className={classes.headerAccount}>{accounts.length > 0 && accounts[0].substr(2, 8)}</div>
+    <div className={classes.headerAccount} onClick={() => actions.navigateTo('/receive')}>
+      {accounts.length > 0 && accounts[0].substr(2, 8)}
+    </div>
   </header>
 );
 
@@ -23,4 +53,4 @@ Header.defaultProps = {
   title: 'Burner Wallet',
 };
 
-export default withBurner<BurnerContext & HeaderProps>(Header);
+export default injectSheet(styles)(withBurner(Header));
