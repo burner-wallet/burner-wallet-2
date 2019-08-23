@@ -1,6 +1,7 @@
 .qrContainer {
   text-align: center;
   border: solid 10px '#CCCCCC';
+  background: '#CCCCCC';
 }
 
 .qrContainer svg {
@@ -18,4 +19,15 @@
   font-size: 18px;
   color: #999999;
   padding: 6px 12px;
+}
+
+.copied, .copyHidden {
+  transition: all 1s;
+  text-align: center;
+}
+.copyHidden {
+  opacity: 0;
+}
+.copied {
+  opacity: 1,
 }
