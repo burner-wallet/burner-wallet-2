@@ -25,10 +25,10 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => (
 
         return (
           <div>
-            <LineItem name="From" value={tx.from} classes={classes} />
-            <LineItem name="To" value={tx.to} classes={classes} />
-            <LineItem name="Amount" value={`${tx.displayValue} ${tx.assetName}`} classes={classes} />
-            {tx.message && <LineItem name="Message" value={tx.message} classes={classes} />}
+            <LineItem name="From" value={tx.from} />
+            <LineItem name="To" value={tx.to} />
+            <LineItem name="Amount" value={`${tx.displayValue} ${tx.assetName}`} />
+            {tx.message && <LineItem name="Message" value={tx.message} />}
           </div>
         )
       }}
