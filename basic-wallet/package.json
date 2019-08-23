@@ -1,0 +1,45 @@
+{
+  "name": "wallet",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@burner-wallet/assets": "^0.0.19",
+    "@burner-wallet/core": "^0.0.19",
+    "@burner-wallet/exchange": "^0.0.5",
+    "@burner-wallet/ui": "^0.0.32",
+    "@types/jest": "24.0.13",
+    "@types/node": "12.0.4",
+    "@types/react": "16.8.19",
+    "@types/react-dom": "16.8.4",
+    "@types/react-router-dom": "^4.3.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "typescript": "3.5.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "customize-cra": "^0.2.13",
+    "react-app-rewired": "^2.1.3"
+  }
+}
