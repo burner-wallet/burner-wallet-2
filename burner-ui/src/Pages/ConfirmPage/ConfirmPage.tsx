@@ -5,7 +5,7 @@ import Button from '../../components/Button';
 import Page from '../../components/Page';
 import LineItem from '../../components/LineItem';
 
-const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, assets }) => {
+const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, assets, actions }) => {
   if (!history.location.state) {
     history.replace('/send');
     return null;
@@ -19,7 +19,9 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, a
   const send = async () => {
     setSending(true);
     try {
+      actions.setLoading('Sending...');
       const receipt = await _asset.send({ from, to, ether, message });
+      actions.setLoading(null);
       history.push(`/receipt/${_asset.id}/${receipt.transactionHash}`);
     } catch (err) {
       setSending(false);

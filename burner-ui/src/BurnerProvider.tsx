@@ -27,6 +27,7 @@ interface Actions {
   scanQrCode: () => Promise<string>,
   send: (params: SendParams) => void,
   navigateTo: (location: string | number, state?: any) => void,
+  setLoading: (status: string | null) => void,
 }
 
 export interface BurnerContext {
@@ -36,6 +37,13 @@ export interface BurnerContext {
   burnerComponents: BurnerComponents,
   pluginData: BurnerPluginData,
   completeScan: ((result: string | null) => any) | null,
+  loading: string | null,
+}
+
+interface BurnerProviderState {
+  accounts: string[],
+  completeScan: ((result: string | null) => any) | null,
+  loading: string | null,
 }
 
 const unavailable = () => { throw new Error('Unavailable') };
@@ -46,15 +54,17 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
     navigateTo: unavailable,
     scanQrCode: unavailable,
     send: unavailable,
+    setLoading: unavailable,
   },
   assets: [],
   accounts: [],
   pluginData: DEFAULT_PLUGIN_DATA,
   burnerComponents: {} as BurnerComponents,
   completeScan: null,
+  loading: null,
 });
 
-class BurnerProvider extends Component<BurnerProviderProps, any> {
+class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState> {
   private actions: Actions;
 
   constructor(props: BurnerProviderProps) {
@@ -69,11 +79,13 @@ class BurnerProvider extends Component<BurnerProviderProps, any> {
         Number.isInteger(location as number)
         ? props.history.go(location as number)
         : props.history.push(location as string, state),
+      setLoading: (status: string | null) => this.setState({ loading: status }),
     };
 
     this.state = {
       accounts: [],
       completeScan: null,
+      loading: null,
     }
   }
 
@@ -105,7 +117,7 @@ class BurnerProvider extends Component<BurnerProviderProps, any> {
 
   render() {
     const { core, pluginData, children, burnerComponents } = this.props;
-    const { accounts, completeScan } = this.state;
+    const { accounts, completeScan, loading } = this.state;
     return (
       <Provider value={{
         actions: this.actions,
@@ -114,6 +126,7 @@ class BurnerProvider extends Component<BurnerProviderProps, any> {
         burnerComponents,
         completeScan,
         pluginData,
+        loading,
       }}>
         {children}
       </Provider>
