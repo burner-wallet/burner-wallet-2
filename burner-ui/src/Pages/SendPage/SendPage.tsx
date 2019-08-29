@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
+import injectSheet from 'react-jss';
 import { Asset } from '@burner-wallet/assets';
 import { BurnerContext, withBurner } from '../../BurnerProvider';
 import { Account } from '../../';
@@ -20,12 +21,31 @@ interface SendPageState {
   accounts: Account[],
 }
 
-class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageState> {
+type SendPageProps = BurnerContext & RouteComponentProps & { classes: any };
+
+const styles = {
+  messageField: {
+    width: '100%',
+    padding: 4,
+    fontSize: 16,
+    background: '#EEEEEE',
+    height: 40,
+    boxSizing: 'border-box',
+    border: 'solid 1px #cccccc',
+    borderRadius: 4,
+  },
+  sendContainer: {
+    marginTop: 16,
+  },
+};
+
+class SendPage extends Component<SendPageProps, SendPageState> {
   constructor(props: BurnerContext & RouteComponentProps) {
     super(props);
     this.state = {
       to: props.location.state && props.location.state.address || '',
       value: '',
+      message: '',
       asset: null,
       sending: false,
       txHash: null,
@@ -49,17 +69,23 @@ class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageSt
   }
 
   send() {
-    const { asset, to, value } = this.state;
+    const { asset, to, value, message } = this.state;
     const { accounts, actions } = this.props;
     if (!asset) {
       throw new Error('Asset not selected');
     }
-    actions.send({ from: accounts[0], to, ether: value, asset: asset.id });
+    actions.send({
+      from: accounts[0],
+      to,
+      ether: value,
+      asset: asset.id,
+      message: message.length > 0 ? message : null,
+    });
   }
 
   render() {
-    const { to, value, asset, sending, txHash, account, accounts } = this.state;
-    const { actions } = this.props;
+    const { to, value, asset, sending, txHash, account, accounts, message } = this.state;
+    const { actions, classes } = this.props;
 
     if (txHash && asset) {
       return (
@@ -99,10 +125,23 @@ class SendPage extends Component<BurnerContext & RouteComponentProps, SendPageSt
           disabled={sending}
         />
 
-        <Button onClick={() => this.send()} disabled={!canSend}>Send</Button>
+        {asset && asset.supportsMessages() && (
+          <Fragment>
+            <div>Message:</div>
+            <input
+              value={message}
+              onChange={e => this.setState({ message: e.target.value })}
+              className={classes.messageField}
+            />
+          </Fragment>
+        )}
+
+        <div className={classes.sendContainer}>
+          <Button onClick={() => this.send()} disabled={!canSend}>Send</Button>
+        </div>
       </Page>
     );
   }
 }
 
-export default withBurner(SendPage);
+export default injectSheet(styles)(withBurner(SendPage));
