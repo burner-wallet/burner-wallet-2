@@ -13,7 +13,11 @@ Alternatively, visit https://burnerfactory.com to create your own wallet without
 #### Developer wallet
 
 Are you a developer, hoping to test changes to other modules in this project (burner-ui, exchange or plugins)?
-The code in the `wallet` directory will directly link to the source code of other projects, and give you hot reloading.
+Run `yarn start` in the `local-wallet` directory, which will connect your wallet to a local Ganache instance and move
+10 Ganache ETH to your wallet (note that Metamask will override the local account, disable it or open in incognito mode
+for local development).
+
+Alternatively, the code in the `wallet` directory will let you develop locally, while connecting to Mainnet and xDai.
 
 
 ## Packages
@@ -22,10 +26,28 @@ This is a monorepo that contains the following packages:
 
 - `@burner-wallet/ui`: The basic UI structure for any Burner Wallet 
 - `@burner-wallet/exchange`: An extendable plugin for implementing asset exchanges and bridges
+- `@burner-wallet/plugins`: Collection of standard Burner Wallet plugins (see below)
 
 ## Plugin Development
 
 The burner wallet functionality can be extended by passing plugin objects to the BurnerUI component.
+
+### Sample Plugins
+
+The following plugins are part of the `@burner-wallet/plugins` package, and can be considered "offically supported"
+
+* **[Exchange](/exchange)**: For exchanging or bridging different assets. Note that the exchange itself is also extendable
+  by adding new exchange pairs.
+* **[LegacyPlugin](/plugins/src/legacy)**: Supports URLs and QR codes from Austin's original burner code
+* **[LinkPlugin](/plugins/src/link)**: Allows generating links, which can be opened to claim tokens
+
+There are also a number of other plugins that have been developed, which may be useful for reference:
+
+* **[VendorPlugin](https://github.com/dmihal/burner-wallet-vendor-plugin)**: Use the burner wallet for ordering off a pre-set menu
+* **[HelenaPlugin](https://github.com/dmihal/helena-burner-plugin)**: Support for Helena prediction markets
+* **[ScorpioPlugin](https://github.com/dmihal/scorpio-plugin)**: For connecting wallets with social media accounts
+* **[DaedalusIndustriesPlugin](https://github.com/dmihal/daedalus-industries/tree/master/wallet/src/daedalus-plugin)**: Created for the escape room at ETHBerlin 2019, this plugin facilitates staking
+  an asset in a contract, collecting private keys as "clues", and submitting signed messages to the game contract.
 
 ### Plugin Context
 
@@ -63,10 +85,12 @@ receive the following props:
     accounts or setting new private keys.
   * `actions.canCallSigner(action, ...props)`: check if a function is available to call.
 * `burnerComponents`: an object containing a number of useful React components
-  * `burnerComponents.Page`: Container for a visual page component
-  * `burnerComponents.AssetSelector`: A drop down for selecting an asset
   * `burnerComponents.AccountBalance`: Provides the balance of an account through a render prop
   * `burnerComponents.AccountKeys`: Provides information about signing keys through a render prop
+  * `burnerComponents.AmountInput`: Component to input values of various assets (xDai, ETH)
+  * `burnerComponents.AssetSelector`: A drop down for selecting an asset
   * `burnerComponents.Assets`: Provides an array of assets through a render prop
-  * `burnerComponents.TransactionDetails`: Provides details about a transaction through a render prop
+  * `burnerComponents.Button`: A simple, styled button to click on
+  * `burnerComponents.Page`: Container for a visual page component
   * `burnerComponents.QRCode`: Renders a QR code
+  * `burnerComponents.TransactionDetails`: Provides details about a transaction through a render prop
