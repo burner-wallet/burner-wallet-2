@@ -731,10 +731,18 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@burner-wallet/assets@*", "@burner-wallet/assets@0.0.17":
+"@burner-wallet/assets@*":
   version "0.0.17"
   resolved "https://registry.yarnpkg.com/@burner-wallet/assets/-/assets-0.0.17.tgz#a613b9e90f1d1e08951c7e705c4ea9988041b4e0"
   integrity sha512-tNxwM2JPP/W6NOwz1JAlgiviq1ZBQM11KCFe4wY2eVc/DtUqp2yRXdvosv/cRr4ZYcBk9PtAZ4Z9KG93wWsxiA==
+  dependencies:
+    isomorphic-fetch "^2.2.1"
+    web3-utils "^1.0.0-beta.55"
+
+"@burner-wallet/assets@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/assets/-/assets-0.0.19.tgz#464f23a2a61d9a9929952fe30ecc261f3e0121e0"
+  integrity sha512-QPmEUsrzAuYE1DTfyLnSR6Z1N9wqTIWQ9+Mq/Dfnntkmp6VPlh5LU2hFakPOwev4cdYhZfxITXWfjIcrTeMo3A==
   dependencies:
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.55"

@@ -18,7 +18,7 @@ interface SendParams {
   ether: string,
   to: string,
   from?: string,
-  message?: string,
+  message?: string | null,
 }
 
 interface Actions {

@@ -19,6 +19,7 @@ interface SendPageState {
   txHash: string | null,
   account: Account | null,
   accounts: Account[],
+  message: string,
 }
 
 type SendPageProps = BurnerContext & RouteComponentProps & { classes: any };
@@ -40,7 +41,7 @@ const styles = {
 };
 
 class SendPage extends Component<SendPageProps, SendPageState> {
-  constructor(props: BurnerContext & RouteComponentProps) {
+  constructor(props: SendPageProps) {
     super(props);
     this.state = {
       to: props.location.state && props.location.state.address || '',
