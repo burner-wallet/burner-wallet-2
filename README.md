@@ -2,6 +2,24 @@
 
 The Burner Wallet 2.0 is a modular, extendable and cusomizable web application for seamless crypto payments.
 
+Create a burner wallet in just a few lines of code:
+
+```JSX
+const core = new BurnerCore({
+  signers: [new InjectedSigner(), new LocalSigner()],
+  gateways: [new InfuraGateway(process.env.REACT_APP_INFURA_KEY), new XDaiGateway()],
+  assets: [xdai, dai, eth],
+});
+
+const exchange = new Exchange({ pairs: [xdaiBridge, uniswapDai] });
+
+const BurnerWallet = () =>
+  <BurnerUI
+    core={core}
+    plugins={[exchange, new LinkPlugin()]}
+  />
+```
+
 ### Running the wallet
 
 #### Simple, customized wallet
@@ -27,6 +45,9 @@ This is a monorepo that contains the following packages:
 - `@burner-wallet/ui`: The basic UI structure for any Burner Wallet 
 - `@burner-wallet/exchange`: An extendable plugin for implementing asset exchanges and bridges
 - `@burner-wallet/plugins`: Collection of standard Burner Wallet plugins (see below)
+
+The Burner Wallet 2 is dependent on the [`burner-core`](austintgriffith/burner-core) packages
+(`@burner-wallet/core` and `@burner-wallet/assets`) for handling core blockchain functionality.
 
 ## Plugin Development
 
