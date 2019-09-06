@@ -7,8 +7,8 @@ interface PluginElementsProps extends BurnerContext {
   position: string,
 }
 
-const PluginElements: React.FC<PluginElementsProps> = ({ position, ...props }) => {
-  const elements = props.pluginData.elements[position];
+const PluginElements: React.FC<PluginElementsProps> = ({ position, pluginData, ...props }) => {
+  const elements = pluginData.elements[position];
   if (!elements || elements.length === 0) {
     return null;
   }
