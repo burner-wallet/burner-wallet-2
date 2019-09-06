@@ -6,7 +6,7 @@
     "@burner-wallet/assets": "^0.0.19",
     "@burner-wallet/core": "^0.0.19",
     "@burner-wallet/exchange": "^0.0.5",
-    "@burner-wallet/ui": "^0.0.32",
+    "@burner-wallet/ui": "^0.0.34",
     "@types/jest": "24.0.13",
     "@types/node": "12.0.4",
     "@types/react": "16.8.19",

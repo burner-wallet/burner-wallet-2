@@ -991,14 +991,6 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.55"
 
-"@burner-wallet/assets@0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/assets/-/assets-0.0.17.tgz#a613b9e90f1d1e08951c7e705c4ea9988041b4e0"
-  integrity sha512-tNxwM2JPP/W6NOwz1JAlgiviq1ZBQM11KCFe4wY2eVc/DtUqp2yRXdvosv/cRr4ZYcBk9PtAZ4Z9KG93wWsxiA==
-  dependencies:
-    isomorphic-fetch "^2.2.1"
-    web3-utils "^1.0.0-beta.55"
-
 "@burner-wallet/assets@^0.0.19":
   version "0.0.19"
   resolved "https://registry.yarnpkg.com/@burner-wallet/assets/-/assets-0.0.19.tgz#464f23a2a61d9a9929952fe30ecc261f3e0121e0"
@@ -1041,12 +1033,12 @@
     react-qr-reader "^2.2.1"
     react-router-dom "^5.0.1"
 
-"@burner-wallet/ui@^0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/ui/-/ui-0.0.32.tgz#234a8276ac137873019d7bc76c0cc94f405055f3"
-  integrity sha512-jV1MsFTlXTDCKx0kxXNXFxS0dkDJ4ZJ1kuqadwPtx+o/mOXd33KPjScfYaiuieUGn5whMnKNK31MPK3W+NjABg==
+"@burner-wallet/ui@^0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/ui/-/ui-0.0.34.tgz#ddc51c45ef276d0ea9ca66779e1bac50627d1b29"
+  integrity sha512-IDOlYzruMl7WYr6UusWr76c0aj8U5KloB78N0cCO6wlw1ynMIgSXm6of1fnr7TgafISCJcuDDEBAUermkjdOuQ==
   dependencies:
-    "@burner-wallet/assets" "0.0.17"
+    "@burner-wallet/assets" "^0.0.19"
     "@burner-wallet/core" "0.0.19"
     "@types/color" "^3.0.0"
     "@types/jss" "^9.5.8"
