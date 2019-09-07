@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import { RouteComponentProps } from 'react-router-dom';
-import { withBurner } from './BurnerProvider';
+import { withBurner, Actions } from './BurnerProvider';
 import BurnerUI from './BurnerUI';
 import { Plugin, PluginPage, BasePluginContext, PluginElement } from './';
 
@@ -21,13 +21,19 @@ interface PluginHomeButton {
   path: string,
 }
 
+interface PluginContext {
+  actions: Actions,
+}
+
 type AccountSearchFn = (query: string) => Promise<Account[]>;
+type QRScannedFn = (qr: string, context?: PluginContext) => boolean;
 
 export interface BurnerPluginData {
   pages: PluginPageData[],
   homeButtons: PluginHomeButton[],
   elements: { [position:string]: PluginElementData[] },
-  accountSearches: AccountSearchFn[], 
+  accountSearches: AccountSearchFn[],
+  tryHandleQR: (qr: string, context: PluginContext) => boolean,
 }
 
 export interface BurnerPluginContext {
@@ -37,6 +43,7 @@ export interface BurnerPluginContext {
   getAssets: () => Asset[],
   getWeb3: (network: string, options?: any) => any,
   onAccountSearch: (callback: AccountSearchFn) => void,
+  onQRScanned: (callback: QRScannedFn) => void,
 }
 
 export const DEFAULT_PLUGIN_DATA = {
@@ -44,17 +51,23 @@ export const DEFAULT_PLUGIN_DATA = {
   homeButtons: [],
   elements: {},
   accountSearches: [],
+  tryHandleQR: () => false,
 };
 
 export default class Plugins {
   private changeListeners: ((data: BurnerPluginData) => void)[];
+  private qrHandlers: QRScannedFn[];
   private pluginData: BurnerPluginData;
   private ui: BurnerUI;
 
   constructor(plugins: Plugin[], ui: BurnerUI) {
     this.changeListeners = [];
+    this.qrHandlers = [];
     this.ui = ui;
-    this.pluginData = DEFAULT_PLUGIN_DATA;
+    this.pluginData = {
+      ...DEFAULT_PLUGIN_DATA,
+      tryHandleQR: this.tryHandleQR.bind(this),
+    };
 
     plugins.forEach(plugin => plugin.initializePlugin(this.getPluginContext(plugin)));
   }
@@ -72,6 +85,7 @@ export default class Plugins {
       addElement: (position: string, Component: PluginElement) =>
         this.addPluginElement(plugin, position, Component),
       onAccountSearch: (callback: AccountSearchFn) => this.addAccountSearch(callback),
+      onQRScanned: (callback: QRScannedFn) => this.qrHandlers.push(callback),
       addPage: (path: string, Component: PluginPage) => this.addPluginPage(plugin, path, Component),
       addHomeButton: (title: string, path: string) => this.addPluginHomeButton(plugin, title, path),
       getAssets: () => this.ui.getAssets(),
@@ -115,5 +129,14 @@ export default class Plugins {
     this.setPluginData({
       accountSearches: [...this.pluginData.accountSearches, callback],
     });
+  }
+
+  tryHandleQR(qr: string, context: PluginContext) {
+    for (const handler of this.qrHandlers) {
+      if (handler(qr, context)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

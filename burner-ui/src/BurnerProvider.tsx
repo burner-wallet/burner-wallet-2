@@ -21,7 +21,7 @@ interface SendParams {
   message?: string | null,
 }
 
-interface Actions {
+export interface Actions {
   callSigner: (action: string, ...props: any[]) => string,
   canCallSigner: (action: string, ...props: any[]) => boolean,
   scanQrCode: () => Promise<string>,

@@ -70,7 +70,9 @@ const HomePage: React.FC<BurnerContext & { classes: any }> = ({ accounts, action
     <button className={classes.scanBtn} onClick={async () => {
       try {
         const result = await actions.scanQrCode();
-        if (ADDRESS_REGEX.test(result)) {
+        if (pluginData.tryHandleQR(result, { actions })) {
+          return;
+        } else if (ADDRESS_REGEX.test(result)) {
           actions.navigateTo('/send', { address: result });
         } else if (PK_REGEX.test(result)) {
           actions.callSigner('writeKey', accounts[0], result);

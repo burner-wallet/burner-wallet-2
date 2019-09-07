@@ -87,6 +87,10 @@ each plugin. The plugin has access to the following methods of pluginContext obj
   network ID (ex: '1' for mainnet, '100' for xDai).
 * `onAccountSearch: (callback: (query: string) => Promise<Account[]>) => void`: Provide a function
   to be called when the user types into an account input field. Used to suggest accounts to the user.
+* `onQRScanned: (callback: (qr: string, { actions }) => bool) => void`: Provide a function to be
+  called when the user scans a QR code on the home page. The function is passed the text of the QR
+  code and the "actions" object (see below). The function must return true if is taking an action
+  based on the QR code. _Note: URLs on the wallet's current domain are automatically handled_
 
 ### Burner Plugin Props
 
