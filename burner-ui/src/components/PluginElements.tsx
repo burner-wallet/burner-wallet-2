@@ -3,11 +3,11 @@ import { PluginElementData } from '../Plugins';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 import { Plugin, PluginElementContext } from '../';
 
-interface PluginElementsProps extends BurnerContext {
+export interface PluginElementsProps  {
   position: string,
 }
 
-const PluginElements: React.FC<PluginElementsProps> = ({ position, pluginData, ...props }) => {
+const PluginElements: React.FC<PluginElementsProps & BurnerContext> = ({ position, pluginData, ...props }) => {
   const elements = pluginData.elements[position];
   if (!elements || elements.length === 0) {
     return null;
@@ -22,4 +22,4 @@ const PluginElements: React.FC<PluginElementsProps> = ({ position, pluginData, .
   );
 };
 
-export default withBurner<PluginElementsProps>(PluginElements);
+export default withBurner<PluginElementsProps & BurnerContext>(PluginElements);

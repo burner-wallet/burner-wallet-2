@@ -11,7 +11,7 @@ import AccountBalance, { AccountBalanceData } from '../../data-providers/Account
 import History from '../../data-providers/History';
 import { SCAN_QR_DATAURI } from '../../constants';
 import BalanceRow from './BalanceRow';
-import HistoryEvent from './HistoryEvent';
+import HistoryListEvent from './HistoryListEvent';
 
 const styles = (theme: any) => ({
   balances: {
@@ -117,7 +117,12 @@ const HomePage: React.FC<BurnerContext & { classes: any }> = ({ accounts, action
       <History
         account={accounts[0]}
         render={(events: any[]) => events.map(event => (
-          <HistoryEvent key={JSON.stringify(event)} event={event} account={accounts[0]} />
+          <HistoryListEvent
+            key={JSON.stringify(event)}
+            event={event}
+            account={accounts[0]}
+            navigateTo={actions.navigateTo}
+          />
         ))}
       />
     )}

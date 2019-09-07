@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 import injectSheet from 'react-jss';
 import { Asset } from '@burner-wallet/assets';
-import PluginElements from '../../components/PluginElements';
+import HistoryEvent from '@burner-wallet/core/HistoryEvent';
+import PluginElements, { PluginElementsProps } from '../../components/PluginElements';
+
+const HistoryPluginElements = PluginElements as React.FC<PluginElementsProps & { event: HistoryEvent }>;
 
 const styles = {
   container: {
@@ -39,14 +42,15 @@ const styles = {
   },
 };
 
-interface HistoryEventProps {
-  event: any,
+interface HistoryListEventProps {
+  event: HistoryEvent,
   account?: string,
   classes: any,
+  navigateTo: (path: string) => void,
 }
 
-const HistoryEvent: React.FC<HistoryEventProps> = ({ event, account, classes }) => {
-  const asset = event.getAsset() as Asset;
+const HistoryListEvent: React.FC<HistoryListEventProps> = ({ event, account, classes, navigateTo }) => {
+  const asset = event.getAsset();
   if (!asset) {
     console.warn(`Could not find asset ${event.asset}`)
     return null;
@@ -54,6 +58,7 @@ const HistoryEvent: React.FC<HistoryEventProps> = ({ event, account, classes }) 
 
   let type;
   let main;
+  let onClick;
   let subDetail = null;
   switch (event.type) {
     case 'send':
@@ -70,6 +75,7 @@ const HistoryEvent: React.FC<HistoryEventProps> = ({ event, account, classes }) 
       if (event.message && event.message.length > 0) {
         subDetail = event.message;
       }
+      onClick = () => navigateTo(`/receipt/${asset.id}/${event.tx}`);
       break;
     case 'exchange':
       type = 'Exchange';
@@ -79,7 +85,7 @@ const HistoryEvent: React.FC<HistoryEventProps> = ({ event, account, classes }) 
   }
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} onClick={onClick}>
       <div className={classes.type}>{type}</div>
       <div className={classes.details}>
         <div className={classes.mainDetail}>{main}</div>
@@ -88,9 +94,9 @@ const HistoryEvent: React.FC<HistoryEventProps> = ({ event, account, classes }) 
         )}
       </div>
       <div className={classes.value}>{asset.getDisplayValue(event.value)} {asset.name}</div>
-      <PluginElements position="history-event" event={event} />
+      <HistoryPluginElements position="history-event" event={event} />
     </div>
   );
 }
 
-export default injectSheet(styles)(HistoryEvent);
+export default injectSheet(styles)(HistoryListEvent);

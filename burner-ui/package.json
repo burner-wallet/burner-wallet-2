@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@burner-wallet/assets": "^0.0.19",
-    "@burner-wallet/core": "0.0.19",
+    "@burner-wallet/core": "^0.0.22",
     "@types/color": "^3.0.0",
     "@types/jss": "^9.5.8",
     "@types/qrcode.react": "^0.8.2",
