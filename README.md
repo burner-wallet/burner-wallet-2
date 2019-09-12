@@ -42,6 +42,27 @@ Note that Metamask will override the local account, disable it or open in incogn
 
 Alternatively, the code in the `wallet` directory will let you develop locally, while connecting to Mainnet and xDai.
 
+## Customization
+
+The wallet can be visually customized by passing `theme` and `title` props to the BurnerUI component.
+
+```JSX
+const theme = {
+  background: '#282325',
+  titleFont: '"workSans", sans-serif',
+  paperBackground: '#282325',
+  accentColor: '#E84441',
+  homeButtonColor: '#BBBBBB',
+};
+
+const BurnerWallet = () =>
+  <BurnerUI
+    title="daedalus industries"
+    theme={theme}
+    core={core}
+  />
+```
+
 
 ## Packages
 
