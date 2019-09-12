@@ -21,7 +21,8 @@
     "start-wallet": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "install-all": "./scripts/install.sh"
   },
   "eslintConfig": {
     "extends": "react-app"

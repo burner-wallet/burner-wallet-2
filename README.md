@@ -31,9 +31,14 @@ Alternatively, visit https://burnerfactory.com to create your own wallet without
 #### Developer wallet
 
 Are you a developer, hoping to test changes to other modules in this project (burner-ui, exchange or plugins)?
-Run `yarn start` in the `local-wallet` directory, which will connect your wallet to a local Ganache instance and move
-10 Ganache ETH to your wallet (note that Metamask will override the local account, disable it or open in incognito mode
-for local development).
+
+The `local-wallet` diretory has a wallet that will connect to a local Ganache instance and transfer
+10 Ganache ETH to your wallet.
+
+To start this wallet, `cd` into the `local-wallet` directory, run `yarn install-all` to install
+dependencies, then run `yarn start`.
+
+Note that Metamask will override the local account, disable it or open in incognito mode for local development.
 
 Alternatively, the code in the `wallet` directory will let you develop locally, while connecting to Mainnet and xDai.
 
