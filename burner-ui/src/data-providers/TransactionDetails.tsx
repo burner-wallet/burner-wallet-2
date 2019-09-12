@@ -4,7 +4,7 @@ import { withBurner, BurnerContext } from '../BurnerProvider';
 export interface TransactionDetailsProps {
   asset: string,
   txHash: string,
-  render: (err: Error, tx: any) => React.ReactNode,
+  render: (tx: any) => React.ReactNode,
 }
 
 interface Transaction {
@@ -20,7 +20,6 @@ class TransactionDetails extends Component<BurnerContext & TransactionDetailsPro
     super(props);
     this.state = {
       tx: null,
-      err: null,
     };
   }
 
@@ -43,14 +42,16 @@ class TransactionDetails extends Component<BurnerContext & TransactionDetailsPro
       const asset = assetList[0];
 
       const tx = await asset.getTx(this.props.txHash);
-      this.setState({ tx, err: null });
+      this.setState({ tx });
+      setTimeout(() => this.fetchData(), 2500);
     } catch (err) {
-      this.setState({ err, tx: null });
+      console.warn(err);
+      setTimeout(() => this.fetchData(), 2500);
     }
   }
 
   render() {
-    return this.props.render(this.state.err, this.state.tx);
+    return this.props.render(this.state.tx);
   }
 }
 
