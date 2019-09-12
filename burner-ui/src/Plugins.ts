@@ -25,8 +25,20 @@ interface PluginContext {
   actions: Actions,
 }
 
+interface SentData {
+  asset: Asset,
+  from: string,
+  to: string,
+  ether: string,
+  message: string | null,
+  receipt: any,
+  hash: string,
+  id?: string | null,
+}
+
 type AccountSearchFn = (query: string) => Promise<Account[]>;
 type QRScannedFn = (qr: string, context?: PluginContext) => boolean;
+type TXSentFn = (data: SentData) => string | void | null;
 
 export interface BurnerPluginData {
   pages: PluginPageData[],
@@ -34,6 +46,7 @@ export interface BurnerPluginData {
   elements: { [position:string]: PluginElementData[] },
   accountSearches: AccountSearchFn[],
   tryHandleQR: (qr: string, context: PluginContext) => boolean,
+  sent: TXSentFn,
 }
 
 export interface BurnerPluginContext {
@@ -44,6 +57,7 @@ export interface BurnerPluginContext {
   getWeb3: (network: string, options?: any) => any,
   onAccountSearch: (callback: AccountSearchFn) => void,
   onQRScanned: (callback: QRScannedFn) => void,
+  onSent: (callback: TXSentFn) => void,
 }
 
 export const DEFAULT_PLUGIN_DATA = {
@@ -52,21 +66,25 @@ export const DEFAULT_PLUGIN_DATA = {
   elements: {},
   accountSearches: [],
   tryHandleQR: () => false,
+  sent: () => null,
 };
 
 export default class Plugins {
   private changeListeners: ((data: BurnerPluginData) => void)[];
   private qrHandlers: QRScannedFn[];
+  private sentHandlers: TXSentFn[];
   private pluginData: BurnerPluginData;
   private ui: BurnerUI;
 
   constructor(plugins: Plugin[], ui: BurnerUI) {
     this.changeListeners = [];
+    this.sentHandlers = [];
     this.qrHandlers = [];
     this.ui = ui;
     this.pluginData = {
       ...DEFAULT_PLUGIN_DATA,
       tryHandleQR: this.tryHandleQR.bind(this),
+      sent: this.sent.bind(this),
     };
 
     plugins.forEach(plugin => plugin.initializePlugin(this.getPluginContext(plugin)));
@@ -86,6 +104,7 @@ export default class Plugins {
         this.addPluginElement(plugin, position, Component),
       onAccountSearch: (callback: AccountSearchFn) => this.addAccountSearch(callback),
       onQRScanned: (callback: QRScannedFn) => this.qrHandlers.push(callback),
+      onSent: (callback: TXSentFn) => this.sentHandlers.push(callback),
       addPage: (path: string, Component: PluginPage) => this.addPluginPage(plugin, path, Component),
       addHomeButton: (title: string, path: string) => this.addPluginHomeButton(plugin, title, path),
       getAssets: () => this.ui.getAssets(),
@@ -138,5 +157,16 @@ export default class Plugins {
       }
     }
     return false;
+  }
+
+  sent(data: SentData) {
+    let redirect = null;
+    for (const listener of this.sentHandlers) {
+      const response = listener(data);
+      if (!redirect && response && response.length) {
+        redirect = response;
+      }
+    }
+    return redirect;
   }
 }

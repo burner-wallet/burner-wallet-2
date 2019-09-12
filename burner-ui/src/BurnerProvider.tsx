@@ -19,6 +19,7 @@ interface SendParams {
   to: string,
   from?: string,
   message?: string | null,
+  id?: string | null,
 }
 
 export interface Actions {
@@ -110,10 +111,10 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
     });
   }
 
-  send({ asset, ether, to, from, message }: SendParams) {
+  send({ asset, ether, to, from, message, id }: SendParams) {
     const _from = from || this.state.accounts[0];
     const _ether = ether && ether.length > 0 ? ether : '0';
-    this.props.history.push('/confirm', { asset, ether: _ether, to, from: _from, message });
+    this.props.history.push('/confirm', { asset, ether: _ether, to, from: _from, message, id });
   }
 
   render() {

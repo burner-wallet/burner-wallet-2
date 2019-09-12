@@ -117,6 +117,11 @@ each plugin. The plugin has access to the following methods of pluginContext obj
   called when the user scans a QR code on the home page. The function is passed the text of the QR
   code and the "actions" object (see below). The function must return true if is taking an action
   based on the QR code. _Note: URLs on the wallet's current domain are automatically handled_
+* `onSent: (callback: (txData) => string | null) => void`:  Provide a function to be called when
+  the user sends an asset through the normal send mechanism. Callback will receive an object with
+  the asset, sender and recipient address, amount, message, web3 receipt, transaction hash and an
+  id if specified in the send function. If the function returns a string, the wallet will redirect
+  to that address.
 
 ### Burner Plugin Props
 
@@ -129,8 +134,9 @@ receive the following props:
 * `actions`: an object containing a number of functions that plugins may call:
   * `actions.scanQrCode()`: Opens a full-screen QR code scanner. Returns a promise, which is
     resolved to the scanned value or rejected if the user cancels the scan.
-  * `actions.send({ to, from, asset, ether })`: Call to send an asset. Will redirect the user to a send
-    confirmation page.
+  * `actions.send({ to, from?, asset, ether, id? })`: Call to send an asset. Will redirect the user to a send
+    confirmation page. If from is not set, it will default to the primary account. The optional id paramater
+    is used to identify transactions in the `onSent` callback.
   * `actions.navigateTo(path, [state])`: Navigates the app to a new URL.
   * `actions.callSigner(action, ...props)`: call functions in the signer objects. Used for burning
     accounts or setting new private keys.
