@@ -71,12 +71,11 @@ class SendPage extends Component<SendPageProps, SendPageState> {
 
   send() {
     const { asset, to, value, message } = this.state;
-    const { accounts, actions } = this.props;
+    const { actions } = this.props;
     if (!asset) {
       throw new Error('Asset not selected');
     }
     actions.send({
-      from: accounts[0],
       to,
       ether: value,
       asset: asset.id,

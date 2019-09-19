@@ -19,12 +19,12 @@ const Section: React.FC<SectionProps> = ({ title, children }) => (
   </div>
 )
 
-const AdvancedPage: React.FC<BurnerContext> = ({ accounts }) => {
+const AdvancedPage: React.FC<BurnerContext> = ({ defaultAccount }) => {
   const [showPk, setShowPk] = React.useState(false);
   return (
     <Page title="Advanced">
       <AccountKeys
-        account={accounts[0]}
+        account={defaultAccount}
         render={keys => keys && (
           <Section title="Private Key">
             <div style={{ display: 'flex' }}>

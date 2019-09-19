@@ -129,8 +129,8 @@ Pages (added with `pluginContext.addPage`) and elements (added with `pluginConte
 receive the following props:
 
 * `assets`: an array of Asset objects
-* `accounts`: an array of ethereum addresses that are available to use. Typically `account[0]` is
-  used. Note that the accounts array may be empty when the application is first loaded.
+* `defaultAccount`: the primary account used by the wallet. Equivelant to `accounts[0]`.
+* `accounts`: an array of ethereum addresses that are available to use.
 * `actions`: an object containing a number of functions that plugins may call:
   * `actions.scanQrCode()`: Opens a full-screen QR code scanner. Returns a promise, which is
     resolved to the scanned value or rejected if the user cancels the scan.

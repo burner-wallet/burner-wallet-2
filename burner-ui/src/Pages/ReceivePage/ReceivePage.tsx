@@ -37,32 +37,28 @@ const styles = {
   },
 };
 
-const ReceivePage: React.FC<BurnerContext & { classes: any }> = ({ accounts, classes }) => {
+const ReceivePage: React.FC<BurnerContext & { classes: any }> = ({ defaultAccount, classes }) => {
   const [showCopied, setShowCopied] = useState(false);
   return (
     <Page title="Receive">
-      {accounts.length > 0 && (
-        <Fragment>
-          <div className={classes.qrContainer}>
-            <QRCode value={accounts[0]} renderAs="svg" />
-          </div>
-          <div className={classes.addressContainer}>
-            <input
-              value={accounts[0]}
-              readOnly
-              className={classes.address}
-              onClick={() => {
-                navigator.clipboard.writeText(accounts[0]);
-                setShowCopied(true);
-                setTimeout(() => setShowCopied(false), 5000);
-              }}
-            />
-          </div>
-          <div className={showCopied ? classes.copied : classes.copyHidden}>
-            Address copied to clipboard
-          </div>
-        </Fragment>
-      )}
+      <div className={classes.qrContainer}>
+        <QRCode value={defaultAccount} renderAs="svg" />
+      </div>
+      <div className={classes.addressContainer}>
+        <input
+          value={defaultAccount}
+          readOnly
+          className={classes.address}
+          onClick={() => {
+            navigator.clipboard.writeText(defaultAccount);
+            setShowCopied(true);
+            setTimeout(() => setShowCopied(false), 5000);
+          }}
+        />
+      </div>
+      <div className={showCopied ? classes.copied : classes.copyHidden}>
+        Address copied to clipboard
+      </div>
     </Page>
   );
 };

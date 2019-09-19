@@ -65,7 +65,7 @@ const HomeButton: React.FC<HomeButtonProps> = ({ path, title, classes }) => (
 const ADDRESS_REGEX = /^(?:0x)?[0-9a-f]{40}$/i;
 const PK_REGEX = /^(?:0x)?[0-9a-f]{64}$/i;
 
-const HomePage: React.FC<BurnerContext & { classes: any }> = ({ accounts, actions, assets, pluginData, classes }) => (
+const HomePage: React.FC<BurnerContext & { classes: any }> = ({ defaultAccount, actions, assets, pluginData, classes }) => (
   <Page>
     <button className={classes.scanBtn} onClick={async () => {
       try {
@@ -75,7 +75,7 @@ const HomePage: React.FC<BurnerContext & { classes: any }> = ({ accounts, action
         } else if (ADDRESS_REGEX.test(result)) {
           actions.navigateTo('/send', { address: result });
         } else if (PK_REGEX.test(result)) {
-          actions.callSigner('writeKey', accounts[0], result);
+          actions.callSigner('writeKey', defaultAccount, result);
         } else if (result.indexOf(location.origin) === 0) {
           actions.navigateTo(result.substr(location.origin.length));
         }
@@ -84,24 +84,22 @@ const HomePage: React.FC<BurnerContext & { classes: any }> = ({ accounts, action
 
     <PluginElements position="home-top" />
 
-    {accounts.length > 0 ? (
-      <ul className={classes.balances}>
-        {assets.map(asset =>
-          <AccountBalance
-            key={asset.id}
-            asset={asset.id}
-            account={accounts[0]}
-            render={(err: Error, data: AccountBalanceData | null) => (
-              <BalanceRow
-                asset={asset}
-                usdBalance={data && data.usdBalance}
-                balance={data && data.displayBalance}
-              />
-            )}
-          />
-        )}
-      </ul>
-    )  : 'Loading'}
+    <ul className={classes.balances}>
+      {assets.map(asset =>
+        <AccountBalance
+          key={asset.id}
+          asset={asset.id}
+          account={defaultAccount}
+          render={(err: Error, data: AccountBalanceData | null) => (
+            <BalanceRow
+              asset={asset}
+              usdBalance={data && data.usdBalance}
+              balance={data && data.displayBalance}
+            />
+          )}
+        />
+      )}
+    </ul>
 
     <PluginElements position="home-middle" />
 
@@ -113,19 +111,17 @@ const HomePage: React.FC<BurnerContext & { classes: any }> = ({ accounts, action
       ))}
     </ul>
 
-    {accounts.length > 0 && (
-      <History
-        account={accounts[0]}
-        render={(events: any[]) => events.map(event => (
-          <HistoryListEvent
-            key={JSON.stringify(event)}
-            event={event}
-            account={accounts[0]}
-            navigateTo={actions.navigateTo}
-          />
-        ))}
-      />
-    )}
+    <History
+      account={defaultAccount}
+      render={(events: any[]) => events.map(event => (
+        <HistoryListEvent
+          key={JSON.stringify(event)}
+          event={event}
+          account={defaultAccount}
+          navigateTo={actions.navigateTo}
+        />
+      ))}
+    />
 
     <PluginElements position="home-bottom" />
 

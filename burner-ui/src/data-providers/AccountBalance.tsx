@@ -79,7 +79,7 @@ class AccountBalance extends Component<AccountBalanceProps, any> {
   }
 
   async getBalance(asset: Asset) {
-    const account = this.props.account || this.props.accounts[0];
+    const account = this.props.account || this.props.defaultAccount;
     const cacheKey = `${asset.id}-${account}`;
     const cachedVal = getCache(cacheKey);
     if (cachedVal) {

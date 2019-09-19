@@ -5,6 +5,7 @@ import BurnerCore from '@burner-wallet/core';
 import { BurnerComponents } from './components/burnerComponents';
 import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
 import { Diff } from './';
+import { ZERO_ADDR } from './constants';
 
 interface BurnerProviderProps extends RouteComponentProps {
   core: BurnerCore,
@@ -34,6 +35,7 @@ export interface Actions {
 export interface BurnerContext {
   actions: Actions,
   accounts: string[],
+  defaultAccount: string,
   assets: Asset[],
   burnerComponents: BurnerComponents,
   pluginData: BurnerPluginData,
@@ -59,6 +61,7 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
   },
   assets: [],
   accounts: [],
+  defaultAccount: ZERO_ADDR,
   pluginData: DEFAULT_PLUGIN_DATA,
   burnerComponents: {} as BurnerComponents,
   completeScan: null,
@@ -127,10 +130,11 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
         assets: core.getAssets(),
         burnerComponents,
         completeScan,
+        defaultAccount: accounts.length > 0 ? accounts[0] : ZERO_ADDR,
         pluginData,
         loading,
       }}>
-        {children}
+        {accounts.length > 0 && children}
       </Provider>
     )
   }

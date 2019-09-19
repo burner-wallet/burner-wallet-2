@@ -34,7 +34,7 @@ interface HeaderProps extends BurnerContext {
   classes: any,
 }
 
-const Header: React.FC<HeaderProps> = ({ accounts, title, classes, actions }) => (
+const Header: React.FC<HeaderProps> = ({ defaultAccount, title, classes, actions }) => (
   <header className={classes.header}>
     <div className={classes.titleContainer}>
       <div className={classes.title}>{title}</div>
@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ accounts, title, classes, actions }) =>
     </div>
     <div className={classes.spacer}/>
     <div className={classes.headerAccount} onClick={() => actions.navigateTo('/receive')}>
-      {accounts.length > 0 && accounts[0].substr(2, 8)}
+      {defaultAccount.substr(2, 8)}
     </div>
   </header>
 );
