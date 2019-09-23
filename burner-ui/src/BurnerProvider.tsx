@@ -14,9 +14,10 @@ interface BurnerProviderProps extends RouteComponentProps {
   burnerComponents: BurnerComponents,
 }
 
-interface SendParams {
+export interface SendParams {
   asset: string,
-  ether: string,
+  ether?: string,
+  value?: string,
   to: string,
   from?: string,
   message?: string | null,
@@ -114,10 +115,10 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
     });
   }
 
-  send({ asset, ether, to, from, message, id }: SendParams) {
+  send({ asset, ether, value, to, from, message, id }: SendParams) {
     const _from = from || this.state.accounts[0];
-    const _ether = ether && ether.length > 0 ? ether : '0';
-    this.props.history.push('/confirm', { asset, ether: _ether, to, from: _from, message, id });
+    const _ether = (ether && ether.length > 0) || value ? ether : '0';
+    this.props.history.push('/confirm', { asset, ether: _ether, value, to, from: _from, message, id });
   }
 
   render() {

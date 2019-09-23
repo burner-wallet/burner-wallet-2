@@ -90,7 +90,7 @@ const HomePage: React.FC<BurnerContext & { classes: any }> = ({ defaultAccount, 
           key={asset.id}
           asset={asset.id}
           account={defaultAccount}
-          render={(err: Error, data: AccountBalanceData | null) => (
+          render={(data: AccountBalanceData | null) => (
             <BalanceRow
               asset={asset}
               usdBalance={data && data.usdBalance}

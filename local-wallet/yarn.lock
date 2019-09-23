@@ -924,10 +924,10 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.55"
 
-"@burner-wallet/assets@^0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/assets/-/assets-0.0.20.tgz#36fb9b314a653687b48eb87f996fc6e0ab6b6739"
-  integrity sha512-BQQKq6zH/KYK/0uTt/4o6DGZgWbY/vi0YJnYArJC2TkCJAbLrObZVut+Q4DqgaYPBcV3ofH8ypxJ8tCHDY2k6Q==
+"@burner-wallet/assets@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/assets/-/assets-0.0.22.tgz#86d6b9261feb562d00c7ed890a0b7e314e44ce36"
+  integrity sha512-+l8Sx4MtAgifsqBR9Z9v+E0tCeQXBLpcKwAHgmpYfOWN9JrkFv+tI3ecoQgAdppVFMT8CBrdz1ln56MQkhZcdQ==
   dependencies:
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.55"

@@ -7,7 +7,7 @@ const classes = require('./AssetSelector.module.css');
 const AssetElement: React.FC<{asset: Asset}> = ({ asset }) => (
   <div className={classes.assetElement}>
     <div className={classes.assetName}>{asset.name}</div>
-    <AccountBalance asset={asset} render={(err: Error, data: AccountBalanceData | null) => data && (
+    <AccountBalance asset={asset} render={(data: AccountBalanceData | null) => data && (
       <div className={classes.assetBalance}>
         {data.usdBalance ? `$${data.usdBalance}` : data.displayBalance}
       </div>

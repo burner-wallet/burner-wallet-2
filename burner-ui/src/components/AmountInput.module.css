@@ -20,3 +20,12 @@
   align-items: center;
   padding: 4px;
 }
+
+.maxBtn {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  background: #c07a53;
+  color: white;
+  cursor: pointer;
+}

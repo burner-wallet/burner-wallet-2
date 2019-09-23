@@ -5,13 +5,14 @@ const classes = require('./AmountInput.module.css');
 const ONE_ETH = 1000000000000000000;
 
 export interface AmountInputProps {
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void,
+  onChange: (val: string, isMax: boolean) => void,
   asset?: Asset | null,
   value: string,
   disabled?: boolean,
+  max?: string | null,
 }
 
-const AmountInput: React.FC<AmountInputProps> = ({ onChange, asset, value, disabled }) => {
+const AmountInput: React.FC<AmountInputProps> = ({ onChange, asset, value, disabled, max }) => {
   let isUSD = false;
   let usdValue;
   if (!isUSD && asset) {
@@ -28,12 +29,16 @@ const AmountInput: React.FC<AmountInputProps> = ({ onChange, asset, value, disab
           type="number"
           placeholder="0.00"
           className={classes.input}
-          onChange={onChange}
+          onChange={e => onChange(e.target.value, false)}
           value={value}
           disabled={disabled}
           min="0"
+          max={max || undefined}
         />
         {!isUSD && asset && <div className={classes.unit}>{asset.name}</div>}
+        {max && (
+          <div className={classes.maxBtn} onClick={() => onChange(max, true)}>Max</div>
+        )}
       </div>
       {usdValue && <div>${usdValue} USD</div>}
     </div>

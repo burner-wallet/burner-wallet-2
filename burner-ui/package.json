@@ -19,7 +19,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "@burner-wallet/assets": "^0.0.19",
+    "@burner-wallet/assets": "^0.0.22",
     "@burner-wallet/core": "^0.0.22",
     "@types/color": "^3.0.0",
     "@types/jss": "^9.5.8",

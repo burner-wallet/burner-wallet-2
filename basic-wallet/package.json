@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@burner-wallet/assets": "^0.0.20",
+    "@burner-wallet/assets": "^0.0.22",
     "@burner-wallet/core": "^0.0.22",
     "@burner-wallet/exchange": "^0.0.5",
     "@burner-wallet/plugins": "^0.0.3",

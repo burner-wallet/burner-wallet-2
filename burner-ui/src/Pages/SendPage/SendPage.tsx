@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import { Asset } from '@burner-wallet/assets';
-import { BurnerContext, withBurner } from '../../BurnerProvider';
+import { BurnerContext, withBurner, SendParams } from '../../BurnerProvider';
 import { Account } from '../../';
 import AddressInputField from '../../components/AddressInputField';
 import AddressInputSearchResults from '../../components/AddressInputSearchResults';
@@ -10,11 +10,13 @@ import AssetSelector from '../../components/AssetSelector';
 import AmountInput from '../../components/AmountInput';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
+import AccountBalance, { AccountBalanceData } from '../../data-providers/AccountBalance';
 
 interface SendPageState {
   to: string,
   value: string,
-  asset: Asset | null,
+  maxVal: string | null,
+  asset: Asset,
   sending: boolean,
   txHash: string | null,
   account: Account | null,
@@ -46,8 +48,9 @@ class SendPage extends Component<SendPageProps, SendPageState> {
     this.state = {
       to: props.location.state && props.location.state.address || '',
       value: '',
+      maxVal: null,
       message: '',
-      asset: null,
+      asset: props.assets[0],
       sending: false,
       txHash: null,
       account: null,
@@ -70,17 +73,24 @@ class SendPage extends Component<SendPageProps, SendPageState> {
   }
 
   send() {
-    const { asset, to, value, message } = this.state;
+    const { asset, to, value, message, maxVal } = this.state;
     const { actions } = this.props;
     if (!asset) {
       throw new Error('Asset not selected');
     }
-    actions.send({
+    const sendProps: SendParams = {
       to,
-      ether: value,
       asset: asset.id,
       message: message.length > 0 ? message : null,
-    });
+    };
+
+    if (maxVal) {
+      sendProps.value = maxVal;
+    } else {
+      sendProps.ether = value;
+    }
+
+    actions.send(sendProps);
   }
 
   render() {
@@ -93,7 +103,7 @@ class SendPage extends Component<SendPageProps, SendPageState> {
       )
     }
 
-    const canSend = asset !== null && !sending && to.length == 42 && to;
+    const canSend = !sending && to.length == 42 && to;
     return (
       <Page title="Send To Address">
         <AssetSelector selected={asset} onChange={newAsset => this.setState({ asset: newAsset })} disabled={sending} />
@@ -117,28 +127,44 @@ class SendPage extends Component<SendPageProps, SendPageState> {
           onSelect={(account: Account) => this.setState({ account, accounts: [] })}
         />
 
-        <div>Send Amount:</div>
-        <AmountInput
-          asset={asset}
-          value={value}
-          onChange={e => this.setState({ value: e.target.value })}
-          disabled={sending}
-        />
+        <AccountBalance asset={asset} render={(data: AccountBalanceData | null) => {
+          const exceedsBalance = !!data && parseFloat(value) > parseFloat(data.displayMaximumSendableBalance);
+          return (
+            <Fragment>
+              <div>Send Amount:</div>
+              <AmountInput
+                asset={asset}
+                value={value}
+                onChange={(val: string, isMax: boolean) => this.setState({
+                  value: val,
+                  maxVal: data && isMax ? data.maximumSendableBalance : null,
+                })}
+                disabled={sending}
+                max={data && data.displayMaximumSendableBalance}
+              />
 
-        {asset && asset.supportsMessages() && (
-          <Fragment>
-            <div>Message:</div>
-            <input
-              value={message}
-              onChange={e => this.setState({ message: e.target.value })}
-              className={classes.messageField}
-            />
-          </Fragment>
-        )}
+              {asset.supportsMessages() && (
+                <Fragment>
+                  <div>Message:</div>
+                  <input
+                    value={message}
+                    onChange={e => this.setState({ message: e.target.value })}
+                    className={classes.messageField}
+                  />
+                </Fragment>
+              )}
 
-        <div className={classes.sendContainer}>
-          <Button onClick={() => this.send()} disabled={!canSend}>Send</Button>
-        </div>
+              <div className={classes.sendContainer}>
+                <Button
+                  onClick={() => this.send()}
+                  disabled={!canSend || exceedsBalance}
+                >
+                  Send
+                </Button>
+              </div>
+            </Fragment>
+          );
+        }} />
       </Page>
     );
   }
