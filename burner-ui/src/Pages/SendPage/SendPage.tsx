@@ -26,6 +26,19 @@ interface SendPageState {
 
 type SendPageProps = BurnerContext & RouteComponentProps & { classes: any };
 
+const getQueryStringParams = query => {
+  return query
+    ? (/^[?#]/.test(query) ? query.slice(1) : query)
+      .split('&')
+      .reduce((params, param) => {
+          const [key, value] = param.split('=');
+          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+          return params;
+        }, {}
+      )
+    : {}
+};
+
 const styles = {
   messageField: {
     width: '100%',
@@ -45,12 +58,27 @@ const styles = {
 class SendPage extends Component<SendPageProps, SendPageState> {
   constructor(props: SendPageProps) {
     super(props);
-    this.state = {
-      to: props.location.state && props.location.state.address || '',
+    const defaultVals = {
+      to: '',
       value: '',
-      maxVal: null,
       message: '',
-      asset: props.assets[0],
+      ...props.location.state,
+      ...getQueryStringParams(props.location.search),
+    };
+
+    const getAsset = id => {
+      const [asset] = props.assets.filter(asset => asset.id === id);
+      return asset || null;
+    };
+    const asset = (defaultVals.asset && getAsset(defaultVals.asset)) || props.assets[0];
+
+    this.state = {
+      to: defaultVals.to,
+      value: defaultVals.value,
+      maxVal: null,
+      message: defaultVals.message,
+      asset,
+
       sending: false,
       txHash: null,
       account: null,
