@@ -1,0 +1,9 @@
+{
+  "packages": [
+    "burner-ui",
+    "exchange",
+    "plugins",
+    "packages/*"
+  ],
+  "version": "independent"
+}

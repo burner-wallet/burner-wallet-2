@@ -1,0 +1,17 @@
+{
+  "name": "burner-wallet-2",
+  "version": "0.0.1",
+  "description": "Robust, modular burner wallet",
+  "repository": "https://github.com/dmihal/burner-wallet-2.git",
+  "author": "David Mihal <david@dmihal.com>",
+  "license": "MIT",
+  "scripts": {
+    "install": "lerna bootstrap"
+  },
+  "devDependencies": {
+    "lerna": "^3.16.4"
+  },
+  "dependencies": {
+    "typescript": "^3.6.3"
+  }
+}

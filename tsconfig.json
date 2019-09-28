@@ -1,21 +1,26 @@
 {
-  "compilerOptions": {
-    "module": "es2015",
-    "target": "ES2017",
-    "lib": ["es6", "dom"],
-    "jsx": "react",
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noEmit": true,
+ "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "baseUrl": ".",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "target": "es6",
+    "sourceMap": true,
+    "strict": true,
     "allowSyntheticDefaultImports": true,
-    "noErrorTruncation": true,
-    "paths": {
-      "@burner-wallet/ui": ["./burner-ui/src"],
-      "@burner-wallet/exchange": ["./exchange/src"]
-    }
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "lib": [
+      "es6",
+      "dom"
+    ]
   },
-  "exclude": ["**/build/"]
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }
