@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/ui",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@burner-wallet/assets": "^0.0.22",
-    "@burner-wallet/core": "^0.0.22",
+    "@burner-wallet/core": "^0.0.25",
     "@types/color": "^3.0.0",
     "@types/jss": "^9.5.8",
     "@types/qrcode.react": "^0.8.2",
