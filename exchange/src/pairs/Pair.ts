@@ -2,10 +2,13 @@ import { Asset } from '@burner-wallet/assets';
 import { toWei } from 'web3-utils';
 import Exchange from '../Exchange';
 
-export interface ExchangeParams {
-  account: string,
+export interface ValueTypes {
   value?: string,
   ether?: string,
+}
+
+export interface ExchangeParams extends ValueTypes {
+  account: string,
 }
 
 interface PairConstructor {
@@ -13,7 +16,7 @@ interface PairConstructor {
   assetB: string,
 }
 
-export default class Pair {
+export default abstract class Pair {
   public assetA: string;
   public assetB: string;
   private _exchange: Exchange | null;
@@ -28,13 +31,11 @@ export default class Pair {
     this._exchange = exchange;
   }
 
-  exchangeAtoB({ account, value, ether }: ExchangeParams) {
-    throw new Error('Not implemented');
-  }
+  abstract exchangeAtoB({ account, value, ether }: ExchangeParams): Promise<void>;
+  abstract exchangeBtoA({ account, value, ether }: ExchangeParams): Promise<void>;
 
-  exchangeBtoA({ account, value, ether }: ExchangeParams) {
-    throw new Error('Not implemented');
-  }
+  abstract estimateAtoB(value: ValueTypes): Promise<string>;
+  abstract estimateBtoA(value: ValueTypes): Promise<string>;
 
   set exchange(newExchange: Exchange) {
     this._exchange = newExchange;
@@ -47,7 +48,7 @@ export default class Pair {
     return this._exchange;
   }
 
-  _getValue({ value, ether }: { value?: string, ether?: string }) {
+  _getValue({ value, ether }: ValueTypes) {
     if (!value && !ether) {
       throw new Error('Must provide value for transfer');
     }
