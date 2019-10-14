@@ -1,7 +1,9 @@
 {
   "name": "@burner-wallet/exchange",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "mjs": "tsc -d",
     "cjs": "tsc -m commonjs",
@@ -10,8 +12,8 @@
     "distribute": "yarn build && scripts/publish.sh"
   },
   "dependencies": {
-    "@burner-wallet/assets": "0.0.13",
-    "@burner-wallet/ui": "0.0.26",
+    "@burner-wallet/assets": "^0.0.22",
+    "@burner-wallet/ui": "1.0.0",
     "@types/react": "*",
     "web3-utils": "1.0.0-beta.55"
   },

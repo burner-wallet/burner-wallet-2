@@ -1,5 +1,7 @@
+import React from 'react';
 import { BurnerPluginContext, Plugin } from '@burner-wallet/ui';
 import NewPKPage from './ui/NewPKPage';
+import RedirectToSend from './ui/RedirectToSend';
 
 export default class LinksPlugin implements Plugin {
   private _pluginContext: BurnerPluginContext | null;
@@ -12,6 +14,8 @@ export default class LinksPlugin implements Plugin {
     this._pluginContext = pluginContext;
 
     pluginContext.addPage('/pk', NewPKPage);
+    pluginContext.addPage('/:address(0x[0-9a-f]{40});:amount([\d\.]+);:message', RedirectToSend);
+    // pluginContext.onQR
   }
 
   get pluginContext() {

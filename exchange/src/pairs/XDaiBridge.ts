@@ -1,4 +1,4 @@
-const { toWei } = require('web3-utils');
+import { toWei } from 'web3-utils';
 import Pair, { ExchangeParams } from './Pair';
 
 const toXdaiBridge = '0x4aa42145Aa6Ebf72e164C9bBC74fbD3788045016';

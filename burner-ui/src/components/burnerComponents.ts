@@ -12,15 +12,15 @@ import Assets, { AssetsProps } from '../data-providers/Assets';
 import TransactionDetails, { TransactionDetailsProps } from '../data-providers/TransactionDetails';
 
 export interface BurnerComponents {
-  Page: ComponentType<PageProps>,
-  AssetSelector: ComponentType<AssetSelectorProps>,
-  AmountInput: ComponentType<AmountInputProps>,
-  Button: ComponentType<ButtonProps>,
+  Page: typeof Page,
+  AssetSelector: typeof AssetSelector,
+  AmountInput: typeof AmountInput,
+  Button: typeof Button,
 
-  AccountBalance: ComponentType<AccountBalanceProps>,
-  AccountKeys: ComponentType<AccountKeysProps>,
-  Assets: ComponentType<AssetsProps>,
-  TransactionDetails: ComponentType<TransactionDetailsProps>,
+  AccountBalance: typeof AccountBalance,
+  AccountKeys: typeof AccountKeys,
+  Assets: typeof Assets,
+  TransactionDetails: typeof TransactionDetails,
 
   QRCode: QRCode.QRCode,
 };

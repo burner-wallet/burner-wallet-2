@@ -99,7 +99,7 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
           <AmountInput
             asset={assetA}
             value={amount}
-            onChange={e => this.setState({ amount: e.target.value })}
+            onChange={newAmt => this.setState({ amount: newAmt })}
             disabled={isExchanging}
           />
         </div>

@@ -26,11 +26,11 @@ interface SendPageState {
 
 type SendPageProps = BurnerContext & RouteComponentProps & { classes: any };
 
-const getQueryStringParams = query => {
+const getQueryStringParams = (query: string) => {
   return query
     ? (/^[?#]/.test(query) ? query.slice(1) : query)
       .split('&')
-      .reduce((params, param) => {
+      .reduce((params: { [key: string]: string }, param: string) => {
           const [key, value] = param.split('=');
           params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
           return params;
@@ -66,7 +66,7 @@ class SendPage extends Component<SendPageProps, SendPageState> {
       ...getQueryStringParams(props.location.search),
     };
 
-    const getAsset = id => {
+    const getAsset = (id: string) => {
       const [asset] = props.assets.filter(asset => asset.id === id);
       return asset || null;
     };

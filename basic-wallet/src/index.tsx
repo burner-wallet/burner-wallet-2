@@ -5,10 +5,9 @@ import { xdai, dai, eth } from '@burner-wallet/assets';
 import BurnerCore from '@burner-wallet/core';
 import { InjectedSigner, LocalSigner } from '@burner-wallet/core/signers';
 import { InfuraGateway, InjectedGateway, XDaiGateway, } from '@burner-wallet/core/gateways';
-import Exchange from '@burner-wallet/exchange';
-import { xdaiBridge, uniswapDai } from '@burner-wallet/exchange/pairs';
+import Exchange, { Uniswap, XDaiBridge } from '@burner-wallet/exchange';
 import BurnerUI from '@burner-wallet/ui';
-import LegacyPlugin from '@burner-wallet/plugins/legacy';
+// import LegacyPlugin from '@burner-wallet/plugins/legacy';
 
 const core = new BurnerCore({
   signers: [new InjectedSigner(), new LocalSigner()],
@@ -21,13 +20,13 @@ const core = new BurnerCore({
 });
 
 const exchange = new Exchange({
-  pairs: [xdaiBridge, uniswapDai],
+  pairs: [new XDaiBridge(), new Uniswap('dai')],
 });
 
 const BurnerWallet = () =>
   <BurnerUI
     core={core}
-    plugins={[exchange, new LegacyPlugin()]}
+    plugins={[exchange/*, new LegacyPlugin()*/]}
   />
 
 

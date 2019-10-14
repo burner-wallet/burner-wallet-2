@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/plugins",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "mjs": "tsc -d",
@@ -10,8 +10,11 @@
     "distribute": "yarn build && scripts/distribute.sh"
   },
   "dependencies": {
-    "@burner-wallet/assets": "0.0.14",
-    "@burner-wallet/ui": "^0.0.27",
+    "@burner-wallet/assets": "^0.0.22",
+    "@burner-wallet/ui": "^1.0.0",
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "@types/react": "*",
     "base64url": "3.0.1",
     "ethers": "4.0.33"
   },
