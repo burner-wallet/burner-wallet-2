@@ -1,0 +1,28 @@
+{
+  "name": "@burner-wallet/legacy-plugin",
+  "version": "1.0.0",
+  "description": "Support URLs and keys from the Burner Wallet 1.0",
+  "license": "MIT",
+  "main": "dist/LegacyPlugin.js",
+  "types": "dist/LegacyPlugin.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "scripts": {
+    "mjs": "tsc -d",
+    "cjs": "tsc -m commonjs",
+    "build": "yarn run mjs && yarn run cjs"
+  },
+  "dependencies": {
+    "@burner-wallet/assets": "^0.0.22",
+    "@burner-wallet/ui": "^1.0.0",
+    "@types/react": "*",
+    "base64url": "3.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.2"
+  }
+}
