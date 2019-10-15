@@ -1,0 +1,27 @@
+{
+  "name": "@burner-wallet/link-plugin",
+  "version": "1.0.0",
+  "description": "Send tokens using a link",
+  "license": "MIT",
+  "main": "dist/LinkPlugin.js",
+  "types": "dist/LinkPlugin.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "scripts": {
+    "mjs": "tsc -d",
+    "cjs": "tsc -m commonjs",
+    "build": "yarn run mjs && yarn run cjs"
+  },
+  "dependencies": {
+    "@burner-wallet/assets": "^0.0.22",
+    "@burner-wallet/ui": "^1.0.0",
+    "@types/react": "*"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.2"
+  }
+}
