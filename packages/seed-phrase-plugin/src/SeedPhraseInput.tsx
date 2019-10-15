@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { isValidMnemonic, fromMnemonic } from 'ethers/utils/hdnode';
-const classes = require('./SeedPhraseInput.module.css');
 
 const SeedPhraseInput = ({ burnerComponents, actions, accounts }) => {
   const [seedPhrase, setSeedPhrase] = useState('');
@@ -18,7 +17,11 @@ const SeedPhraseInput = ({ burnerComponents, actions, accounts }) => {
   return (
     <div>
       <h3>Seed Phrase</h3>
-      <input value={seedPhrase} onChange={e => setSeedPhrase(e.target.value)} className={classes.input} />
+      <input
+        value={seedPhrase}
+        onChange={e => setSeedPhrase(e.target.value)}
+        style={{ width: '100%' }}
+      />
       <Button
         disabled={!isValid}
         onClick={() => {

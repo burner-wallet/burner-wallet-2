@@ -2,7 +2,6 @@
   "packages": [
     "burner-ui",
     "exchange",
-    "plugins",
     "packages/*"
   ],
   "npmClient": "yarn",

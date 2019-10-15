@@ -15,7 +15,6 @@
     "burner-ui",
     "exchange",
     "local-wallet",
-    "plugins",
     "packages/*"
   ],
   "devDependencies": {

@@ -1,0 +1,27 @@
+{
+  "name": "@burner-wallet/seed-phrase-plugin",
+  "version": "0.1.0",
+  "description": "Create new private key using a seed phrase",
+  "license": "MIT",
+  "main": "dist/SeedPhrasePlugin.js",
+  "types": "dist/SeedPhrasePlugin.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "scripts": {
+    "mjs": "tsc -d",
+    "cjs": "tsc -m commonjs",
+    "build": "yarn run mjs && yarn run cjs"
+  },
+  "dependencies": {
+    "@burner-wallet/ui": "^1.0.0",
+    "@types/react": "*",
+    "ethers": "4.0.33"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.2"
+  }
+}
