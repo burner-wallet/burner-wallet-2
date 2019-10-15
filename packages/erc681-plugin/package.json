@@ -12,9 +12,7 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
-    "mjs": "tsc -d",
-    "cjs": "tsc -m commonjs",
-    "build": "yarn run mjs && yarn run cjs",
+    "build": "tsc",
     "test": "mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
   },
   "dependencies": {

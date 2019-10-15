@@ -8,7 +8,9 @@
   "scripts": {
     "install": "lerna bootstrap",
     "build": "lerna run --ignore local-wallet --ignore basic-wallet build",
-    "build:esm": "lerna exec --stream --parallel -- ../../node_modules/.bin/tsc --outDir dist/esm --module esnext --target esnext"
+    "build:esm": "lerna exec --stream --parallel -- ../../node_modules/.bin/tsc --outDir dist/esm --module esnext --target esnext",
+    "start-basic": "lerna run --parallel start-basic",
+    "start-local": "lerna run --parallel start-local"
   },
   "workspaces": [
     "basic-wallet",

@@ -5,11 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "mjs": "tsc -d",
-    "cjs": "tsc -m commonjs",
     "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
-    "build": "yarn run mjs && yarn run cjs && yarn run css",
-    "distribute": "yarn build && scripts/publish.sh"
+    "build": "tsc && yarn run css",
+    "start-basic": "tsc -w"
   },
   "dependencies": {
     "@burner-wallet/assets": "^0.0.22",

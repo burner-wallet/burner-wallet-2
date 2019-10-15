@@ -5,11 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "mjs": "tsc -d",
-    "cjs": "tsc -m commonjs",
     "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
-    "build": "yarn run mjs && yarn run cjs && yarn run css",
-    "publish": "yarn build && yarn publish --no-commit-hooks"
+    "start-local": "tsc -w",
+    "build": "tsc && yarn run css",
+    "start-basic": "tsc -w",
+    "start-local": "tsc -w"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",

@@ -12,9 +12,9 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
-    "mjs": "tsc -d",
-    "cjs": "tsc -m commonjs",
-    "build": "yarn run mjs && yarn run cjs"
+    "build": "tsc",
+    "start-basic": "tsc -w",
+    "start-local": "tsc -w"
   },
   "dependencies": {
     "@burner-wallet/assets": "^0.0.22",
