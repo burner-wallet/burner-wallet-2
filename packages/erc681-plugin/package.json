@@ -1,0 +1,31 @@
+{
+  "name": "@burner-wallet/erc681-plugin",
+  "version": "0.1.0",
+  "description": "User ERC681 URIs for sending assets",
+  "license": "MIT",
+  "main": "dist/ERC681.js",
+  "types": "dist/ERC681.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "scripts": {
+    "mjs": "tsc -d",
+    "cjs": "tsc -m commonjs",
+    "build": "yarn run mjs && yarn run cjs",
+    "test": "mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
+  },
+  "dependencies": {
+    "@burner-wallet/assets": "^0.0.22",
+    "@burner-wallet/ui": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "typescript": "^3.5.2"
+  }
+}

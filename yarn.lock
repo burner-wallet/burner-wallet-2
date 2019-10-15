@@ -4533,13 +4533,6 @@ customize-cra@^0.2.13:
   dependencies:
     lodash.flow "^3.5.0"
 
-customize-cra@^0.6.0:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/customize-cra/-/customize-cra-0.6.1.tgz#3c055b72474b924af6df04917af1cafc4c99ff94"
-  integrity sha512-UTS9VNPeg/CpFhk8vCtQSzW3KKgad8lsoUsaXMJjdypc/9I0JXFcWFCuir7jdBTsLAO3/cwi/ExCvLJzG/p06Q==
-  dependencies:
-    lodash.flow "^3.5.0"
-
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
