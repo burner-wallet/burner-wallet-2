@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import Page from '../../components/Page';
 import PluginElements from '../../components/PluginElements';
 import AccountKeys from '../../data-providers/AccountKeys';
+import { randomHex } from '../../lib';
 
 interface SectionProps {
   title: string,
@@ -19,7 +20,7 @@ const Section: React.FC<SectionProps> = ({ title, children }) => (
   </div>
 )
 
-const AdvancedPage: React.FC<BurnerContext> = ({ defaultAccount }) => {
+const AdvancedPage: React.FC<BurnerContext> = ({ defaultAccount, actions }) => {
   const [showPk, setShowPk] = React.useState(false);
   return (
     <Page title="Advanced">
@@ -44,7 +45,7 @@ const AdvancedPage: React.FC<BurnerContext> = ({ defaultAccount }) => {
             )}
 
             <div>
-              <Button onClick={keys.burnAccount}>Burn PK</Button>
+              <Button onClick={() => actions.safeSetPK(randomHex(64))}>Burn PK</Button>
             </div>
           </Section>
         )}
