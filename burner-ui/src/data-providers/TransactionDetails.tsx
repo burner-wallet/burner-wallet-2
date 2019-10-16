@@ -16,14 +16,18 @@ interface Transaction {
 }
 
 class TransactionDetails extends Component<BurnerContext & TransactionDetailsProps, any> {
+  private _mounted: boolean;
+
   constructor(props: BurnerContext & TransactionDetailsProps) {
     super(props);
+    this._mounted = false;
     this.state = {
       tx: null,
     };
   }
 
   componentDidMount() {
+    this._mounted = true;
     this.fetchData();
   }
 
@@ -31,6 +35,10 @@ class TransactionDetails extends Component<BurnerContext & TransactionDetailsPro
     if (this.props !== oldProps) {
       this.fetchData();
     }
+  }
+
+  componentWillUnmount() {
+    this._mounted = false;
   }
 
   async fetchData() {
@@ -42,8 +50,11 @@ class TransactionDetails extends Component<BurnerContext & TransactionDetailsPro
       const asset = assetList[0];
 
       const tx = await asset.getTx(this.props.txHash);
-      this.setState({ tx });
-      setTimeout(() => this.fetchData(), 2500);
+
+      if (this._mounted) {
+        this.setState({ tx });
+        setTimeout(() => this.fetchData(), 2500);
+      }
     } catch (err) {
       console.warn(err);
       setTimeout(() => this.fetchData(), 2500);

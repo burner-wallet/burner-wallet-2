@@ -2,6 +2,7 @@ import React, { Component, ComponentType } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
 import BurnerCore from '@burner-wallet/core';
+import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import { BurnerComponents } from './components/burnerComponents';
 import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
 import { Diff } from './';
@@ -24,6 +25,8 @@ export interface SendParams {
   id?: string | null,
 }
 
+type HistoryEventCallback = (event: HistoryEvent) => void;
+
 export interface Actions {
   callSigner: (action: string, ...props: any[]) => string,
   canCallSigner: (action: string, ...props: any[]) => boolean,
@@ -32,6 +35,9 @@ export interface Actions {
   send: (params: SendParams) => void,
   navigateTo: (location: string | number, state?: any) => void,
   setLoading: (status: string | null) => void,
+  getHistoryEvents: (options?: any) => HistoryEvent[],
+  onHistoryEvent: (callback: HistoryEventCallback) => void,
+  removeHistoryEventListener: (callback: HistoryEventCallback) => void,
 }
 
 export interface BurnerContext {
