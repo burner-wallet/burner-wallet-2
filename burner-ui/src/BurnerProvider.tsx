@@ -28,6 +28,7 @@ export interface Actions {
   callSigner: (action: string, ...props: any[]) => string,
   canCallSigner: (action: string, ...props: any[]) => boolean,
   scanQrCode: () => Promise<string>,
+  safeSetPK: (newPK: string) => void,
   send: (params: SendParams) => void,
   navigateTo: (location: string | number, state?: any) => void,
   setLoading: (status: string | null) => void,
@@ -57,6 +58,7 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
     canCallSigner: unavailable,
     navigateTo: unavailable,
     scanQrCode: unavailable,
+    safeSetPK: unavailable,
     send: unavailable,
     setLoading: unavailable,
   },
@@ -79,6 +81,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
       scanQrCode: this.scanQrCode.bind(this),
       canCallSigner: props.core.canCallSigner.bind(props.core),
       callSigner: props.core.callSigner.bind(props.core),
+      safeSetPK: (newPK: string) => props.history.push('/pk', { newPK }),
       send: this.send.bind(this),
       navigateTo: (location: string | number, state?: any) =>
         Number.isInteger(location as number)
