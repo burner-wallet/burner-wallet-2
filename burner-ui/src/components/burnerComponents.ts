@@ -1,15 +1,15 @@
 import { ComponentType } from 'react';
 import QRCode from 'qrcode.react';
 
-import Page, { PageProps } from './Page';
-import AmountInput, { AmountInputProps } from './AmountInput';
-import AssetSelector, { AssetSelectorProps } from './AssetSelector';
-import Button, { ButtonProps } from './Button';
+import Page from './Page';
+import AmountInput from './AmountInput';
+import AssetSelector from './AssetSelector';
+import Button from './Button';
 
-import AccountBalance, { AccountBalanceProps } from '../data-providers/AccountBalance';
-import AccountKeys, { AccountKeysProps } from '../data-providers/AccountKeys';
-import Assets, { AssetsProps } from '../data-providers/Assets';
-import TransactionDetails, { TransactionDetailsProps } from '../data-providers/TransactionDetails';
+import AccountBalance from '../data-providers/AccountBalance';
+import AccountKeys from '../data-providers/AccountKeys';
+import Assets from '../data-providers/Assets';
+import TransactionDetails from '../data-providers/TransactionDetails';
 
 export interface BurnerComponents {
   Page: typeof Page,

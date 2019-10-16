@@ -63,7 +63,7 @@ const HomeButton: React.FC<HomeButtonProps> = ({ path, title, classes }) => (
 )
 
 const ADDRESS_REGEX = /^(?:0x)?[0-9a-f]{40}$/i;
-const PK_REGEX = /^(?:0x)?[0-9a-f]{64}$/i;
+const PK_REGEX = /^(?:https?:\/\/[-a-z.]+\/pk#)?((?:0x)?[0-9a-f]{64})$/i;
 
 const HomePage: React.FC<BurnerContext & { classes: any }> = ({ defaultAccount, actions, assets, pluginData, classes }) => (
   <Page>
@@ -75,7 +75,9 @@ const HomePage: React.FC<BurnerContext & { classes: any }> = ({ defaultAccount, 
         } else if (ADDRESS_REGEX.test(result)) {
           actions.navigateTo('/send', { address: result });
         } else if (PK_REGEX.test(result)) {
-          actions.callSigner('writeKey', defaultAccount, result);
+          // @ts-ignore
+          const pk = PK_REGEX.exec(result)[1];
+          actions.callSigner('writeKey', defaultAccount, pk);
         } else if (result.indexOf(location.origin) === 0) {
           actions.navigateTo(result.substr(location.origin.length));
         }

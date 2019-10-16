@@ -2,6 +2,7 @@ import React, { Component, ComponentType } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
 import BurnerCore from '@burner-wallet/core';
+import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import { BurnerComponents } from './components/burnerComponents';
 import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
 import { Diff } from './';
@@ -24,13 +25,19 @@ export interface SendParams {
   id?: string | null,
 }
 
+type HistoryEventCallback = (event: HistoryEvent) => void;
+
 export interface Actions {
   callSigner: (action: string, ...props: any[]) => string,
   canCallSigner: (action: string, ...props: any[]) => boolean,
   scanQrCode: () => Promise<string>,
+  safeSetPK: (newPK: string) => void,
   send: (params: SendParams) => void,
   navigateTo: (location: string | number, state?: any) => void,
   setLoading: (status: string | null) => void,
+  getHistoryEvents: (options?: any) => HistoryEvent[],
+  onHistoryEvent: (callback: HistoryEventCallback) => void,
+  removeHistoryEventListener: (callback: HistoryEventCallback) => void,
 }
 
 export interface BurnerContext {
@@ -57,8 +64,12 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
     canCallSigner: unavailable,
     navigateTo: unavailable,
     scanQrCode: unavailable,
+    safeSetPK: unavailable,
     send: unavailable,
     setLoading: unavailable,
+    getHistoryEvents: unavailable,
+    onHistoryEvent: unavailable,
+    removeHistoryEventListener: unavailable,
   },
   assets: [],
   accounts: [],
@@ -79,12 +90,18 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
       scanQrCode: this.scanQrCode.bind(this),
       canCallSigner: props.core.canCallSigner.bind(props.core),
       callSigner: props.core.callSigner.bind(props.core),
+      safeSetPK: (newPK: string) => props.history.push('/pk', { newPK }),
       send: this.send.bind(this),
       navigateTo: (location: string | number, state?: any) =>
         Number.isInteger(location as number)
         ? props.history.go(location as number)
         : props.history.push(location as string, state),
       setLoading: (status: string | null) => this.setState({ loading: status }),
+
+      getHistoryEvents: (options: any) => props.core.getHistoryEvents(options),
+      onHistoryEvent: (cb: HistoryEventCallback) => props.core.onHistoryEvent(cb),
+      removeHistoryEventListener: (cb: HistoryEventCallback) =>
+        props.core.removeHistoryEventListener(cb),
     };
 
     this.state = {

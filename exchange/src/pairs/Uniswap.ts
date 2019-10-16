@@ -1,7 +1,7 @@
 import { toBN } from 'web3-utils';
 import { ERC20Asset } from '@burner-wallet/assets';
 import Exchange from '../Exchange';
-import Pair, { ExchangeParams } from './Pair';
+import Pair, { ExchangeParams, ValueTypes } from './Pair';
 import tokenabi from './abis/UniswapTokenPurchase.json';
 import factoryabi from './abis/UniswapFactory.json';
 
@@ -58,5 +58,18 @@ export default class Uniswap extends Pair {
 
     return contract.methods.ethToTokenSwapInput(1, DEADLINE)
       .send({ from: account, value: _value });
+  }
+
+
+  async estimateAtoB(value: ValueTypes) {
+    const contract = await this.getContract();
+    const output = await contract.methods.getTokenToEthInputPrice(this._getValue(value)).call();
+    return output;
+  }
+
+  async estimateBtoA(value: ValueTypes) {
+    const contract = await this.getContract();
+    const output = await contract.methods.getEthToTokenInputPrice(this._getValue(value)).call();
+    return output;
   }
 }

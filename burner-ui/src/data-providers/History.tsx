@@ -1,55 +1,34 @@
-import React, { Component, useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import HistoryEvent from '@burner-wallet/core/HistoryEvent';
-import { withHistory, HistoryContext } from '../HistoryProvider';
+import { withBurner, BurnerContext } from '../BurnerProvider';
 
-interface HistoryProps extends HistoryContext {
+interface HistoryProps extends BurnerContext {
   account: string,
   render: (events: HistoryEvent[]) => React.ReactNode,
 }
 
-interface HistoryState {
-  events: HistoryEvent[],
-}
+const History: React.FC<HistoryProps> = ({ account, actions, render }) => {
+  const [events, setEvents] = useState<HistoryEvent[]>([]);
 
-class History extends Component<HistoryProps, HistoryState> {
-  private onHistoryEventCallback: (event: HistoryEvent) => void;
+  useEffect(() => {
+    setEvents(actions.getHistoryEvents({ account }));
 
-  constructor(props: HistoryProps) {
-    super(props);
-    this.state = {
-      events: [],
+    const onHistoryEventCallback = (event: HistoryEvent) => {
+      if (event.to === account || event.from === account) {
+        setEvents([event, ...events]);
+      }
     };
 
-    this.onHistoryEventCallback = (event: HistoryEvent) => {
-      const { account } = this.props;
-      if (event.to === account || event.from === account) {
-        this.setState({
-          events: [event, ...this.state.events],
-        });
-      }
-    }
-  }
+    actions.onHistoryEvent(onHistoryEventCallback)
 
-  componentDidMount() {
-    const { account, historyFns } = this.props;
-    this.setState({
-      events: [...historyFns.getHistoryEvents({ account })],
-    });
+    return () => actions.removeHistoryEventListener(onHistoryEventCallback)
+  }, [account]);
 
-    historyFns.onHistoryEvent(this.onHistoryEventCallback);
-  }
-
-  componentWillUnmount() {
-    this.props.historyFns.removeHistoryEventListener(this.onHistoryEventCallback);
-  }
-
-  render() {
-    return (
-      <Fragment>
-        {this.props.render(this.state.events)}
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      {render(events)}
+    </Fragment>
+  );
 }
 
-export default withHistory(History);
+export default withBurner(History);
