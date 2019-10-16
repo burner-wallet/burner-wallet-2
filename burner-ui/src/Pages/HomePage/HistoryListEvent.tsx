@@ -62,7 +62,7 @@ const HistoryListEvent: React.FC<HistoryListEventProps> = ({ event, account, cla
   let subDetail = null;
   switch (event.type) {
     case 'send':
-      const isReceive = event.to === account;
+      const isReceive = account && event.to.toLowerCase() === account.toLowerCase();
       type = isReceive ? 'Receive' : 'Send';
       main = (
         <Fragment>

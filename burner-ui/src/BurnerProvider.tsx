@@ -67,6 +67,9 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
     safeSetPK: unavailable,
     send: unavailable,
     setLoading: unavailable,
+    getHistoryEvents: unavailable,
+    onHistoryEvent: unavailable,
+    removeHistoryEventListener: unavailable,
   },
   assets: [],
   accounts: [],
@@ -94,6 +97,11 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
         ? props.history.go(location as number)
         : props.history.push(location as string, state),
       setLoading: (status: string | null) => this.setState({ loading: status }),
+
+      getHistoryEvents: (options: any) => props.core.getHistoryEvents(options),
+      onHistoryEvent: (cb: HistoryEventCallback) => props.core.onHistoryEvent(cb),
+      removeHistoryEventListener: (cb: HistoryEventCallback) =>
+        props.core.removeHistoryEventListener(cb),
     };
 
     this.state = {

@@ -9,7 +9,6 @@ import Scanner from './components/Scanner';
 import BurnerProvider from './BurnerProvider';
 import Pages from './Pages';
 import Template from './Template';
-import HistoryProvider from './HistoryProvider';
 import Plugins from './Plugins';
 import { Plugin } from './';
 
@@ -56,14 +55,12 @@ export default class BurnerUI extends Component<BurnerUIProps, any> {
           pluginData={this.state.pluginData}
           burnerComponents={burnerComponents}
         >
-          <HistoryProvider core={this.props.core}>
-            <Template theme={this.props.theme}>
-              <Loading />
-              <Scanner />
-              <Header title={this.props.title} />
-              <Pages pluginData={this.state.pluginData} />
-            </Template>
-          </HistoryProvider>
+          <Template theme={this.props.theme}>
+            <Loading />
+            <Scanner />
+            <Header title={this.props.title} />
+            <Pages pluginData={this.state.pluginData} />
+          </Template>
         </BurnerProvider>
       </Router>
     );
