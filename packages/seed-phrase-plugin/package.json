@@ -8,13 +8,8 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "http://registry.npmjs.org/"
-  },
   "scripts": {
-    "mjs": "tsc -d",
-    "cjs": "tsc -m commonjs",
-    "build": "yarn run mjs && yarn run cjs"
+    "build": "tsc"
   },
   "dependencies": {
     "@burner-wallet/ui": "^1.0.0",

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { isValidMnemonic, fromMnemonic } from 'ethers/utils/hdnode';
+import { PluginElementContext } from '@burner-wallet/ui';
 
-const SeedPhraseInput = ({ burnerComponents, actions, accounts }) => {
+const SeedPhraseInput: React.FC<PluginElementContext> = ({ burnerComponents, actions, defaultAccount }) => {
   const [seedPhrase, setSeedPhrase] = useState('');
   const { Button } = burnerComponents;
 
-  const locked = accounts.length === 0 || !actions.canCallSigner('writeKey', accounts[0]);
+  const locked = !actions.canCallSigner('writeKey', defaultAccount);
 
-  let privateKey = null;
+  let privateKey: string | null = null;
   const isValid = isValidMnemonic(seedPhrase);
   if (isValid) {
     const node = fromMnemonic(seedPhrase);
@@ -25,8 +26,8 @@ const SeedPhraseInput = ({ burnerComponents, actions, accounts }) => {
       <Button
         disabled={!isValid}
         onClick={() => {
-          if(isValid) {
-            actions.callSigner('writeKey', accounts[0], privateKey);
+          if(privateKey && isValid) {
+            actions.safeSetPK(privateKey);
             setSeedPhrase('');
           }
         }}
