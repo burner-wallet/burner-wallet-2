@@ -1,0 +1,1 @@
+# `@burner-wallet/ens-plugin`

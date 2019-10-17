@@ -1,0 +1,17 @@
+{
+  "name": "@burner-wallet/ens-plugin",
+  "version": "0.1.0",
+  "author": "David Mihal <david@dmihal.com>",
+  "license": "MIT",
+  "main": "dist/ENSPlugin.js",
+  "types": "dist/ENSPlugin.d.ts",
+  "scripts": {
+    "start-basic": "tsc -w",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@burner-wallet/ui": "^1.0.0",
+    "eth-ens-namehash": "^2.0.8",
+    "typescript": "^3.6.4"
+  }
+}
