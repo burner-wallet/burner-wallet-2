@@ -1,5 +1,5 @@
 import React from 'react';
-import { PluginPageContext } from '@burner-wallet/ui';
+import { PluginPageContext } from '@burner-wallet/ui-core';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface MatchParams {

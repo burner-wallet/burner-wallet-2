@@ -1,4 +1,4 @@
-import { BurnerPluginContext, Plugin } from '@burner-wallet/ui';
+import { BurnerPluginContext, Plugin } from '@burner-wallet/ui-core';
 import SeedPhraseInput from './SeedPhraseInput';
 
 export default class SeedPhrasePlugin implements Plugin {

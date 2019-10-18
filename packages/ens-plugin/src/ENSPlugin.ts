@@ -1,4 +1,4 @@
-import { BurnerPluginContext, Plugin, Account } from '@burner-wallet/ui';
+import { BurnerPluginContext, Plugin, Account } from '@burner-wallet/ui-core';
 import ENS from './ENS';
 
 export default class ENSPlugin implements Plugin {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { isValidMnemonic, fromMnemonic } from 'ethers/utils/hdnode';
-import { PluginElementContext } from '@burner-wallet/ui';
+import { PluginElementContext } from '@burner-wallet/ui-core';
 
 const SeedPhraseInput: React.FC<PluginElementContext> = ({ burnerComponents, actions, defaultAccount }) => {
   const [seedPhrase, setSeedPhrase] = useState('');

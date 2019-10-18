@@ -1,5 +1,5 @@
 import { Asset, ERC20Asset } from '@burner-wallet/assets';
-import { BurnerPluginContext, Plugin } from '@burner-wallet/ui';
+import { BurnerPluginContext, Plugin } from '@burner-wallet/ui-core';
 import ClaimPage from './ui/ClaimPage';
 import SendLinkPage from './ui/SendLinkPage';
 import linkAbi from './abis/Links.json';

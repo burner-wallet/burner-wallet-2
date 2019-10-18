@@ -6,7 +6,7 @@ import BurnerCore from '@burner-wallet/core';
 import { InjectedSigner, LocalSigner } from '@burner-wallet/core/signers';
 import { InfuraGateway, InjectedGateway, XDaiGateway, } from '@burner-wallet/core/gateways';
 import Exchange, { Uniswap, XDaiBridge } from '@burner-wallet/exchange';
-import BurnerUI from '@burner-wallet/ui';
+import ClassicUI from '@burner-wallet/classic-ui';
 import LegacyPlugin from '@burner-wallet/legacy-plugin';
 
 const core = new BurnerCore({
@@ -24,7 +24,7 @@ const exchange = new Exchange({
 });
 
 const BurnerWallet = () =>
-  <BurnerUI
+  <ClassicUI
     core={core}
     plugins={[exchange, new LegacyPlugin()]}
   />

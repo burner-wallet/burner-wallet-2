@@ -1,5 +1,5 @@
 import React from 'react';
-import { BurnerPluginContext, Plugin } from '@burner-wallet/ui';
+import { BurnerPluginContext, Plugin } from '@burner-wallet/ui-core';
 import NewPKPage from './ui/NewPKPage';
 import RedirectToSend from './ui/RedirectToSend';
 

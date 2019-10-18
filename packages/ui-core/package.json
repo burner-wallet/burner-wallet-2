@@ -1,0 +1,26 @@
+{
+  "name": "@burner-wallet/ui-core",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start-basic": "tsc -w",
+    "start-local": "tsc -w"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "copyfiles": "^2.1.0",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "@burner-wallet/assets": "^0.0.22",
+    "@burner-wallet/core": "^0.0.25",
+    "@types/react": "*",
+    "@types/react-router-dom": "^4.3.4",
+    "react-router-dom": "^5.0.1"
+  }
+}

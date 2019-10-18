@@ -1,4 +1,4 @@
-import { BurnerPluginContext, Plugin } from '@burner-wallet/ui';
+import { BurnerPluginContext, Plugin } from '@burner-wallet/ui-core';
 import { ERC20Asset } from '@burner-wallet/assets';
 import parser from './eth-parse-uri';
 

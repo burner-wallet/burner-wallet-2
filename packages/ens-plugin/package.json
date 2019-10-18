@@ -10,7 +10,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@burner-wallet/ui": "^1.0.0",
+    "@burner-wallet/ui-core": "^1.0.0",
     "eth-ens-namehash": "^2.0.8",
     "typescript": "^3.6.4"
   }
