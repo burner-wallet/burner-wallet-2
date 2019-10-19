@@ -17,8 +17,9 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "@burner-wallet/assets": "^0.0.22",
-    "@burner-wallet/core": "^0.0.25",
+    "@burner-wallet/assets": "^0.0.24",
+    "@burner-wallet/core": "^0.0.26",
+    "@burner-wallet/types": "^1.0.0",
     "@types/react": "*",
     "@types/react-router-dom": "^4.3.4",
     "react-router-dom": "^5.0.1"

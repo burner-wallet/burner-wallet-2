@@ -3,8 +3,10 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
 import BurnerCore from '@burner-wallet/core';
 import HistoryEvent from '@burner-wallet/core/HistoryEvent';
-import { BurnerPluginData, DEFAULT_PLUGIN_DATA } from './Plugins';
-import { Diff, BurnerComponents } from './';
+import {
+  Diff, BurnerComponents, BurnerContext, BurnerPluginData, SendData, Actions, HistoryEventCallback
+} from '@burner-wallet/types';
+import { DEFAULT_PLUGIN_DATA } from './Plugins';
 
 const ZERO_ADDR = '0x0000000000000000000000000000000000000000';
 
@@ -15,48 +17,13 @@ interface BurnerProviderProps extends RouteComponentProps {
   burnerComponents: BurnerComponents,
 }
 
-export interface SendParams {
-  asset: string,
-  ether?: string,
-  value?: string,
-  to: string,
-  from?: string,
-  message?: string | null,
-  id?: string | null,
-}
-
-type HistoryEventCallback = (event: HistoryEvent) => void;
-
-export interface Actions {
-  callSigner: (action: string, ...props: any[]) => string,
-  canCallSigner: (action: string, ...props: any[]) => boolean,
-  openDefaultQRScanner: () => Promise<void>,
-  scanQRCode: () => Promise<string>,
-  safeSetPK: (newPK: string) => void,
-  send: (params: SendParams) => void,
-  navigateTo: (location: string | number, state?: any) => void,
-  setLoading: (status: string | null) => void,
-  getHistoryEvents: (options?: any) => HistoryEvent[],
-  onHistoryEvent: (callback: HistoryEventCallback) => void,
-  removeHistoryEventListener: (callback: HistoryEventCallback) => void,
-}
-
-export interface BurnerContext {
-  actions: Actions,
-  accounts: string[],
-  defaultAccount: string,
-  assets: Asset[],
-  burnerComponents: BurnerComponents,
-  pluginData: BurnerPluginData,
-  completeScan: ((result: string | null) => any) | null,
-  loading: string | null,
-}
-
 interface BurnerProviderState {
   accounts: string[],
   completeScan: ((result: string | null) => any) | null,
   loading: string | null,
 }
+
+export type BurnerContext = BurnerContext;
 
 const unavailable = () => { throw new Error('Unavailable') };
 const { Provider, Consumer } = React.createContext<BurnerContext>({
@@ -162,7 +129,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
     }
   }
 
-  send({ asset, ether, value, to, from, message, id }: SendParams) {
+  send({ asset, ether, value, to, from, message, id }: SendData) {
     const _from = from || this.state.accounts[0];
     const _ether = (ether && ether.length > 0) || value ? ether : '0';
     this.props.history.push('/confirm', { asset, ether: _ether, value, to, from: _from, message, id });

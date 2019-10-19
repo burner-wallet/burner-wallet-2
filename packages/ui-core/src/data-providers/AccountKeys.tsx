@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
+import { AccountKeysProps } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
 const POLL_INTERVAL = 1000;
-
-export interface AccountKeysProps {
-  account: string,
-  render: (keys: Keys | null) => React.ReactNode,
-}
-
-interface Keys {
-  privateKey: string,
-  burnAccount: () => any,
-}
 
 class AccountKeys extends Component<BurnerContext & AccountKeysProps, any> {
   constructor(props: BurnerContext & AccountKeysProps) {

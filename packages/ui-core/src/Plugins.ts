@@ -1,64 +1,13 @@
 import { ComponentType } from 'react';
 import { Asset } from '@burner-wallet/assets';
+import {
+  Account, AccountSearchFn, Actions, BurnerPluginContext, BurnerPluginData, Plugin, PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn
+} from '@burner-wallet/types';
 import { RouteComponentProps } from 'react-router-dom';
-import { withBurner, Actions } from './BurnerProvider';
+import { withBurner } from './BurnerProvider';
 import BurnerUICore from './BurnerUICore';
-import { Plugin, PluginPage, BasePluginContext, PluginElement, Account } from './';
 
-interface PluginPageData {
-  path: string,
-  Component: ComponentType<BasePluginContext & RouteComponentProps>,
-  plugin: Plugin,
-}
-
-export interface PluginElementData {
-  Component: ComponentType<BasePluginContext>,
-  plugin: Plugin,
-}
-
-interface PluginHomeButton {
-  title: string,
-  path: string,
-}
-
-interface PluginContext {
-  actions: Actions,
-}
-
-interface SentData {
-  asset: Asset,
-  from: string,
-  to: string,
-  ether: string,
-  message: string | null,
-  receipt: any,
-  hash: string,
-  id?: string | null,
-}
-
-type AccountSearchFn = (query: string) => Promise<Account[]>;
-type QRScannedFn = (qr: string, context?: PluginContext) => boolean;
-type TXSentFn = (data: SentData) => string | void | null;
-
-export interface BurnerPluginData {
-  pages: PluginPageData[],
-  homeButtons: PluginHomeButton[],
-  elements: { [position:string]: PluginElementData[] },
-  accountSearches: AccountSearchFn[],
-  tryHandleQR: (qr: string, context: PluginContext) => boolean,
-  sent: TXSentFn,
-}
-
-export interface BurnerPluginContext {
-  addElement: (position: string, Component: PluginElement) => void,
-  addHomeButton: (title: string, path: string) => any,
-  addPage: (path: string, Component: PluginPage) => any,
-  getAssets: () => Asset[],
-  getWeb3: (network: string, options?: any) => any,
-  onAccountSearch: (callback: AccountSearchFn) => void,
-  onQRScanned: (callback: QRScannedFn) => void,
-  onSent: (callback: TXSentFn) => void,
-}
+export type BurnerPluginData = BurnerPluginData;
 
 export const DEFAULT_PLUGIN_DATA = {
   pages: [],
@@ -150,7 +99,7 @@ export default class Plugins {
     });
   }
 
-  tryHandleQR(qr: string, context: PluginContext) {
+  tryHandleQR(qr: string, context: PluginActionContext) {
     for (const handler of this.qrHandlers) {
       if (handler(qr, context)) {
         return true;
@@ -159,7 +108,7 @@ export default class Plugins {
     return false;
   }
 
-  sent(data: SentData) {
+  sent(data: SendData) {
     let redirect = null;
     for (const listener of this.sentHandlers) {
       const response = listener(data);

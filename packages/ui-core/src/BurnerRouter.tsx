@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { BurnerPluginData } from './Plugins';
-import { Page } from './';
+import { Page, BurnerPluginData } from '@burner-wallet/types';
 
 interface BurnerRouterProps {
   pages: Page[],

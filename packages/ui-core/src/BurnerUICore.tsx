@@ -7,7 +7,7 @@ import dataProviders from './data-providers';
 import BurnerProvider from './BurnerProvider';
 import BurnerRouter from './BurnerRouter';
 import Plugins, { BurnerPluginData } from './Plugins';
-import { Plugin, BurnerUIComponents, BurnerComponents, Page } from './';
+import { Plugin, BurnerUIComponents, BurnerComponents, Page } from '@burner-wallet/types';
 
 interface BurnerUIProps {
   core: BurnerCore,

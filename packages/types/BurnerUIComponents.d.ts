@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { Asset } from '@burner-wallet/assets';
 
 export interface PageProps {
-  children: React.ReactNode;
+  children: ReactNode;
   title?: string;
 }
 
@@ -33,7 +33,6 @@ export interface QRCodeProps {
   value: string;
   renderAs?: 'canvas' | 'svg';
 }
-
 
 export default interface BurnerUIComponents {
   Page: ComponentType<PageProps>;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Asset } from '@burner-wallet/assets';
+import { AccountBalanceProps, AccountBalanceData } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
 const POLL_INTERVAL = 1000;
@@ -10,6 +11,10 @@ interface BalanceCache {
   maximumSendableBalance: string;
 }
 
+interface AccountBalanceState {
+  data: AccountBalanceData | null;
+}
+
 const balanceCache: { [key: string]: BalanceCache & { timestamp: number } } = {};
 const getCache = (key: string) => balanceCache[key] && (Date.now() - balanceCache[key].timestamp < CACHE_EXPIRATION)
   ? balanceCache[key]
@@ -18,21 +23,7 @@ const setCache = (key: string, val: BalanceCache) => {
   balanceCache[key] = { ...val, timestamp: Date.now() };
 }
 
-export interface AccountBalanceProps extends BurnerContext {
-  asset: string | Asset,
-  account?: string,
-  render: (data: AccountBalanceData | null) => React.ReactNode,
-}
-
-export interface AccountBalanceData {
-  balance: string,
-  displayBalance: string,
-  maximumSendableBalance: string,
-  displayMaximumSendableBalance: string,
-  usdBalance: string | null,
-}
-
-class AccountBalance extends Component<AccountBalanceProps, any> {
+class AccountBalance extends Component<AccountBalanceProps & BurnerContext, AccountBalanceState> {
   private timer: any;
   private _isMounted: boolean;
 
@@ -40,7 +31,6 @@ class AccountBalance extends Component<AccountBalanceProps, any> {
     super(props);
     this.state = {
       data: null,
-      err: null,
     };
     this.timer = null;
     this._isMounted = false;
@@ -124,7 +114,7 @@ class AccountBalance extends Component<AccountBalanceProps, any> {
         displayMaximumSendableBalance: asset.getDisplayValue(maximumSendableBalance),
         usdBalance,
       };
-      this.setState({ data, err: null });
+      this.setState({ data });
     } catch (err) {
       console.warn('[AccountBalance]', err);
     }
@@ -135,4 +125,4 @@ class AccountBalance extends Component<AccountBalanceProps, any> {
   }
 }
 
-export default withBurner<AccountBalanceProps>(AccountBalance);
+export default withBurner(AccountBalance);

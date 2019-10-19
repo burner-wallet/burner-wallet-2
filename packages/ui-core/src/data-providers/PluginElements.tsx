@@ -1,11 +1,7 @@
 import React, { Fragment, ComponentType } from 'react';
-import { Plugin, PluginElementContext } from '../';
+import { Plugin, PluginElementContext, PluginElementsProps, PluginElementData } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
-import { PluginElementData } from '../Plugins';
 
-export interface PluginElementsProps {
-  position: string,
-}
 
 const PluginElements: React.FC<PluginElementsProps & BurnerContext> = ({ position, pluginData, ...props }) => {
   const elements = pluginData.elements[position];

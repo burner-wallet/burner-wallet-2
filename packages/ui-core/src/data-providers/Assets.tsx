@@ -1,13 +1,10 @@
 import React, { Fragment } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import { withBurner, BurnerContext } from '../BurnerProvider';
+import { AssetsProps } from '@burner-wallet/types';
 
-export interface AssetsProps extends BurnerContext {
-  render: (assets: Asset[]) => React.ReactNode;
-}
-
-const Assets: React.FC<AssetsProps> = ({ render, assets }) => (
+const Assets: React.FC<AssetsProps & BurnerContext> = ({ render, assets }) => (
   <Fragment>{render(assets)}</Fragment>
 );
 
-export default withBurner<AssetsProps>(Assets);
+export default withBurner(Assets);

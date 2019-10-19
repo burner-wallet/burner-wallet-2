@@ -1,13 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import { HistoryProps } from '@burner-wallet/types';
 import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
-interface HistoryProps extends BurnerContext {
-  account: string,
-  render: (events: HistoryEvent[]) => React.ReactNode,
-}
-
-const History: React.FC<HistoryProps> = ({ account, actions, render }) => {
+const History: React.FC<HistoryProps & BurnerContext> = ({ account, actions, render }) => {
   const [events, setEvents] = useState<HistoryEvent[]>([]);
 
   useEffect(() => {

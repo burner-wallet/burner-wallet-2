@@ -26,7 +26,7 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, a
 
       actions.setLoading(null);
       const redirect = pluginData.sent({
-        asset,
+        asset: asset.id,
         from,
         to,
         ether: amount,

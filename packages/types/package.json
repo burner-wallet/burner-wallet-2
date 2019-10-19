@@ -1,0 +1,12 @@
+{
+  "name": "@burner-wallet/types",
+  "version": "1.0.0",
+  "license": "MIT",
+  "types": "types.d.ts",
+  "dependencies": {
+    "@burner-wallet/assets": "*",
+    "@burner-wallet/core": "*",
+    "@types/react": "*",
+    "@types/react-router-dom": "*"
+  }
+}

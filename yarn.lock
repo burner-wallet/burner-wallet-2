@@ -1105,20 +1105,20 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.55"
 
-"@burner-wallet/core@^0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/core/-/core-0.0.25.tgz#447e9247c7f739818548af79635a27e12d455b22"
-  integrity sha512-dNr0a8Hq3OmJEuYMYyQN9PsHZ/EzE+An2cAU6Lntic2WLW2JUCQJHugz7zA6Rclu5v23aEsLms40VbbnELmmjA==
+"@burner-wallet/core@*", "@burner-wallet/core@^0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/core/-/core-0.0.26.tgz#eb9bd0aebc3f3fe55abcf7067d437d03a5bf4115"
+  integrity sha512-LQg9rBHZNONas7+310DacdNMkqNPhvHsWFL6vNZ3DEIY57aTnfsteBwxC4uUEULBE5PdEtobTqVPjFfFPtVoPg==
   dependencies:
     "@burner-wallet/assets" "*"
     tabookey-gasless "^0.4.1"
     web3 "1.0.0-beta.55"
     web3-provider-engine "15.0.3"
 
-"@burner-wallet/core@^0.0.26":
-  version "0.0.26"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/core/-/core-0.0.26.tgz#eb9bd0aebc3f3fe55abcf7067d437d03a5bf4115"
-  integrity sha512-LQg9rBHZNONas7+310DacdNMkqNPhvHsWFL6vNZ3DEIY57aTnfsteBwxC4uUEULBE5PdEtobTqVPjFfFPtVoPg==
+"@burner-wallet/core@^0.0.25":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/core/-/core-0.0.25.tgz#447e9247c7f739818548af79635a27e12d455b22"
+  integrity sha512-dNr0a8Hq3OmJEuYMYyQN9PsHZ/EzE+An2cAU6Lntic2WLW2JUCQJHugz7zA6Rclu5v23aEsLms40VbbnELmmjA==
   dependencies:
     "@burner-wallet/assets" "*"
     tabookey-gasless "^0.4.1"
@@ -2412,6 +2412,15 @@
   integrity sha512-tDLqqiQMZlTKBKtWedcf7QZ3L9fyz8nPHNq/j+1mcJoEvrdM3Y89i3/FKwdmZ4H7G6uUk4JqShpWXLCuYpZK+w==
   dependencies:
     "@types/react" "*"
+
+"@types/react-router-dom@*":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.0.tgz#8baa84a7fa8c8e7797fb3650ca51f93038cb4caf"
+  integrity sha512-YCh8r71pL5p8qDwQf59IU13hFy/41fDQG/GeOI3y+xmD4o0w3vEPxE8uBe+dvOgMoDl0W1WUZsWH0pxc1mcZyQ==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
 
 "@types/react-router-dom@^4.3.3", "@types/react-router-dom@^4.3.4":
   version "4.3.5"

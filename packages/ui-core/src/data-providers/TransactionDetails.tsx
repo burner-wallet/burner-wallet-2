@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
+import { Asset } from '@burner-wallet/assets';
+import { TransactionDetailsProps } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
-
-export interface TransactionDetailsProps {
-  asset: string,
-  txHash: string,
-  render: (tx: any) => React.ReactNode,
-}
-
-interface Transaction {
-  txHash: string,
-  from: string,
-  to: string,
-  value: string,
-  displayValue: string,
-}
 
 class TransactionDetails extends Component<BurnerContext & TransactionDetailsProps, any> {
   private _mounted: boolean;
@@ -43,7 +31,7 @@ class TransactionDetails extends Component<BurnerContext & TransactionDetailsPro
 
   async fetchData() {
     try {
-      const assetList = this.props.assets.filter(asset => asset.id == this.props.asset);
+      const assetList = this.props.assets.filter((asset: Asset) => asset.id == this.props.asset);
       if (assetList.length == 0) {
         throw new Error(`Unable to find asset ${this.props.asset}`);
       }
