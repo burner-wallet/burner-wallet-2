@@ -12,13 +12,11 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
-    "mjs": "tsc -d",
-    "cjs": "tsc -m commonjs",
-    "build": "yarn run mjs && yarn run cjs"
+    "build": "tsc"
   },
   "dependencies": {
     "@burner-wallet/assets": "^0.0.22",
-    "@burner-wallet/ui-core": "^1.0.0",
+    "@burner-wallet/types": "^1.0.0",
     "@types/react": "*"
   },
   "devDependencies": {

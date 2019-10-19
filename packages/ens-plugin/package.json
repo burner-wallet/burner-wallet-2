@@ -6,11 +6,10 @@
   "main": "dist/ENSPlugin.js",
   "types": "dist/ENSPlugin.d.ts",
   "scripts": {
-    "start-basic": "tsc -w",
     "build": "tsc"
   },
   "dependencies": {
-    "@burner-wallet/ui-core": "^1.0.0",
+    "@burner-wallet/ui-types": "^1.0.0",
     "eth-ens-namehash": "^2.0.8",
     "typescript": "^3.6.4"
   }

@@ -1,5 +1,5 @@
-import { BurnerPluginContext, Plugin } from '@burner-wallet/ui-core';
 import { ERC20Asset } from '@burner-wallet/assets';
+import { BurnerPluginContext, Plugin } from '@burner-wallet/types';
 import parser from './eth-parse-uri';
 
 export default class ERC681Plugin implements Plugin {
