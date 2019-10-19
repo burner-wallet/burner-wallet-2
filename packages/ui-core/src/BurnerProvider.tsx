@@ -30,7 +30,8 @@ type HistoryEventCallback = (event: HistoryEvent) => void;
 export interface Actions {
   callSigner: (action: string, ...props: any[]) => string,
   canCallSigner: (action: string, ...props: any[]) => boolean,
-  scanQrCode: () => Promise<string>,
+  openDefaultQRScanner: () => Promise<void>,
+  scanQRCode: () => Promise<string>,
   safeSetPK: (newPK: string) => void,
   send: (params: SendParams) => void,
   navigateTo: (location: string | number, state?: any) => void,
@@ -63,7 +64,8 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
     callSigner: unavailable,
     canCallSigner: unavailable,
     navigateTo: unavailable,
-    scanQrCode: unavailable,
+    openDefaultQRScanner: unavailable,
+    scanQRCode: unavailable,
     safeSetPK: unavailable,
     send: unavailable,
     setLoading: unavailable,
@@ -80,6 +82,9 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
   loading: null,
 });
 
+const ADDRESS_REGEX = /^(?:0x)?[0-9a-f]{40}$/i;
+const PK_REGEX = /^(?:https?:\/\/[-a-z.]+\/pk#)?((?:0x)?[0-9a-f]{64})$/i;
+
 class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState> {
   private actions: Actions;
 
@@ -87,10 +92,11 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
     super(props);
 
     this.actions = {
-      scanQrCode: this.scanQrCode.bind(this),
       canCallSigner: props.core.canCallSigner.bind(props.core),
       callSigner: props.core.callSigner.bind(props.core),
+      openDefaultQRScanner: this.openDefaultQRScanner.bind(this),
       safeSetPK: (newPK: string) => props.history.push('/pk', { newPK }),
+      scanQRCode: this.scanQRCode.bind(this),
       send: this.send.bind(this),
       navigateTo: (location: string | number, state?: any) =>
         Number.isInteger(location as number)
@@ -118,7 +124,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
     this.props.core.onAccountChange((accounts: string[]) => this.setState({ accounts }));
   }
 
-  scanQrCode() {
+  scanQRCode() {
     return new Promise<string>((resolve, reject) => {
       const completeScan = (result: string | null) => {
         this.setState({ completeScan: null });
@@ -130,6 +136,30 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
       };
       this.setState({ completeScan });
     });
+  }
+
+  async openDefaultQRScanner() {
+    const { actions } = this;
+    try {
+      const result = await this.scanQRCode();
+      if (this.props.pluginData.tryHandleQR(result, { actions })) {
+        return;
+      } else if (ADDRESS_REGEX.test(result)) {
+        actions.navigateTo('/send', { to: result });
+      } else if (PK_REGEX.test(result)) {
+        // @ts-ignore
+        const pk = PK_REGEX.exec(result)[1];
+        actions.safeSetPK(pk);
+      } else if (result.indexOf(location.origin) === 0) {
+        actions.navigateTo(result.substr(location.origin.length));
+      } else {
+        console.log(`Unhandled QR code "${result}"`);
+      }
+    } catch (e) {
+      if (e.message !== 'User canceled') {
+        console.error(e);
+      }
+    }
   }
 
   send({ asset, ether, value, to, from, message, id }: SendParams) {

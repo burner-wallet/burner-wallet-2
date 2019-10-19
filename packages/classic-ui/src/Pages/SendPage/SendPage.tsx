@@ -94,7 +94,7 @@ class SendPage extends Component<SendPageProps, SendPageState> {
 
   async scanCode() {
     try {
-      const address = await this.props.actions.scanQrCode();
+      const address = await this.props.actions.scanQRCode();
       this.setState({ to: address });
     } catch (e) {}
   }

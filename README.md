@@ -167,8 +167,18 @@ receive the following props:
 - `defaultAccount`: the primary account used by the wallet. Equivalent to `accounts[0]`.
 - `accounts`: an array of ethereum addresses that are available to use.
 - `actions`: an object containing a number of functions that plugins may call:
-  - `actions.scanQrCode()`: Opens a full-screen QR code scanner. Returns a promise, which is
+  - `actions.scanQRCode()`: Opens a full-screen QR code scanner. Returns a promise, which is
     resolved to the scanned value or rejected if the user cancels the scan.
+  - `actions.openDefaultQRScanner()`: Opens a full-screen QR code scanner, and will automatically
+    handle the scanned code depending on the scanned value, in the following order:
+    - Plugins can chose to handle scanned QR codes by calling `onQRScanned` and returning `true`
+    - Scanned addresses will redirect to the Send page
+    - Scanned private keys will invoke `safeSetPK`
+    - Scanned URLs that match the domain the wallet is on will be automatically routed
+  - `actions.safeSetPK(newPK)`: Set a new private key without losing funds. If the new and old
+    accounts are both empty, the key will be updated and the user will be redirected to the home
+    page. If one or both of the accounts contains funds, the user will be redirected to the PK
+    page where they will have the option to transfer funds to the new or old account.
   - `actions.send({ to, from?, asset, ether, id? })`: Call to send an asset. Will redirect the user to a send
     confirmation page. If from is not set, it will default to the primary account. The optional id parameter
     is used to identify transactions in the `onSent` callback.
