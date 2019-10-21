@@ -45,6 +45,7 @@ interface PluginPageData {
 export interface PluginElementData {
   Component: ComponentType<BasePluginContext>,
   plugin: Plugin,
+  options?: any;
 }
 
 interface PluginHomeButton {

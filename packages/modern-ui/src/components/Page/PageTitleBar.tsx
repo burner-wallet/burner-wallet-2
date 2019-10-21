@@ -1,0 +1,24 @@
+import React from "react";
+import styled from 'styled-components';
+import CloseButton from './CloseButton';
+
+const TitleBar = styled.div`
+  display: flex;
+  height: 64px;
+  align-items: center;
+  border-bottom: 1px solid #F2F2F2;
+`;
+
+export interface PageTitleBarProps {
+  title: string;
+}
+
+const PageTitleBar: React.FC<PageTitleBarProps> = ({ title }) => (
+  <TitleBar>
+    <h1>{title}</h1>
+
+    <CloseButton />
+  </TitleBar>
+);
+
+export default PageTitleBar;
