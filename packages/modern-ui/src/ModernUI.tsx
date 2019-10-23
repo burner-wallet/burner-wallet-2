@@ -7,7 +7,8 @@ import BurnerUICore, { Page, BurnerUIComponents } from '@burner-wallet/ui-core';
 import Scanner from './components/Scanner';
 import Template from './Template';
 
-// import AdvancedPage from './pages/AdvancedPage';
+import internalPlugins from './internal-plugins';
+import AdvancedPage from './pages/AdvancedPage';
 // import ConfirmPage from './pages/ConfirmPage';
 import HomePage from './pages/HomePage';
 // import NewPKPage from './pages/NewPKPage';
@@ -25,8 +26,12 @@ export default class ClassicUI extends BurnerUICore {
       // { path: '/send', component: SendPage },
       // { path: '/confirm', component: ConfirmPage },
       // { path: '/receipt/:asset/:txHash', component: ReceiptPage },
-      // { path: '/advanced', component: AdvancedPage },
+      { path: '/advanced', component: AdvancedPage },
     ];
+  }
+
+  getInternalPlugins() {
+    return internalPlugins;
   }
 
   burnerComponents() {

@@ -18,14 +18,19 @@ const buttonStyles = `
   color: white;
 `;
 
-const StandardButton = styled.button`
+interface ButtonStyleProps {
+  color?: string;
+  background?: string;
+}
+
+const StandardButton = styled.button<ButtonStyleProps>`
   ${buttonStyles}
   background-color: ${props => props.theme.accentColor};
   color: ${props => props.color};
   background: ${props => props.background};
 `;
 
-const LinkButton = styled(Link)`
+const LinkButton = styled(Link)<ButtonStyleProps>`
   ${buttonStyles}
   background-color: ${props => props.theme.accentColor};
   color: ${props => props.color};
@@ -34,6 +39,7 @@ const LinkButton = styled(Link)`
 
 interface ButtonProps {
   to?: string;
+  onClick?: (e: any) => any;
 }
 
 const Button: React.FC<ButtonProps> = ({ to, ...props }) => {
