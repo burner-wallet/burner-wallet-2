@@ -9,7 +9,7 @@ import Template from './Template';
 
 import internalPlugins from './internal-plugins';
 import AdvancedPage from './pages/AdvancedPage';
-// import ConfirmPage from './pages/ConfirmPage';
+import ConfirmPage from './pages/ConfirmPage';
 import HomePage from './pages/HomePage';
 // import NewPKPage from './pages/NewPKPage';
 // import ReceiptPage from './pages/ReceiptPage';
@@ -24,7 +24,7 @@ export default class ClassicUI extends BurnerUICore {
       // { path: '/pk', component: NewPKPage },
       // { path: '/receive', component: ReceivePage },
       { path: '/send', component: SendPage },
-      // { path: '/confirm', component: ConfirmPage },
+      { path: '/confirm', component: ConfirmPage },
       // { path: '/receipt/:asset/:txHash', component: ReceiptPage },
       { path: '/advanced', component: AdvancedPage },
     ];
