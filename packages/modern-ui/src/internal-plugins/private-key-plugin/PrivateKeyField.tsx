@@ -45,18 +45,13 @@ const PrivateKeyField: React.FC<PrivateKeyProps> = ({ privateKey }) => {
       />
 
       <ButtonContainer>
-        <Button
-          size="small"
-          mx={2}
-          p={0}
-          onClick={() => setVisibleKey(!visibleKey)}
-        >
+        <Button onClick={() => setVisibleKey(!visibleKey)}>
           <Icon name={visibleKey ? 'VisibilityOff' : 'Visibility'} />
         </Button>
         
         <Clipboard text={privateKey}>
           {(isCopied: boolean) => (
-            <Button size="small">{!isCopied ? 'Copy' : 'Copied!'}</Button>
+            <Button>{!isCopied ? 'Copy' : 'Copied!'}</Button>
           )}
         </Clipboard>
       </ButtonContainer>

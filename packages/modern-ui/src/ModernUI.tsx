@@ -14,7 +14,7 @@ import HomePage from './pages/HomePage';
 // import NewPKPage from './pages/NewPKPage';
 // import ReceiptPage from './pages/ReceiptPage';
 // import ReceivePage from './pages/ReceivePage';
-// import SendPage from './pages/SendPage';
+import SendPage from './pages/SendPage';
 
 
 export default class ClassicUI extends BurnerUICore {
@@ -23,7 +23,7 @@ export default class ClassicUI extends BurnerUICore {
       { path: '/', component: HomePage },
       // { path: '/pk', component: NewPKPage },
       // { path: '/receive', component: ReceivePage },
-      // { path: '/send', component: SendPage },
+      { path: '/send', component: SendPage },
       // { path: '/confirm', component: ConfirmPage },
       // { path: '/receipt/:asset/:txHash', component: ReceiptPage },
       { path: '/advanced', component: AdvancedPage },

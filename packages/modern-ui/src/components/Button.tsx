@@ -40,6 +40,7 @@ const LinkButton = styled(Link)<ButtonStyleProps>`
 interface ButtonProps {
   to?: string;
   onClick?: (e: any) => any;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({ to, ...props }) => {

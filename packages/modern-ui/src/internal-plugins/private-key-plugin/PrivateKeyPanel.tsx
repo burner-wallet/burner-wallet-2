@@ -23,7 +23,7 @@ const PrivateKeyPanel: React.FC<BurnerContext> = ({ defaultAccount }) => {
           keys ? (
             <Fragment>
               <PrivateKeyField privateKey={keys.privateKey} />
-              <AdvancedButton outline variant="danger" onClick={keys.burnAccount}>
+              <AdvancedButton onClick={keys.burnAccount}>
                 Burn Account
               </AdvancedButton>
             </Fragment>
