@@ -5,6 +5,7 @@ import { Keys } from '@burner-wallet/types';
 import PrivateKeyField from './PrivateKeyField';
 import { DataProviders } from '@burner-wallet/ui-core';
 import Button from '../../components/Button';
+import { randomHex } from '../../lib';
 
 const AdvancedButton = styled(Button)`
   margin-top: 16px;
@@ -13,7 +14,7 @@ const AdvancedButton = styled(Button)`
 
 const { AccountKeys } = DataProviders;
 
-const PrivateKeyPanel: React.FC<BurnerContext> = ({ defaultAccount }) => {
+const PrivateKeyPanel: React.FC<BurnerContext> = ({ actions, defaultAccount }) => {
   return (
     <section>
       <h2>Private Key</h2>
@@ -23,7 +24,7 @@ const PrivateKeyPanel: React.FC<BurnerContext> = ({ defaultAccount }) => {
           keys ? (
             <Fragment>
               <PrivateKeyField privateKey={keys.privateKey} />
-              <AdvancedButton onClick={keys.burnAccount}>
+              <AdvancedButton onClick={() => actions.safeSetPK(randomHex(64))}>
                 Burn Account
               </AdvancedButton>
             </Fragment>

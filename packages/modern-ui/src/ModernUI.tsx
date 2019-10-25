@@ -11,7 +11,7 @@ import internalPlugins from './internal-plugins';
 import AdvancedPage from './pages/AdvancedPage';
 import ConfirmPage from './pages/ConfirmPage';
 import HomePage from './pages/HomePage';
-// import NewPKPage from './pages/NewPKPage';
+import PKPage from './pages/PKPage';
 import ReceiptPage from './pages/ReceiptPage';
 import ReceivePage from './pages/ReceivePage';
 import SendPage from './pages/SendPage';
@@ -21,7 +21,7 @@ export default class ClassicUI extends BurnerUICore {
   getPages(): Page[] {
     return [
       { path: '/', component: HomePage },
-      // { path: '/pk', component: NewPKPage },
+      { path: '/pk', component: PKPage },
       { path: '/receive', component: ReceivePage },
       { path: '/send', component: SendPage },
       { path: '/confirm', component: ConfirmPage },
