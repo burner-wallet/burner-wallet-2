@@ -3,7 +3,7 @@ import { BurnerContext, withBurner } from '@burner-wallet/ui-core';
 import { RouteComponentProps } from 'react-router-dom';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
-import LineItem from './LineItem';
+import LineItem from '../../components/LineItem';
 
 const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({
   history, assets, actions, pluginData
@@ -36,7 +36,7 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({
 
       actions.setLoading(null);
       const redirect = pluginData.sent({
-        asset,
+        asset: assetId,
         from,
         to,
         ether: amount,
