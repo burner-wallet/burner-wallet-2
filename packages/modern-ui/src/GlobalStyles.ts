@@ -49,9 +49,11 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: var(--main-font);
-    min-height: 100%;
-    min-width: 100%;
     font-smoothing: antialiased;
+  }
+
+  html, body, #root {
+    height: 100%;
   }
 
   /* disable iOS zooming on select */

@@ -13,9 +13,11 @@ const defaultTheme = {
 };
 
 const Container = styled.div`
-  min-height: 100%;
+  height: 100%;
   max-width: 700px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Template: React.FC<{ theme: any }> = ({ children, theme }) => {

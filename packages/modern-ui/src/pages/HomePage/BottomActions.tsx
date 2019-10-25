@@ -65,7 +65,7 @@ const Bar = styled.div`
 const BottomActions: React.FC<{ actions: Actions }> = ({ actions }) => {
   return (
     <Bar>
-      <BottomButton to="/request">Request</BottomButton>
+      <BottomButton to="/receive">Request</BottomButton>
       <ScanButton onClick={actions.openDefaultQRScanner} />
       <BottomButton to="/send">Send</BottomButton>
     </Bar>

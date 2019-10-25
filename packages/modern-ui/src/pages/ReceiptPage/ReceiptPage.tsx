@@ -38,6 +38,7 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = 
         const [asset] = assets.filter((_asset: Asset) => _asset.id === tx.asset);
         const amtValue = asset
           ? `${asset.getDisplayValue(tx.value!)} ${asset.name}`
+          // @ts-ignore
           : `${tx.displayValue} (unknown asset)`;
 
         return (

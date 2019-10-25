@@ -13,7 +13,7 @@ import ConfirmPage from './pages/ConfirmPage';
 import HomePage from './pages/HomePage';
 // import NewPKPage from './pages/NewPKPage';
 import ReceiptPage from './pages/ReceiptPage';
-// import ReceivePage from './pages/ReceivePage';
+import ReceivePage from './pages/ReceivePage';
 import SendPage from './pages/SendPage';
 
 
@@ -22,7 +22,7 @@ export default class ClassicUI extends BurnerUICore {
     return [
       { path: '/', component: HomePage },
       // { path: '/pk', component: NewPKPage },
-      // { path: '/receive', component: ReceivePage },
+      { path: '/receive', component: ReceivePage },
       { path: '/send', component: SendPage },
       { path: '/confirm', component: ConfirmPage },
       { path: '/receipt/:asset/:txHash', component: ReceiptPage },
