@@ -45,6 +45,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  body {
+    background: #ededed;
+  }
+
   html, body {
     margin: 0;
     padding: 0;

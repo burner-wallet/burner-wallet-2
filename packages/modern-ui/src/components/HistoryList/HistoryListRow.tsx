@@ -14,8 +14,20 @@ const HistoryPluginElements = PluginElements as React.FC<
 const Row = styled.div`
   border-top: 1px solid #f2f2f2;
   display: flex;
-  justifyContent: space-between;
+  justify-content: space-between;
+  padding: 4px;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:hover {
+    background: rgba(181, 181, 181, .1);
+    cursor: pointer;
+  }
 `;
+
+const RightSide = styled.div`text-align: right;`;
 
 interface HistoryListEventProps {
   event: HistoryEvent;
@@ -45,17 +57,13 @@ const HistoryListRow: React.FC<HistoryListEventProps> = ({ event, account, navig
             </div>
           </div>
 
-          <div>
+          <RightSide>
             <div style={{ color: event.to === account ? '#28C081' : '#FD9D28' }}>
-              {event.to === account
-                ? (<span style={{ color: '#28C081' }}>{'\u2199'}</span>)
-                : (<span style={{ color: '#FD9D28' }}>{'\u2197'}</span>)}
+              {event.to === account ? '\u2199' : '\u2197'}
               {asset.getDisplayValue(event.value)}
             </div>
-            <div>
-              {asset.name}
-            </div>
-          </div>
+            <div>{asset.name}</div>
+          </RightSide>
         </Row>
       );
     case 'exchange':

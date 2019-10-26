@@ -37,8 +37,19 @@ const ViewAllButton = styled(Link)`
 
 const ActivityHeader = styled.div`
   display: flex;
-  justifyContent: space-between;
-  alignItems: center;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0 4px;
+`;
+
+const SubHeading = styled.h2<{ line?: boolean }>`
+  font-size: var(--l2-fs);
+  line-height: var(--l2-lh);
+  font-weight: var(--l2-weight);
+  margin: 8px 0 4px;
+  color: #222222;
+
+  ${props => props.line && `border-bottom: solid 1px #f2f2f2;`}
 `;
 
 const { PluginElements, History } = DataProviders;
@@ -52,16 +63,14 @@ const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData
 
       <PluginElements position='home-middle' />
 
-      <div style={{ margin: '0 var(--page-margin) var(--page-margin)' }}>
-        <ActivityHeader>
-          <h2>Recent activity</h2>
-          <ViewAllButton to='/activity'>View All</ViewAllButton>
-        </ActivityHeader>
+      <ActivityHeader>
+        <SubHeading>Recent activity</SubHeading>
+        <ViewAllButton to='/activity'>View All</ViewAllButton>
+      </ActivityHeader>
 
-        <HistoryList account={defaultAccount} limit={3} navigateTo={actions.navigateTo} />
-      </div>
+      <HistoryList account={defaultAccount} limit={3} navigateTo={actions.navigateTo} />
 
-      <h2 style={{ borderBottom: '1px solid #f2f2f2' }}>Apps</h2>
+      <SubHeading line>Apps</SubHeading>
 
       {/*<PluginButtons position='apps' component={AppButton} />
 

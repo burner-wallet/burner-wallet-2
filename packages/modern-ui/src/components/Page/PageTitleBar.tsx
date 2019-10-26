@@ -9,6 +9,7 @@ const TitleBar = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #F2F2F2;
+  margin-bottom: 8px;
 `;
 
 export interface PageTitleBarProps {

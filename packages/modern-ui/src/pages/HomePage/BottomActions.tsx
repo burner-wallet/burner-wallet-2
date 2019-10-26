@@ -46,6 +46,7 @@ const Bar = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 16px;
   border: solid 1px rgb(238, 238, 238);
   border-radius: 8px;
+  background: #fcfcfc;
 `;
 
 

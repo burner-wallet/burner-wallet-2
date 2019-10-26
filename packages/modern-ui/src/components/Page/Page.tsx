@@ -4,10 +4,12 @@ import PageTitleBar from './PageTitleBar';
 
 const PageContainer = styled.main`
   margin: 0 var(--page-margin) var(--page-margin);
+  padding: var(--page-margin);
   display: flex;
   flex-direction: column;
   flex: 1;
   position: relative;
+  background: #fafafa;
 `;
 
 const Content = styled.div`

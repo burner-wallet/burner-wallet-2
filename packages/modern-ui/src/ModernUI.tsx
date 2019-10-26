@@ -8,6 +8,7 @@ import Scanner from './components/Scanner';
 import Template from './Template';
 
 import internalPlugins from './internal-plugins';
+import ActivityPage from './pages/ActivityPage';
 import AdvancedPage from './pages/AdvancedPage';
 import ConfirmPage from './pages/ConfirmPage';
 import HomePage from './pages/HomePage';
@@ -21,6 +22,7 @@ export default class ClassicUI extends BurnerUICore {
   getPages(): Page[] {
     return [
       { path: '/', component: HomePage },
+      { path: '/activity', component: ActivityPage },
       { path: '/pk', component: PKPage },
       { path: '/receive', component: ReceivePage },
       { path: '/send', component: SendPage },
