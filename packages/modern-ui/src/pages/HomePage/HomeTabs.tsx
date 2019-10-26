@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BurnerContext, PluginElementData } from '@burner-wallet/types';
-import Balances from './Balances';
 
 const TabButton = styled.button`
   border-radius: 30px;
@@ -32,34 +31,14 @@ const HomeTabs: React.FC<HomeTabsProps> = ({ pluginData }) => {
 
   const pluginTabs = pluginData.elements['home-tab'];
 
-  const tabBtns = pluginTabs ? (
+  const { Component: TabComponent, plugin: tabPlugin } = pluginTabs[tab];
+  return (
     <div>
-      <TabButton onClick={() => setTab(0)} disabled={tab === 0}>
-        Cash
-      </TabButton>
-
-      {pluginTabs.map(({ options }: PluginElementData, i: number) => (
-        <TabButton key={options.title} onClick={() => setTab(i + 1)} disabled={tab === i + 1}>
+      {pluginTabs.length > 1 && pluginTabs.map(({ options }: PluginElementData, i: number) => (
+        <TabButton key={options.title} onClick={() => setTab(i)} disabled={tab === i}>
           {options.title}
         </TabButton>
       ))}
-    </div>
-  ) : null;
-
-  if (tab === 0) {
-    return (
-      <div>
-        {tabBtns}
-
-        <Balances />
-      </div>
-    );
-  }
-
-  const { Component: TabComponent, plugin: tabPlugin } = pluginTabs[tab - 1];
-  return (
-    <div>
-      {tabBtns}
 
       <TabComponent plugin={tabPlugin} />
     </div>
