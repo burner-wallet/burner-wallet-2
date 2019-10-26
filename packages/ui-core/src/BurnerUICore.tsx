@@ -33,7 +33,10 @@ export default abstract class BurnerUICore extends Component<BurnerUIProps, Burn
 
   constructor(props: BurnerUIProps) {
     super(props);
-    this.plugins = new Plugins(props.plugins as Plugin[], this);
+
+    const internalPlugins = this.getInternalPlugins();
+    const _plugins = props.plugins ? [...internalPlugins, ...props.plugins] : internalPlugins;
+    this.plugins = new Plugins(_plugins as Plugin[], this);
 
     this.state = {
       pluginData: this.plugins.getData(),
@@ -48,6 +51,10 @@ export default abstract class BurnerUICore extends Component<BurnerUIProps, Burn
   abstract content(): React.ReactNode;
   abstract getPages(): Page[];
   abstract burnerComponents(): BurnerUIComponents;
+
+  getInternalPlugins(): Plugin[] {
+    return [];
+  }
 
   componentDidMount() {
     this.plugins.onDataChange(pluginData => this.setState({ pluginData }));

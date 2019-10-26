@@ -26,8 +26,9 @@ export type QRScannedFn = (qr: string, context?: PluginActionContext) => boolean
 export type TXSentFn = (data: SendData) => string | void | null;
 
 export interface BurnerPluginContext {
-  addElement: (position: string, Component: PluginElement) => void,
-  addHomeButton: (title: string, path: string) => any,
+  addElement: (position: string, Component: PluginElement, options?: any) => void,
+  addButton: (position: string, title: string, path: string, options?: any) => any,
+  addHomeButton: (title: string, path: string, options?: any) => any,
   addPage: (path: string, Component: PluginPage) => any,
   getAssets: () => Asset[],
   getWeb3: (network: string, options?: any) => any,
@@ -45,16 +46,18 @@ interface PluginPageData {
 export interface PluginElementData {
   Component: ComponentType<BasePluginContext>,
   plugin: Plugin,
+  options?: any;
 }
 
-interface PluginHomeButton {
+export interface PluginButton {
   title: string,
   path: string,
+  options?: any,
 }
 
 export interface BurnerPluginData {
   pages: PluginPageData[],
-  homeButtons: PluginHomeButton[],
+  buttons: { [position:string]: PluginButton[] },
   elements: { [position:string]: PluginElementData[] },
   accountSearches: AccountSearchFn[],
   tryHandleQR: (qr: string, context: PluginActionContext) => boolean,

@@ -1,7 +1,8 @@
 import { ComponentType } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import {
-  Account, AccountSearchFn, Actions, BurnerPluginContext, BurnerPluginData, Plugin, PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn
+  Account, AccountSearchFn, Actions, BurnerPluginContext, BurnerPluginData, Plugin,
+  PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn
 } from '@burner-wallet/types';
 import { RouteComponentProps } from 'react-router-dom';
 import { withBurner } from './BurnerProvider';
@@ -11,7 +12,7 @@ export type BurnerPluginData = BurnerPluginData;
 
 export const DEFAULT_PLUGIN_DATA = {
   pages: [],
-  homeButtons: [],
+  buttons: {},
   elements: {},
   accountSearches: [],
   tryHandleQR: () => false,
@@ -49,13 +50,16 @@ export default class Plugins {
 
   getPluginContext(plugin: Plugin): BurnerPluginContext {
     return {
-      addElement: (position: string, Component: PluginElement) =>
-        this.addPluginElement(plugin, position, Component),
+      addElement: (position: string, Component: PluginElement, options?: any) =>
+        this.addPluginElement(plugin, position, Component, options),
       onAccountSearch: (callback: AccountSearchFn) => this.addAccountSearch(callback),
       onQRScanned: (callback: QRScannedFn) => this.qrHandlers.push(callback),
       onSent: (callback: TXSentFn) => this.sentHandlers.push(callback),
       addPage: (path: string, Component: PluginPage) => this.addPluginPage(plugin, path, Component),
-      addHomeButton: (title: string, path: string) => this.addPluginHomeButton(plugin, title, path),
+      addButton: (position: string, title: string, path: string, options?: any) =>
+        this.addPluginButton(plugin, position, title, path, options),
+      addHomeButton: (title: string, path: string, options?: any) =>
+        this.addPluginButton(plugin, 'home', title, path, options),
       getAssets: () => this.ui.getAssets(),
       getWeb3: (network: string, options?: any) => this.ui.getCore().getWeb3(network, options),
     };
@@ -76,19 +80,23 @@ export default class Plugins {
     });
   }
 
-  addPluginHomeButton(plugin: Plugin, title: string, path: string) {
+  addPluginButton(plugin: Plugin, position: string, title: string, path: string, options: any) {
+    const existingButtons = this.pluginData.buttons[position] || [];
     this.setPluginData({
-      homeButtons: [...this.pluginData.homeButtons, { plugin, title, path }],
+      buttons: {
+        ...this.pluginData.buttons,
+        [position]: [...existingButtons, { plugin, title, path, options }],
+      },
     });
   }
 
-  addPluginElement(plugin: Plugin, position: string, Component: PluginElement) {
+  addPluginElement(plugin: Plugin, position: string, Component: PluginElement, options?: any) {
     const WrappedComponent = withBurner(Component);
     const existingElements = this.pluginData.elements[position] || [];
     this.setPluginData({
       elements: {
         ...this.pluginData.elements,
-        [position]: [...existingElements, { plugin, Component: WrappedComponent }],
+        [position]: [...existingElements, { plugin, Component: WrappedComponent, options }],
       },
     });
   }
