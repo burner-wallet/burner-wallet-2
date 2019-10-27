@@ -1,8 +1,6 @@
 import React, { Component, ComponentType } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { Asset } from '@burner-wallet/assets';
 import BurnerCore from '@burner-wallet/core';
-import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import {
   Diff, BurnerComponents, BurnerContext, BurnerPluginData, SendData, Actions, HistoryEventCallback
 } from '@burner-wallet/types';
@@ -11,16 +9,16 @@ import { DEFAULT_PLUGIN_DATA } from './Plugins';
 const ZERO_ADDR = '0x0000000000000000000000000000000000000000';
 
 interface BurnerProviderProps extends RouteComponentProps {
-  core: BurnerCore,
-  pluginData: BurnerPluginData,
-  children: React.ReactNode,
-  burnerComponents: BurnerComponents,
+  core: BurnerCore;
+  pluginData: BurnerPluginData;
+  children: React.ReactNode;
+  burnerComponents: BurnerComponents;
 }
 
 interface BurnerProviderState {
-  accounts: string[],
-  completeScan: ((result: string | null) => any) | null,
-  loading: string | null,
+  accounts: string[];
+  completeScan: ((result: string | null) => any) | null;
+  loading: string | null;
 }
 
 export type BurnerContext = BurnerContext;
@@ -114,8 +112,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
       } else if (ADDRESS_REGEX.test(result)) {
         actions.navigateTo('/send', { to: result });
       } else if (PK_REGEX.test(result)) {
-        // @ts-ignore
-        const pk = PK_REGEX.exec(result)[1];
+        const pk = PK_REGEX.exec(result)![1];
         actions.safeSetPK(pk);
       } else if (result.indexOf(location.origin) === 0) {
         actions.navigateTo(result.substr(location.origin.length));
@@ -158,7 +155,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
 export default withRouter(BurnerProvider);
 
 export function withBurner<P>(WrappedComponent: ComponentType<P>): ComponentType<Diff<P, BurnerContext>> {
-  return function(props) {
+  return function BurnerHLC(props) {
     return (
       <Consumer>
         {(burnerContext: BurnerContext) => <WrappedComponent {...burnerContext} {...props as P} />}

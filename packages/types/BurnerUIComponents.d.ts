@@ -8,25 +8,25 @@ export interface PageProps {
 
 export interface AssetSelectorProps {
   selected: Asset | null;
-  assets?: Asset[],
+  assets?: Asset[];
   onChange: (asset: Asset) => void;
   network?: string;
   disabled?: boolean;
 }
 
 export interface AmountInputProps {
-  onChange: (val: string, isMax: boolean) => void,
-  asset?: Asset | null,
-  value: string,
-  disabled?: boolean,
-  max?: string | null,
+  onChange: (val: string, isMax: boolean) => void;
+  asset?: Asset | null;
+  value: string;
+  disabled?: boolean;
+  max?: string | null;
 }
 
 export interface ButtonProps {
-  to?: string,
-  onClick?: () => any,
-  disabled?: boolean,
-  className?: string,
+  to?: string;
+  onClick?: () => any;
+  disabled?: boolean;
+  className?: string;
 }
 
 export interface QRCodeProps {

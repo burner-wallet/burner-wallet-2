@@ -1,10 +1,7 @@
-import { ComponentType } from 'react';
-import { Asset } from '@burner-wallet/assets';
 import {
-  Account, AccountSearchFn, Actions, BurnerPluginContext, BurnerPluginData, Plugin,
+  AccountSearchFn, BurnerPluginContext, BurnerPluginData, Plugin,
   PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn
 } from '@burner-wallet/types';
-import { RouteComponentProps } from 'react-router-dom';
 import { withBurner } from './BurnerProvider';
 import BurnerUICore from './BurnerUICore';
 
@@ -65,7 +62,7 @@ export default class Plugins {
     };
   }
 
-  setPluginData(newData: any) {
+  setPluginData(newData: Partial<BurnerPluginData>) {
     this.pluginData = {
       ...this.pluginData,
       ...newData,

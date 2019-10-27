@@ -1,5 +1,5 @@
-import React, { Fragment, ComponentType } from 'react';
-import { Plugin, PluginElementContext, PluginElementsProps, PluginElementData } from '@burner-wallet/types';
+import React, { Fragment } from 'react';
+import { PluginElementsProps, PluginElementData } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
 

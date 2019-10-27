@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Asset } from '@burner-wallet/assets';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 import { AssetsProps } from '@burner-wallet/types';
 

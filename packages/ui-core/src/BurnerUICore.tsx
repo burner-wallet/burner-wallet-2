@@ -10,10 +10,10 @@ import Plugins, { BurnerPluginData } from './Plugins';
 import { Plugin, BurnerUIComponents, BurnerComponents, Page } from '@burner-wallet/types';
 
 interface BurnerUIProps {
-  core: BurnerCore,
-  plugins?: any[],
-  title?: string,
-  theme?: any,
+  core: BurnerCore;
+  plugins?: any[];
+  title?: string;
+  theme?: any;
 }
 
 interface BurnerUIState {

@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Page, BurnerPluginData } from '@burner-wallet/types';
 
 interface BurnerRouterProps {
-  pages: Page[],
-  pluginData: BurnerPluginData,
+  pages: Page[];
+  pluginData: BurnerPluginData;
 }
 
 const BurnerRouter: React.FC<BurnerRouterProps> = ({ pages, pluginData }) => (
