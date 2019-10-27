@@ -25,9 +25,6 @@
     "eject": "react-app-rewired eject",
     "install-all": "./scripts/install.sh"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
