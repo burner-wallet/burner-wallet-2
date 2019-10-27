@@ -1,6 +1,5 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import QRCode from 'qrcode.react';
 import Page from '../../components/Page';
 import LineItem from '../../components/LineItem';
 import { DataProviders } from '@burner-wallet/ui-core';

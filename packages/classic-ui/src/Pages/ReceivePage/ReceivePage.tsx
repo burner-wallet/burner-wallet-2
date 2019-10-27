@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import injectSheet from 'react-jss';
 import QRCode from 'qrcode.react';
 import { BurnerContext, withBurner } from '@burner-wallet/ui-core';

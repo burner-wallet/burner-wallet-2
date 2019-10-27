@@ -1,15 +1,15 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { Asset } from '@burner-wallet/assets';
 const classes = require('./AmountInput.module.css');
 
 const ONE_ETH = 1000000000000000000;
 
 export interface AmountInputProps {
-  onChange: (val: string, isMax: boolean) => void,
-  asset?: Asset | null,
-  value: string,
-  disabled?: boolean,
-  max?: string | null,
+  onChange: (val: string, isMax: boolean) => void;
+  asset?: Asset | null;
+  value: string;
+  disabled?: boolean;
+  max?: string | null;
 }
 
 const AmountInput: React.FC<AmountInputProps> = ({ onChange, asset, value, disabled, max }) => {

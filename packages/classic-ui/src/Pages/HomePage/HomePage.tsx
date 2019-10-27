@@ -48,9 +48,9 @@ const styles = (theme: any) => ({
 });
 
 interface HomeButtonProps {
-  path: string,
-  title: string,
-  classes: any,
+  path: string;
+  title: string;
+  classes: any;
 }
 
 const HomeButton: React.FC<HomeButtonProps> = ({ path, title, classes }) => (

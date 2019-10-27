@@ -12,12 +12,12 @@ interface State {
   newBalances: string[];
 }
 
-export const getAllBalances = (assets: Asset[], account: string) =>
+export const getAllBalances = (assets: Asset[], account: string): Promise<string[]> =>
   Promise.all(assets.map(asset => asset.getBalance(account)));
 
 const moveAll = async (assets: Asset[], sender: string, recipient: string) => {
   const _assets = assets.sort((asset: Asset) => asset.type === 'native' ? 1 : -1);
-  for (const asset of assets) {
+  for (const asset of _assets) {
     const balance = await asset.getMaximumSendableBalance(sender);
     if (balance !== '0') {
       await asset.send({

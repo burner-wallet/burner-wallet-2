@@ -1,5 +1,4 @@
 import utils from 'ethereumjs-util';
-import { Asset } from '@burner-wallet/assets';
 
 export const pkToAddress = (pk: string) => utils.bufferToHex(utils.privateToAddress(utils.toBuffer(pk)));
 

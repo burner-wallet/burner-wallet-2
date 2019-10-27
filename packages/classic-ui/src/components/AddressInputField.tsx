@@ -31,12 +31,12 @@ const styles = {
 };
 
 interface AddressInputFieldProps {
-  value: string,
-  account?: Account | null,
-  onChange: (address: string, account: Account | null) => void,
-  scan?: () => any,
-  disabled?: boolean,
-  classes: any,
+  value: string;
+  account?: Account | null;
+  onChange: (address: string, account: Account | null) => void;
+  scan?: () => any;
+  disabled?: boolean;
+  classes: any;
 }
 
 const AddressInputField: React.FC<AddressInputFieldProps> = ({
@@ -59,6 +59,7 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
             className={classes.textField}
             value={value}
             onChange={e => onChange(e.target.value, null)}
+            disabled={disabled}
           />
           {scan && <button className={classes.scanBtn} onClick={scan} />}
         </Fragment>

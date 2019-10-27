@@ -16,7 +16,7 @@ const AssetElement: React.FC<{asset: Asset}> = ({ asset }) => (
 
 export interface AssetSelectorProps {
   selected: Asset | null;
-  assets?: Asset[],
+  assets?: Asset[];
   onChange: (asset: Asset) => void;
   network?: string;
   disabled?: boolean;

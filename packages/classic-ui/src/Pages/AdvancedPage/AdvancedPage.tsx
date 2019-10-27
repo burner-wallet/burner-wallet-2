@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import { BurnerContext, withBurner, DataProviders } from '@burner-wallet/ui-core';
 import Button from '../../components/Button';
@@ -7,8 +6,8 @@ import Page from '../../components/Page';
 import { randomHex } from '../../lib';
 
 interface SectionProps {
-  title: string,
-  children:  React.ReactNode,
+  title: string;
+  children:  React.ReactNode;
 }
 
 const Section: React.FC<SectionProps> = ({ title, children }) => (

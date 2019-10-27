@@ -24,14 +24,14 @@ const styles = (theme: any) => ({
 })
 
 export interface ButtonProps {
-  to?: string,
-  onClick?: () => any,
-  disabled?: boolean,
-  className?: string,
-  classes: any,
+  to?: string;
+  onClick?: () => any;
+  disabled?: boolean;
+  className?: string;
+  classes: any;
 }
 
-const Button:React.FC<ButtonProps> = ({ to, onClick, disabled, children, classes, className }) => {
+const Button: React.FC<ButtonProps> = ({ to, onClick, disabled, children, classes, className }) => {
   const clickHandler = disabled ? (e: MouseEvent) => e.preventDefault() : onClick;
 
   const _className = (disabled ? [classes.button, classes.disabled, className] : [classes.button, className]).join(' ');

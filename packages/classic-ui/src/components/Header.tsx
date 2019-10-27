@@ -30,8 +30,8 @@ const styles = (theme: any) => ({
 });
 
 interface HeaderProps extends BurnerContext {
-  title?: string,
-  classes: any,
+  title?: string;
+  classes: any;
 }
 
 const Header: React.FC<HeaderProps> = ({ defaultAccount, title, classes, actions }) => (

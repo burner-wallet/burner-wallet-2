@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react';
 import injectSheet from 'react-jss';
-import { Asset } from '@burner-wallet/assets';
 import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import { DataProviders } from '@burner-wallet/ui-core';
 
-const HistoryPluginElements = DataProviders.PluginElements as React.FC<{ position: string, event: HistoryEvent }>;
+const HistoryPluginElements = DataProviders.PluginElements as React.FC<{ position: string; event: HistoryEvent }>;
 
 const styles = {
   container: {
@@ -43,10 +42,10 @@ const styles = {
 };
 
 interface HistoryListEventProps {
-  event: HistoryEvent,
-  account?: string,
-  classes: any,
-  navigateTo: (path: string) => void,
+  event: HistoryEvent;
+  account?: string;
+  classes: any;
+  navigateTo: (path: string) => void;
 }
 
 const HistoryListEvent: React.FC<HistoryListEventProps> = ({ event, account, classes, navigateTo }) => {

@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 import QrReader from 'react-qr-reader';
 import { withBurner, BurnerContext } from '@burner-wallet/ui-core';
 
-const style = (theme: any) => ({
+const style = {
   overlay: {
     position: 'absolute',
     top: 0,
@@ -35,9 +35,9 @@ const style = (theme: any) => ({
   reader: {
     flex: '1 0',
   },
-});
+};
 
-const Scanner: React.FC<BurnerContext & { classes: any }> = ({ children, completeScan, classes }) => {
+const Scanner: React.FC<BurnerContext & { classes: any }> = ({ completeScan, classes }) => {
   const reader = useRef<any>(null);
   const [fallback, setFallback] = useState(false);
 

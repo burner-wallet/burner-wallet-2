@@ -3,6 +3,7 @@ import { Redirect, RouteComponentProps } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import { Asset } from '@burner-wallet/assets';
 import { BurnerContext, withBurner, Account, DataProviders } from '@burner-wallet/ui-core';
+import { SendData } from '@burner-wallet/types';
 
 import AddressInputField from '../../components/AddressInputField';
 import AddressInputSearchResults from '../../components/AddressInputSearchResults';
@@ -12,15 +13,15 @@ import Button from '../../components/Button';
 import Page from '../../components/Page';
 
 interface SendPageState {
-  to: string,
-  value: string,
-  maxVal: string | null,
-  asset: Asset,
-  sending: boolean,
-  txHash: string | null,
-  account: Account | null,
-  accounts: Account[],
-  message: string,
+  to: string;
+  value: string;
+  maxVal: string | null;
+  asset: Asset;
+  sending: boolean;
+  txHash: string | null;
+  account: Account | null;
+  accounts: Account[];
+  message: string;
 }
 
 type SendPageProps = BurnerContext & RouteComponentProps & { classes: any };
@@ -105,7 +106,7 @@ class SendPage extends Component<SendPageProps, SendPageState> {
     if (!asset) {
       throw new Error('Asset not selected');
     }
-    const sendProps: { to: string, asset: string, message: string | null, value?: string, ether?: string } = {
+    const sendProps: SendData = {
       to,
       asset: asset.id,
       message: message.length > 0 ? message : null,
@@ -122,7 +123,7 @@ class SendPage extends Component<SendPageProps, SendPageState> {
 
   render() {
     const { to, value, asset, sending, txHash, account, accounts, message } = this.state;
-    const { actions, classes } = this.props;
+    const { classes } = this.props;
 
     if (txHash && asset) {
       return (

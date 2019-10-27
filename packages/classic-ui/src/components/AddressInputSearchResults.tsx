@@ -4,8 +4,8 @@ import AddressInputAccount from './AddressInputAccount';
 const classes = require('./AddressInputSearchResults.module.css');
 
 interface AddressInputSearchResultsProps {
-  accounts: Account[],
-  onSelect: (account: Account) => void,
+  accounts: Account[];
+  onSelect: (account: Account) => void;
 }
 
 const AddressInputSearchResults: React.FC<AddressInputSearchResultsProps> = ({ accounts, onSelect }) => (

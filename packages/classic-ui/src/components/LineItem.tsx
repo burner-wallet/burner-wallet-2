@@ -18,9 +18,9 @@ const styles = {
 };
 
 interface LineItemProps {
-  name: string,
-  value: string,
-  classes: any,
+  name: string;
+  value: string;
+  classes: any;
 }
 
 const LineItem: React.FC<LineItemProps> = ({ name, value, classes }) => (

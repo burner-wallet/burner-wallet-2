@@ -34,9 +34,9 @@ const style = (theme: any) => ({
 });
 
 export interface PageProps {
-  children: React.ReactNode,
-  title?: string,
-  classes: any,
+  children: React.ReactNode;
+  title?: string;
+  classes: any;
 }
 
 const Page: React.FC<PageProps> = ({ children, title, classes }) => (

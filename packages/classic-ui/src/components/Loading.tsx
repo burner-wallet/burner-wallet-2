@@ -1,8 +1,8 @@
-import React, { useRef, useState, Fragment } from 'react';
+import React from 'react';
 import injectSheet from 'react-jss';
 import { withBurner, BurnerContext } from '@burner-wallet/ui-core';
 
-const style = (theme: any) => ({
+const style = {
   overlay: {
     position: 'absolute',
     top: 0,
@@ -20,7 +20,7 @@ const style = (theme: any) => ({
     justifyContent: 'center',
     fontSize: 32,
   },
-});
+};
 
 const Loading: React.FC<BurnerContext & { classes: any }> = ({ classes, loading }) => {
   if (!loading) {

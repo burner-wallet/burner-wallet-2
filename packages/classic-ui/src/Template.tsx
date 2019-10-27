@@ -1,5 +1,4 @@
 import React from 'react';
-import jss from 'jss';
 import injectSheet, { ThemeProvider } from 'react-jss';
 
 const defaultTheme = {

@@ -3,10 +3,10 @@ import injectSheet from 'react-jss';
 import { Asset } from '@burner-wallet/assets';
 
 interface BalanceRowProps {
-  asset: Asset,
-  usdBalance?: string | null,
-  balance?: string | null,
-  classes: any,
+  asset: Asset;
+  usdBalance?: string | null;
+  balance?: string | null;
+  classes: any;
 }
 
 const styles = {
