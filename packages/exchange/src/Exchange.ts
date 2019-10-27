@@ -4,7 +4,7 @@ import Pair from './pairs/Pair';
 import ExchangePage from './ui/ExchangePage';
 
 interface ExchangeConstructor {
-  pairs: Pair[],
+  pairs: Pair[];
 };
 
 export default class Exchange implements Plugin {

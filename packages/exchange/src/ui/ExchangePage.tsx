@@ -2,15 +2,14 @@ import React, { Component, Fragment } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import { PluginPageContext } from '@burner-wallet/types';
 import Exchange from '../Exchange';
-import Pair from '../pairs/Pair';
 const classes = require('./ExchangePage.module.css');
 
 interface ExchangePageState {
-  assetA: Asset,
-  assetB: Asset,
-  amount: string,
+  assetA: Asset;
+  assetB: Asset;
+  amount: string;
   estimate: null | string;
-  isExchanging: boolean,
+  isExchanging: boolean;
 }
 
 export default class ExchangePage extends Component<PluginPageContext, ExchangePageState> {
@@ -90,7 +89,7 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
     return options;
   }
 
-  async update({ assetA, assetB, amount }: { assetA?: Asset, assetB?: Asset, amount?: string }) {
+  async update({ assetA, assetB, amount }: { assetA?: Asset; assetB?: Asset; amount?: string }) {
     const update: Partial<ExchangePageState> = { estimate: null };
     if (assetA) {
       update.assetA = assetA;
@@ -124,15 +123,13 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
   }
 
   render() {
-    const { burnerComponents, assets, accounts } = this.props;
+    const { burnerComponents } = this.props;
     const { assetA, assetB, amount, estimate, isExchanging } = this.state;
     const { Page, AssetSelector, Button, AmountInput } = burnerComponents;
 
     if (accounts.length === 0) {
       return null;
     }
-    const [account] = accounts;
-
     const assetBOptions = this.getPairOptions(assetA);
     const assetsProps = { assets: assetBOptions };
 

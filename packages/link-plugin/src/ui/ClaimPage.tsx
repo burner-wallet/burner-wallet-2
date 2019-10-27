@@ -1,11 +1,10 @@
-import React, { Component, Fragment } from 'react';
-import { Asset } from '@burner-wallet/assets';
+import React, { Component } from 'react';
 import { PluginPageContext } from '@burner-wallet/types';
 import LinkPlugin from '../LinkPlugin';
 
 interface ClaimPageState {
   status: 'waiting' | 'claiming' | 'complete' | 'error' | 'claimed';
-  amount: string,
+  amount: string;
 }
 
 export default class ClaimPage extends Component<PluginPageContext, ClaimPageState> {
@@ -37,7 +36,7 @@ export default class ClaimPage extends Component<PluginPageContext, ClaimPageSta
   }
 
   async tryToClaim() {
-    const { match, accounts, assets } = this.props;
+    const { match, accounts } = this.props;
     const { claimId, claimKey } = (match.params as { claimId: string, claimKey: string });
 
     if (accounts.length === 0) {
@@ -79,7 +78,7 @@ export default class ClaimPage extends Component<PluginPageContext, ClaimPageSta
 
   render() {
     const { status, amount } = this.state;
-    const { burnerComponents, history, assets } = this.props;
+    const { burnerComponents, history } = this.props;
     const { Page } = burnerComponents;
 
     return (

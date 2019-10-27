@@ -1,17 +1,8 @@
 import { expect } from 'chai';
 import 'mocha';
 import { eth, dai, xdai, Asset } from '@burner-wallet/assets';
+import { SendData } from '@burner-wallet/types';
 import ERC681Plugin from '../src/ERC681Plugin';
-
-interface SendParams {
-  asset: string,
-  ether?: string,
-  value?: string,
-  to: string,
-  from?: string,
-  message?: string | null,
-  id?: string | null,
-}
 
 describe('ERC681Plugin', () => {
   let assets: Asset[];
@@ -25,21 +16,21 @@ describe('ERC681Plugin', () => {
   it('should handle send URIs', (done) => {
     const plugin = new ERC681Plugin();
 
-    const ctx = { actions: { send: (params: SendParams) => {} } };
+    const ctx = { actions: { send: (params: SendData) => {} } };
     plugin.initializePlugin({
       getAssets: () => assets,
       onQRScanned: (cb: any) => {
         expect(cb('abc', ctx)).to.be.false;
         expect(cb('ethereum:')).to.be.false;
 
-        ctx.actions.send = ({ to, value, asset }: SendParams) => {
+        ctx.actions.send = ({ to, value, asset }: SendData) => {
           expect(to).to.equal('0x6A1517622feB74A242e68a26F423aE38E020a0b1');
           expect(value).to.equal('4787230000000000940');
           expect(asset).to.equal('eth');
         };
         expect(cb('ethereum:0x6A1517622feB74A242e68a26F423aE38E020a0b1?value=4787230000000000940', ctx)).to.be.true;
 
-        ctx.actions.send = ({ to, value, asset }: SendParams) => {
+        ctx.actions.send = ({ to, value, asset }: SendData) => {
           expect(to).to.equal('0x8e23ee67d1332ad560396262c48ffbb01f93d052');
           expect(value).to.equal('1000');
           expect(asset).to.equal('dai');

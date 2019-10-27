@@ -1,4 +1,3 @@
-import React from 'react';
 import { BurnerPluginContext, Plugin } from '@burner-wallet/types';
 import NewPKPage from './ui/NewPKPage';
 import RedirectToSend from './ui/RedirectToSend';

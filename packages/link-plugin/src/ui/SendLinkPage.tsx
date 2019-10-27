@@ -4,10 +4,10 @@ import { PluginPageContext } from '@burner-wallet/types';
 import LinkPlugin from '../LinkPlugin';
 
 interface SendLinkPageState {
-  value: string,
-  asset: Asset | null,
-  status: string,
-  claimUrl: string,
+  value: string;
+  asset: Asset | null;
+  status: string;
+  claimUrl: string;
 }
 
 export default class SendLinkPage extends Component<PluginPageContext, SendLinkPageState> {

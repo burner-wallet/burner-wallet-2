@@ -1,19 +1,18 @@
-import { Asset } from '@burner-wallet/assets';
 import { toWei } from 'web3-utils';
 import Exchange from '../Exchange';
 
 export interface ValueTypes {
-  value?: string,
-  ether?: string,
+  value?: string;
+  ether?: string;
 }
 
 export interface ExchangeParams extends ValueTypes {
-  account: string,
+  account: string;
 }
 
 interface PairConstructor {
-  assetA: string,
-  assetB: string,
+  assetA: string;
+  assetB: string;
 }
 
 export default abstract class Pair {
