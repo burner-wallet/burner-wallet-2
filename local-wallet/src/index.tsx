@@ -4,7 +4,7 @@ import { NativeAsset, ERC20Asset } from '@burner-wallet/assets';
 import BurnerCore from '@burner-wallet/core';
 import { InjectedSigner, LocalSigner } from '@burner-wallet/core/signers';
 import { HTTPGateway } from '@burner-wallet/core/gateways';
-import ClassicUI from '@burner-wallet/classic-ui';
+import ModernUI from '@burner-wallet/modern-ui';
 import LegacyPlugin from '@burner-wallet/legacy-plugin';
 
 const core = new BurnerCore({
@@ -32,7 +32,7 @@ const core = new BurnerCore({
 });
 
 const BurnerWallet = () =>
-  <ClassicUI
+  <ModernUI
     title="Local Wallet"
     core={core}
     plugins={[new LegacyPlugin()]}
