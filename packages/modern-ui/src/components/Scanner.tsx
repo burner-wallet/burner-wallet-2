@@ -1,4 +1,4 @@
-import React, { useRef, useState, Fragment } from 'react';
+import React, { useRef, useState } from 'react';
 import QrReader from 'react-qr-reader';
 import { withBurner, BurnerContext } from '@burner-wallet/ui-core';
 import styled from 'styled-components';
@@ -28,7 +28,7 @@ const Container = styled.div`
   flex: 1;
   border-radius: 8px;
   padding: 16px;
-`
+`;
 
 const Header = styled.h1`
   font-size: var(--l1-fs);

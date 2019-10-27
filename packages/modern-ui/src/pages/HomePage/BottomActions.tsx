@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Actions } from '@burner-wallet/types';
-import Button from '../../components/Button';
 import { SCAN_QR_DATAURI } from '../../lib';
 
 const ScanButton = styled.button`

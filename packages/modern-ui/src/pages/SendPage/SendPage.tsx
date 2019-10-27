@@ -118,7 +118,7 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location, pluginDa
   const [to, setTo] = useState(location.state && location.state.to || '');
   const [account, setAccount] = useState<Account | null>(null);
   const [asset, setAsset] = useState(assets[0]);
-  const [val, setVal] = useState<{ value: string, maxVal: string | null }>({ value: '0', maxVal: null });
+  const [val, setVal] = useState<{ value: string; maxVal: string | null }>({ value: '0', maxVal: null });
   const [message, setMessage] = useState('');
   const [suggestedAccounts, setSuggestedAccounts] = useState<Account[]>([]);
 

@@ -49,7 +49,7 @@ const MiniQRButton = styled.button`
 `;
 
 interface HeaderProps extends BurnerContext {
-  title?: string,
+  title?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({ defaultAccount, title, actions }) => (

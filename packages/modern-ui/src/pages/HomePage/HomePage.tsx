@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import { BurnerContext, withBurner, DataProviders } from '@burner-wallet/ui-core';
-import { PluginElementData, Plugin } from '@burner-wallet/types';
 import styled from 'styled-components';
 
 import Button from '../../components/Button';
@@ -52,7 +50,7 @@ const SubHeading = styled.h2<{ line?: boolean }>`
   ${props => props.line && `border-bottom: solid 1px #f2f2f2;`}
 `;
 
-const { PluginElements, History } = DataProviders;
+const { PluginElements } = DataProviders;
 
 const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData }) => {
   return (

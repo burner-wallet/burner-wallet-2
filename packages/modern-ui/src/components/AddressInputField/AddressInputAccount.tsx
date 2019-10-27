@@ -1,4 +1,3 @@
-// @ts-ignore
 import React from 'react';
 import { Account } from '@burner-wallet/types';
 import styled from 'styled-components';

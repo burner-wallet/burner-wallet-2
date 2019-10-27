@@ -1,5 +1,4 @@
 import React from 'react';
-import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import { BurnerContext, withBurner } from '@burner-wallet/ui-core';
 import Page from '../../components/Page';
 import HistoryList from '../../components/HistoryList';

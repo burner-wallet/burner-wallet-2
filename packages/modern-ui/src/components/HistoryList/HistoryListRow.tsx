@@ -1,5 +1,4 @@
 import React from 'react';
-import { Asset } from '@burner-wallet/assets';
 import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import { DataProviders } from '@burner-wallet/ui-core';
 import { PluginElementsProps } from '@burner-wallet/types';

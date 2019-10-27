@@ -60,7 +60,7 @@ const Dropdown: DropdownType = ({ options, selected, onChange, disabled, itemCom
 
   useEffect(() => {
     if (isOpen) {
-      const clickListener = (e: any) => setIsOpen(false);
+      const clickListener = () => setIsOpen(false);
       document.addEventListener('click', clickListener);
       return () => document.removeEventListener('click', clickListener);
     }

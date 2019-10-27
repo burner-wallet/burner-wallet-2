@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Input, Icon } from 'rimble-ui';
-import Page from '../../components/Page';
 import Clipboard from '../../components/Clipboard';
 import Button from '../../components/Button';
 
