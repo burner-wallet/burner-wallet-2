@@ -54,24 +54,21 @@ const CameraIcon = styled.svg`
   flex: 1;
 `;
 
-const ReaderOuterContainer = styled.div`
-  position: relative;
-  flex: 1;
-`;
-
-const ReaderInnerContainer = styled.div`
-  padding-top: 100%;
-  max-height: 100%;
-  max-width: 100%;
-  position: relative;
-`;
-
 const Reader = styled(QrReader)`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  flex: 1;
+  display: flex;
+
+  & div {
+    display: none;
+  }
+
+  & section {
+    padding-top: 0 !important;
+    overflow: initial !important;
+  }
+  & video {
+    object-fit: contain !important;
+  }
 `;
 
 const CloseContainer = styled.div`margin-top: 20px;`;
@@ -101,31 +98,27 @@ const Scanner: React.FC<BurnerContext> = ({ completeScan }) => {
           <CameraIconContainer onClick={() => reader.current!.openImageDialog()}>
             <CameraIcon viewBox="0 0 24 24">
               <path
-                fill="#ffffff"
+                fill="#111111"
                 d="M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z"
               />
             </CameraIcon>
           </CameraIconContainer>
         )}
 
-        <ReaderOuterContainer>
-          <ReaderInnerContainer>
-            <Reader
-              delay={300}
-              ref={reader}
-              legacyMode={fallback}
-              onError={err => {
-                console.error(err);
-                setFallback(true);
-              }}
-              onScan={address => {
-                if (address) {
-                  completeScan(address);
-                }
-              }}
-            />
-          </ReaderInnerContainer>
-        </ReaderOuterContainer>
+        <Reader
+          delay={300}
+          ref={reader}
+          legacyMode={fallback}
+          onError={err => {
+            console.error(err);
+            setFallback(true);
+          }}
+          onScan={address => {
+            if (address) {
+              completeScan(address);
+            }
+          }}
+        />
       </Container>
 
       <CloseContainer>
