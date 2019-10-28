@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import { isAllZero } from '../../lib';
 import Button from '../../components/Button';
+import Balances from './Balances';
 
 interface MoveBalanceProps {
   assets: Asset[];
@@ -33,11 +34,13 @@ const MoveBalance: React.FC<MoveBalanceProps> = ({
       <div>
         <div>New Account</div>
         <div>{newAddress}</div>
+        <Balances assets={assets} balances={newBalances} />
       </div>
 
       <div>
         <div>Existing Account</div>
         <div>{currentAddress}</div>
+        <Balances assets={assets} balances={currentBalances} />
       </div>
 
       <div>
