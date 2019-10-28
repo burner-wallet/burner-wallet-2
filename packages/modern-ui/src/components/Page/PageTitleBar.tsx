@@ -10,6 +10,18 @@ const TitleBar = styled.div`
   align-items: center;
   border-bottom: 1px solid #F2F2F2;
   margin-bottom: 8px;
+
+  @media (max-height:600px) {
+    height: 42px;
+  }
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  
+  @media (max-height:600px) {
+    font-size: 22px;
+  }
 `;
 
 export interface PageTitleBarProps {
@@ -18,7 +30,7 @@ export interface PageTitleBarProps {
 
 const PageTitleBar: React.FC<PageTitleBarProps> = ({ title }) => (
   <TitleBar>
-    <h1>{title}</h1>
+    <Title>{title}</Title>
 
     <CloseButton />
   </TitleBar>

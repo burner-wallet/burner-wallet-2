@@ -9,6 +9,11 @@ const DropdownContainer = styled.div<{ open?: boolean }>`
   align-items: center;
   padding: 8px;
   height: 40px;
+  cursor: default;
+
+  &:hover {
+    background: #d1ccfc;
+  }
 
   &:after {
     content: '\\25be';

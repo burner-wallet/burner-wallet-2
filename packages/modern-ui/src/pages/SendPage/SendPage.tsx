@@ -10,6 +10,18 @@ import AssetSelector from '../../components/AssetSelector';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
 
+const FormContainer = styled.div`
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+  margin-bottom: 10px;
+`;
+
+const SendInstruction = styled.h2`
+  margin: 0;
+  font-size: 14px;
+`;
+
 const AmountWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -27,17 +39,10 @@ const AmountInput = styled(Input)`
   outline: 0;
   font-size: 80px;;
   background: none;
-  box-shadow: none;
+  box-shadow: none !important;
   text-align: center;
   padding: 0;
-
-  :focus {
-    box-shadow: none;
-  }
-
-  :hover {
-    box-shadow: none;
-  }
+  font-family: var(--main-font);
 `;
 
 const MaxButton = styled(Button)`
@@ -51,6 +56,10 @@ const MaxButton = styled(Button)`
   border: 0px;
   text-transform: uppercase;
   height: 32px;
+
+  &:hover {
+    background: #aef4ed;
+  }
 
   &:focus {
     outline: none;
@@ -79,7 +88,7 @@ const SendButton = styled(Button)`
 
 const TransferMessageInput = styled(Input)`
   background-color: transparent;
-  box-shadow: none;
+  box-shadow: none !important;
   outline: none;
   border: none;
   width: 100%;
@@ -87,16 +96,17 @@ const TransferMessageInput = styled(Input)`
   text-align: right;
   font-size: 18px;
   transition: 0.15s ease-in-out;
+  font-family: var(--main-font);
 
   &:focus {
     background: hsla(0, 0%, 90%, 1);
-    box-shadow: none;
     text-align: center;
   }
+`;
 
-  &:hover {
-    box-shadow: none;
-  }
+const HowMuch = styled.h3`
+  margin: 8px 0 0;
+  font-size: 16px;
 `;
 
 const Wrapper = styled.div`
@@ -160,56 +170,52 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location, pluginDa
             && parseFloat(value) > parseFloat(data.displayMaximumSendableBalance);
           return (
             <Wrapper>
-              <div>
+              <FormContainer>
                 <div>
-                  <h1>Send To</h1>
+                  <SendInstruction>Send To</SendInstruction>
 
-                  <div>
-                    <AddressInputField
-                      value={to}
-                      account={account}
-                      onChange={(_to: string, _account: Account | null) => {
-                        setTo(_to)
-                        setAccount(_account);
-                        if (_account) {
-                          setSuggestedAccounts([]);
-                        } else {
-                          getSuggestedAccounts(_to);
-                        }
-                      }}
-                      scan={scan}
-                    />
-                  </div>
+                  <AddressInputField
+                    value={to}
+                    account={account}
+                    onChange={(_to: string, _account: Account | null) => {
+                      setTo(_to)
+                      setAccount(_account);
+                      if (_account) {
+                        setSuggestedAccounts([]);
+                      } else {
+                        getSuggestedAccounts(_to);
+                      }
+                    }}
+                    scan={scan}
+                  />
                 </div>
 
-                <div>
-                  <AmountWrapper>
-                    <h2>How much do you want to send?</h2>
-                    <AmountInput
-                      type="number"
-                      placeholder="0"
-                      asset={asset}
-                      value={value}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value.replace(/^0+(?=\d)/, ''))}
-                      min="0"
-                    />
+                <AmountWrapper>
+                  <HowMuch>How much do you want to send?</HowMuch>
+                  <AmountInput
+                    type="number"
+                    placeholder="0"
+                    asset={asset}
+                    value={value}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value.replace(/^0+(?=\d)/, ''))}
+                    min="0"
+                  />
 
-                    <MaxButton
-                      onClick={() => {
-                        if (data) {
-                          setValue(data.displayMaximumSendableBalance, data.maximumSendableBalance);
-                        }
-                      }}
-                    >
-                      Max
-                    </MaxButton>
-                    <AssetSelector
-                      selected={asset}
-                      assets={assets}
-                      onChange={(newAsset: Asset) => setAsset(newAsset)}
-                    />
-                  </AmountWrapper>
-                </div>
+                  <MaxButton
+                    onClick={() => {
+                      if (data) {
+                        setValue(data.displayMaximumSendableBalance, data.maximumSendableBalance);
+                      }
+                    }}
+                  >
+                    Max
+                  </MaxButton>
+                  <AssetSelector
+                    selected={asset}
+                    assets={assets}
+                    onChange={(newAsset: Asset) => setAsset(newAsset)}
+                  />
+                </AmountWrapper>
 
                 {asset.supportsMessages() && (
                   <MessageField>
@@ -221,7 +227,7 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location, pluginDa
                     />
                   </MessageField>
                 )}
-              </div>
+              </FormContainer>
 
               <SendButton
                 onClick={() => send()}

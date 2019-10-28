@@ -17,6 +17,10 @@ const ButtonClear = styled.button`
 const ButtonContainer = styled.div`
   position: absolute;
   right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
 `;
 
 const StyledWrapper = styled.div`
@@ -24,7 +28,6 @@ const StyledWrapper = styled.div`
   flex-direction: row;
   align-items: baseline;
   width: 100%;
-  max-width: 320px;
   position: relative;
 `;
 
@@ -32,6 +35,33 @@ const StyledInput = styled(Input)`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  color: rgb(63, 61, 75);
+  background-color: #ffffff;
+  width: 100%;
+  height: 3rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+  font-family: "Source Sans Pro", -apple-system, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 16px;
+  border: solid 1px rgb(204, 204, 204);
+  border-radius: 4px;
+`;
+
+const ScanButton = styled(Button)`
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+  font-family: "Source Sans Pro", -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  height: 2rem;
+  min-width: 2rem;
+  margin: 0px 8px;
+  border: none;
+  border-radius: 4px;
+  background: #1AAA9B;
+  padding: 0;
 `;
 
 interface AddressInputFieldProps {
@@ -67,9 +97,9 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
           />
           <ButtonContainer>
             {scan && (
-              <Button onClick={scan}>
+              <ScanButton onClick={scan}>
                 <Icon name='CenterFocusWeak' />
-              </Button>
+              </ScanButton>
             )}
           </ButtonContainer>
         </Fragment>
