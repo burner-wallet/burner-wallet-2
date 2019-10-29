@@ -39,11 +39,13 @@ export interface HistoryProps {
 
 export interface PluginElementsProps {
   position: string;
+  [x: string]: any;
 }
 
 export interface PluginButtonsProps {
   position: string;
   component?: ComponentType<PluginButtonProps>;
+  [x: string]: any;
 }
 
 export interface TransactionDetailsProps {

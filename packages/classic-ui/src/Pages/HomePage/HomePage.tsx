@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import Color from 'color';
 import { BurnerContext, withBurner, DataProviders } from '@burner-wallet/ui-core';
+import { PluginButtonProps } from '@burner-wallet/types';
 
 import Button from '../../components/Button';
 import Page from '../../components/Page';
@@ -47,21 +48,19 @@ const styles = (theme: any) => ({
   },
 });
 
-interface HomeButtonProps {
-  path: string;
-  title: string;
-  classes: any;
+interface HomeButtonProps extends PluginButtonProps {
+  classes?: any;
 }
 
-const HomeButton: React.FC<HomeButtonProps> = ({ path, title, classes }) => (
+const HomeButton: React.FC<HomeButtonProps> = ({ to, title, classes }) => (
   <li className={classes.buttonContainer}>
-    <Button to={path} className={classes.homeButton}>{title}</Button>
+    <Button to={to} className={classes!.homeButton}>{title}</Button>
   </li>
 )
 
-const { PluginElements } = DataProviders;
+const { PluginButtons, PluginElements } = DataProviders;
 
-const HomePage: React.FC<BurnerContext & { classes: any }> = ({ defaultAccount, actions, assets, pluginData, classes }) => (
+const HomePage: React.FC<BurnerContext & { classes: any }> = ({ defaultAccount, actions, assets, classes }) => (
   <Page>
     <button className={classes.scanBtn} onClick={actions.openDefaultQRScanner} />
 
@@ -87,11 +86,9 @@ const HomePage: React.FC<BurnerContext & { classes: any }> = ({ defaultAccount, 
     <PluginElements position="home-middle" />
 
     <ul className={classes.buttons}>
-      <HomeButton path="/receive" title="Receive" classes={classes} />
-      <HomeButton path="/send" title="Send" classes={classes} />
-      {pluginData.homeButtons.map(({ title, path }) => (
-        <HomeButton title={title} path={path} key={title} classes={classes} />
-      ))}
+      <HomeButton to="/receive" title="Receive" classes={classes} />
+      <HomeButton to="/send" title="Send" classes={classes} />
+      <PluginButtons position="apps" component={HomeButton} classes={classes} />
     </ul>
 
     <DataProviders.History
