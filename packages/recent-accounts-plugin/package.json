@@ -1,0 +1,17 @@
+{
+  "name": "@burner-wallet/recent-accounts-plugin",
+  "version": "1.0.0",
+  "description": "Save recently sent addresses",
+  "license": "MIT",
+  "main": "dist/RecentAccountsPlugin.js",
+  "types": "dist/RecentAccountsPlugin.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@burner-wallet/types": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.2"
+  }
+}

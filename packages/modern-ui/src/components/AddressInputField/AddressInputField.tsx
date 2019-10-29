@@ -1,8 +1,9 @@
-import React, { ChangeEvent, Fragment } from 'react';
+import React, { ChangeEvent, Fragment, useState, useRef } from 'react';
 import { Account } from '@burner-wallet/types';
 import { Input, Icon, Button } from 'rimble-ui';
 import styled from 'styled-components';
 import AddressInputAccount from './AddressInputAccount';
+import SuggestedAddressDropdown from './SuggestedAddressDropdown';
 
 const ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/i;
 
@@ -75,6 +76,9 @@ interface AddressInputFieldProps {
 const AddressInputField: React.FC<AddressInputFieldProps> = ({
   value, account, onChange, scan, disabled
 }) => {
+  const [focused, setFocused] = useState(false);
+  const anchor = useRef<HTMLElement | null>(null);
+
   let _account = account;
   if (!account && ADDRESS_REGEX.test(value)) {
     _account = { address: value };
@@ -92,8 +96,11 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
         <Fragment>
           <StyledInput
             value={value}
+            ref={anchor}
             onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value, null)}
             disabled={disabled}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
           />
           <ButtonContainer>
             {scan && (
@@ -102,6 +109,17 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
               </ScanButton>
             )}
           </ButtonContainer>
+
+          {focused && anchor.current && (
+            <SuggestedAddressDropdown
+              search={value}
+              anchor={anchor.current}
+              onSelect={(account: Account) => {
+                onChange(account.address, account);
+                setFocused(false);
+              }}
+            />
+          )}
         </Fragment>
       )}
     </StyledWrapper>
