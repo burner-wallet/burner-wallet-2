@@ -127,9 +127,6 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
     const { assetA, assetB, amount, estimate, isExchanging } = this.state;
     const { Page, AssetSelector, Button, AmountInput } = burnerComponents;
 
-    if (accounts.length === 0) {
-      return null;
-    }
     const assetBOptions = this.getPairOptions(assetA);
     const assetsProps = { assets: assetBOptions };
 

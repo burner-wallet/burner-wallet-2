@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { PluginButtonProps } from '@burner-wallet/types';
 import Card from '../../components/Card';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000000;
+`;
 
 const AppCard = styled(Card)`
   display: flex;
@@ -12,49 +18,52 @@ const AppCard = styled(Card)`
   margin: 8px 0px;
   font-weight: 400;
   align-items: center;
+
+  &:hover {
+    background: #fcfcfc;
+  }
+
   & > span {
     display: block;
   }
 `;
 
-const Logo = styled.div`
+const Logo = styled.div<{ url: string }>`
   height: 64px;
   width: 64px;
   background-color: #999999;
-  background-image: ${(props: any) => `url(${props.url})`};
+  background-image: ${props => `url(${props.url})`};
   background-position: center;
   background-size: contain;
   border-radius: 100px;
 `;
 
-interface AppButtonProps {
-  title: string;
-  path: string;
+const Title = styled.h4`
+  margin: 0;
+`;
+
+interface AppButtonProps extends PluginButtonProps {
   description?: string;
   logo?: string;
 }
 
-const AppButton: React.FC<AppButtonProps> = ({ title, description, logo, path }) => (
-  <Link to={path}>
+const AppButton: React.FC<AppButtonProps> = ({ title, description, logo, to, children }) => (
+  <StyledLink to={to}>
     <AppCard>
-      {/*<Box width="60%">
-        <Text level={2} as="h3" margin="0" color="#444">
-          {title}
-        </Text>
-
+      <div>
+        <Title>{title}</Title>
         {description && (
-          <Text level={3} as="p" margin="0" textAlign="left" color="#999">
-            {description}
-          </Text>
+          <div>{description}</div>
         )}
-      </Box>
+      </div>
+
+      {children}
+
       {logo && (
-        <Flex width="40%" flexDirection="column" alignItems="center">
-          <Logo url={logo} />
-        </Flex>
-      )}*/}
+        <Logo url={logo} />
+      )}
     </AppCard>
-  </Link>
+  </StyledLink>
 );
 
 export default AppButton;

@@ -1,7 +1,7 @@
 import React from 'react';
-import BurnerUICore, { Page, BurnerUIComponents } from '@burner-wallet/ui-core';
+import BurnerUICore, { Page } from '@burner-wallet/ui-core';
 
-// import burnerComponents from './components';
+import burnerComponents from './components/burner-components';
 import Header from './components/Header';
 // import Loading from './components/Loading';
 import Scanner from './components/Scanner';
@@ -37,8 +37,7 @@ export default class ClassicUI extends BurnerUICore {
   }
 
   burnerComponents() {
-    // return burnerComponents;
-    return {} as BurnerUIComponents;
+    return burnerComponents;
   }
 
   content() {

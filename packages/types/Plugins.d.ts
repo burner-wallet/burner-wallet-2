@@ -49,16 +49,22 @@ export interface PluginElementData {
   options?: any;
 }
 
-export interface PluginButton {
+export interface PluginButtonData {
   plugin: Plugin;
   title: string;
   path: string;
   options?: any;
 }
 
+export interface PluginButtonProps {
+  to: string;
+  title: string;
+  options?: any;
+}
+
 export interface BurnerPluginData {
   pages: PluginPageData[];
-  buttons: { [position: string]: PluginButton[] };
+  buttons: { [position: string]: PluginButtonData[] };
   elements: { [position: string]: PluginElementData[] };
   accountSearches: AccountSearchFn[];
   tryHandleQR: (qr: string, context: PluginActionContext) => boolean;

@@ -2,10 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BurnerContext, withBurner, DataProviders } from '@burner-wallet/ui-core';
 import styled from 'styled-components';
+import { Icon } from 'rimble-ui';
 
-import Button from '../../components/Button';
 import Page from '../../components/Page';
-// import PluginButtons from '../../components/PluginButtons';
 import HistoryList from '../../components/HistoryList';
 import AppButton from './AppButton';
 import BottomActions from './BottomActions';
@@ -50,7 +49,7 @@ const SubHeading = styled.h2<{ line?: boolean }>`
   ${props => props.line && `border-bottom: solid 1px #f2f2f2;`}
 `;
 
-const { PluginElements } = DataProviders;
+const { PluginElements, PluginButtons } = DataProviders;
 
 const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData }) => {
   return (
@@ -68,19 +67,14 @@ const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData
 
       <HistoryList account={defaultAccount} limit={3} navigateTo={actions.navigateTo} />
 
-      <SubHeading line>Apps</SubHeading>
 
-      {/*<PluginButtons position='apps' component={AppButton} />
+      <PluginButtons position="apps" component={AppButton}>
+        <SubHeading line>Apps</SubHeading>
+      </PluginButtons>
 
-      <PluginButtons
-        position='home'
-        component={({ path, title }) => (
-          <Link to={path} style={{ display: 'block' }}>
-            {title}
-          </Link>
-        )}
-      />*/}
-      <Link to='/advanced'>Advanced</Link>
+      <AppButton title="Settings" to="/advanced">
+        <Icon name="settings" />
+      </AppButton>
 
       <BottomActionsContainer>
         <BottomActions actions={actions} />

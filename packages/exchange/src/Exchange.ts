@@ -16,13 +16,13 @@ export default class Exchange implements Plugin {
     this._pluginContext = null;
   }
 
-  async initializePlugin(pluginContext: BurnerPluginContext) {
+  initializePlugin(pluginContext: BurnerPluginContext) {
     this._pluginContext = pluginContext;
 
     this.pairs.forEach(pair => pair.setExchange(this));
 
-    await pluginContext.addPage('/exchange', ExchangePage);
-    await pluginContext.addHomeButton('Exchange', '/exchange');
+    pluginContext.addPage('/exchange', ExchangePage);
+    pluginContext.addButton('apps', 'Exchange', '/exchange', { description: 'Convert between different currencies' });
   }
 
   getPairs() {

@@ -2,6 +2,7 @@ import { ComponentType, ReactNode } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import HistoryEvent from '@burner-wallet/core/HistoryEvent';
 import { SendData } from './types';
+import { PluginButtonProps } from './Plugins';
 
 export interface AccountBalanceProps {
   asset: string | Asset;
@@ -40,6 +41,11 @@ export interface PluginElementsProps {
   position: string;
 }
 
+export interface PluginButtonsProps {
+  position: string;
+  component?: ComponentType<PluginButtonProps>;
+}
+
 export interface TransactionDetailsProps {
   asset: string;
   txHash: string;
@@ -51,6 +57,7 @@ export default interface DataProviders {
   AccountKeys: ComponentType<AccountKeysProps>;
   Assets: ComponentType<AssetsProps>;
   History: ComponentType<HistoryProps>;
+  PluginButtons: ComponentType<PluginButtonsProps>;
   PluginElements: ComponentType<PluginElementsProps>;
   TransactionDetails: ComponentType<TransactionDetailsProps>;
 }

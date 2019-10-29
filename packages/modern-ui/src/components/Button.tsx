@@ -1,4 +1,5 @@
 import React from 'react';
+import { ButtonProps } from '@burner-wallet/types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -36,12 +37,6 @@ const LinkButton = styled(Link)<ButtonStyleProps>`
   color: ${props => props.color};
   background: ${props => props.background};
 `;
-
-interface ButtonProps {
-  to?: string;
-  onClick?: (e: any) => any;
-  disabled?: boolean;
-}
 
 const Button: React.FC<ButtonProps> = ({ to, ...props }) => {
   return to ? (
