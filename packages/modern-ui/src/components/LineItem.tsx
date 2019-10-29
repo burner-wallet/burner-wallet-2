@@ -19,7 +19,7 @@ const TextLineValue = styled.div`
 
 interface LineItemProps {
   name: string;
-  value: string;
+  value: string | React.ReactNode;
 }
 
 const LineItem: React.FC<LineItemProps> = ({ name, value }) => (

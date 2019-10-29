@@ -9,6 +9,25 @@ import Page from '../../components/Page';
 import LineItem from '../../components/LineItem';
 const { TransactionDetails } = DataProviders;
 
+const AddressSegment = styled.span<{ hidden?: boolean }>`
+  display: inline-block;
+  overflow: hidden;
+  font-family: monospace;
+
+  ${props => props.hidden && `
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100px;
+  `}
+`
+
+const Address: React.FC<{address: string}> = ({ address }) => (
+  <span>
+    <AddressSegment hidden>{address.substr(0, 34)}</AddressSegment>
+    <AddressSegment>{address.substr(-8)}</AddressSegment>
+  </span>
+);
+
 interface MatchParams {
   asset: string;
   txHash: string;
@@ -44,8 +63,8 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = 
         return (
           <section>
             <div>
-              <LineItem name="From" value={`${tx.from!.substr(0, 8)}...${tx.from!.substr(-8)}`}/>
-              <LineItem name="To" value={`${tx.to!.substr(0, 8)}...${tx.to!.substr(-8)}`}/>
+              <LineItem name="From" value={<Address address={tx.from!} />}/>
+              <LineItem name="To" value={<Address address={tx.to!} />}/>
               <LineItem name="Date" value="TODO"/>
             </div>
 
