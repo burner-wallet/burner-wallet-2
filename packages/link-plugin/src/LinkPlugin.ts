@@ -5,7 +5,7 @@ import SendLinkPage from './ui/SendLinkPage';
 import linkAbi from './abis/Links.json';
 
 const LINK_XDAI_CONTRACT_ADDRESS = '0x9971B0E163795c49cAF5DefF06C271fCd8f3Ebe9';
-const LINK_XDAI_CONTRACT_CREATION_BLOCK = '2425065';
+const LINK_XDAI_CONTRACT_CREATION_BLOCK = 2425065;
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 const RELAY_GAS_PRICE = 1100000000;
 
@@ -13,8 +13,6 @@ const getClaimUrl = (claimId: string, claimKey: string) => `${window.location.or
 
 export default class LinksPlugin implements Plugin {
   private _pluginContext: BurnerPluginContext | null;
-  private contract: any;
-  private gaslessContract: any;
 
   constructor() {
     this._pluginContext = null;
@@ -36,13 +34,8 @@ export default class LinksPlugin implements Plugin {
   }
 
   getContract({ gasless=false }={}) {
-    const existingContract = gasless ? this.gaslessContract : this.contract;
-    if (existingContract) {
-      return existingContract;
-    }
     const web3 = this.pluginContext.getWeb3('100', { gasless });
     const contract = new web3.eth.Contract(linkAbi as any, LINK_XDAI_CONTRACT_ADDRESS);
-    this[gasless ? 'gaslessContract' : 'contract'] = contract;
     return contract;
   }
 
