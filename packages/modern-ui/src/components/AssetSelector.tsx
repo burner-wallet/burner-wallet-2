@@ -1,7 +1,6 @@
 import React from 'react';
-import { Asset } from '@burner-wallet/assets';
 import { DataProviders } from '@burner-wallet/ui-core';
-import { AssetSelectorProps } from '@burner-wallet/types';
+import { Asset, AssetSelectorProps } from '@burner-wallet/types';
 import styled from 'styled-components';
 import Dropdown, { ItemComponentProps } from './Dropdown';
 const { Assets, AccountBalance } = DataProviders;

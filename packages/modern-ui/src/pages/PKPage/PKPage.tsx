@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Asset } from '@burner-wallet/assets';
+import { Asset } from '@burner-wallet/types';
 import { BurnerContext, withBurner } from '@burner-wallet/ui-core';
 import Page from '../../components/Page';
 import { pkToAddress, pkRegex, isAllZero } from '../../lib';

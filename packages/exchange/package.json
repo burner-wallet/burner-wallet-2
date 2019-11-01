@@ -10,7 +10,6 @@
     "start-basic": "tsc -w"
   },
   "dependencies": {
-    "@burner-wallet/assets": "*",
     "@burner-wallet/types": "1.0.0",
     "@types/react": "*",
     "web3-utils": "1.0.0-beta.55"

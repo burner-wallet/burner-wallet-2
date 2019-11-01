@@ -1,6 +1,5 @@
 import { Component } from 'react';
-import { Asset } from '@burner-wallet/assets';
-import { AccountBalanceProps, AccountBalanceData } from '@burner-wallet/types';
+import { Asset, AccountBalanceProps, AccountBalanceData } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
 const POLL_INTERVAL = 1000;

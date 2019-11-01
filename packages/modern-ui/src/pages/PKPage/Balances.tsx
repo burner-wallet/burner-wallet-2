@@ -1,5 +1,5 @@
 import React from 'react';
-import { Asset } from '@burner-wallet/assets';
+import { Asset } from '@burner-wallet/types';
 import Balance from './Balance';
 
 interface BalancesProps {

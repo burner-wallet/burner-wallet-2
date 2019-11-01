@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { HistoryProps } from '@burner-wallet/types';
-import HistoryEvent from '@burner-wallet/core/HistoryEvent';
+import { HistoryProps, HistoryEvent } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
 const History: React.FC<HistoryProps & BurnerContext> = ({ account, actions, render }) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Asset } from '@burner-wallet/assets';
+import { Asset } from '@burner-wallet/types';
 import BurnerCore from '@burner-wallet/core';
 
 import dataProviders from './data-providers';

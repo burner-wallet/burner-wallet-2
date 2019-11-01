@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import injectSheet from 'react-jss';
-import HistoryEvent from '@burner-wallet/core/HistoryEvent';
+import { HistoryEvent } from '@burner-wallet/types';
 import { DataProviders } from '@burner-wallet/ui-core';
 
 const HistoryPluginElements = DataProviders.PluginElements as React.FC<{ position: string; event: HistoryEvent }>;

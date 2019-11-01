@@ -1,5 +1,5 @@
 import React from 'react';
-import { Asset } from '@burner-wallet/assets';
+import { Asset } from '@burner-wallet/types';
 import { Card } from 'rimble-ui';
 import styled from 'styled-components';
 

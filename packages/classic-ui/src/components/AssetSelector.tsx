@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Asset } from '@burner-wallet/assets';
+import { Asset } from '@burner-wallet/types';
 import { DataProviders } from '@burner-wallet/ui-core';
 const classes = require('./AssetSelector.module.css');
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Asset } from '@burner-wallet/assets';
+import { Asset } from '@burner-wallet/types';
 const classes = require('./AmountInput.module.css');
 
 const ONE_ETH = 1000000000000000000;

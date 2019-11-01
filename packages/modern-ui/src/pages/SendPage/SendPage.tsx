@@ -1,8 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Asset } from '@burner-wallet/assets';
 import { withBurner, BurnerContext, DataProviders } from '@burner-wallet/ui-core';
-import { Account, SendData, AccountBalanceData } from '@burner-wallet/types';
+import { Asset, Account, SendData, AccountBalanceData } from '@burner-wallet/types';
 import { Input } from 'rimble-ui';
 import styled from 'styled-components';
 import AddressInputField from '../../components/AddressInputField';

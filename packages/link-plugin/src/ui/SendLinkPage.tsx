@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Asset } from '@burner-wallet/assets';
-import { PluginPageContext } from '@burner-wallet/types';
+import { Asset, PluginPageContext } from '@burner-wallet/types';
 import LinkPlugin from '../LinkPlugin';
 
 interface SendLinkPageState {

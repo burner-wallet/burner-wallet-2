@@ -17,7 +17,6 @@
     "start-local": "tsc -w"
   },
   "dependencies": {
-    "@burner-wallet/assets": "^0.0.22",
     "@burner-wallet/types": "^1.0.0",
     "@types/react": "*",
     "base64url": "3.0.1"

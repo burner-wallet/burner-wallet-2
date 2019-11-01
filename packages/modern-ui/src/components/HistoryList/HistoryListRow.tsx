@@ -1,14 +1,6 @@
 import React from 'react';
-import HistoryEvent from '@burner-wallet/core/HistoryEvent';
-import { DataProviders } from '@burner-wallet/ui-core';
-import { PluginElementsProps } from '@burner-wallet/types';
+import { HistoryEvent } from '@burner-wallet/types';
 import styled from 'styled-components';
-
-const { PluginElements } = DataProviders;
-
-const HistoryPluginElements = PluginElements as React.FC<
-  PluginElementsProps & { event: HistoryEvent }
->;
 
 const Row = styled.div`
   border-top: 1px solid #f2f2f2;

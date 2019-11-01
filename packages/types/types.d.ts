@@ -55,6 +55,8 @@ export interface BurnerContext {
   loading: string | null;
 }
 
+export type Asset = Asset;
+export type HistoryEvent = HistoryEvent;
 export type BurnerUIComponents = BurnerUIComponents;
 export type DataProviders = DataProviders;
 export type BurnerComponents = BurnerUIComponents & DataProviders;

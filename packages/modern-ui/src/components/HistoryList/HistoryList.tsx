@@ -1,5 +1,5 @@
 import React from 'react';
-import HistoryEvent from '@burner-wallet/core/HistoryEvent';
+import { HistoryEvent } from '@burner-wallet/types';
 import { DataProviders } from '@burner-wallet/ui-core';
 import HistoryListRow from './HistoryListRow';
 

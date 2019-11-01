@@ -1,6 +1,5 @@
 import { Component } from 'react';
-import { Asset } from '@burner-wallet/assets';
-import { TransactionDetailsProps } from '@burner-wallet/types';
+import { Asset, TransactionDetailsProps } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
 class TransactionDetails extends Component<BurnerContext & TransactionDetailsProps, any> {

@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Asset } from '@burner-wallet/assets';
 import { DataProviders } from '@burner-wallet/ui-core';
-import { AccountBalanceData, PluginElementContext } from '@burner-wallet/types';
+import { Asset, AccountBalanceData, PluginElementContext } from '@burner-wallet/types';
 import BalanceItem from './BalanceItem';
 const { AccountBalance } = DataProviders;
 

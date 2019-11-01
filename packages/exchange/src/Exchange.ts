@@ -1,5 +1,4 @@
-import { Asset } from '@burner-wallet/assets';
-import { BurnerPluginContext, Plugin } from '@burner-wallet/types';
+import { Asset, BurnerPluginContext, Plugin } from '@burner-wallet/types';
 import Pair from './pairs/Pair';
 import ExchangePage from './ui/ExchangePage';
 

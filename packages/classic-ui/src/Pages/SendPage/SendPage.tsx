@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import injectSheet from 'react-jss';
-import { Asset } from '@burner-wallet/assets';
 import { BurnerContext, withBurner, Account, DataProviders } from '@burner-wallet/ui-core';
-import { SendData } from '@burner-wallet/types';
+import { Asset, SendData } from '@burner-wallet/types';
 
 import AddressInputField from '../../components/AddressInputField';
 import AddressInputSearchResults from '../../components/AddressInputSearchResults';

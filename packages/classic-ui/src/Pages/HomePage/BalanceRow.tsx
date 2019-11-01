@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { Asset } from '@burner-wallet/assets';
+import { Asset } from '@burner-wallet/types';
 
 interface BalanceRowProps {
   asset: Asset;

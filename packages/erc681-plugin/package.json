@@ -16,7 +16,6 @@
     "test": "mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
   },
   "dependencies": {
-    "@burner-wallet/assets": "^0.0.22",
     "@burner-wallet/types": "^1.0.0"
   },
   "devDependencies": {

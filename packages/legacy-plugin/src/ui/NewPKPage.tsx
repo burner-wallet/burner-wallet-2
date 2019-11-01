@@ -1,15 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import { Asset } from '@burner-wallet/assets';
+import React, { Component } from 'react';
 import { PluginPageContext } from '@burner-wallet/types';
 import base64url from 'base64url';
-import LegacyPlugin from '../LegacyPlugin';
 import { bytesToHex } from '../lib';
 
 const pkRegex = /^0x[0-9a-f]{64}$/i;
 const base64Regex = /[a-z0-9_-]{43}/i;
 
 interface NewPKPageState {
-  invalid: boolean,
+  invalid: boolean;
 }
 
 export default class NewPKPage extends Component<PluginPageContext, NewPKPageState> {
@@ -58,7 +56,7 @@ export default class NewPKPage extends Component<PluginPageContext, NewPKPageSta
   }
 
   render() {
-    const { burnerComponents, history, assets } = this.props;
+    const { burnerComponents } = this.props;
     const { Page } = burnerComponents;
 
     return (

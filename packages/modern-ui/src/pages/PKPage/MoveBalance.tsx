@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Asset } from '@burner-wallet/assets';
+import { Asset } from '@burner-wallet/types';
 import { isAllZero } from '../../lib';
 import Button from '../../components/Button';
 import Balances from './Balances';
