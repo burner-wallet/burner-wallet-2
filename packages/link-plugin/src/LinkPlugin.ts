@@ -41,7 +41,7 @@ export default class LinksPlugin implements Plugin {
       return existingContract;
     }
     const web3 = this.pluginContext.getWeb3('100', { gasless });
-    const contract = new web3.eth.Contract(linkAbi, LINK_XDAI_CONTRACT_ADDRESS);
+    const contract = new web3.eth.Contract(linkAbi as any, LINK_XDAI_CONTRACT_ADDRESS);
     this[gasless ? 'gaslessContract' : 'contract'] = contract;
     return contract;
   }
@@ -100,7 +100,7 @@ export default class LinksPlugin implements Plugin {
     const claimHash = web3.utils.soliditySha3(
       { type: 'bytes32', value: claimId }, // fund id
       { type: 'address', value: account }, // destination address
-      { type: 'uint256', value: nonce },
+      { type: 'uint256', value: nonce.toString() },
       { type: 'address', value: LINK_XDAI_CONTRACT_ADDRESS },
     );
     const claimSig = web3.eth.accounts.sign(claimHash, claimKey).signature;

@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Asset } from '@burner-wallet/assets';
+import Web3 from 'web3';
 import { Account, Actions, BurnerContext, SendData } from './types';
 
 interface BasePluginContext {
@@ -31,7 +32,7 @@ export interface BurnerPluginContext {
   addHomeButton: (title: string, path: string, options?: any) => any;
   addPage: (path: string, Component: PluginPage) => any;
   getAssets: () => Asset[];
-  getWeb3: (network: string, options?: any) => any;
+  getWeb3: (network: string, options?: any) => Web3;
   onAccountSearch: (callback: AccountSearchFn) => void;
   onQRScanned: (callback: QRScannedFn) => void;
   onSent: (callback: TXSentFn) => void;
