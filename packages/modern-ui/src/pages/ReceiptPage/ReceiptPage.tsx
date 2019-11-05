@@ -38,6 +38,8 @@ const BigEmoji = styled.div`
   font-size: 106px;
 `;
 
+const formatDate = (timestamp: number) => (new Date(timestamp * 1000)).toLocaleString();
+
 const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = ({ match, defaultAccount, assets }) => (
   <Page title="Transaction Receipt">
     <TransactionDetails
@@ -58,13 +60,15 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = 
           ? `${asset.getDisplayValue(tx.value!)} ${asset.name}`
           // @ts-ignore
           : `${tx.displayValue} (unknown asset)`;
+        // @ts-ignore
+        const date = formatDate(tx.timestamp)
 
         return (
           <section>
             <div>
               <LineItem name="From" value={<Address address={tx.from!} />}/>
               <LineItem name="To" value={<Address address={tx.to!} />}/>
-              <LineItem name="Date" value="TODO"/>
+              <LineItem name="Date" value={date}/>
             </div>
 
             <div>
