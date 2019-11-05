@@ -49,6 +49,8 @@ export interface BurnerContext {
   accounts: string[];
   defaultAccount: string;
   assets: Asset[];
+  BurnerComponents: BurnerComponents;
+  // depricated:
   burnerComponents: BurnerComponents;
   pluginData: BurnerPluginData;
   completeScan: ((result: string | null) => any) | null;

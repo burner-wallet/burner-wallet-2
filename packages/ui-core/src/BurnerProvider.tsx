@@ -42,7 +42,9 @@ const { Provider, Consumer } = React.createContext<BurnerContext>({
   accounts: [],
   defaultAccount: ZERO_ADDR,
   pluginData: DEFAULT_PLUGIN_DATA,
+  // depricated
   burnerComponents: {} as BurnerComponents,
+  BurnerComponents: {} as BurnerComponents,
   completeScan: null,
   loading: null,
 });
@@ -141,6 +143,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
         accounts,
         assets: core.getAssets(),
         burnerComponents,
+        BurnerComponents: burnerComponents,
         completeScan,
         defaultAccount: accounts.length > 0 ? accounts[0] : ZERO_ADDR,
         pluginData,
