@@ -6,8 +6,8 @@ import BalanceItem from './BalanceItem';
 const { AccountBalance } = DataProviders;
 
 const Row = styled.section`
-  padding: 32px 0;
-  width: 100%;
+  padding: 32px 16px;
+  margin: 0 -16px;
   overflow-x: scroll;
   white-space: nowrap;
 `;
