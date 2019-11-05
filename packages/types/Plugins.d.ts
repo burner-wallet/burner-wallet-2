@@ -16,10 +16,10 @@ interface PluginActionContext {
   actions: Actions;
 }
 
-export type PluginPageContext = RouteComponentProps & BasePluginContext & BurnerContext;
+export type PluginPageContext<Params = {}> = RouteComponentProps<Params> & BasePluginContext & BurnerContext;
 export type PluginElementContext = BasePluginContext & BurnerContext;
 
-export type PluginPage = ComponentType<PluginPageContext>;
+export type PluginPage = ComponentType<PluginPageContext<any>>;
 export type PluginElement = ComponentType<PluginElementContext>;
 
 export type AccountSearchFn = (query: string) => Promise<Account[]>;
