@@ -10,6 +10,10 @@ import AppButton from './AppButton';
 import BottomActions from './BottomActions';
 import HomeTabs from './HomeTabs';
 
+const PageContainer = styled(Page)`
+  margin-bottom: 100px;
+`;
+
 const BottomActionsContainer = styled.div`
   position: fixed;
   bottom: 32px;
@@ -53,7 +57,7 @@ const { PluginElements, PluginButtons } = DataProviders;
 
 const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData }) => {
   return (
-    <Page>
+    <PageContainer>
       <PluginElements position='home-top' />
 
       <HomeTabs pluginData={pluginData} />
@@ -79,7 +83,7 @@ const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData
       <BottomActionsContainer>
         <BottomActions actions={actions} />
       </BottomActionsContainer>
-    </Page>
+    </PageContainer>
   );
 };
 
