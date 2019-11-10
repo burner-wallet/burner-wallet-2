@@ -18,6 +18,8 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "@burner-wallet/ui-core": "^1.0.0",
+    "@burner-wallet/types": "^1.0.0",
     "@types/clipboard": "^2.0.1",
     "@types/color": "^3.0.0",
     "@types/ethereumjs-util": "^5.2.0",

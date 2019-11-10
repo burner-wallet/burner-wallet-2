@@ -22,20 +22,19 @@ const buttonStyles = `
 interface ButtonStyleProps {
   color?: string;
   background?: string;
+  disabled?: boolean;
 }
 
 const StandardButton = styled.button<ButtonStyleProps>`
   ${buttonStyles}
-  background-color: ${props => props.theme.accentColor};
   color: ${props => props.color};
-  background: ${props => props.background};
+  background: ${props => props.disabled ? '#cccccc' : props.theme.accentColor || props.background};
 `;
 
 const LinkButton = styled(Link)<ButtonStyleProps>`
   ${buttonStyles}
-  background-color: ${props => props.theme.accentColor};
   color: ${props => props.color};
-  background: ${props => props.background};
+  background: ${props => props.disabled ? '#cccccc' : props.theme.accentColor || props.background};
 `;
 
 const Button: React.FC<ButtonProps> = ({ to, ...props }) => {
