@@ -20,7 +20,12 @@ export interface AccountBalanceData {
 
 export interface AccountKeysProps {
   account: string;
-  render: (keys: Keys | null) => React.ReactNode;
+  render: (keys: Keys | null) => ReactNode;
+}
+
+export interface AddressNameProps {
+  address: string;
+  render: (name: string | null, address: string) => ReactNode;
 }
 
 export interface Keys {
@@ -57,6 +62,7 @@ export interface TransactionDetailsProps {
 export default interface DataProviders {
   AccountBalance: ComponentType<AccountBalanceProps>;
   AccountKeys: ComponentType<AccountKeysProps>;
+  AddressName: ComponentType<AddressNameProps>;
   Assets: ComponentType<AssetsProps>;
   History: ComponentType<HistoryProps>;
   PluginButtons: ComponentType<PluginButtonsProps>;

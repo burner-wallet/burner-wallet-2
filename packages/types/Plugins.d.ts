@@ -23,6 +23,7 @@ export type PluginPage = ComponentType<PluginPageContext<any>>;
 export type PluginElement = ComponentType<PluginElementContext>;
 
 export type AccountSearchFn = (query: string) => Promise<Account[]>;
+export type AddressToNameResolver = (address: string) => Promise<string | null>;
 export type QRScannedFn = (qr: string, context?: PluginActionContext) => boolean;
 export type TXSentFn = (data: SendData) => string | void | null;
 
@@ -33,6 +34,7 @@ export interface BurnerPluginContext {
   addPage: (path: string, Component: PluginPage) => any;
   getAssets: () => Asset[];
   getWeb3: (network: string, options?: any) => Web3;
+  addAddressToNameResolver: (callback: AddressToNameResolver) => void;
   onAccountSearch: (callback: AccountSearchFn) => void;
   onQRScanned: (callback: QRScannedFn) => void;
   onSent: (callback: TXSentFn) => void;
@@ -70,4 +72,5 @@ export interface BurnerPluginData {
   accountSearches: AccountSearchFn[];
   tryHandleQR: (qr: string, context: PluginActionContext) => boolean;
   sent: TXSentFn;
+  getAddressName: (address: string) => Promise<string | null>;
 }

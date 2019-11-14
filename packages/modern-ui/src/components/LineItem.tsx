@@ -19,13 +19,13 @@ const TextLineValue = styled.div`
 
 interface LineItemProps {
   name: string;
-  value: string | React.ReactNode;
+  value?: string | React.ReactNode;
 }
 
-const LineItem: React.FC<LineItemProps> = ({ name, value }) => (
+const LineItem: React.FC<LineItemProps> = ({ name, value, children }) => (
   <Line>
     <TextLineName>{name}</TextLineName>
-    <TextLineValue>{value}</TextLineValue>
+    <TextLineValue>{value || children}</TextLineValue>
   </Line>
 );
 

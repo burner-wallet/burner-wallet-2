@@ -1,5 +1,5 @@
 import {
-  AccountSearchFn, BurnerPluginContext, BurnerPluginData, Plugin,
+  AccountSearchFn, BurnerPluginContext, BurnerPluginData, Plugin, AddressToNameResolver,
   PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn
 } from '@burner-wallet/types';
 import { withBurner } from './BurnerProvider';
@@ -14,6 +14,7 @@ export const DEFAULT_PLUGIN_DATA = {
   accountSearches: [],
   tryHandleQR: () => false,
   sent: () => null,
+  getAddressName: () => Promise.resolve(null),
 };
 
 export default class Plugins {
@@ -21,17 +22,21 @@ export default class Plugins {
   private qrHandlers: QRScannedFn[];
   private sentHandlers: TXSentFn[];
   private pluginData: BurnerPluginData;
+  private addressToNameResolvers: AddressToNameResolver[];
   private ui: BurnerUICore;
 
   constructor(plugins: Plugin[], ui: BurnerUICore) {
     this.changeListeners = [];
     this.sentHandlers = [];
     this.qrHandlers = [];
+    this.addressToNameResolvers = [];
+
     this.ui = ui;
     this.pluginData = {
       ...DEFAULT_PLUGIN_DATA,
       tryHandleQR: this.tryHandleQR.bind(this),
       sent: this.sent.bind(this),
+      getAddressName: this.getAddressName.bind(this),
     };
 
     plugins.forEach(plugin => plugin.initializePlugin(this.getPluginContext(plugin)));
@@ -57,6 +62,8 @@ export default class Plugins {
         this.addPluginButton(plugin, position, title, path, options),
       addHomeButton: (title: string, path: string, options?: any) =>
         this.addPluginButton(plugin, 'home', title, path, options),
+      addAddressToNameResolver: (callback: AddressToNameResolver) =>
+        this.addressToNameResolvers.push(callback),
       getAssets: () => this.ui.getAssets(),
       getWeb3: (network: string, options?: any) => this.ui.getCore().getWeb3(network, options),
     };
@@ -102,6 +109,16 @@ export default class Plugins {
     this.setPluginData({
       accountSearches: [...this.pluginData.accountSearches, callback],
     });
+  }
+
+  async getAddressName(address: string) {
+    for (const resolver of this.addressToNameResolvers) {
+      const name = await resolver(address);
+      if (name) {
+        return name;
+      }
+    }
+    return null;
   }
 
   tryHandleQR(qr: string, context: PluginActionContext) {

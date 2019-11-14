@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BurnerContext, withBurner } from '@burner-wallet/ui-core';
 import { RouteComponentProps } from 'react-router-dom';
+import Address from '../../components/Address';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
 import LineItem from '../../components/LineItem';
@@ -55,8 +56,12 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({
 
   return (
     <Page title="Confirm">
-      <LineItem name="From" value={from} />
-      <LineItem name="To" value={to} />
+      <LineItem name="From">
+        <Address address={from} />
+      </LineItem>
+      <LineItem name="To">
+        <Address address={to} />
+      </LineItem>
       <LineItem name="Amount" value={`${amount} ${asset.name}`} />
       {message && <LineItem name="Message" value={message} />}
 

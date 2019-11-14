@@ -12,13 +12,14 @@ export {
 
 export {
   AccountBalanceProps, AccountBalanceData, AccountKeysProps, Keys, AssetsProps,
-  HistoryProps, PluginButtonsProps, PluginElementsProps, TransactionDetailsProps
+  HistoryProps, PluginButtonsProps, PluginElementsProps, TransactionDetailsProps,
+  AddressNameProps
 } from './DataProviders';
 
 export {
   Plugin, PluginActionContext, PluginPageContext, PluginElementContext, PluginPage, PluginElement,
   PluginElementData, AccountSearchFn, QRScannedFn, TXSentFn, BurnerPluginContext, BurnerPluginData,
-  PluginButtonProps, PluginButtonData
+  PluginButtonProps, PluginButtonData, AddressToNameResolver
 } from './Plugins';
 
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;

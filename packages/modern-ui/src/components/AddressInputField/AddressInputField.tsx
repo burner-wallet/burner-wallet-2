@@ -101,6 +101,7 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
             disabled={disabled}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
+            spellCheck="false"
           />
           <ButtonContainer>
             {scan && (
