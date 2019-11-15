@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/erc681-plugin",
-  "version": "0.1.0",
+  "version": "1.0.0-beta.0",
   "description": "User ERC681 URIs for sending assets",
   "license": "MIT",
   "main": "dist/ERC681.js",
@@ -16,7 +16,7 @@
     "test": "mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
   },
   "dependencies": {
-    "@burner-wallet/types": "^1.0.0"
+    "@burner-wallet/types": "^1.0.0-beta.1"
   },
   "devDependencies": {
     "@types/chai": "^4.2.3",
