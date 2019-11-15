@@ -7,6 +7,7 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 4px;
+  height: 48px;
 
   &:first-child {
     border-top: none;

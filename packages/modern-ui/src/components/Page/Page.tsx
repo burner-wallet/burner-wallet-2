@@ -20,11 +20,12 @@ const Content = styled.div`
 
 export interface PageProps {
   title?: string;
+  className?: string;
 }
 
-const Page: React.FC<PageProps> = ({ children, title }) => {
+const Page: React.FC<PageProps> = ({ children, title, className }) => {
   return (
-    <PageContainer>
+    <PageContainer className={className}>
       {title && <PageTitleBar title={title} />}
       <Content>{children}</Content>
     </PageContainer>

@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/ens-plugin",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "David Mihal <david@dmihal.com>",
   "license": "MIT",
   "main": "dist/ENSPlugin.js",
