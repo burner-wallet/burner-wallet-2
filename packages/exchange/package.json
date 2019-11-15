@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/exchange",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
     "start-basic": "tsc -w"
   },
   "dependencies": {
-    "@burner-wallet/types": "1.0.0",
+    "@burner-wallet/types": "1.0.0-beta.1",
     "@types/react": "*"
   },
   "devDependencies": {

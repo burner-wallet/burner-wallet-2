@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@burner-wallet/assets": "^1.0.0-beta.0",
-    "@burner-wallet/core": "^1.0.0-beta.0",
-    "@burner-wallet/modern-ui": "^1.0.0",
+    "@burner-wallet/assets": "^1.0.0-beta.1",
+    "@burner-wallet/core": "^1.0.0-beta.1",
+    "@burner-wallet/modern-ui": "^1.0.0-beta.1",
     "@types/node": "12.0.4",
     "@types/react": "16.8.19",
     "@types/react-dom": "16.8.4",

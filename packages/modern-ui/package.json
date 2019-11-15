@@ -1,13 +1,12 @@
 {
   "name": "@burner-wallet/modern-ui",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "license": "MIT",
   "main": "dist/ModernUI.js",
   "types": "dist/ModernUI.d.ts",
   "scripts": {
-    "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
+    "build": "tsc",
     "start-local": "tsc -w",
-    "build": "tsc && yarn run css",
     "start-basic": "tsc -w"
   },
   "devDependencies": {
@@ -18,8 +17,8 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "@burner-wallet/ui-core": "^1.0.0",
-    "@burner-wallet/types": "^1.0.0",
+    "@burner-wallet/types": "^1.0.0-beta.1",
+    "@burner-wallet/ui-core": "^1.0.0-beta.2",
     "@types/clipboard": "^2.0.1",
     "@types/color": "^3.0.0",
     "@types/ethereumjs-util": "^5.2.0",

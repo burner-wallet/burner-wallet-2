@@ -8,7 +8,7 @@
     "@burner-wallet/ens-plugin": "^1.0.0",
     "@burner-wallet/exchange": "^1.0.0",
     "@burner-wallet/legacy-plugin": "^1.0.0",
-    "@burner-wallet/modern-ui": "^1.0.0",
+    "@burner-wallet/modern-ui": "^1.0.0-beta.2",
     "@types/node": "12.0.4",
     "@types/react": "*",
     "@types/react-dom": "16.8.4",
