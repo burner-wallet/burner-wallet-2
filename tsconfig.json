@@ -1,6 +1,6 @@
 {
  "compilerOptions": {
-    "module": "commonjs",
+    "module": "esnext",
     "declaration": true,
     "removeComments": true,
     "noLib": false,
@@ -8,7 +8,7 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "target": "es5",
+    "target": "esnext",
     "sourceMap": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,
