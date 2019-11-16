@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import 'mocha';
 import { eth, dai, xdai, Asset } from '@burner-wallet/assets';
-import { SendData } from '@burner-wallet/types';
+import { SendData, BurnerPluginContext } from '@burner-wallet/types';
 import ERC681Plugin from '../src/ERC681Plugin';
 
 describe('ERC681Plugin', () => {
@@ -17,7 +17,8 @@ describe('ERC681Plugin', () => {
     const plugin = new ERC681Plugin();
 
     const ctx = { actions: { send: (params: SendData) => {} } };
-    plugin.initializePlugin({
+
+    const pluginContext = {
       getAssets: () => assets,
       onQRScanned: (cb: any) => {
         expect(cb('abc', ctx)).to.be.false;
@@ -38,13 +39,9 @@ describe('ERC681Plugin', () => {
         };
         expect(cb('ethereum:0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359/transfer?address=0x8e23ee67d1332ad560396262c48ffbb01f93d052&uint256=1000', ctx)).to.be.true;
       },
-      addElement: () => null,
-      addHomeButton: () => null,
-      addPage: () => null,
-      getWeb3: () => null,
-      onAccountSearch: () => null,
-      onSent: () => null,
-    });
+    } as BurnerPluginContext;
+
+    plugin.initializePlugin(pluginContext);
   });
 
   it('should handle URIs with only an address');

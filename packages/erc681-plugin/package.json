@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
+    "test": "TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
   },
   "dependencies": {
     "@burner-wallet/types": "^1.0.0-beta.1"
@@ -22,7 +22,6 @@
     "@types/chai": "^4.2.3",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "typescript": "^3.5.2"
+    "mocha": "^6.2.0"
   }
 }
