@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, ComponentType } from 'react';
 import { PluginElementsProps, PluginElementData } from '@burner-wallet/types';
 import { withBurner, BurnerContext } from '../BurnerProvider';
 
+type ModifiedPluginElementsProps = Pick<PluginElementsProps, 'position'>;
 
-const PluginElements: React.FC<PluginElementsProps & BurnerContext> = ({ position, pluginData, ...props }) => {
+const PluginElements: React.FC<ModifiedPluginElementsProps & BurnerContext> = ({ position, pluginData, ...props }) => {
   const elements = pluginData.elements[position];
   if (!elements || elements.length === 0) {
     return null;
@@ -18,4 +19,4 @@ const PluginElements: React.FC<PluginElementsProps & BurnerContext> = ({ positio
   );
 };
 
-export default withBurner<PluginElementsProps & BurnerContext>(PluginElements);
+export default withBurner(PluginElements) as ComponentType<PluginElementsProps>;
