@@ -1,6 +1,5 @@
 import React from 'react';
 import { PluginPageContext } from '@burner-wallet/types';
-import { RouteComponentProps } from 'react-router-dom';
 
 interface MatchParams {
   address: string;
@@ -8,9 +7,8 @@ interface MatchParams {
   message: string;
 }
 
-type RedirectType = PluginPageContext & RouteComponentProps<MatchParams>;
 
-const RedirectToSend: React.FC<RedirectType> = ({ match, actions, assets }) => {
+const RedirectToSend: React.FC<PluginPageContext<MatchParams>> = ({ match, actions, assets }) => {
   actions.send({
     to: match.params.address,
     ether: match.params.amount,
@@ -20,4 +18,4 @@ const RedirectToSend: React.FC<RedirectType> = ({ match, actions, assets }) => {
   return null;
 };
 
-export default RedirectToSend as React.FC<PluginPageContext>;
+export default RedirectToSend;

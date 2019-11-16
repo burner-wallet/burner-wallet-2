@@ -14,7 +14,8 @@
   "scripts": {
     "build": "tsc",
     "start-basic": "tsc -w",
-    "start-local": "tsc -w"
+    "start-local": "tsc -w",
+    "test": "TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
   },
   "dependencies": {
     "@burner-wallet/types": "^1.0.0-beta.1",
@@ -22,6 +23,9 @@
     "base64url": "3.0.1"
   },
   "devDependencies": {
-    "typescript": "^3.5.2"
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
   }
 }
