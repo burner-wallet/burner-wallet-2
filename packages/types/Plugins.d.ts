@@ -24,7 +24,7 @@ export type PluginElement = ComponentType<PluginElementContext>;
 
 export type AccountSearchFn = (query: string) => Promise<Account[]>;
 export type AddressToNameResolver = (address: string) => Promise<string | null>;
-export type QRScannedFn = (qr: string, context?: PluginActionContext) => boolean;
+export type QRScannedFn = (qr: string, context: PluginActionContext) => boolean | undefined;
 export type TXSentFn = (data: SendData) => string | void | null;
 
 export interface BurnerPluginContext {

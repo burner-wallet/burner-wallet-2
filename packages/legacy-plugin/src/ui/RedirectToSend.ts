@@ -7,7 +7,6 @@ interface MatchParams {
   message: string;
 }
 
-
 const RedirectToSend: React.FC<PluginPageContext<MatchParams>> = ({ match, actions, assets }) => {
   actions.send({
     to: match.params.address,

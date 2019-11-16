@@ -5,9 +5,8 @@
   "dependencies": {
     "@burner-wallet/assets": "1.0.0-beta.0",
     "@burner-wallet/core": "^1.0.0-beta.0",
-    "@burner-wallet/ens-plugin": "^1.0.0",
-    "@burner-wallet/exchange": "^1.0.0",
-    "@burner-wallet/legacy-plugin": "^1.0.0",
+    "@burner-wallet/ens-plugin": "^1.0.0-beta.0",
+    "@burner-wallet/exchange": "^1.0.0-beta.1",
     "@burner-wallet/modern-ui": "^1.0.0-beta.2",
     "@types/node": "12.0.4",
     "@types/react": "*",

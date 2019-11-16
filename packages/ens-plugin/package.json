@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@burner-wallet/types": "^1.0.0-beta.1",
-    "eth-ens-namehash": "^2.0.8",
-    "typescript": "^3.6.4"
+    "eth-ens-namehash": "^2.0.8"
   }
 }

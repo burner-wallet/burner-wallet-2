@@ -15,8 +15,5 @@
     "@burner-wallet/types": "^1.0.0-beta.1",
     "@types/react": "*",
     "ethers": "4.0.33"
-  },
-  "devDependencies": {
-    "typescript": "^3.5.2"
   }
 }
