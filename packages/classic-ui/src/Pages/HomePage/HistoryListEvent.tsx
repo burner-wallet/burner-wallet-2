@@ -3,8 +3,6 @@ import injectSheet from 'react-jss';
 import { HistoryEvent } from '@burner-wallet/types';
 import { DataProviders } from '@burner-wallet/ui-core';
 
-const HistoryPluginElements = DataProviders.PluginElements as React.FC<{ position: string; event: HistoryEvent }>;
-
 const styles = {
   container: {
     display: 'flex',
@@ -93,7 +91,7 @@ const HistoryListEvent: React.FC<HistoryListEventProps> = ({ event, account, cla
         )}
       </div>
       <div className={classes.value}>{asset.getDisplayValue(event.value)} {asset.name}</div>
-      <HistoryPluginElements position="history-event" event={event} />
+      <DataProviders.PluginElements position="history-event" event={event} />
     </div>
   );
 }

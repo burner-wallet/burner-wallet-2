@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { PageProps } from '@burner-wallet/types';
 import PageTitleBar from './PageTitleBar';
 
 const PageContainer = styled.main`
@@ -18,12 +19,7 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-export interface PageProps {
-  title?: string;
-  className?: string;
-}
-
-const Page: React.FC<PageProps> = ({ children, title, className }) => {
+const Page: React.FC<PageProps & { className?: string }> = ({ children, title, className }) => {
   return (
     <PageContainer className={className}>
       {title && <PageTitleBar title={title} />}

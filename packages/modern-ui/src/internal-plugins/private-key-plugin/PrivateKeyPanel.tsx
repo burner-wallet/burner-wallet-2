@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { BurnerContext } from '@burner-wallet/ui-core';
-import { Keys } from '@burner-wallet/types';
+import { Keys, PluginElementContext } from '@burner-wallet/types';
 import PrivateKeyField from './PrivateKeyField';
 import { DataProviders } from '@burner-wallet/ui-core';
 import Button from '../../components/Button';
@@ -14,7 +13,7 @@ const AdvancedButton = styled(Button)`
 
 const { AccountKeys } = DataProviders;
 
-const PrivateKeyPanel: React.FC<BurnerContext> = ({ actions, defaultAccount }) => {
+const PrivateKeyPanel: React.FC<PluginElementContext> = ({ actions, defaultAccount }) => {
   return (
     <section>
       <h2>Private Key</h2>
