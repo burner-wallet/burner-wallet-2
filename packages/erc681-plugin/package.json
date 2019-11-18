@@ -1,10 +1,10 @@
 {
   "name": "@burner-wallet/erc681-plugin",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "User ERC681 URIs for sending assets",
   "license": "MIT",
-  "main": "dist/ERC681.js",
-  "types": "dist/ERC681.d.ts",
+  "main": "dist/ERC681Plugin.js",
+  "types": "dist/ERC681Plugin.d.ts",
   "files": [
     "dist"
   ],
