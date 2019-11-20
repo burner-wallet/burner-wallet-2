@@ -40,6 +40,13 @@ const AssetName = styled.div`
   font-size: 16px;
 `;
 
+const Icon = styled.div`
+  min-width: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+`;
+
 const BalanceItem: React.FC<BalanceItemProps> = ({ asset, usdBalance, balance }) => {
   let value = '-';
   if (usdBalance) {
@@ -50,7 +57,9 @@ const BalanceItem: React.FC<BalanceItemProps> = ({ asset, usdBalance, balance })
 
   return (
     <BalanceCard>
-      {/* icon */}
+      {asset.icon && (
+        <Icon style={{ backgroundImage: `url('${asset.icon}')` }} />
+      )}
       <BalanceText>
         <Value>{value}</Value>
         <AssetName>{asset.name}</AssetName>

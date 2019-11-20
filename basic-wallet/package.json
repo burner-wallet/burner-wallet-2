@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@burner-wallet/assets": "1.0.0-beta.0",
+    "@burner-wallet/assets": "^1.0.0-beta.2",
     "@burner-wallet/core": "^1.0.0-beta.0",
     "@burner-wallet/ens-plugin": "^1.0.0-beta.0",
     "@burner-wallet/exchange": "^1.0.0-beta.1",
