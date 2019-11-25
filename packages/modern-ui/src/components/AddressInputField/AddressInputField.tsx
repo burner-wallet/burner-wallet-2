@@ -1,9 +1,9 @@
 import React, { ChangeEvent, Fragment, useState, useRef } from 'react';
 import { Account } from '@burner-wallet/types';
-import { Icon } from 'rimble-ui';
 import styled from 'styled-components';
 import AddressInputAccount from './AddressInputAccount';
 import SuggestedAddressDropdown from './SuggestedAddressDropdown';
+import { SCAN_QR_DATAURI_WHITE } from '../../lib';
 
 const ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/i;
 
@@ -70,7 +70,11 @@ const ScanButton = styled.button`
   margin: 0px 8px;
   border: none;
   border-radius: 4px;
-  background: #1AAA9B;
+  background-color: #1AAA9B;
+  background-image: url("${SCAN_QR_DATAURI_WHITE}");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
   padding: 0;
   transition: all 0.15s ease;
   color: white;
@@ -122,9 +126,7 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
           />
           <ButtonContainer>
             {scan && (
-              <ScanButton onClick={scan}>
-                <Icon name='CenterFocusWeak' />
-              </ScanButton>
+              <ScanButton onClick={scan} />
             )}
           </ButtonContainer>
 

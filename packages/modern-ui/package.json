@@ -29,7 +29,6 @@
     "ethereumjs-util": "^6.1.0",
     "qrcode.react": "^0.9.3",
     "react-qr-reader": "^2.2.1",
-    "rimble-ui": "^0.10.0",
     "styled-components": "^4.4.0"
   }
 }

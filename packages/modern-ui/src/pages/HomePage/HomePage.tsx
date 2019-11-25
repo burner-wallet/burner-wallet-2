@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BurnerContext, withBurner, DataProviders } from '@burner-wallet/ui-core';
 import styled from 'styled-components';
-import { Icon } from 'rimble-ui';
 
 import Page from '../../components/Page';
 import HistoryList from '../../components/HistoryList';
@@ -76,9 +75,7 @@ const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData
         <SubHeading line>Apps</SubHeading>
       </PluginButtons>
 
-      <AppButton title="Settings" to="/advanced">
-        <Icon name="settings" />
-      </AppButton>
+      <AppButton title="Settings" to="/advanced" />
 
       <BottomActionsContainer>
         <BottomActions actions={actions} />

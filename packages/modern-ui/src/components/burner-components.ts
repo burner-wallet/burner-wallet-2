@@ -3,7 +3,7 @@ import Page from './Page';
 import AmountInput from './AmountInput';
 import AssetSelector from './AssetSelector';
 import Button from './Button';
-import { QR as QRCode } from 'rimble-ui';
+import QRCode from 'qrcode.react';
 
 const components: BurnerUIComponents = {
   Page,

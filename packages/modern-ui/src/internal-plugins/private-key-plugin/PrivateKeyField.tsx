@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Icon } from 'rimble-ui';
 import Clipboard from '../../components/Clipboard';
 import Button from '../../components/Button';
 
@@ -28,6 +27,7 @@ const StyledInput = styled.input`
   border-radius: 1px;
   font-family: sans-serif;
   font-size: 1rem;
+  outline: none;
 `;
 
 const ButtonContainer = styled.div`
@@ -50,13 +50,11 @@ const PrivateKeyField: React.FC<PrivateKeyProps> = ({ privateKey }) => {
         readOnly
         value={privateKey}
         type={visibleKey ? 'text' : 'password'}
+        onFocus={() => setVisibleKey(true)}
+        onBlur={() => setVisibleKey(false)}
       />
 
       <ButtonContainer>
-        <Button onClick={() => setVisibleKey(!visibleKey)}>
-          <Icon name={visibleKey ? 'VisibilityOff' : 'Visibility'} />
-        </Button>
-        
         <Clipboard text={privateKey}>
           {(isCopied: boolean) => (
             <Button>{!isCopied ? 'Copy' : 'Copied!'}</Button>

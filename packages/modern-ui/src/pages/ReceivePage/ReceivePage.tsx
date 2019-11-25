@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { withBurner, BurnerContext } from '@burner-wallet/ui-core';
-import { QR } from 'rimble-ui';
+import QRCode from 'qrcode.react';
 import Clipboard from '../../components/Clipboard';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
@@ -53,7 +53,7 @@ const ReceivePage: React.FC<BurnerContext> = ({ defaultAccount }) => {
       <div>Scan this code with your wallet to send money to it.</div>
 
       <QRContainer>
-        <QR value={defaultAccount}/>
+        <QRCode value={defaultAccount} renderAs="svg"/>
       </QRContainer>
 
       <AddressInputContainer>
