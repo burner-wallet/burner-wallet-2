@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { withBurner, BurnerContext } from '@burner-wallet/ui-core';
-import { Input, Icon, QR } from 'rimble-ui';
+import { QR } from 'rimble-ui';
 import Clipboard from '../../components/Clipboard';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
@@ -20,17 +20,31 @@ const QRContainer = styled.div`
 
 const AddressInputContainer = styled.div`
   display: flex;
+  background-color: white;
+  border: 1px;
+  border-color: grey;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+  margin: 8px 0;
+  align-items: center;
 `;
 
 const CopyButton = styled(Button)`
-  width: 200px;
-  position: absolute;
-  right: 0;
+  height: 38px;
+  margin: 4px;
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled.input`
   text-overflow: ellipsis;
+  overflow: hidden;
   white-space: nowrap;
+  padding: 16px 0 16px 16px;
+  font-family: sans-serif;
+  font-size: 1rem;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  flex: 1;
 `;
 
 const ReceivePage: React.FC<BurnerContext> = ({ defaultAccount }) => {
@@ -46,13 +60,11 @@ const ReceivePage: React.FC<BurnerContext> = ({ defaultAccount }) => {
         <StyledInput
           readOnly
           value={defaultAccount}
-          width={1}
-          pr="5rem"
-          fontWeight={3}
+          onClick={(e: React.MouseEvent) => (e.target as HTMLInputElement).setSelectionRange(0, 42)}
         />
         <Clipboard text={defaultAccount}>
           {isCopied => (
-            <CopyButton>{isCopied ? <Icon name="Check" /> : 'Copy'}</CopyButton>
+            <CopyButton disabled={isCopied}>Copy</CopyButton>
           )}
         </Clipboard>
       </AddressInputContainer>
