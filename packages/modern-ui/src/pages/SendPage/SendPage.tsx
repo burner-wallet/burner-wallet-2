@@ -123,26 +123,17 @@ const { AccountBalance } = DataProviders;
 
 type SendPageProps = BurnerContext & RouteComponentProps<{ to?: string }>;
 
-const SendPage: React.FC<SendPageProps> = ({ actions, assets, location, pluginData }) => {
+const SendPage: React.FC<SendPageProps> = ({ actions, assets, location }) => {
   const [to, setTo] = useState(location.state && location.state.to || '');
   const [account, setAccount] = useState<Account | null>(null);
   const [asset, setAsset] = useState(assets[0]);
   const [val, setVal] = useState<{ value: string; maxVal: string | null }>({ value: '0', maxVal: null });
   const [message, setMessage] = useState('');
-  const [suggestedAccounts, setSuggestedAccounts] = useState<Account[]>([]);
 
   const { value, maxVal } = val;
   const setValue = (value: string, maxVal: string | null = null) => setVal({ value, maxVal });
 
   const scan = () => actions.scanQRCode().then(result => setTo(result)).catch(() => null);
-
-  const getSuggestedAccounts = async (search: string) => {
-    const _accounts = await Promise.all(
-      pluginData.accountSearches.map(searchFn => searchFn(search))
-    );
-    const accounts = Array.prototype.concat(..._accounts);
-    setSuggestedAccounts(accounts);
-  };
 
   const send = () => {
     const sendProps: SendData = {
@@ -179,11 +170,6 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location, pluginDa
                     onChange={(_to: string, _account: Account | null) => {
                       setTo(_to)
                       setAccount(_account);
-                      if (_account) {
-                        setSuggestedAccounts([]);
-                      } else {
-                        getSuggestedAccounts(_to);
-                      }
                     }}
                     scan={scan}
                   />
@@ -218,7 +204,7 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location, pluginDa
 
                 {asset.supportsMessages() && (
                   <MessageField>
-                    <h3>For:</h3>
+                    <h3>Note:</h3>
                     <TransferMessageInput
                       placeholder="Optional"
                       value={message}
