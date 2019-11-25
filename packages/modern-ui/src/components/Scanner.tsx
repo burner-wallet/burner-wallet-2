@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import QrReader from 'react-qr-reader';
 import { withBurner, BurnerContext } from '@burner-wallet/ui-core';
 import styled from 'styled-components';
@@ -54,7 +54,7 @@ const CameraIcon = styled.svg`
   flex: 1;
 `;
 
-const Reader = styled(QrReader)`
+const makeReader = (_component: any) => styled(_component)`
   flex: 1;
   display: flex;
 
@@ -80,6 +80,13 @@ const CloseButton = styled(Button)`
 const Scanner: React.FC<BurnerContext> = ({ completeScan }) => {
   const reader = useRef<any>(null);
   const [fallback, setFallback] = useState(false);
+  const [Reader, setReader] = useState<any>(null);
+
+  useEffect(() => {
+    if (completeScan && !Reader) {
+      import('react-qr-reader').then((module: any) => setReader(makeReader(module.default)) as unknown as QrReader);
+    }
+  }, [completeScan]);
 
   if (!completeScan) {
     return null;
@@ -105,20 +112,24 @@ const Scanner: React.FC<BurnerContext> = ({ completeScan }) => {
           </CameraIconContainer>
         )}
 
-        <Reader
-          delay={300}
-          ref={reader}
-          legacyMode={fallback}
-          onError={err => {
-            console.error(err);
-            setFallback(true);
-          }}
-          onScan={address => {
-            if (address) {
-              completeScan(address);
-            }
-          }}
-        />
+        {Reader ? (
+          <Reader
+            delay={300}
+            ref={reader}
+            legacyMode={fallback}
+            onError={(err: any) => {
+              console.error(err);
+              setFallback(true);
+            }}
+            onScan={(address: string) => {
+              if (address) {
+                completeScan(address);
+              }
+            }}
+          />
+        ) : (
+          <div>Loading...</div>
+        )}
       </Container>
 
       <CloseContainer>
