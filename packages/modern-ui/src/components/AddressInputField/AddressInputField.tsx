@@ -1,6 +1,6 @@
 import React, { ChangeEvent, Fragment, useState, useRef } from 'react';
 import { Account } from '@burner-wallet/types';
-import { Input, Icon, Button } from 'rimble-ui';
+import { Icon } from 'rimble-ui';
 import styled from 'styled-components';
 import AddressInputAccount from './AddressInputAccount';
 import SuggestedAddressDropdown from './SuggestedAddressDropdown';
@@ -32,7 +32,7 @@ const StyledWrapper = styled.div`
   position: relative;
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled.input`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -49,9 +49,18 @@ const StyledInput = styled(Input)`
   padding: 16px;
   border: solid 1px rgb(204, 204, 204);
   border-radius: 4px;
+  outline: none;
+
+  &:hover {
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+  }
+
+  &:focus {
+    border-color: #000;
+  }
 `;
 
-const ScanButton = styled(Button)`
+const ScanButton = styled.button`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
   font-family: "Source Sans Pro", -apple-system, sans-serif;
   font-weight: 600;
@@ -63,6 +72,14 @@ const ScanButton = styled(Button)`
   border-radius: 4px;
   background: #1AAA9B;
   padding: 0;
+  transition: all 0.15s ease;
+  color: white;
+
+  display: inline-flex;
+  text-align: center;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
 `;
 
 interface AddressInputFieldProps {

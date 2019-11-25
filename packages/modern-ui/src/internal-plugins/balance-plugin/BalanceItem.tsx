@@ -1,6 +1,5 @@
 import React from 'react';
 import { Asset } from '@burner-wallet/types';
-import { Card } from 'rimble-ui';
 import styled from 'styled-components';
 
 interface BalanceItemProps {
@@ -9,7 +8,7 @@ interface BalanceItemProps {
   balance?: string | null;
 }
 
-const BalanceCard = styled(Card)`
+const BalanceCard = styled.div`
   display: inline-flex;
   justifyContent: space-between;
   font-size: 48px;
@@ -19,6 +18,7 @@ const BalanceCard = styled(Card)`
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 225px;
+  background: white;
 
   &:not(:first-of-type) {
     margin-left: 12px;
