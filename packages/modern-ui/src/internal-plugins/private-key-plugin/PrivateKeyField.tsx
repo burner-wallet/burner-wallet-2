@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Input, Icon } from 'rimble-ui';
+import { Icon } from 'rimble-ui';
 import Clipboard from '../../components/Clipboard';
 import Button from '../../components/Button';
 
@@ -14,9 +14,20 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled.input`
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: none;
+
+  background-color: white;
+  padding: 16px;
+  width: 100%;
+  height: 3rem;
+  border: 1px;
+  border-color: grey;
+  border-radius: 1px;
+  font-family: sans-serif;
+  font-size: 1rem;
 `;
 
 const ButtonContainer = styled.div`
@@ -38,8 +49,6 @@ const PrivateKeyField: React.FC<PrivateKeyProps> = ({ privateKey }) => {
       <StyledInput
         readOnly
         value={privateKey}
-        width={1}
-        fontWeight={3}
         type={visibleKey ? 'text' : 'password'}
       />
 

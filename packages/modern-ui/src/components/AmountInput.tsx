@@ -1,6 +1,5 @@
 import React from 'react';
 import { AmountInputProps } from '@burner-wallet/types';
-import { Input } from 'rimble-ui';
 
 // interface AmountInputProps {
 //   onChange: (val: string, isMax: boolean) => void;
@@ -12,7 +11,7 @@ import { Input } from 'rimble-ui';
 
 const AmountInput: React.FC<AmountInputProps> = ({ onChange, disabled, value, max/*, asset*/ }) => (
   <div>
-    <Input
+    <input
       type="number"
       onChange={(e: any) => onChange(e.target.value, false)}
       disabled={disabled}

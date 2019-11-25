@@ -2,7 +2,6 @@ import React, { ChangeEvent, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { withBurner, BurnerContext, DataProviders } from '@burner-wallet/ui-core';
 import { Asset, Account, SendData, AccountBalanceData } from '@burner-wallet/types';
-import { Input } from 'rimble-ui';
 import styled from 'styled-components';
 import AddressInputField from '../../components/AddressInputField';
 import AssetSelector from '../../components/AssetSelector';
@@ -29,7 +28,7 @@ const AmountWrapper = styled.div`
   text-align: center;
 `;
 
-const AmountInput = styled(Input)`
+const AmountInput = styled.input`
   display: flex;
   align-content: center;
   width: 100%;
@@ -85,9 +84,8 @@ const SendButton = styled(Button)`
   }
 `;
 
-const TransferMessageInput = styled(Input)`
+const TransferMessageInput = styled.input`
   background-color: transparent;
-  box-shadow: none !important;
   outline: none;
   border: none;
   width: 100%;
@@ -96,6 +94,13 @@ const TransferMessageInput = styled(Input)`
   font-size: 18px;
   transition: 0.15s ease-in-out;
   font-family: var(--main-font);
+  padding: 16px;
+  height: 3rem;
+  border-radius: 2px;
+
+  &:hover {
+    background: white;
+  }
 
   &:focus {
     background: hsla(0, 0%, 90%, 1);
@@ -180,7 +185,6 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location }) => {
                   <AmountInput
                     type="number"
                     placeholder="0"
-                    asset={asset}
                     value={value}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value.replace(/^0+(?=\d)/, ''))}
                     min="0"

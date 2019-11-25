@@ -94,7 +94,7 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
   value, account, onChange, scan, disabled
 }) => {
   const [focused, setFocused] = useState(false);
-  const anchor = useRef<HTMLElement | null>(null);
+  const anchor = useRef<HTMLInputElement | null>(null);
 
   let _account = account;
   if (!account && ADDRESS_REGEX.test(value)) {
@@ -118,7 +118,7 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
             disabled={disabled}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            spellCheck="false"
+            spellCheck={false}
           />
           <ButtonContainer>
             {scan && (
