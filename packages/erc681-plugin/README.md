@@ -1,13 +1,13 @@
-# ENS Plugin for Burner Wallet
+# ERC-681 Plugin for Burner Wallet
 
-Allows sending funds to ENS addresses, as well as displaying ENS names in place of Ethereum addresses.
+Allows scanning QR codes containing [ERC-681 transaction request transactions](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md)
 
-## Use
+## Usage
 
 Install package:
 
 ```
-yarn add @burner-wallet/ens-plugin
+yarn add @burner-wallet/erc681-plugin
 ```
 
 Add plugin to Burner Wallet
@@ -20,7 +20,7 @@ import BurnerCore from '@burner-wallet/core';
 import { InjectedSigner, LocalSigner } from '@burner-wallet/core/signers';
 import { InfuraGateway, InjectedGateway, XDaiGateway } from '@burner-wallet/core/gateways';
 import ModernUI from '@burner-wallet/modern-ui';
-import ENSPlugin from '@burner-wallet/ens-plugin';
+import ERC681Plugin from '@burner-wallet/erc681-plugin';
 
 const core = new BurnerCore({
   signers: [new InjectedSigner(), new LocalSigner()],
@@ -36,13 +36,9 @@ const core = new BurnerCore({
 const BurnerWallet = () =>
   <ModernUI
     core={core}
-    plugins={[new ENSPlugin()]}
+    plugins={[new ERC681Plugin()]}
   />
 
 ReactDOM.render(<BurnerWallet />, document.getElementById('root'));
 
 ```
-
-**Note:**
-
-Since ENS runs on the Ethereum mainnet, a mainnet gateway must be available (such as InfuraGateway or RivetGateway).

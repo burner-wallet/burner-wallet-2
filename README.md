@@ -11,12 +11,12 @@ const core = new BurnerCore({
   assets: [xdai, dai, eth],
 });
 
-const exchange = new Exchange({ pairs: [xdaiBridge, uniswapDai] });
+const exchange = new Exchange({ pairs: [new XDaiBridge(), new Uniswap('dai')] });
 
 const BurnerWallet = () =>
-  <BurnerUI
+  <ModernUI
     core={core}
-    plugins={[exchange, new LinkPlugin()]}
+    plugins={[exchange, new ENSPlugin()]}
   />
 ```
 
@@ -64,48 +64,37 @@ const core = new BurnerCore({
 });
 ```
 
-#### Developer wallet
+#### Local developer wallet
 
-Are you a developer, hoping to test changes to other modules in this project (burner-ui, exchange or plugins)?
+Are you a developer, hoping to test changes to other modules in this project (modern-ui, ui-core or various plugins)?
 
-The `local-wallet` directory has a wallet that will connect to a local Ganache instance and transfer
-10 Ganache ETH to your wallet.
+Run `yarn start-local` in the project root. This will start a wallet on localhost:3000 that is connected to your local
+Ganache instance (connecting to node http://localhost:8545 by default).
 
-To start this wallet, `cd` into the `local-wallet` directory, run `yarn install-all` to install
-dependencies, then run `yarn start`.
+Before the wallet server launches, a script create a pre-filled account. This account will hold 1 Ganache ETH and 100
+test tokens.
 
 Note that Metamask will override the local account, disable it or open in incognito mode for local development.
-
-Alternatively, the code in the `wallet` directory will let you develop locally, while connecting to Mainnet and xDai.
-
-## Customization
-
-The wallet can be visually customized by passing `theme` and `title` props to the BurnerUI component.
-
-```JSX
-const theme = {
-  background: '#282325',
-  titleFont: '"workSans", sans-serif',
-  paperBackground: '#282325',
-  accentColor: '#E84441',
-  homeButtonColor: '#BBBBBB',
-};
-
-const BurnerWallet = () =>
-  <BurnerUI
-    title="daedalus industries"
-    theme={theme}
-    core={core}
-  />
-```
 
 ## Packages
 
 This is a monorepo that contains the following packages:
 
-- `@burner-wallet/ui`: The basic UI structure for any Burner Wallet
+- `@burner-wallet/modern-ui`: The standard user interface for burner wallets
+- `@burner-wallet/classic-ui`: The original burner wallet design. Maintained for nostalgia.
+- `@burner-wallet/ui-core`: The core UI logic for all burner wallets (not to be confused with the @burner-wallet/core
+  package, which contains core blockchain logic).
+- `@burner-wallet/types`: Typescript type bindings
+
+Plugins:
+
 - `@burner-wallet/exchange`: An extendable plugin for implementing asset exchanges and bridges
-- `@burner-wallet/plugins`: Collection of standard Burner Wallet plugins (see below)
+- `@burner-wallet/ens-plugin`: Support for the Ethereum Name Service
+- `@burner-wallet/erc681-plugin`: Support for scanning ERC681 payment request QR codes
+- `@burner-wallet/legacy-plugin`: Allow scanning old paper wallets and handling old URL routes
+- `@burner-wallet/link-plugin`: Send tokens to friends over text by sending funds to a URL
+- `@burner-wallet/recent-accounts-plugin`: Suggest recent accounts when sending funds
+- `@burner-wallet/seed-phrase-plugin`: Load accounts by seed phrase
 
 The Burner Wallet 2 is dependent on the [`burner-core`](austintgriffith/burner-core) packages
 (`@burner-wallet/core` and `@burner-wallet/assets`) for handling core blockchain functionality.
@@ -114,85 +103,23 @@ The Burner Wallet 2 is dependent on the [`burner-core`](austintgriffith/burner-c
 
 The burner wallet functionality can be extended by passing plugin objects to the BurnerUI component.
 
-### Sample Plugins
+### Reference Plugins
 
-The following plugins are part of the `@burner-wallet/plugins` package, and can be considered "officially supported"
+This repo contains a number of standard plugins that can be considered "officially supported"
 
-- **[Exchange](/exchange)**: For exchanging or bridging different assets. Note that the exchange itself is also extendable
+- **[Exchange](/packages/exchange)**: For exchanging or bridging different assets. Note that the exchange itself is also extendable
   by adding new exchange pairs.
-- **[LegacyPlugin](/plugins/src/legacy)**: Supports URLs and QR codes from Austin's original burner code
-- **[LinkPlugin](/plugins/src/link)**: Allows generating links, which can be opened to claim tokens
+- **[LegacyPlugin](/packages/legacy)**: Supports URLs and QR codes from Austin's original burner code
+- **[LinkPlugin](/packages/link)**: Allows generating links, which can be opened to claim tokens
 
-There are also a number of other plugins that have been developed, which may be useful for reference:
+The burner-factory-plugins repo also contains a number of other plugins:
 
-- **[VendorPlugin](https://github.com/dmihal/burner-wallet-vendor-plugin)**: Use the burner wallet for ordering off a pre-set menu
-- **[HelenaPlugin](https://github.com/dmihal/helena-burner-plugin)**: Support for Helena prediction markets
+- **[@burner-factory/collectable-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/collectable-plugin)**: A plugin for collecting NFTs
+- **[@burner-factory/order-menu-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/order-menu-plugin)**: Plugin for ordering predefined menu items. Useful for food/drink events.
 - **[ScorpioPlugin](https://github.com/dmihal/scorpio-plugin)**: For connecting wallets with social media accounts
 - **[DaedalusIndustriesPlugin](https://github.com/dmihal/daedalus-industries/tree/master/wallet/src/daedalus-plugin)**: Created for the escape room at ETHBerlin 2019, this plugin facilitates staking
   an asset in a contract, collecting private keys as "clues", and submitting signed messages to the game contract.
 
-### Plugin Context
+### API Reference
 
-When the wallet is loaded, the wallet will call the `initializePlugin(pluginContext)` function for
-each plugin. The plugin has access to the following methods of pluginContext object:
-
-- `addElement: (position: string, Component: PluginElement) => void`: Add a React component to a
-  defined position in the app. The following positions are supported: "home-top", "home-middle"
-  and "home-bottom".
-- `addHomeButton: (title: string, path: string) => void`: Adds a button to the home screen that
-  will link to the provided path.
-- `addPage: (path: string, Component: PluginPage) => void`: Add a React component to the router at
-  the provided path.
-- `getAssets: () => Asset[]`: Returns all assets.
-- `getWeb3: (network: string, options?: any) => void`: Returns a Web3 object for the provided
-  network ID (ex: '1' for mainnet, '100' for xDai).
-- `onAccountSearch: (callback: (query: string) => Promise<Account[]>) => void`: Provide a function
-  to be called when the user types into an account input field. Used to suggest accounts to the user.
-- `onQRScanned: (callback: (qr: string, { actions }) => bool) => void`: Provide a function to be
-  called when the user scans a QR code on the home page. The function is passed the text of the QR
-  code and the "actions" object (see below). The function must return true if is taking an action
-  based on the QR code. _Note: URLs on the wallet's current domain are automatically handled_
-- `onSent: (callback: (txData) => string | null) => void`: Provide a function to be called when
-  the user sends an asset through the normal send mechanism. Callback will receive an object with
-  the asset, sender and recipient address, amount, message, web3 receipt, transaction hash and an
-  id if specified in the send function. If the function returns a string, the wallet will redirect
-  to that address.
-
-### Burner Plugin Props
-
-Pages (added with `pluginContext.addPage`) and elements (added with `pluginContext.addElement`) will
-receive the following props:
-
-- `assets`: an array of Asset objects
-- `defaultAccount`: the primary account used by the wallet. Equivalent to `accounts[0]`.
-- `accounts`: an array of ethereum addresses that are available to use.
-- `actions`: an object containing a number of functions that plugins may call:
-  - `actions.scanQRCode()`: Opens a full-screen QR code scanner. Returns a promise, which is
-    resolved to the scanned value or rejected if the user cancels the scan.
-  - `actions.openDefaultQRScanner()`: Opens a full-screen QR code scanner, and will automatically
-    handle the scanned code depending on the scanned value, in the following order:
-    - Plugins can chose to handle scanned QR codes by calling `onQRScanned` and returning `true`
-    - Scanned addresses will redirect to the Send page
-    - Scanned private keys will invoke `safeSetPK`
-    - Scanned URLs that match the domain the wallet is on will be automatically routed
-  - `actions.safeSetPK(newPK)`: Set a new private key without losing funds. If the new and old
-    accounts are both empty, the key will be updated and the user will be redirected to the home
-    page. If one or both of the accounts contains funds, the user will be redirected to the PK
-    page where they will have the option to transfer funds to the new or old account.
-  - `actions.send({ to, from?, asset, ether, id? })`: Call to send an asset. Will redirect the user to a send
-    confirmation page. If from is not set, it will default to the primary account. The optional id parameter
-    is used to identify transactions in the `onSent` callback.
-  - `actions.navigateTo(path, [state])`: Navigates the app to a new URL.
-  - `actions.callSigner(action, ...props)`: call functions in the signer objects. Used for burning
-    accounts or setting new private keys.
-  - `actions.canCallSigner(action, ...props)`: check if a function is available to call.
-- `burnerComponents`: an object containing a number of useful React components
-  - `burnerComponents.AccountBalance`: Provides the balance of an account through a render prop
-  - `burnerComponents.AccountKeys`: Provides information about signing keys through a render prop
-  - `burnerComponents.AmountInput`: Component to input values of various assets (xDai, ETH)
-  - `burnerComponents.AssetSelector`: A drop down for selecting an asset
-  - `burnerComponents.Assets`: Provides an array of assets through a render prop
-  - `burnerComponents.Button`: A simple, styled button to click on
-  - `burnerComponents.Page`: Container for a visual page component
-  - `burnerComponents.QRCode`: Renders a QR code
-  - `burnerComponents.TransactionDetails`: Provides details about a transaction through a render prop
+API reference for plugin development is available in the Readme for the [`@burner-wallet/ui-core`](/packages/ui-core) package.

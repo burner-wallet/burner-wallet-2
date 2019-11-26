@@ -1,4 +1,6 @@
-# @burner-wallet/ui
+# @burner-wallet/classic-ui
+
+This packages is included for legacy purposes. For most cases, you should use `@burner-wallet/modern-ui`.
 
 # Burner Components
 
