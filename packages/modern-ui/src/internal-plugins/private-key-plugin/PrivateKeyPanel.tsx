@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Keys, PluginElementContext } from '@burner-wallet/types';
-import PrivateKeyField from './PrivateKeyField';
 import { DataProviders } from '@burner-wallet/ui-core';
 import Button from '../../components/Button';
 import { randomHex } from '../../lib';
+import ImportPK from './ImportPK';
+import PrivateKeyField from './PrivateKeyField';
 
 const AdvancedButton = styled(Button)`
   margin-top: 16px;
@@ -23,6 +24,9 @@ const PrivateKeyPanel: React.FC<PluginElementContext> = ({ actions, defaultAccou
           keys ? (
             <Fragment>
               <PrivateKeyField privateKey={keys.privateKey} />
+
+              <ImportPK onImport={(newPk: string) => actions.safeSetPK(newPk)} />
+
               <AdvancedButton onClick={() => actions.safeSetPK(randomHex(64))}>
                 Burn Account
               </AdvancedButton>
