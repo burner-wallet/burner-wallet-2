@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/modern-ui",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.4",
   "license": "MIT",
   "main": "dist/ModernUI.js",
   "types": "dist/ModernUI.d.ts",
@@ -15,6 +15,9 @@
     "@babel/preset-typescript": "^7.3.3",
     "copyfiles": "^2.1.0"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@burner-wallet/types": "^1.0.0-beta.1",
     "@burner-wallet/ui-core": "^1.0.0-beta.2",
@@ -26,6 +29,7 @@
     "@types/react-qr-reader": "^2.1.2",
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "4.1.8",
+    "clipboard": "^2.0.4",
     "ethereumjs-util": "^6.1.0",
     "qrcode.react": "^0.9.3",
     "react-qr-reader": "^2.2.1",
