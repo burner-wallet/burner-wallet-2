@@ -10,7 +10,7 @@ interface BalanceItemProps {
 
 const BalanceCard = styled.div`
   display: inline-flex;
-  justifyContent: space-between;
+  vertical-align: middle;
   font-size: 48px;
   font-weight: 400;
   text-align: right;

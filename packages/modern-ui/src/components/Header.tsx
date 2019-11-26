@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ defaultAccount, title, actions }) => (
   <HeaderElement>
     <TitleContainer>
       <Title>{title || 'Burner Wallet'}</Title>
-      {title !== 'Burner Wallet' && (
+      {title && title !== 'Burner Wallet' && (
         <Subtitle>Powered by Burner Wallet</Subtitle>
       )}
     </TitleContainer>

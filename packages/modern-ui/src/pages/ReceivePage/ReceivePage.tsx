@@ -11,10 +11,13 @@ const QRContainer = styled.div`
   margin: auto;
   padding: 20px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 
   & svg {
-    width: 100%;
-    height: 100%;
+    flex: 1;
+    width: initial;
+    height: initial;
   }
 `;
 
