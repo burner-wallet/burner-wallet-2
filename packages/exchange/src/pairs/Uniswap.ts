@@ -2,8 +2,6 @@ import Web3 from 'web3';
 import { ERC20Asset } from '@burner-wallet/assets';
 import Exchange from '../Exchange';
 import Pair, { ExchangeParams, ValueTypes } from './Pair';
-import tokenabi from './abis/UniswapTokenPurchase.json';
-import factoryabi from './abis/UniswapFactory.json';
 
 const { toBN } = Web3.utils;
 
@@ -11,6 +9,15 @@ const UNISWAP_FACTORY_ADDRESS = '0xc0a47dfe034b400b47bdad5fecda2621de6c4d95';
 const UNISWAP_NETWORK = '1';
 
 const DEADLINE = 1742680400;
+
+let _abis: any = null;
+const getABI = async (contract: string) => {
+  if (!_abis) {
+    _abis = await import('./abis');
+  }
+
+  return _abis[contract];
+}
 
 export default class Uniswap extends Pair {
   private exchangeAddress: string | null;
@@ -27,14 +34,14 @@ export default class Uniswap extends Pair {
   async getContract() {
     const web3 = this.exchange.getWeb3(UNISWAP_NETWORK);
     const exchangeAddress = await this.getExchangeAddress();
-    const contract = new web3.eth.Contract(tokenabi as any, exchangeAddress!);
+    const contract = new web3.eth.Contract(await getABI('uniswapToken'), exchangeAddress!);
     return contract;
   }
 
   async getExchangeAddress() {
     if (!this.exchangeAddress) {
       const web3 = this.exchange.getWeb3(UNISWAP_NETWORK);
-      const factoryContract = new web3.eth.Contract(factoryabi as any, UNISWAP_FACTORY_ADDRESS);
+      const factoryContract = new web3.eth.Contract(await getABI('uniswapFactory'), UNISWAP_FACTORY_ADDRESS);
       const asset = this.exchange.getAsset(this.assetA) as ERC20Asset;
       const exchangeAddress = await factoryContract.methods.getExchange(asset.address).call();
       if (!exchangeAddress) {

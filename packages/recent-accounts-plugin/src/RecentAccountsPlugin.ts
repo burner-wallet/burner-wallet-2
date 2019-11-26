@@ -2,7 +2,7 @@ import { BurnerPluginContext, Plugin, Account, SendData } from '@burner-wallet/t
 
 const STORAGE_KEY = 'burner-recent-accounts';
 
-export default class LinksPlugin implements Plugin {
+export default class RecentAccountsPlugin implements Plugin {
   private addresses: string[];
 
   constructor() {
