@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/ens-plugin",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "author": "David Mihal <david@dmihal.com>",
   "license": "MIT",
   "main": "dist/ENSPlugin.js",
@@ -8,8 +8,11 @@
   "scripts": {
     "build": "tsc"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
-    "@burner-wallet/types": "^1.0.0-beta.1",
+    "@burner-wallet/types": "^1.0.0",
     "eth-ens-namehash": "^2.0.8"
   }
 }

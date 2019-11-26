@@ -9,7 +9,7 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "http://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "tsc",
@@ -18,7 +18,7 @@
     "test": "TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
   },
   "dependencies": {
-    "@burner-wallet/types": "^1.0.0-beta.1",
+    "@burner-wallet/types": "^1.0.0",
     "@types/react": "*",
     "base64url": "3.0.1"
   },

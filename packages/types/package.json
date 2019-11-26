@@ -1,11 +1,14 @@
 {
   "name": "@burner-wallet/types",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "license": "MIT",
   "types": "types.d.ts",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
-    "@burner-wallet/assets": "^1.0.0-beta.0",
-    "@burner-wallet/core": "^1.0.0-beta.0",
+    "@burner-wallet/assets": "^1.0.0",
+    "@burner-wallet/core": "^1.0.0",
     "@types/react": "*",
     "@types/react-router-dom": "*",
     "web3": "^1.2.2"

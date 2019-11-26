@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/exchange",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,8 +9,11 @@
     "build": "tsc && yarn run css",
     "start-basic": "tsc -w"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
-    "@burner-wallet/types": "1.0.0-beta.1",
+    "@burner-wallet/types": "^1.0.0",
     "@types/react": "*"
   },
   "devDependencies": {

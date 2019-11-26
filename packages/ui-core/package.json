@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/ui-core",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,9 @@
     "start-basic": "tsc -w",
     "start-local": "tsc -w"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
@@ -16,8 +19,8 @@
     "copyfiles": "^2.1.0"
   },
   "dependencies": {
-    "@burner-wallet/core": "^1.0.0-beta.2",
-    "@burner-wallet/types": "^1.0.0-beta.1",
+    "@burner-wallet/core": "^1.0.0",
+    "@burner-wallet/types": "^1.0.0",
     "@types/react": "*",
     "@types/react-router-dom": "^4.3.4",
     "react-router-dom": "^5.0.1"
