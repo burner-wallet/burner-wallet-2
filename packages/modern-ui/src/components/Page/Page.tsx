@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { PageProps } from '@burner-wallet/types';
 import PageTitleBar from './PageTitleBar';
+import ErrorBoundary from './ErrorBoundary';
 
 const PageContainer = styled.main`
   margin: 0 var(--page-margin) var(--page-margin);
@@ -23,7 +24,11 @@ const Page: React.FC<PageProps & { className?: string }> = ({ children, title, c
   return (
     <PageContainer className={className}>
       {title && <PageTitleBar title={title} />}
-      <Content>{children}</Content>
+      <Content>
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
+      </Content>
     </PageContainer>
   );
 };
