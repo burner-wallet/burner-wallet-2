@@ -22,8 +22,7 @@
     "start-wallet": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "install-all": "./scripts/install.sh"
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [

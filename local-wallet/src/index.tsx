@@ -20,8 +20,7 @@ const core = new BurnerCore({
       id: 'localerc20',
       name: 'Local Token',
       network: '5777',
-      // @ts-ignore
-      address: process.env.REACT_APP_ERC20_ADDRESS,
+      address: process.env.REACT_APP_ERC20_ADDRESS!,
     }),
     new NativeAsset({
       id: 'geth',
