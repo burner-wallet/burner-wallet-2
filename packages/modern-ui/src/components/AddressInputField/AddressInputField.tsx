@@ -15,41 +15,17 @@ const ButtonClear = styled.button`
   outline: none;
 `;
 
-const ButtonContainer = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-`;
-
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: baseline;
-  width: 100%;
   position: relative;
-`;
-
-const StyledInput = styled.input`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  color: rgb(63, 61, 75);
   background-color: #ffffff;
-  width: 100%;
-  height: 3rem;
+  height: 62px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
-  font-family: "Source Sans Pro", -apple-system, sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1;
-  padding: 16px;
   border: solid 1px rgb(204, 204, 204);
   border-radius: 4px;
-  outline: none;
+  align-items: center;
 
   &:hover {
     box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
@@ -60,11 +36,24 @@ const StyledInput = styled.input`
   }
 `;
 
+const StyledInput = styled.input`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: rgb(63, 61, 75);
+  font-family: "Source Sans Pro", -apple-system, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 16px;
+  outline: none;
+  border: 0;
+  flex: 1;
+`;
+
 const ScanButton = styled.button`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
-  font-family: "Source Sans Pro", -apple-system, sans-serif;
-  font-weight: 600;
-  font-size: 0.75rem;
   height: 2rem;
   min-width: 2rem;
   margin: 0px 8px;
@@ -78,12 +67,7 @@ const ScanButton = styled.button`
   padding: 0;
   transition: all 0.15s ease;
   color: white;
-
-  display: inline-flex;
-  text-align: center;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
+  outline: none;
 `;
 
 interface AddressInputFieldProps {
@@ -105,7 +89,7 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
     _account = { address: value };
   }
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={anchor}>
       {_account ? (
         <Fragment>
           <AddressInputAccount account={_account} />
@@ -117,18 +101,15 @@ const AddressInputField: React.FC<AddressInputFieldProps> = ({
         <Fragment>
           <StyledInput
             value={value}
-            ref={anchor}
             onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value, null)}
             disabled={disabled}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             spellCheck={false}
           />
-          <ButtonContainer>
-            {scan && (
-              <ScanButton onClick={scan} />
-            )}
-          </ButtonContainer>
+          {scan && (
+            <ScanButton onClick={scan} />
+          )}
 
           {focused && anchor.current && (
             <SuggestedAddressDropdown
