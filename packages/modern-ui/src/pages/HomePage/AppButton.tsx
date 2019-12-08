@@ -29,6 +29,10 @@ const AppCard = styled(Link)`
   }
 `;
 
+const TextContainer = styled.div`
+  flex: 1;
+`;
+
 const Logo = styled.div<{ url: string }>`
   height: 64px;
   width: 64px;
@@ -36,7 +40,9 @@ const Logo = styled.div<{ url: string }>`
   background-image: ${props => `url(${props.url})`};
   background-position: center;
   background-size: contain;
+  background-repeat: no-repeat;
   border-radius: 100px;
+  margin-left: 8px;
 `;
 
 const Title = styled.h4`
@@ -50,12 +56,12 @@ interface AppButtonProps extends PluginButtonProps {
 
 const AppButton: React.FC<AppButtonProps> = ({ title, description, logo, to, children }) => (
   <AppCard to={to}>
-    <div>
+    <TextContainer>
       <Title>{title}</Title>
       {description && (
         <div>{description}</div>
       )}
-    </div>
+    </TextContainer>
 
     {children}
 

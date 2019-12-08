@@ -3,6 +3,7 @@ import { ButtonProps } from '@burner-wallet/types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+// automaticaly darken active color
 const buttonStyles = `
   display: block;
   line-height: 1.5;
@@ -11,12 +12,16 @@ const buttonStyles = `
   padding: 8px 16px;
   text-align: center;
   font-size: 16px;
-  height: 48px;
+  min-height: 48px;
   align-items: center;
   display: flex;
   justify-content: center;
   border: none;
   color: white;
+
+  &:active {
+    background: #3e30bb;
+  }
 `;
 
 interface ButtonStyleProps {
