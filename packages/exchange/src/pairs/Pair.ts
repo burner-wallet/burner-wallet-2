@@ -26,21 +26,17 @@ export default abstract class Pair {
     this._exchange = null;
   }
 
-  setExchange(exchange: Exchange) {
-    this._exchange = exchange;
-  }
-
   abstract exchangeAtoB({ account, value, ether }: ExchangeParams): Promise<void>;
   abstract exchangeBtoA({ account, value, ether }: ExchangeParams): Promise<void>;
 
   abstract estimateAtoB(value: ValueTypes): Promise<string>;
   abstract estimateBtoA(value: ValueTypes): Promise<string>;
 
-  set exchange(newExchange: Exchange) {
+  setExchange(newExchange: Exchange) {
     this._exchange = newExchange;
   }
 
-  get exchange(): Exchange {
+  getExchange(): Exchange {
     if (!this._exchange) {
       throw new Error('Exchange not set');
     }
@@ -54,7 +50,7 @@ export default abstract class Pair {
     if (value) {
       return value;
     }
-    const web3 = this.exchange.getWeb3(this.exchange.getAsset(this.assetA).network);
+    const web3 = this.getExchange().getWeb3(this.getExchange().getAsset(this.assetA).network);
     return web3.utils.toWei(ether as string, 'ether');
   }
 }

@@ -27,12 +27,8 @@ export default class Uniswap extends Pair {
     this.exchangeAddress = null;
   }
 
-  setExchange(exchange: Exchange) {
-    this.exchange = exchange;
-  }
-
   async getContract() {
-    const web3 = this.exchange.getWeb3(UNISWAP_NETWORK);
+    const web3 = this.getExchange().getWeb3(UNISWAP_NETWORK);
     const exchangeAddress = await this.getExchangeAddress();
     const contract = new web3.eth.Contract(await getABI('uniswapToken'), exchangeAddress!);
     return contract;
@@ -40,9 +36,9 @@ export default class Uniswap extends Pair {
 
   async getExchangeAddress() {
     if (!this.exchangeAddress) {
-      const web3 = this.exchange.getWeb3(UNISWAP_NETWORK);
+      const web3 = this.getExchange().getWeb3(UNISWAP_NETWORK);
       const factoryContract = new web3.eth.Contract(await getABI('uniswapFactory'), UNISWAP_FACTORY_ADDRESS);
-      const asset = this.exchange.getAsset(this.assetA) as ERC20Asset;
+      const asset = this.getExchange().getAsset(this.assetA) as ERC20Asset;
       const exchangeAddress = await factoryContract.methods.getExchange(asset.address).call();
       if (!exchangeAddress) {
         throw new Error(`Can not find Uniswap exchange for asset ${this.assetA}`);
@@ -55,7 +51,7 @@ export default class Uniswap extends Pair {
 
   async exchangeAtoB({ account, value, ether }: ExchangeParams) {
     const _value = this._getValue({ value, ether });
-    const asset = this.exchange.getAsset(this.assetA) as ERC20Asset;
+    const asset = this.getExchange().getAsset(this.assetA) as ERC20Asset;
     const contract = await this.getContract();
 
     const uniswapAllowance = await asset.allowance(account, this.exchangeAddress!);
