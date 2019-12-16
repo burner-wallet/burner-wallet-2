@@ -1,0 +1,20 @@
+{
+  "name": "@burner-wallet/metamask-plugin",
+  "version": "1.0.0",
+  "description": "UI to enable Metamask or other injected signers",
+  "license": "MIT",
+  "main": "dist/MetamaskPlugin.js",
+  "types": "dist/MetamaskPlugin.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@burner-wallet/types": "^1.0.0",
+    "@types/react": "*",
+    "styled-components": "^4.4.0"
+  }
+}
