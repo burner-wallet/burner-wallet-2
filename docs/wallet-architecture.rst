@@ -71,8 +71,18 @@ UI Core
 Note: developers only need to farmiliarize themselves with the UI Core module if they want to
 completely change the wallet interface. Most developers only need to use the Modern UI package.
 
+The UI Core module is the root module of the Burner application. This module handles all URL routing,
+all plugins, and routes data between the Burner Core instance and React components.
+
+While the UI Core consists of a set of React components, it is design agnotstic. 
+
 UI Implementations (ModernUI)
 -----------------------------
+
+Visual components are defined in a separate module. The ModernUI (``@burner-wallet/modern-ui``)
+module should be sufficent for most applications, however developers may also use the ClassicUI
+module (which resembes the original Austin Griffith Burner Wallet) or create their own UI
+implementation.
 
 Plugins
 =======
@@ -87,3 +97,15 @@ Plugins also have the ability to extend other parts of the wallet, such as using
 scanner, or providing human-readable names for addresses.
 
 For more information, see the Plugin API section.
+
+Exchange Plugin
+---------------
+
+The "burner-wallet-2" repository contains a number of offically-supported plugins, such as the
+ENS Plugin or Recent Accounts Plugin. However, the Exchange Plugin plays an important role, as it
+allows uses to convert between different asset types.
+
+The Exchange Plugin itself is extendable by providing it a set of "Exchange Pairs", which define
+mechanisms for converting from one asset to another. Two Exchange Pair classes are provided by
+default: the Uniswap pair which allows converstion between any asset supported by Uniswap, and the
+xDai Bridge which facilitates transfers between Dai and xDai.

@@ -385,32 +385,215 @@ Example
      }
    }
 
-Burner Plugin Component Props
-=============================
+======================
+Plugin Component Props
+======================
 
-Pages (added with ``pluginContext.addPage``) and elements (added with
-``pluginContext.addElement``) will receive the following props:
+Pages (added with ``pluginContext.addPage``) and elements (added with ``pluginContext.addElement``) 
+will receive the following props.
 
--  ``assets``: an array of Asset objects
--  ``defaultAccount``: the primary account used by the wallet.
-   Equivalent to ``accounts[0]``.
--  ``accounts``: an array of ethereum addresses that are available to
-   use.
--  ``actions``: an object containing a number of functions that plugins
-   may call:
+``assets``
+==========
 
-   -  ``actions.scanQRCode()``: Opens a full-screen QR code scanner.
-      Returns a promise, which is resolved to the scanned value or
-      rejected if the user cancels the scan.
-   -  ``actions.openDefaultQRScanner()``: Opens a full-screen QR code
-      scanner, and will automatically handle the scanned code depending
-      on the scanned value, in the following order:
+``Array[]``
 
-      -  Plugins can chose to handle scanned QR codes by calling
-         ``onQRScanned`` and returning ``true``
-      -  Scanned addresses will redirect to the Send page
-      -  Scanned private keys will invoke ``safeSetPK``
-      -  Scanned URLs that match the domain the wallet is on will be
-         automatically routed
+An array of Asset objects.
 
-   -  ``actions.safeSetPK(newPK)``: Set a new private key. If the user already has funds, they will be prompted to move their funds to the new account, or move funds from the new account to the existing account
+``defaultAccount``
+==================
+
+``string``
+
+The Ethereum address of the default account (equivelent to ``accounts[0]``).
+
+``accounts``
+============
+
+``string[]``
+
+An array of addresses representing all available accounts.
+
+``actions``
+===========
+
+Object containing a number of functions. See Actions section.
+
+``BurnerComponents``
+====================
+
+An object containing a number of React components that can be used. See the Burner Components section.
+
+=======
+Actions
+=======
+
+callSigner
+==========
+
+.. code-block:: typescript
+
+   actions.callSigner(action: string, target: string, ...props: any[]): string
+
+Calls a method defined by the signer.
+
+Paramaters
+----------
+
+   - ``action``: The method to call. LocalSigner supports the methods "readKey", "writeKey", "burn", while InjectedSigner supports "enable".
+   - ``target``: Either the address to call an action on (``0x9f31ca...``) or the ID of a signer (``local``, ``injected``).
+   - ``props``: Additional arguments, dependent on the actions.
+
+Example
+-------
+
+.. code-block:: jsx
+
+   const PrivateKeyChanger = ({ actions, defaultAccount }) => {
+     const [newKey, setNewKey] = useState('');
+     const canChangeKey = actions.canCallSigner('writeKey', defaultAccount);
+
+     return (
+      <div>
+         {canChangeKey ? (
+            <div>
+              <input value={newKey} onChange={e => setNewKey(e.target.value)} />
+              <button onClick={() => actions.callSigner('writeKey', defaultAccount, newKey)}>
+                Change Key
+              </button>
+            <div>
+         ) : "Can not update private key"}
+      </div>
+     );
+   };
+
+canCallSigner
+=============
+
+.. code-block:: typescript
+
+   actions.canCallSigner(action: string, target: string, ...props: any[]): boolean
+
+Paramaters
+----------
+
+   - ``action``: The method to call. LocalSigner supports the methods "readKey", "writeKey", "burn", while InjectedSigner supports "enable".
+   - ``target``: Either the address to call an action on (``0x9f31ca...``) or the ID of a signer (``local``, ``injected``).
+   - ``props``: Additional arguments, dependent on the actions.
+
+Example
+-------
+
+See example for ``callSigner``
+
+openDefaultQRScanner
+====================
+
+.. code-block:: typescript
+
+   actions.openDefaultQRScanner(): Promise
+
+Open the full-screen QR code scanner. If a QR code is scanned, it will be handled with the default
+logic.
+
+The default logic is as follows:
+
+1. Plugins may handle QR codes by returning true from their ``onQRScanned`` callback.
+2. If an address was scanned, the user will be redirected to the send page
+2. If a private key was scanned, it will be handled with ``safeSetPK``
+2. URLs that contain the same domain as the wallet will be automatically routed
+
+
+scanQRCode
+==========
+
+.. code-block:: typescript
+
+   actions.scanQRCode: () => Promise<string>
+
+Opens the full-screen QR code scanner. Unlike ``openDefaultQRScanner``, there is no default logic
+for handling the scanned QR code. The promise will resolve once a QR code is scanned, or will reject
+if the user cancels.
+
+safeSetPK
+=========
+
+.. code-block:: typescript
+
+   actions.safeSetPK(newPK: string)
+
+Attempts to update the user's private key, without losing any funds.
+
+1. If there is no balance in the existing account, the new private key will be automatically updated
+2. If the current account has funds, the user will be prompted with the following options:
+
+   - Move all assets from the existing account to the new account
+   - Move all assets from the new account to the existing account
+   - Discard funds in the existing account and switch to the new account
+   - Cancel, maintaining the current account
+
+send
+====
+
+.. code-block:: typescript
+
+   actions.send(params: SendData)
+
+Prompt the user to send an asset, redirecting them to the send confirmation page.
+
+Paramaters
+----------
+
+TODO
+
+navigateTo
+==========
+
+.. code-block:: typescript
+
+   actions.navigateTo(location: string | number, [state?: any])
+
+Navigate the app's internal router to the path described (react-router is used internally).
+
+Alternatively, pass a number to navigate forward or backwards through the history (pass ``-1`` to
+go back).
+
+Example
+-------
+
+.. code-block:: jsx
+
+   const MyPage = ({ actions }) => (
+     <div>
+       <Button onClick={() => actions.navigateTo('/game')}>Game</Button>
+       <Button onClick={() => actions.navigateTo('/game', { level: 2 })}>Level 2</Button>
+       <Button onClick={() => actions.navigateTo(-1)}>Back</Button>
+     </div>
+   );
+
+setLoading
+==========
+
+.. code-block:: typescript
+
+   actions.setLoading(status: string | null)
+
+getHistoryEvents
+================
+
+.. code-block:: typescript
+
+   actions.getHistoryEvents([options?: any]): HistoryEvent[]
+
+onHistoryEvent
+==============
+
+.. code-block:: typescript
+
+   actions.onHistoryEvent(callback: HistoryEventCallback)
+
+removeHistoryEventListener
+==========================
+
+.. code-block:: typescript
+
+   actions.removeHistoryEventListener(callback: HistoryEventCallback)

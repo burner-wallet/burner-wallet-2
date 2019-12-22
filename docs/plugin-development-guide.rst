@@ -1,6 +1,6 @@
-**************************************
-Burner Wallet Plugin Development Guide
-**************************************
+************************
+Plugin Development Guide
+************************
 
 The Burner Wallet 2 is a robust, extendable implementation of Austin
 Griffith's famous Burner Wallet. A simple wallet can be built and
