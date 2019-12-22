@@ -95,10 +95,10 @@ Paramaters
     - ``home-middle``
     - ``home-bottom``
     - ``home-tab``: Adds component as a tab on the home page. Accepts an option with the value
-    ``title``
+``title``
     - ``advanced``
   - ``Component``: The React component to be used. The component will receive the Burner Plugin
-  Component Props
+Component Props
   - ``options``: Some positions may expect additional options to be provided
 
 
@@ -140,11 +140,11 @@ Paramaters
 ----------
 
   - ``position``: A button position defined by the Wallet UI. Currently, ModernUI only supports
-  "app", while ClassicUI only supports "home"
+"app", while ClassicUI only supports "home"
   - ``title``: The text to display in the button
   - ``path``: The URL path to navigate to when clicked
   - ``options``: Additional data to provide the button. For example, ModernUI accepts
-  ``description`` and ``icon`` values.
+``description`` and ``icon`` values.
 
 Example
 -------
@@ -186,7 +186,7 @@ Paramaters
 ----------
 
   - ``chain``: The chain ID for the requested chain (ex: '1' for mainnet, '42' for Kovan testnet,
-  '100' for xDai)
+'100' for xDai)
 
 Example
 -------
@@ -239,8 +239,8 @@ Paramaters
 ----------
 
   - ``callback``: A function that can resolve addresses to human readable names. Callbacks are
-  passed an Ethereum address as a paramater, and should return a string or ``null`` if the address
-  can not be resolved.
+passed an Ethereum address as a paramater, and should return a string or ``null`` if the address
+can not be resolved.
 
 Example
 -------
@@ -276,8 +276,8 @@ Paramaters
 ----------
 
   - ``callback``: A function that will receive a search query as a paramater, and should return an
-  array of "Account" objects (or an empty array). "Accounts" are objects that contain an "address"
-  and "name" property.
+array of "Account" objects (or an empty array). "Accounts" are objects that contain an "address"
+and "name" property.
 
 Example
 -------
@@ -322,11 +322,11 @@ Paramaters
 ----------
 
   - ``callback``: A function that parses the scanned QR code string and can chose to take action.
-  This function must return ``true`` if it choses to handle this QR code, or else the wallet will
-  continue to pass the value to other plugins. The function receives the following paramaters
+This function must return ``true`` if it choses to handle this QR code, or else the wallet will
+continue to pass the value to other plugins. The function receives the following paramaters
     - ``qr``: The string value of the scanned QR code
     - ``context``: This object currently only contains a single paramater, ``actions``. However,
-    more values may be added in the future.
+more values may be added in the future.
 
 Example
 -------
