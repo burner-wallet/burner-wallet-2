@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/ui-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@burner-wallet/core": "^1.0.0",
-    "@burner-wallet/types": "^1.0.0",
+    "@burner-wallet/types": "^1.0.1",
     "@types/react": "*",
     "@types/react-router-dom": "^4.3.4",
     "react-router-dom": "^5.0.1"
