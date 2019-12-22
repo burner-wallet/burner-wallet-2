@@ -26,6 +26,7 @@ export type AccountSearchFn = (query: string) => Promise<Account[]>;
 export type AddressToNameResolver = (address: string) => Promise<string | null>;
 export type QRScannedFn = (qr: string, context: PluginActionContext) => boolean | undefined;
 export type TXSentFn = (data: SendData) => string | void | null;
+export type PluginMessageListener = (...message: any[]) => any;
 
 export interface BurnerPluginContext {
   addElement: (position: string, Component: PluginElement, options?: any) => void;
@@ -38,6 +39,8 @@ export interface BurnerPluginContext {
   onAccountSearch: (callback: AccountSearchFn) => void;
   onQRScanned: (callback: QRScannedFn) => void;
   onSent: (callback: TXSentFn) => void;
+  sendPluginMessage: (topic: string, ...message: any[]) => Promise<any>;
+  onPluginMessage: (topic: string, listener: PluginMessageListener) => void;
 }
 
 interface PluginPageData {

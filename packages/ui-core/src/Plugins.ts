@@ -1,6 +1,7 @@
 import {
   AccountSearchFn, BurnerPluginContext, BurnerPluginData, Plugin, AddressToNameResolver,
-  PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn
+  PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn,
+  PluginMessageListener
 } from '@burner-wallet/types';
 import { withBurner } from './BurnerProvider';
 import BurnerUICore from './BurnerUICore';
@@ -24,12 +25,14 @@ export default class Plugins {
   private pluginData: BurnerPluginData;
   private addressToNameResolvers: AddressToNameResolver[];
   private ui: BurnerUICore;
+  private messageListeners: { [topic: string]: PluginMessageListener[] };
 
   constructor(plugins: Plugin[], ui: BurnerUICore) {
     this.changeListeners = [];
     this.sentHandlers = [];
     this.qrHandlers = [];
     this.addressToNameResolvers = [];
+    this.messageListeners = {};
 
     this.ui = ui;
     this.pluginData = {
@@ -66,6 +69,9 @@ export default class Plugins {
         this.addressToNameResolvers.push(callback),
       getAssets: () => this.ui.getAssets(),
       getWeb3: (network: string, options?: any) => this.ui.getCore().getWeb3(network, options),
+      sendPluginMessage: (topic: string, ...message: any[]) =>
+        (this.messageListeners[topic] || []).map((listener: PluginMessageListener) => listener(...message)),
+      onPluginMessage: (topic: string, listener: PluginMessageListener) => this.addMessageListener(topic, listener),
     };
   }
 
@@ -109,6 +115,10 @@ export default class Plugins {
     this.setPluginData({
       accountSearches: [...this.pluginData.accountSearches, callback],
     });
+  }
+
+  addMessageListener(topic: string, callback: PluginMessageListener) {
+    this.messageListeners[topic] = [...(this.messageListeners[topic] || []), callback];
   }
 
   async getAddressName(address: string) {
