@@ -93,6 +93,7 @@ Plugins:
 - `@burner-wallet/erc681-plugin`: Support for scanning ERC681 payment request QR codes
 - `@burner-wallet/legacy-plugin`: Allow scanning old paper wallets and handling old URL routes
 - `@burner-wallet/link-plugin`: Send tokens to friends over text by sending funds to a URL
+- `@burner-wallet/metamask-plugin`: Button to unlock Metamask. Requires `InjectedSigner`
 - `@burner-wallet/recent-accounts-plugin`: Suggest recent accounts when sending funds
 - `@burner-wallet/seed-phrase-plugin`: Load accounts by seed phrase
 
@@ -116,9 +117,8 @@ The burner-factory-plugins repo also contains a number of other plugins:
 
 - **[@burner-factory/collectable-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/collectable-plugin)**: A plugin for collecting NFTs
 - **[@burner-factory/order-menu-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/order-menu-plugin)**: Plugin for ordering predefined menu items. Useful for food/drink events.
-- **[ScorpioPlugin](https://github.com/dmihal/scorpio-plugin)**: For connecting wallets with social media accounts
-- **[DaedalusIndustriesPlugin](https://github.com/dmihal/daedalus-industries/tree/master/wallet/src/daedalus-plugin)**: Created for the escape room at ETHBerlin 2019, this plugin facilitates staking
-  an asset in a contract, collecting private keys as "clues", and submitting signed messages to the game contract.
+- **[@burner-factory/schedule-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/schedule-plugin)**: Displays schedules in the wallet. Useful for events.
+- **[@burner-factory/stock-market-menu-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/stock-market-menu-plugin)**: Similar to the order-menu-plugin, this allows users to order pre-defined items off a menu. However, a contract adjusts the price according to supply and demand.
 
 ### API Reference
 

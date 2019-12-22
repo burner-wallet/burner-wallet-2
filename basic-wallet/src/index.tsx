@@ -8,6 +8,7 @@ import { InfuraGateway, InjectedGateway, XDaiGateway, } from '@burner-wallet/cor
 import Exchange, { Uniswap, XDaiBridge } from '@burner-wallet/exchange';
 import ModernUI from '@burner-wallet/modern-ui';
 import ENSPlugin from '@burner-wallet/ens-plugin';
+import MetamaskPlugin from '@burner-wallet/metamask-plugin';
 
 const core = new BurnerCore({
   signers: [new InjectedSigner(), new LocalSigner()],
@@ -26,7 +27,11 @@ const exchange = new Exchange({
 const BurnerWallet = () =>
   <ModernUI
     core={core}
-    plugins={[exchange, new ENSPlugin()]}
+    plugins={[
+      exchange,
+      new ENSPlugin(),
+      new MetamaskPlugin(),
+    ]}
   />
 
 
