@@ -89,16 +89,13 @@ Adds a React component to a defined position in an existing wallet page.
 Paramaters
 ----------
 
-  - ``position``: The defined position in the application to insert the component at. The
-  ModernUI defines the following positions:
+  - ``position``: The defined position in the application to insert the component at. The ModernUI defines the following positions:
     - ``home-top``
     - ``home-middle``
     - ``home-bottom``
-    - ``home-tab``: Adds component as a tab on the home page. Accepts an option with the value
-``title``
+    - ``home-tab``: Adds component as a tab on the home page. Accepts an option with the value ``title``
     - ``advanced``
-  - ``Component``: The React component to be used. The component will receive the Burner Plugin
-Component Props
+  - ``Component``: The React component to be used. The component will receive the Burner Plugin Component Props
   - ``options``: Some positions may expect additional options to be provided
 
 
@@ -139,12 +136,10 @@ Add a button do a pre-defined location in the wallet.
 Paramaters
 ----------
 
-  - ``position``: A button position defined by the Wallet UI. Currently, ModernUI only supports
-"app", while ClassicUI only supports "home"
+  - ``position``: A button position defined by the Wallet UI. Currently, ModernUI only supports "app", while ClassicUI only supports "home"
   - ``title``: The text to display in the button
   - ``path``: The URL path to navigate to when clicked
-  - ``options``: Additional data to provide the button. For example, ModernUI accepts
-``description`` and ``icon`` values.
+  - ``options``: Additional data to provide the button. For example, ModernUI accepts ``description`` and ``icon`` values.
 
 Example
 -------
@@ -275,9 +270,7 @@ Accounts Plugin uses this API to suggest accounts that the user has recently int
 Paramaters
 ----------
 
-  - ``callback``: A function that will receive a search query as a paramater, and should return an
-array of "Account" objects (or an empty array). "Accounts" are objects that contain an "address"
-and "name" property.
+  - ``callback``: A function that will receive a search query as a paramater, and should return an array of "Account" objects (or an empty array). "Accounts" are objects that contain an "address" and "name" property.
 
 Example
 -------
@@ -321,12 +314,9 @@ the wallet will automatically route to ``/mypage``.
 Paramaters
 ----------
 
-  - ``callback``: A function that parses the scanned QR code string and can chose to take action.
-This function must return ``true`` if it choses to handle this QR code, or else the wallet will
-continue to pass the value to other plugins. The function receives the following paramaters
+  - ``callback``: A function that parses the scanned QR code string and can chose to take action. This function must return ``true`` if it choses to handle this QR code, or else the wallet will continue to pass the value to other plugins. The function receives the following paramaters
     - ``qr``: The string value of the scanned QR code
-    - ``context``: This object currently only contains a single paramater, ``actions``. However,
-more values may be added in the future.
+    - ``context``: This object currently only contains a single paramater, ``actions``. However, more values may be added in the future.
 
 Example
 -------
