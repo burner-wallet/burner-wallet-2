@@ -1077,10 +1077,10 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.2.2"
 
-"@burner-wallet/core@^1.0.0", "@burner-wallet/core@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/core/-/core-1.0.1.tgz#133978530b85bc84304fd496d527cb602fd980e1"
-  integrity sha512-NXK0fM6u0BFfbxzwdb2aJmcs+dklU5q71ehF+2GhpL9rh3xEkaOJvBrto23atM9U0s3qhFF1+MojqTxgqJKJHw==
+"@burner-wallet/core@^1.0.0", "@burner-wallet/core@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/core/-/core-1.0.3.tgz#276012ac81b4b483e46ebd9c140095584f439b1b"
+  integrity sha512-kEikQyMzH0T17UacDEPukO210FjiaeECpd36SZxEE7mu6xruOM7F7eNZwO4FGDfzGfew1I2rorCQPesimn9paw==
   dependencies:
     "@burner-wallet/assets" "^1.0.0"
     "@dmihal/tabookey-gasless" "^0.4.1"
