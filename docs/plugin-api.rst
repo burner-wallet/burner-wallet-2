@@ -385,6 +385,69 @@ Example
      }
    }
 
+
+sendPluginMessage
+===============
+
+.. code-block:: typescript
+
+   actions.sendPluginMessage(topic: string, ...message: any[]): any
+
+Send cross-plugin messages
+
+Paramaters
+----------
+
+   - ``topic``: Topic ID that other plugins are listening for
+   - All other arguments will be included
+
+Example
+-------
+
+.. code-block:: typescript
+
+   import { BurnerPluginContext, Plugin, SendData } from '@burner-wallet/types';
+
+   export class NamePlugin implements Plugin {
+     private pluginContext: BurnerPluginContext;
+
+     initializePlugin(pluginContext: BurnerPluginContext) {
+       this.pluginContext = pluginContext;
+     }
+
+     changeName(newName: string) {
+       this.pluginContext!.sendPluginMessage('name-changed', newName);
+     }
+   }
+
+   export class OtherPlugin implements Plugin {
+     private pluginContext: BurnerPluginContext;
+
+     initializePlugin(pluginContext: BurnerPluginContext) {
+       pluginContext.onPluginMessage('name-changed', (newName) => console.log('new name', newName));
+     }
+   }
+
+onPluginMessage
+===============
+
+.. code-block:: typescript
+
+   type PluginMessageListener = (...message: any[]) => any;
+
+   actions.onPluginMessage(topic: string, listener: PluginMessageListener)
+
+Paramaters
+----------
+
+   - ``topic``: Topic ID to listen for
+   - ``listener``: A callback that will be passed all arguments from the message sender
+
+Example
+-------
+
+See example for sendPluginMessage
+
 ======================
 Plugin Component Props
 ======================
