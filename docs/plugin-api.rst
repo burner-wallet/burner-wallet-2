@@ -392,6 +392,49 @@ Plugin Component Props
 Pages (added with ``pluginContext.addPage``) and elements (added with ``pluginContext.addElement``) 
 will receive the following props.
 
+``plugin``
+==========
+
+Pages and Elements are provided with the instance of the Plugin that added them. This allows React
+components to access values from the plugin constructor, Web3 instances, and more.
+
+Example
+-------
+
+.. code-block:: typescript
+
+   import { BurnerPluginContext, Plugin } from '@burner-wallet/types';
+
+   export default class MyPlugin implements Plugin {
+     public id: string;
+     private pluginContext?: BurnerPluginContext;
+
+     constructor(id: string) {
+       this.id = id;
+     }
+
+     initializePlugin(pluginContext: BurnerPluginContext) {
+       this.pluginContext = pluginContext;
+       pluginContext.addPage('/myPage', MyPage);
+     }
+
+     async send(account: string) {
+       const web3 = this.pluginContext!.getWeb3('100');
+       const contract = new web3.eth.Contract(abi, address);
+       await contract.methods.myMethod().send({ from: account });
+     }
+   }
+
+   const MyPage: React.FC<> = ({ plugin, defaultAccount }) => {
+     const _plugin = plugin as MyPlugin;
+     return (
+       <div>
+         <h1>ID: {_plugin.id}</h1>
+         <button onClick={() => _plugin.send()}>Send Tx</button>
+       </div>
+     );
+   };
+
 ``assets``
 ==========
 
@@ -422,6 +465,35 @@ Object containing a number of functions. See Actions section.
 ====================
 
 An object containing a number of React components that can be used. See the Burner Components section.
+
+React Router props
+==================
+
+Page components (added with ``addPage``) will also receive the match_, location_ and history_ props
+from React Router.
+
+.. _match: https://reacttraining.com/react-router/web/api/match
+.. _location: https://reacttraining.com/react-router/web/api/location
+.. _history: https://reacttraining.com/react-router/web/api/history
+
+Typescript users may define expected paramaters by passing a type argument to ``PluginPageContext``.
+
+Example
+-------
+
+.. code-block:: typescript
+
+   import { PluginPageContext } from '@burner-wallet/types';
+
+   interface MatchParams {
+     level: string;
+   }
+
+   const Game: React.FC<PluginPageContext<MatchParams>> = ({ match }) => {
+     return (
+       <div>Welcome to level {match.params.level}</div>
+     );
+   };
 
 =======
 Actions
@@ -597,3 +669,184 @@ removeHistoryEventListener
 .. code-block:: typescript
 
    actions.removeHistoryEventListener(callback: HistoryEventCallback)
+
+================================
+Burner Components: UI Components
+================================
+
+Page
+====
+
+Props
+-----
+
+   - ``title``: (string) Page title to display at top of page
+   - ``children``: (React node) Page content
+
+Example
+-------
+
+.. code-block:: jsx
+
+   const MyPage = ({ BurnerCompents }) => {
+     const { Page } = BurnerComponents;
+     return (
+       <Page title="My Page">
+         Content
+       </Page>
+     );
+   };
+
+AssetSelector
+=============
+
+TODO
+
+AmountInput
+===========
+
+TODO
+
+Button
+======
+
+TODO
+
+QRCode
+======
+
+TODO
+
+=================================
+Burner Components: Data Providers
+=================================
+
+A number of non-visual components are available. Many of these components simplify the process of
+accessing blockchain data using render props.
+
+AccountBalance
+==============
+
+Props
+-----
+
+   - ``asset``: (string or Asset)
+   - [``account``]: (string) Account to look up data from. Optional, will use the default account if omitted
+   - ``render``: (callback)
+
+Callback data
+-------------
+
+The callback will be called with ``null`` while data is loading or unavailable. Once loaded, the
+callback will be called with an object with the following properties:
+
+
+   - ``balance``: (string) The account balance, in wei-equivelent units (the balance divided by 10^18)
+   - ``displayBalance``: (string) The balance in decimal format
+   - ``maximumSendableBalance``: (string) The maximum that can be sent. For native assets like ETH, this will be the total balance minus the gas fee for a simple transaction
+   - ``displayMaximumSendableBalance``: (string) ``maximumSendableBalance`` in decimal format
+   - ``usdBalance``: (string | ``null``) If price data is available, it will be the balance multiplied by the balance
+
+Example
+-------
+
+TODO
+
+AccountKeys
+===========
+
+TODO
+
+AddressName
+===========
+
+Retrieves the human-readable name for an address, if available
+
+Props
+-----
+
+   - ``address``
+   - ``render``
+
+Callback data
+-------------
+
+The render method will be called with two arguments:
+
+   - ``name`` (string or ``null``) The human readable name, if available
+   - ``address`` (string)
+
+Example
+-------
+
+TODO
+
+History
+=======
+
+Render a list of history events
+
+Props
+-----
+
+   - ``account``: (string) The Ethereum account to fetch history for
+   - ``render``: (callback) Render function that will be called once for each history element
+
+Callback data
+-------------
+
+Example
+-------
+
+TODO
+
+PluginButtons
+=============
+
+Define a region where other plugins may insert elements
+
+Props
+-----
+
+   - ``position``: (string) The name of the position
+   - ``Component``: (React Component) Optional, the component to render each button. If omitted, ``Button`` will be used
+   - Other props will be passed through to inserted buttons
+
+PluginElements
+==============
+
+Define a region where other plugins may insert elements
+
+Props
+-----
+
+   - ``position``: (string) The name of the position
+   - Other props will be passed through to inserted elements
+
+TransactionDetails
+==================
+
+Props
+-----
+   - ``asset``: (string) Asset ID
+   - ``txHash``: (string) Transaction hash
+   - ``render``: (callback) Render function
+
+Callback data
+-------------
+
+The render function will provide a single SendData object with the following properties;
+
+   - ``asset``: (string);
+   - ``value``: (string) The amount transfered, in wei-equivelent units
+   - ``ether``: (string) The amount transfered, in ether-equivelent units (typically ``value * (10 ** 18)``)
+   - ``from``: (string) The transaction sender
+   - ``to``: (string) The transaction recipient (note: if this is a token transfer, it will be the transfer recipient, not the transaction recipient)
+   - ``message``?: (string or ``null``) The transaction message or ``null``
+   - ``hash``?: (string) Transaction hash
+   - ``timestamp``: (number) Unix timestamp of the transaction (block time)
+
+Example
+-------
+
+TODO

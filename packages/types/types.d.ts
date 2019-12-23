@@ -81,4 +81,5 @@ export interface SendData {
   id?: string | null;
   hash?: string;
   receipt?: any;
+  timestamp?: number;
 }
