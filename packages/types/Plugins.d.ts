@@ -39,7 +39,7 @@ export interface BurnerPluginContext {
   onAccountSearch: (callback: AccountSearchFn) => void;
   onQRScanned: (callback: QRScannedFn) => void;
   onSent: (callback: TXSentFn) => void;
-  sendPluginMessage: (topic: string, ...message: any[]) => Promise<any>;
+  sendPluginMessage: (topic: string, ...message: any[]) => any[];
   onPluginMessage: (topic: string, listener: PluginMessageListener) => void;
 }
 
