@@ -1,4 +1,4 @@
-import React, { Component, ComponentType } from 'react';
+import React, { Component, ComponentType, useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import BurnerCore from '@burner-wallet/core';
 import {
@@ -24,7 +24,7 @@ interface BurnerProviderState {
 export type BurnerContext = BurnerContext;
 
 const unavailable = () => { throw new Error('Unavailable') };
-const { Provider, Consumer } = React.createContext<BurnerContext>({
+export const context = React.createContext<BurnerContext>({
   actions: {
     callSigner: unavailable,
     canCallSigner: unavailable,
@@ -137,6 +137,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
   render() {
     const { core, pluginData, children, burnerComponents } = this.props;
     const { accounts, completeScan, loading } = this.state;
+    const { Provider } = context;
     return (
       <Provider value={{
         actions: this.actions,
@@ -158,6 +159,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
 export default withRouter(BurnerProvider);
 
 export function withBurner<P>(WrappedComponent: ComponentType<P>): ComponentType<Diff<P, BurnerContext>> {
+  const { Consumer } = context;
   return function BurnerHLC(props) {
     return (
       <Consumer>
@@ -165,4 +167,8 @@ export function withBurner<P>(WrappedComponent: ComponentType<P>): ComponentType
       </Consumer>
     )
   }
+}
+
+export function useBurner() {
+  return useContext(context);
 }

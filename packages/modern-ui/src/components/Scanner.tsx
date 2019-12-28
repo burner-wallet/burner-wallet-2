@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import QrReader from 'react-qr-reader';
-import { withBurner, BurnerContext } from '@burner-wallet/ui-core';
+import { useBurner, BurnerContext } from '@burner-wallet/ui-core';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -77,10 +77,11 @@ const CloseButton = styled(Button)`
   width: 100%;
 `;
 
-const Scanner: React.FC<BurnerContext> = ({ completeScan }) => {
+const Scanner: React.FC = () => {
   const reader = useRef<any>(null);
   const [fallback, setFallback] = useState(false);
   const [Reader, setReader] = useState<any>(null);
+  const { completeScan } = useBurner();
 
   useEffect(() => {
     if (completeScan && !Reader) {
@@ -141,4 +142,4 @@ const Scanner: React.FC<BurnerContext> = ({ completeScan }) => {
   );
 };
 
-export default withBurner(Scanner);
+export default Scanner;
