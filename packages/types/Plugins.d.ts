@@ -9,6 +9,8 @@ interface BasePluginContext {
 }
 
 export interface Plugin {
+  id?: string;
+
   initializePlugin(context: BurnerPluginContext): void;
 }
 
@@ -28,11 +30,14 @@ export type QRScannedFn = (qr: string, context: PluginActionContext) => boolean 
 export type TXSentFn = (data: SendData) => string | void | null;
 export type PluginMessageListener = (...message: any[]) => any;
 
+export type Translations = { [lang: string]: { [key: string]: string } };
+
 export interface BurnerPluginContext {
   addElement: (position: string, Component: PluginElement, options?: any) => void;
   addButton: (position: string, title: string, path: string, options?: any) => any;
   addHomeButton: (title: string, path: string, options?: any) => any;
   addPage: (path: string, Component: PluginPage) => any;
+  addTranslations: (translations: Translations) => void;
   getAssets: () => Asset[];
   getWeb3: (network: string, options?: any) => Web3;
   addAddressToNameResolver: (callback: AddressToNameResolver) => void;

@@ -14,7 +14,7 @@ const AdvancedButton = styled(Button)`
 
 const { AccountKeys } = DataProviders;
 
-const PrivateKeyPanel: React.FC<PluginElementContext> = ({ actions, defaultAccount }) => {
+const PrivateKeyPanel: React.FC<PluginElementContext> = ({ actions, defaultAccount, t }) => {
   return (
     <section>
       <h2>Private Key</h2>
@@ -28,7 +28,7 @@ const PrivateKeyPanel: React.FC<PluginElementContext> = ({ actions, defaultAccou
               <ImportPK onImport={(newPk: string) => actions.safeSetPK(newPk)} />
 
               <AdvancedButton onClick={() => actions.safeSetPK(randomHex(64))}>
-                Burn Account
+                {t('Burn Account')}
               </AdvancedButton>
             </Fragment>
           ) : (

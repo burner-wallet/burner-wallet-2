@@ -20,7 +20,7 @@ export {
 export {
   Plugin, PluginActionContext, PluginPageContext, PluginElementContext, PluginPage, PluginElement,
   PluginElementData, AccountSearchFn, QRScannedFn, TXSentFn, BurnerPluginContext, BurnerPluginData,
-  PluginButtonProps, PluginButtonData, AddressToNameResolver, PluginMessageListener
+  PluginButtonProps, PluginButtonData, AddressToNameResolver, PluginMessageListener, Translations
 } from './Plugins';
 
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;

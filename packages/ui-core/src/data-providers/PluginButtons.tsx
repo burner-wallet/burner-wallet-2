@@ -1,18 +1,20 @@
-import React, { Fragment, ComponentType } from 'react';
+import React, { Fragment } from 'react';
 import { PluginButtonData, PluginButtonsProps } from '@burner-wallet/types';
-import { withBurner, BurnerContext } from '../BurnerProvider';
+import { useBurner } from '../BurnerProvider';
 
 type ModifiedPluginButtonsProps = Pick<PluginButtonsProps, 'position' | 'component'>;
 
-const PluginButtons: React.FC<ModifiedPluginButtonsProps & BurnerContext> = ({
-  position, component, pluginData, burnerComponents, children, ...props
+const PluginButtons: React.FC<ModifiedPluginButtonsProps> = ({
+  position, component, children, ...props
 }) => {
+  const { pluginData, BurnerComponents } = useBurner();
+
   const elements = pluginData.buttons[position];
   if (!elements || elements.length === 0) {
     return null;
   }
 
-  const Component = component || burnerComponents.Button;
+  const Component = component || BurnerComponents.Button;
 
   return (
     <Fragment>
@@ -25,4 +27,4 @@ const PluginButtons: React.FC<ModifiedPluginButtonsProps & BurnerContext> = ({
   );
 };
 
-export default withBurner(PluginButtons) as ComponentType<PluginButtonsProps>;
+export default PluginButtons;

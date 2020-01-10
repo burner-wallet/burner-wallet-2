@@ -12,10 +12,8 @@ const BurnerRouter: React.FC<BurnerRouterProps> = ({ pages, pluginData }) => (
     {pages.map(({ path, component }) => (
       <Route path={path} component={component} key={path} exact={path === '/'} />
     ))}
-    {pluginData.pages.map(({ path, Component, plugin }) => (
-      <Route path={path} key={path} render={(props) => (
-        <Component plugin={plugin} {...props} />
-      )} />
+    {pluginData.pages.map(({ path, Component }) => (
+      <Route path={path} key={path} component={Component} />
     ))}
     <Redirect to="/" />
   </Switch>

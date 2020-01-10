@@ -53,6 +53,8 @@ export const context = React.createContext<BurnerContext>({
   t: (key: string) => key,
 });
 
+const { Provider, Consumer } = context;
+
 const ADDRESS_REGEX = /^(?:0x)?[0-9a-f]{40}$/i;
 const PK_REGEX = /^(?:https?:\/\/[-a-z.]+\/pk#)?((?:0x)?[0-9a-f]{64})$/i;
 
@@ -141,7 +143,6 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
   render() {
     const { core, pluginData, children, burnerComponents, t } = this.props;
     const { accounts, completeScan, loading } = this.state;
-    const { Provider } = context;
     return (
       <Provider value={{
         actions: this.actions,
@@ -164,7 +165,6 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
 export default withTranslation()(withRouter(BurnerProvider));
 
 export function withBurner<P>(WrappedComponent: ComponentType<P>): ComponentType<Diff<P, BurnerContext>> {
-  const { Consumer } = context;
   return function BurnerHLC(props) {
     return (
       <Consumer>
@@ -177,3 +177,15 @@ export function withBurner<P>(WrappedComponent: ComponentType<P>): ComponentType
 export function useBurner() {
   return useContext(context);
 }
+
+export const SubProvider: React.FC<Partial<BurnerContext>> = ({ children, ...props }) => {
+  const value: BurnerContext = {
+    ...useBurner(),
+    ...(props as Partial<BurnerContext>),
+  };
+  return (
+    <Provider value={value}>
+      {children}
+    </Provider>
+  )
+};
