@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import { Asset } from '@burner-wallet/assets';
 import HistoryEvent from '@burner-wallet/core/HistoryEvent';
+import { TFunction } from 'i18next';
 
 import BurnerUIComponents from './BurnerUIComponents';
 import DataProviders from './DataProviders';
@@ -56,6 +57,7 @@ export interface BurnerContext {
   pluginData: BurnerPluginData;
   completeScan: ((result: string | null) => any) | null;
   loading: string | null;
+  t: TFunction;
 }
 
 export type Asset = Asset;

@@ -54,7 +54,7 @@ const SubHeading = styled.h2<{ line?: boolean }>`
 
 const { PluginElements, PluginButtons } = DataProviders;
 
-const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData }) => {
+const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData, t }) => {
   return (
     <PageContainer>
       <PluginElements position='home-top' />
@@ -64,18 +64,18 @@ const HomePage: React.FC<BurnerContext> = ({ defaultAccount, actions, pluginData
       <PluginElements position='home-middle' />
 
       <ActivityHeader>
-        <SubHeading>Recent activity</SubHeading>
-        <ViewAllButton to='/activity'>View All</ViewAllButton>
+        <SubHeading>{t('Recent activity')}</SubHeading>
+        <ViewAllButton to='/activity'>{t('View all')}</ViewAllButton>
       </ActivityHeader>
 
       <HistoryList account={defaultAccount} limit={3} navigateTo={actions.navigateTo} />
 
 
       <PluginButtons position="apps" component={AppButton}>
-        <SubHeading line>Apps</SubHeading>
+        <SubHeading line>{t('Apps')}</SubHeading>
       </PluginButtons>
 
-      <AppButton title="Settings" to="/advanced" />
+      <AppButton title={t('Settings')} to="/advanced" />
 
       <BottomActionsContainer>
         <BottomActions actions={actions} />

@@ -1,5 +1,6 @@
 import React, { Component, ComponentType, useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import BurnerCore from '@burner-wallet/core';
 import {
   Diff, BurnerComponents, BurnerContext, BurnerPluginData, SendData, Actions, HistoryEventCallback
@@ -8,12 +9,14 @@ import { DEFAULT_PLUGIN_DATA } from './Plugins';
 
 const ZERO_ADDR = '0x0000000000000000000000000000000000000000';
 
-interface BurnerProviderProps extends RouteComponentProps {
+interface BaseBurnerProviderProps {
   core: BurnerCore;
   pluginData: BurnerPluginData;
   children: React.ReactNode;
   burnerComponents: BurnerComponents;
 }
+
+type BurnerProviderProps = BaseBurnerProviderProps & WithTranslation & RouteComponentProps;
 
 interface BurnerProviderState {
   accounts: string[];
@@ -47,6 +50,7 @@ export const context = React.createContext<BurnerContext>({
   BurnerComponents: {} as BurnerComponents,
   completeScan: null,
   loading: null,
+  t: (key: string) => key,
 });
 
 const ADDRESS_REGEX = /^(?:0x)?[0-9a-f]{40}$/i;
@@ -135,7 +139,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
   }
 
   render() {
-    const { core, pluginData, children, burnerComponents } = this.props;
+    const { core, pluginData, children, burnerComponents, t } = this.props;
     const { accounts, completeScan, loading } = this.state;
     const { Provider } = context;
     return (
@@ -149,6 +153,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
         defaultAccount: accounts.length > 0 ? accounts[0] : ZERO_ADDR,
         pluginData,
         loading,
+        t,
       }}>
         {accounts.length > 0 && children}
       </Provider>
@@ -156,7 +161,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
   }
 }
 
-export default withRouter(BurnerProvider);
+export default withTranslation()(withRouter(BurnerProvider));
 
 export function withBurner<P>(WrappedComponent: ComponentType<P>): ComponentType<Diff<P, BurnerContext>> {
   const { Consumer } = context;

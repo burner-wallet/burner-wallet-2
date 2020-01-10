@@ -23,6 +23,9 @@
     "@burner-wallet/types": "^1.0.1",
     "@types/react": "*",
     "@types/react-router-dom": "^4.3.4",
+    "i18next": "^19.0.2",
+    "i18next-browser-languagedetector": "^4.0.1",
+    "react-i18next": "^11.2.7",
     "react-router-dom": "^5.0.1"
   }
 }

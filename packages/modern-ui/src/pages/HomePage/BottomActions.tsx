@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Actions } from '@burner-wallet/types';
 import { SCAN_QR_DATAURI } from '../../lib';
 
@@ -49,11 +50,12 @@ const Bar = styled.div`
 
 
 const BottomActions: React.FC<{ actions: Actions }> = ({ actions }) => {
+  const { t } = useTranslation();
   return (
     <Bar>
-      <BottomButton to="/receive">Request</BottomButton>
+      <BottomButton to="/receive">{t('Receive')}</BottomButton>
       <ScanButton onClick={actions.openDefaultQRScanner} />
-      <BottomButton to="/send">Send</BottomButton>
+      <BottomButton to="/send">{t('Send')}</BottomButton>
     </Bar>
   );
 }

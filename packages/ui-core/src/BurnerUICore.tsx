@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Asset } from '@burner-wallet/types';
 import BurnerCore from '@burner-wallet/core';
 
+import './i18n';
 import dataProviders from './data-providers';
 import BurnerProvider from './BurnerProvider';
 import BurnerRouter from './BurnerRouter';
