@@ -24,7 +24,6 @@ const options = {
   ns: ['common'],
 
   defaultNS: 'common',
-  debug:true,
 };
 
 i18next

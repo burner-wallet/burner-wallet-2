@@ -1,8 +1,26 @@
 {
   "Recent activity": "Actividad reciente",
   "View all": "Veer todos",
+  "Amount": "Cantidad",
   "Apps": "Apps",
+  "Back": "Volver",
+  "Cancel": "Cancelar",
+  "Confirm": "Confirmar",
+  "Date": "Fecha",
+  "From": "De",
   "Send": "Enviar",
+  "Sent funds": "Fondos enviados",
+  "Send To": "Enviar A",
+  "Sent": "Enviado",
+  "Note": "Nota",
   "Receive": "Recibir",
-  "Settings": "Configuraciones"
+  "Received": "Recibó",
+  "Received funds": "Fondos recibidos",
+  "Settings": "Configuraciones",
+  "To": "A",
+  "Transaction Receipt": "Recibo de Transacción",
+  "Your Address": "Su Dirección",
+
+  "How much do you want to send?": "¿Cuánto quieres enviar?",
+  "Scan this code with another wallet to receive tokens": "Escannee este código con otra billetera para recibir tokens"
 }

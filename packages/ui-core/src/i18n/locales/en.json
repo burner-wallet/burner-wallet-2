@@ -1,8 +1,26 @@
 {
   "Recent activity": "Recent activity",
   "View all": "View all",
+  "Amount": "Amount",
   "Apps": "Apps",
+  "Back": "Back",
+  "Cancel": "Cancel",
+  "Confirm": "Confirm",
+  "Date": "Date",
+  "From": "From",
   "Send": "Send",
+  "Sent funds": "Sent funds",
+  "Send To": "Send To",
+  "Sent": "Sent",
+  "Note": "Note",
   "Receive": "Receive",
-  "Settings": "Settings"
+  "Received": "Received",
+  "Received funds": "Received funds",
+  "Settings": "Settings",
+  "To": "To",
+  "Transaction Receipt": "Transaction Receipt",
+  "Your Address": "Your Address",
+
+  "How much do you want to send?": "How much do you want to send?",
+  "Scan this code with another wallet to receive tokens": "Scan this code with another wallet to receive tokens"
 }

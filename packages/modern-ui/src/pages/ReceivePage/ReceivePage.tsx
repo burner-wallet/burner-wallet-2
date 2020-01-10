@@ -50,10 +50,10 @@ const StyledInput = styled.input`
   flex: 1;
 `;
 
-const ReceivePage: React.FC<BurnerContext> = ({ defaultAccount }) => {
+const ReceivePage: React.FC<BurnerContext> = ({ defaultAccount, t }) => {
   return (
-    <Page title="Your Address">
-      <div>Scan this code with your wallet to send money to it.</div>
+    <Page title={t("Your Address")}>
+      <div>{t('Scan this code with another wallet to receive tokens')}.</div>
 
       <QRContainer>
         <QRCode value={defaultAccount} renderAs="svg"/>

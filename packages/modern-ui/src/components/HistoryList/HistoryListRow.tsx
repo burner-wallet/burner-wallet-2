@@ -1,6 +1,8 @@
 import React from 'react';
 import { HistoryEvent } from '@burner-wallet/types';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
+import Address from '../Address';
 
 const Row = styled.div`
   border-top: 1px solid #f2f2f2;
@@ -28,6 +30,8 @@ interface HistoryListEventProps {
 }
 
 const HistoryListRow: React.FC<HistoryListEventProps> = ({ event, account, navigateTo }) => {
+  const { t } = useTranslation();
+
   let type;
   const asset = event.getAsset();
   if (!asset) {
@@ -41,11 +45,10 @@ const HistoryListRow: React.FC<HistoryListEventProps> = ({ event, account, navig
         <Row onClick={() => navigateTo(`/receipt/${asset.id}/${event.tx}`)}>
           <div>
             <span>
-              {event.to.substring(0, 8)} ...{' '}
-              {event.to.substring(event.to.length - 8, event.to.length)}
+              <Address address={event.to} />
             </span>
             <div>
-              {event.to === account ? 'Received funds' : 'Sent funds'}
+              {event.to === account ? t('Received funds') : t('Sent funds')}
             </div>
           </div>
 

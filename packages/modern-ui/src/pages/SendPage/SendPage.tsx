@@ -128,7 +128,7 @@ const { AccountBalance } = DataProviders;
 
 type SendPageProps = BurnerContext & RouteComponentProps<{ to?: string }>;
 
-const SendPage: React.FC<SendPageProps> = ({ actions, assets, location }) => {
+const SendPage: React.FC<SendPageProps> = ({ actions, assets, location, t }) => {
   const [to, setTo] = useState(location.state && location.state.to || '');
   const [account, setAccount] = useState<Account | null>(null);
   const [asset, setAsset] = useState(assets[0]);
@@ -157,7 +157,7 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location }) => {
 
   const canSend = to.length === 42 && to && parseFloat(value) > 0;
   return (
-    <Page title="Send">
+    <Page title={t('Send')}>
       <AccountBalance
         asset={asset}
         render={(data: AccountBalanceData | null) => {
@@ -167,7 +167,7 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location }) => {
             <Wrapper>
               <FormContainer>
                 <div>
-                  <SendInstruction>Send To</SendInstruction>
+                  <SendInstruction>{t('Send To')}</SendInstruction>
 
                   <AddressInputField
                     value={to}
@@ -181,7 +181,7 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location }) => {
                 </div>
 
                 <AmountWrapper>
-                  <HowMuch>How much do you want to send?</HowMuch>
+                  <HowMuch>{t('How much do you want to send?')}</HowMuch>
                   <AmountInput
                     type="number"
                     placeholder="0"
@@ -208,7 +208,7 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location }) => {
 
                 {asset.supportsMessages() && (
                   <MessageField>
-                    <h3>Note:</h3>
+                    <h3>{t('Note')}:</h3>
                     <TransferMessageInput
                       placeholder="Optional"
                       value={message}
@@ -222,7 +222,7 @@ const SendPage: React.FC<SendPageProps> = ({ actions, assets, location }) => {
                 onClick={() => send()}
                 disabled={!canSend || exceedsBalance}
               >
-                Send
+                {t('Send')}
               </SendButton>
             </Wrapper>
           );

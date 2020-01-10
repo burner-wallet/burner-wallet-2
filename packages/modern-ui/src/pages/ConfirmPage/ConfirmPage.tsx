@@ -7,7 +7,7 @@ import Page from '../../components/Page';
 import LineItem from '../../components/LineItem';
 
 const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({
-  history, assets, actions, pluginData
+  history, assets, actions, pluginData, t
 }) => {
   const [sending, setSending] = useState(false);
 
@@ -55,19 +55,19 @@ const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({
   };
 
   return (
-    <Page title="Confirm">
-      <LineItem name="From">
+    <Page title={t('Confirm')}>
+      <LineItem name={t('From')}>
         <Address address={from} />
       </LineItem>
-      <LineItem name="To">
+      <LineItem name={t('To')}>
         <Address address={to} />
       </LineItem>
-      <LineItem name="Amount" value={`${amount} ${asset.name}`} />
-      {message && <LineItem name="Message" value={message} />}
+      <LineItem name={t('Amount')} value={`${amount} ${asset.name}`} />
+      {message && <LineItem name={t('Note')} value={message} />}
 
       <div style={{ display: 'flex' }}>
-        <Button disabled={sending} onClick={send}>Send</Button>
-        <Button disabled={sending} onClick={() => history.goBack()}>Cancel</Button>
+        <Button disabled={sending} onClick={send}>{t('Send')}</Button>
+        <Button disabled={sending} onClick={() => history.goBack()}>{t('Cancel')}</Button>
       </div>
     </Page>
   );

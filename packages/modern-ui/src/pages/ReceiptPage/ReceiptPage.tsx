@@ -3,29 +3,12 @@ import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import { BurnerContext, withBurner, DataProviders } from '@burner-wallet/ui-core';
 import { Asset, SendData } from '@burner-wallet/types';
+import Address from '../../components/Address';
 import Button from '../../components/Button';
 import Page from '../../components/Page';
 import LineItem from '../../components/LineItem';
 const { TransactionDetails } = DataProviders;
 
-const AddressSegment = styled.span<{ hidden?: boolean }>`
-  display: inline-block;
-  overflow: hidden;
-  font-family: monospace;
-
-  ${props => props.hidden && `
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 100px;
-  `}
-`
-
-const Address: React.FC<{address: string}> = ({ address }) => (
-  <span>
-    <AddressSegment hidden>{address.substr(0, 34)}</AddressSegment>
-    <AddressSegment>{address.substr(-8)}</AddressSegment>
-  </span>
-);
 
 interface MatchParams {
   asset: string;
@@ -40,8 +23,10 @@ const BigEmoji = styled.div`
 
 const formatDate = (timestamp: number) => (new Date(timestamp * 1000)).toLocaleString();
 
-const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = ({ match, defaultAccount, assets }) => (
-  <Page title="Transaction Receipt">
+const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = ({
+  match, defaultAccount, assets, t
+}) => (
+  <Page title={t('Transaction Receipt')}>
     <TransactionDetails
       asset={match.params.asset}
       txHash={match.params.txHash}
@@ -66,19 +51,19 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = 
         return (
           <section>
             <div>
-              <LineItem name="From" value={<Address address={tx.from!} />}/>
-              <LineItem name="To" value={<Address address={tx.to!} />}/>
-              <LineItem name="Date" value={date}/>
+              <LineItem name={t('From')} value={<Address address={tx.from!} />}/>
+              <LineItem name={t('To')} value={<Address address={tx.to!} />}/>
+              <LineItem name={t('Date')} value={date}/>
             </div>
 
             <div>
-              <h2>{defaultAccount === tx.from ? 'Sent' : 'Received'}</h2>
+              <h2>{defaultAccount === tx.from ? t('Sent') : t('Received')}</h2>
               <div>{amtValue}</div>
             </div>
 
             {tx.message && (
               <div>
-                <h2>Message</h2>
+                <h2>{t('Note')}</h2>
                 <div>{tx.message}</div>
               </div>
             )}
@@ -86,7 +71,7 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = 
         );
       }}
     />
-    <Button to="/">Back</Button>
+    <Button to="/">{t('Back')}</Button>
   </Page>
 );
 

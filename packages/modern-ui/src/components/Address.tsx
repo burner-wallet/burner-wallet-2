@@ -10,7 +10,7 @@ const AddressSegment = styled.span<{ hidden?: boolean }>`
   ${props => props.hidden && `
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 100px;
+    max-width: 6em;
   `}
 `;
 
