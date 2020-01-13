@@ -5,15 +5,17 @@ export default class ENSPlugin implements Plugin {
   private ensCache: { [name: string]: string | null };
   private reverseCache: { [address: string]: string | null };
   private ens: ENS | null;
+  private network: string;
 
-  constructor() {
+  constructor(network = '1') {
     this.ensCache = {};
     this.reverseCache = {};
     this.ens = null;
+    this.network = network;
   }
 
   initializePlugin(pluginContext: BurnerPluginContext) {
-    this.ens = new ENS(pluginContext.getWeb3('1'));
+    this.ens = new ENS(pluginContext.getWeb3(this.network), this.network);
 
     pluginContext.addAddressToNameResolver((address: string) => this.lookupName(address));
     pluginContext.onAccountSearch((search: string) =>

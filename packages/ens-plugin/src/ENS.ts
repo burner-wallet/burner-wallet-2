@@ -3,15 +3,27 @@ import { registryInterface, resolverInterface } from './abi';
 
 const ZERO = '0x0000000000000000000000000000000000000000';
 
+const registrarAddress: { [network: string]: string } = {
+  '1': '0x314159265dd8dbb310642f98f50c066173c1259b',
+  '3': '0x112234455c3a32fd11230c42e7bccd4a84e02010',
+  '4': '0xe7410170f87102df0055eb195163a03b7f2bff4a',
+  '5': '0x112234455c3a32fd11230c42e7bccd4a84e02010',
+};
+
 export default class ENS {
   private web3: any;
+  private network: string;
 
-  constructor(web3: any) {
+  constructor(web3: any, network = '1') {
     this.web3 = web3;
+    this.network = network;
   }
 
   getRegistry() {
-    return new this.web3.eth.Contract(registryInterface, '0x314159265dd8dbb310642f98f50c066173c1259b');
+    if (!registrarAddress[this.network]) {
+      throw new Error(`ENS not supported on network ${this.network}`);
+    }
+    return new this.web3.eth.Contract(registryInterface, registrarAddress[this.network]!);
   }
 
   getResolver(address: string) {
