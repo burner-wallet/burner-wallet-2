@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './locales/en.json';
 import es from './locales/es.json';
+import fr from './locales/fr.json';
 
 const i18n = i18next;
 const options = {
@@ -17,6 +18,9 @@ const options = {
     es: {
       common: es,
     },
+    fr: {
+      common: fr,
+    }
   },
 
   fallbackLng: 'en',
