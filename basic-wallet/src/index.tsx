@@ -9,7 +9,7 @@ import Exchange, { Uniswap, XDaiBridge } from '@burner-wallet/exchange';
 import ModernUI from '@burner-wallet/modern-ui';
 import ENSPlugin from '@burner-wallet/ens-plugin';
 import MetamaskPlugin from '@burner-wallet/metamask-plugin';
-import { BurnerConnectPlugin } from '@burner-wallet/burner-connect';
+import { BurnerConnectPlugin } from '@burner-wallet/burner-connect-wallet';
 import 'worker-loader?name=burnerprovider.js!./burnerconnect'; // eslint-disable-line import/no-webpack-loader-syntax
 
 const core = new BurnerCore({

@@ -9,6 +9,7 @@ interface BurnerConnectMessage {
 }
 
 interface SendMessage {
+  jsonrpc: string;
   network: string;
   method: string;
   params: any[];
@@ -37,10 +38,10 @@ export default class BunerConnectBridge {
     }
   }
 
-  send(id: number, { network, method, params }: SendMessage) {
+  send(id: number, { jsonrpc, network, method, params }: SendMessage) {
     return new Promise((resolve, reject) => {
       const provider = this.core.getProvider(network);
-      provider.sendAsync({ id, method, params }, (err: any, result: any) => {
+      provider.sendAsync({ jsonrpc, id, method, params }, (err: any, result: any) => {
         if (err) {
           return reject(err);
         }
