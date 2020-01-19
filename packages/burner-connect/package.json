@@ -1,0 +1,23 @@
+{
+  "name": "@burner-wallet/burner-connect",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && yarn html",
+    "html": "copyfiles -u 1 src/**/*.html dist/",
+    "start-basic": "tsc -w"
+  },
+  "dependencies": {
+    "@burner-wallet/core": "^1.0.0",
+    "@burner-wallet/types": "^1.0.0"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.2.0",
+    "extract-loader": "^3.1.0",
+    "file-loader": "^5.0.2",
+    "html-loader": "^0.5.5",
+    "worker-loader": "^2.0.0"
+  }
+}
