@@ -11,6 +11,7 @@ export interface AccountBalanceProps {
 }
 
 export interface AccountBalanceData {
+  asset: Asset;
   balance: string;
   displayBalance: string;
   maximumSendableBalance: string;

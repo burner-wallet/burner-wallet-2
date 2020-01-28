@@ -1,6 +1,6 @@
-import { Component } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Asset, AccountBalanceProps, AccountBalanceData } from '@burner-wallet/types';
-import { withBurner, BurnerContext } from '../BurnerProvider';
+import { useBurner } from '../BurnerProvider';
 
 const POLL_INTERVAL = 1000;
 const CACHE_EXPIRATION = 3000;
@@ -8,10 +8,6 @@ const CACHE_EXPIRATION = 3000;
 interface BalanceCache {
   balance: string;
   maximumSendableBalance: string;
-}
-
-interface AccountBalanceState {
-  data: AccountBalanceData | null;
 }
 
 const balanceCache: { [key: string]: BalanceCache & { timestamp: number } } = {};
@@ -22,47 +18,33 @@ const setCache = (key: string, val: BalanceCache) => {
   balanceCache[key] = { ...val, timestamp: Date.now() };
 }
 
-class AccountBalance extends Component<AccountBalanceProps & BurnerContext, AccountBalanceState> {
-  private timer: any;
-  private _isMounted: boolean;
-
-  constructor(props: BurnerContext & AccountBalanceProps) {
-    super(props);
-    this.state = {
-      data: null,
-    };
-    this.timer = null;
-    this._isMounted = false;
+const getBalance = async (asset: Asset, account: string) => {
+  const cacheKey = `${asset.id}-${account}`;
+  const cachedVal = getCache(cacheKey);
+  if (cachedVal) {
+    return cachedVal;
   }
 
-  componentDidMount() {
-    this._isMounted = true;
-    this.fetchData();
-    this.poll();
-  }
+  const [balance, maximumSendableBalance] = await Promise.all([
+    asset.getBalance(account),
+    asset.getMaximumSendableBalance(account),
+  ]);
+  const returnVal = { balance, maximumSendableBalance };
 
-  componentDidUpdate(oldProps: BurnerContext & AccountBalanceProps) {
-    if (this.props !== oldProps) {
-      this.fetchData();
-    }
-  }
+  setCache(cacheKey, returnVal);
+  return returnVal;
+};
 
-  componentWillUnmount() {
-    this._isMounted = false;
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
-  }
+const AccountBalance: React.FC<AccountBalanceProps> = ({ render, asset, account }) => {
+  const [data, setData] = useState<AccountBalanceData | null>(null);
+  const dataRef = useRef<AccountBalanceData | null>(null);
+  const _isMounted = useRef(true);
+  const timer = useRef<number | null>(null);
 
-  poll() {
-    this.timer = setTimeout(async () => {
-      await this.fetchData();
-      this.poll();
-    }, POLL_INTERVAL);
-  }
+  const { assets, defaultAccount } = useBurner();
+  const _account = account || defaultAccount;
 
-  getAsset(): Asset {
-    const { asset, assets } = this.props;
+  const getAsset = () => {
     if (typeof asset !== 'string') {
       return asset;
     }
@@ -72,32 +54,14 @@ class AccountBalance extends Component<AccountBalanceProps & BurnerContext, Acco
       throw new Error(`Unable to find asset ${asset}`);
     }
     return assetList[0];
-  }
+  };
 
-  async getBalance(asset: Asset) {
-    const account = this.props.account || this.props.defaultAccount;
-    const cacheKey = `${asset.id}-${account}`;
-    const cachedVal = getCache(cacheKey);
-    if (cachedVal) {
-      return cachedVal;
-    }
-
-    const [balance, maximumSendableBalance] = await Promise.all([
-      asset.getBalance(account),
-      asset.getMaximumSendableBalance(account),
-    ]);
-    const returnVal = { balance, maximumSendableBalance };
-
-    setCache(cacheKey, returnVal);
-    return returnVal;
-  }
-
-  async fetchData() {
+  const fetchData = async () => {
     try {
-      const asset = this.getAsset();
-      const { balance, maximumSendableBalance } = await this.getBalance(asset);
+      const asset = getAsset();
+      const { balance, maximumSendableBalance } = await getBalance(asset, _account);
 
-      if (!this._isMounted) {
+      if (!_isMounted.current) {
         return;
       }
 
@@ -106,22 +70,53 @@ class AccountBalance extends Component<AccountBalanceProps & BurnerContext, Acco
         usdBalance = asset.getUSDValue(balance);
       } catch (e) {}
 
-      const data: AccountBalanceData = {
+      const _data: AccountBalanceData = {
+        asset,
         balance,
         displayBalance: asset.getDisplayValue(balance),
         maximumSendableBalance,
         displayMaximumSendableBalance: asset.getDisplayValue(maximumSendableBalance),
         usdBalance,
       };
-      this.setState({ data });
+
+      if (!dataRef.current
+        || _data.balance !== dataRef.current.balance
+        || _data.usdBalance !== dataRef.current.usdBalance) {
+        setData(_data);
+        dataRef.current = _data;
+      }
     } catch (err) {
       console.warn('[AccountBalance]', err);
     }
-  }
+  };
 
-  render() {
-    return this.props.render(this.state.data);
-  }
+  useEffect(() => {
+    fetchData();
+
+    const poll = async () => {
+      await fetchData();
+      timer.current = window.setTimeout(poll, POLL_INTERVAL);
+    };
+    poll();
+
+    return () => {
+      if (timer.current) {
+        window.clearTimeout(timer.current);
+      }
+    };
+  }, [_account]);
+
+  useEffect(() => {
+    return () => {
+      _isMounted.current = false;
+    };
+  }, []);
+
+  return (
+    <Fragment>
+      {render(data)}
+    </Fragment>
+  );
 }
 
-export default withBurner(AccountBalance);
+export default AccountBalance;
