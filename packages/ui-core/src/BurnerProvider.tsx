@@ -5,6 +5,7 @@ import BurnerCore from '@burner-wallet/core';
 import {
   Diff, BurnerComponents, BurnerContext, BurnerPluginData, SendData, Actions, HistoryEventCallback
 } from '@burner-wallet/types';
+export { BurnerContext } from '@burner-wallet/types';
 import { DEFAULT_PLUGIN_DATA } from './Plugins';
 
 const ZERO_ADDR = '0x0000000000000000000000000000000000000000';
@@ -23,8 +24,6 @@ interface BurnerProviderState {
   completeScan: ((result: string | null) => any) | null;
   loading: string | null;
 }
-
-export type BurnerContext = BurnerContext;
 
 const unavailable = () => { throw new Error('Unavailable') };
 export const context = React.createContext<BurnerContext>({

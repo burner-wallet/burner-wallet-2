@@ -1,10 +1,14 @@
 import { ComponentType } from 'react';
 import { Asset } from '@burner-wallet/assets';
-import HistoryEvent from '@burner-wallet/core/HistoryEvent';
+export { Asset } from '@burner-wallet/assets';
+import { HistoryEvent } from '@burner-wallet/core';
+export { HistoryEvent } from '@burner-wallet/core';
 import { TFunction } from 'i18next';
 
 import BurnerUIComponents from './BurnerUIComponents';
+export { default as BurnerUIComponents } from './BurnerUIComponents';
 import DataProviders from './DataProviders';
+export { default as DataProviders } from './DataProviders';
 import { BurnerPluginData } from './Plugins';
 
 export {
@@ -60,10 +64,6 @@ export interface BurnerContext {
   t: TFunction;
 }
 
-export type Asset = Asset;
-export type HistoryEvent = HistoryEvent;
-export type BurnerUIComponents = BurnerUIComponents;
-export type DataProviders = DataProviders;
 export type BurnerComponents = BurnerUIComponents & DataProviders;
 
 export type HistoryEventCallback = (event: HistoryEvent) => void;

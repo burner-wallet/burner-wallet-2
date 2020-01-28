@@ -5,11 +5,10 @@ import {
   PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn,
   PluginMessageListener, BurnerContext, Diff, Translations
 } from '@burner-wallet/types';
+export { BurnerPluginData } from '@burner-wallet/types';
 import { withBurner, SubProvider } from './BurnerProvider';
 import BurnerUICore from './BurnerUICore';
 import i18n from './i18n';
-
-export type BurnerPluginData = BurnerPluginData;
 
 const wrapComponent = <T extends BurnerContext>(Component: ComponentType<T>, plugin: Plugin) => {
   const WrappedComponent: React.FC<Diff<T, BurnerContext>> = (props) => {
