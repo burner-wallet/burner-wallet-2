@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc && yarn html",
     "html": "copyfiles -u 1 src/**/*.html dist/",
-    "start-basic": "tsc -w"
+    "start-basic": "tsc -w",
+    "test": "TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
   },
   "dependencies": {
     "@burner-wallet/core": "^1.0.0",
@@ -16,6 +17,10 @@
     "worker-loader": "^2.0.0"
   },
   "devDependencies": {
-    "copyfiles": "^2.2.0"
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "copyfiles": "^2.2.0",
+    "mocha": "^6.2.0"
   }
 }

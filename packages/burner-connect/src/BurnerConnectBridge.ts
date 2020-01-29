@@ -1,6 +1,15 @@
 import BurnerCore from '@burner-wallet/core';
+import { Asset } from '@burner-wallet/types';
 import './loaderDefs';
 import 'file-loader?name=burnerconnect.html!./burnerconnect.html';
+
+const serializeAsset = (asset: Asset) => ({
+  id: asset.id,
+  name: asset.name,
+  network: asset.network,
+  type: asset.type,
+  icon: asset.icon,
+});
 
 interface BurnerConnectMessage {
   id: number;
@@ -33,6 +42,8 @@ export default class BunerConnectBridge {
     switch (command) {
       case 'send':
         return this.send(id, params as SendMessage);
+      case 'getAssets':
+        return this.core.getAssets().map(serializeAsset);
       default:
         console.error(`Unknown command ${command}`);
     }
