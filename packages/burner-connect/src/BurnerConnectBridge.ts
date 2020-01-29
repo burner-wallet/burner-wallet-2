@@ -36,6 +36,10 @@ export default class BunerConnectBridge {
         (event.source as WindowProxy).postMessage({ response, id: event.data.id }, event.origin);
       }
     });
+
+    core.onAccountChange((accounts: string[]) => {
+      window.parent.postMessage({ message: 'accountsChanged', accounts }, '*');
+    });
   }
 
   handleMessage({ command, params, id }: BurnerConnectMessage) {
