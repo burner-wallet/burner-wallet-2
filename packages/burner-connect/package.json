@@ -1,6 +1,6 @@
 {
   "name": "@burner-wallet/burner-connect-wallet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,13 +11,11 @@
   },
   "dependencies": {
     "@burner-wallet/core": "^1.0.0",
-    "@burner-wallet/types": "^1.0.0"
+    "@burner-wallet/types": "^1.0.0",
+    "file-loader": "^5.0.2",
+    "worker-loader": "^2.0.0"
   },
   "devDependencies": {
-    "copyfiles": "^2.2.0",
-    "extract-loader": "^3.1.0",
-    "file-loader": "^5.0.2",
-    "html-loader": "^0.5.5",
-    "worker-loader": "^2.0.0"
+    "copyfiles": "^2.2.0"
   }
 }
