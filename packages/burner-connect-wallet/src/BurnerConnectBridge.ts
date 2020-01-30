@@ -9,6 +9,8 @@ const serializeAsset = (asset: Asset) => ({
   network: asset.network,
   type: asset.type,
   icon: asset.icon,
+  // @ts-ignore
+  address: asset.address || null,
 });
 
 interface BurnerConnectMessage {
