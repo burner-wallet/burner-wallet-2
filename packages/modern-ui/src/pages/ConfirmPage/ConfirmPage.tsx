@@ -9,7 +9,11 @@ import LineItem from '../../components/LineItem';
 const ConfirmPage: React.FC<BurnerContext & RouteComponentProps> = ({
   history, assets, actions, pluginData, t
 }) => {
-  const [sending, setSending] = useState(false);
+  const [sending, _setSending] = useState(false);
+  const setSending = (isSending: boolean) => {
+    _setSending(isSending);
+    actions.setLoading(isSending ? 'Sending...' : null);
+  }
 
   if (!history.location.state) {
     history.replace('/send');

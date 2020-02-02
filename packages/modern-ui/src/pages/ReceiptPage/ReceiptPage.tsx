@@ -34,7 +34,7 @@ const ReceiptPage: React.FC<RouteComponentProps<MatchParams> & BurnerContext> = 
         if (!tx) {
           return (
             <section>
-              <BigEmoji>&#128269;</BigEmoji>
+              <BigEmoji>🔎</BigEmoji>
               <div>Transaction not found...</div>
               <div>The transaction may still be propogating</div>
             </section>

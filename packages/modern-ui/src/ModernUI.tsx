@@ -3,7 +3,7 @@ import BurnerUICore, { Page } from '@burner-wallet/ui-core';
 
 import burnerComponents from './components/burner-components';
 import Header from './components/Header';
-// import Loading from './components/Loading';
+import Loading from './components/Loading';
 import Scanner from './components/Scanner';
 import Template from './Template';
 
@@ -44,7 +44,7 @@ export default class ClassicUI extends BurnerUICore {
     return (
       <Template theme={this.props.theme}>
         <Scanner />
-        {/*<Loading />*/}
+        <Loading />
         <Header title={this.props.title} />
         {this.router()}
       </Template>
