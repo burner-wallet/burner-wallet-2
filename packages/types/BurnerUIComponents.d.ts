@@ -4,6 +4,7 @@ import { Asset } from '@burner-wallet/assets';
 export interface PageProps {
   children: ReactNode;
   title?: string;
+  variant?: string;
 }
 
 export interface AssetSelectorProps {
