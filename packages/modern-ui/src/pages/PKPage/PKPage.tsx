@@ -63,7 +63,9 @@ const PKPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, assets
       setStatus('unavailable');
     }
 
-    const newAddress = pkToAddress(pk);
+    const newAddress = actions.canCallSigner('keyToAddress', defaultAccount)
+      ? actions.callSigner('keyToAddress', defaultAccount, pk)
+      : pkToAddress(pk); // This can be removed once enough wallets have upgraded to core@^1.1.5
     if (newAddress.toLowerCase() === defaultAccount.toLowerCase()) {
       history.push('/');
       return;
