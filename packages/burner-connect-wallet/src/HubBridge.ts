@@ -20,7 +20,7 @@ export default class HubBridge {
     return new Promise((resolve) => {
       this.iframe = document.createElement('iframe');
       this.iframe.src = this.url;
-      this.iframe.style.cssText = 'height:0; width:0; border:none';
+      this.iframe.style.cssText = 'height:0; width:0; border:none; position: absolute';
       this.iframe.addEventListener('load', () => resolve());
 
       document.body.appendChild(this.iframe);
