@@ -26,14 +26,14 @@ function showConnect() {
   document.querySelector('#content').style.display = 'none';
   document.querySelector('#connect').style.display = '';
 
-  document.querySelector('#connectBtn').addEventListener(function() {
+  document.querySelector('#connectBtn').addEventListener('click', function() {
     var popup = null;
     const listener = function(event) {
       if (event.data.localStorage) {
-        console.log('Got localstorage', e.data.localStorage);
-        batchSetLocalstorage(e.data.localStorage);    
+        console.log('Got localstorage', event.data.localStorage);
+        batchSetLocalstorage(event.data.localStorage);
         popup.close();
-        window.parent.postMessage({ message: 'ready' });
+        window.parent.postMessage({ message: 'ready' }, '*');
         window.removeEventListener('message', listener);
       }
     };
@@ -52,10 +52,10 @@ if (window.opener && window.opener.origin === window.origin) {
   window.opener.postMessage({ localStorage: Object.assign({}, localStorage) }, window.origin);
 } else {
   if (isSafari && window.localStorage.length === 0) {
-    window.parent.postMessage({ message: 'needsPopup' });
+    window.parent.postMessage({ message: 'needsPopup' }, '*');
     showConnect();
   } else {
-    window.parent.postMessage({ message: 'ready' });
+    window.parent.postMessage({ message: 'ready' }, '*');
   }
 }
   </script>
