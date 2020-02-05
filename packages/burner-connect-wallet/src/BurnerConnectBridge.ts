@@ -1,7 +1,8 @@
 import BurnerCore from '@burner-wallet/core';
 import { Asset } from '@burner-wallet/types';
 import './loaderDefs';
-import 'file-loader?name=burnerconnect.html!./burnerconnect.html';
+import 'file-loader?name=burnerconnect-bridge.html!./burnerconnect-bridge.html';
+import 'file-loader?name=burnerconnect-login.html!./burnerconnect-login.html';
 
 const serializeAsset = (asset: Asset) => ({
   id: asset.id,

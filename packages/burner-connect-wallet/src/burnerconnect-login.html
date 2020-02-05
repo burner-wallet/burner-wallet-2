@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+body { margin: 0 }
+  </style>
+</head>
+<body>
+  <div id="content">Connecting to your wallet...</div>
+  <div id="connect" style="display:none">
+    <div>This site would like to connect to your Burner Wallet</div>
+    <div>The site will have permission to view your account addresses and balances</div>
+    <button id="connectBtn">Connect</button>
+    <button>Cancel</button>
+  </div>
+  <script>
+var isSafari = /^((?!chrome|android).)*safari/i.test(window.navigator.userAgent);
+
+function batchSetLocalstorage(storage) {
+  for (var key in storage) {
+    window.localStorage.setItem(key, storage[key]);
+  }
+}
+
+function showConnect() {
+  document.querySelector('#content').style.display = 'none';
+  document.querySelector('#connect').style.display = '';
+
+  document.querySelector('#connectBtn').addEventListener(function() {
+    var popup = null;
+    const listener = function(event) {
+      if (event.data.localStorage) {
+        console.log('Got localstorage', e.data.localStorage);
+        batchSetLocalstorage(e.data.localStorage);    
+        popup.close();
+        window.parent.postMessage({ message: 'ready' });
+        window.removeEventListener('message', listener);
+      }
+    };
+
+    window.addEventListener('message', listener);
+    popup = window.open(window.location.href, '_blank');
+  });
+
+  window.parent.postMessage({
+    message: 'setSize',
+    height: document.body.clientHeight,
+  }, '*');
+}
+
+if (window.opener && window.opener.origin === window.origin) {
+  window.opener.postMessage({ localStorage: Object.assign({}, localStorage) }, window.origin);
+} else {
+  if (isSafari && window.localStorage.length === 0) {
+    window.parent.postMessage({ message: 'needsPopup' });
+    showConnect();
+  } else {
+    window.parent.postMessage({ message: 'ready' });
+  }
+}
+  </script>
+</body>
+</html>
