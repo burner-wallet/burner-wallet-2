@@ -16,9 +16,9 @@ export const getAllBalances = (assets: Asset[], account: string) =>
   Promise.all(assets.map(asset => asset.getBalance(account)));
 
 const moveAll = async (assets: Asset[], sender: string, recipient: string) => {
-  const _assets = assets.sort((asset: Asset) => asset.type === 'native' ? 1 : -1);
+  const _assets = Array.from(assets).sort((asset: Asset) => asset.type === 'native' ? 1 : -1);
   for (const asset of _assets) {
-    const balance = await asset.getMaximumSendableBalance(sender);
+    const balance = await asset.getMaximumSendableBalance(sender, recipient);
     if (balance !== '0') {
       await asset.send({
         to: recipient,
