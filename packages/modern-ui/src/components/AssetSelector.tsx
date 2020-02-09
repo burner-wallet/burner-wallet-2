@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataProviders } from '@burner-wallet/ui-core';
+import { DataProviders, useBurner } from '@burner-wallet/ui-core';
 import { Asset, AssetSelectorProps } from '@burner-wallet/types';
 import styled from 'styled-components';
 import Dropdown, { ItemComponentProps } from './Dropdown';
@@ -27,18 +27,21 @@ const AssetElement: React.FC<ItemComponentProps<Asset>> = ({ item }) => (
 );
 
 const AssetSelector: React.FC<AssetSelectorProps> = ({ selected, assets, onChange, network, disabled }) => {
-  const AssetDropdown = (assets: Asset[]) => (
+  const { assets: _assets } = useBurner();
+
+  let filteredAssets = assets || _assets;
+  if (network) {
+    filteredAssets = filteredAssets.filter((asset: Asset) => asset.network === network);
+  }
+
+  return (
     <Dropdown<Asset>
-      options={assets.filter((asset: Asset) => !network || asset.network === network)}
+      options={filteredAssets}
       selected={selected}
       onChange={onChange}
       disabled={disabled}
       itemComponent={AssetElement}
     />
-  );
-
-  return assets ? AssetDropdown(assets) : (
-    <Assets render={AssetDropdown} />
   );
 }
 

@@ -58,7 +58,7 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({ render, asset, account 
 
   const fetchData = async () => {
     try {
-      const asset = getAsset();
+      const _asset = getAsset();
       const { balance, maximumSendableBalance } = await getBalance(asset, _account);
 
       if (!_isMounted.current) {
@@ -67,15 +67,15 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({ render, asset, account 
 
       let usdBalance = null;
       try {
-        usdBalance = asset.getUSDValue(balance);
+        usdBalance = _asset.getUSDValue(balance);
       } catch (e) {}
 
       const _data: AccountBalanceData = {
-        asset,
+        asset: _asset,
         balance,
-        displayBalance: asset.getDisplayValue(balance),
+        displayBalance: _asset.getDisplayValue(balance),
         maximumSendableBalance,
-        displayMaximumSendableBalance: asset.getDisplayValue(maximumSendableBalance),
+        displayMaximumSendableBalance: _asset.getDisplayValue(maximumSendableBalance),
         usdBalance,
       };
 
@@ -104,7 +104,7 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({ render, asset, account 
         window.clearTimeout(timer.current);
       }
     };
-  }, [_account]);
+  }, [_account, asset]);
 
   useEffect(() => {
     return () => {
