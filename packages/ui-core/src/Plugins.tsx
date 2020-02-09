@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   AccountSearchFn, BurnerPluginContext, BurnerPluginData, Plugin, AddressToNameResolver,
   PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn,
-  PluginMessageListener, BurnerContext, Diff, Translations
+  PluginMessageListener, BurnerContext, Diff, Translations, PluginButtonData
 } from '@burner-wallet/types';
 export { BurnerPluginData } from '@burner-wallet/types';
 import { withBurner, SubProvider } from './BurnerProvider';
@@ -108,12 +108,32 @@ export default class Plugins {
 
   addPluginButton(plugin: Plugin, position: string, title: string, path: string, options: any) {
     const existingButtons = this.pluginData.buttons[position] || [];
+    const newButton = { plugin, title, path, options };
+
     this.setPluginData({
       buttons: {
         ...this.pluginData.buttons,
-        [position]: [...existingButtons, { plugin, title, path, options }],
+        [position]: [...existingButtons, newButton],
       },
     });
+
+    let hasRemoved = false;
+    const remove = () => {
+      if (hasRemoved) {
+        throw new Error('This button has already been removed');
+      }
+
+      this.setPluginData({
+        buttons: {
+          ...this.pluginData.buttons,
+          [position]: this.pluginData.buttons[position]
+            .filter((button: PluginButtonData) => button !== newButton),
+        },
+      });
+
+      hasRemoved = true;
+    };
+    return { remove };
   }
 
   addPluginElement(plugin: Plugin, position: string, Component: PluginElement, options?: any) {

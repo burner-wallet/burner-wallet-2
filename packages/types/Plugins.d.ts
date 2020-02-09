@@ -34,7 +34,7 @@ export type Translations = { [lang: string]: { [key: string]: string } };
 
 export interface BurnerPluginContext {
   addElement: (position: string, Component: PluginElement, options?: any) => void;
-  addButton: (position: string, title: string, path: string, options?: any) => any;
+  addButton: (position: string, title: string, path: string, options?: any) => PluginButtonActions;
   addHomeButton: (title: string, path: string, options?: any) => any;
   addPage: (path: string, Component: PluginPage) => any;
   addTranslations: (translations: Translations) => void;
@@ -71,6 +71,10 @@ export interface PluginButtonProps {
   to: string;
   title: string;
   options?: any;
+}
+
+export interface PluginButtonActions {
+  remove: () => void;
 }
 
 export interface BurnerPluginData {
