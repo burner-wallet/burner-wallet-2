@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { PageProps } from '@burner-wallet/types';
 import PageTitleBar from './PageTitleBar';
@@ -29,6 +29,12 @@ const Content = styled.div`
 `;
 
 const Page: React.FC<PageProps & { className?: string }> = ({ children, title, variant, className }) => {
+  useEffect(() => {
+    if (title) {
+      document.title = title;
+    }
+  }, [title]);
+
   return (
     <PageContainer className={className} fullscreen={variant === 'fullscreen'}>
       {title && <PageTitleBar title={title} />}
