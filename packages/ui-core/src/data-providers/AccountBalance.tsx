@@ -59,7 +59,7 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({ render, asset, account 
   const fetchData = async () => {
     try {
       const _asset = getAsset();
-      const { balance, maximumSendableBalance } = await getBalance(asset, _account);
+      const { balance, maximumSendableBalance } = await getBalance(_asset, _account);
 
       if (!_isMounted.current) {
         return;
