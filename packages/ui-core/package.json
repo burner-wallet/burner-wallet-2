@@ -24,7 +24,7 @@
     "copyfiles": "^2.1.0"
   },
   "dependencies": {
-    "@burner-wallet/core": "^1.1.0 || ^1.0.0",
+    "@burner-wallet/core": "^1.1.7",
     "@burner-wallet/types": "^1.0.2",
     "@types/react": "*",
     "@types/react-router-dom": "^4.3.4",

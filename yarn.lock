@@ -1076,18 +1076,18 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@burner-wallet/assets@^1.0.0", "@burner-wallet/assets@^1.1.0", "@burner-wallet/assets@^1.1.0 || ^1.0.0":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/assets/-/assets-1.1.3.tgz#6052980ac9451e390ca6e5b822faa4163eb67645"
-  integrity sha512-PQ4jK+HlxyvA0PlkQsk8+Nvclb/HIsXFmKXoWJnE5THR5cWDJTOFKGsy0c8vNJE5pDczVR2SzUVgC0o/0PjRwA==
+"@burner-wallet/assets@^1.0.0", "@burner-wallet/assets@^1.1.0":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/assets/-/assets-1.1.5.tgz#e3654303555671c2850723d1c6dc2bc4803741e1"
+  integrity sha512-6VIGHHuJ6fdL48B3MxaJ2fxNhzBlgzUveuQ5QuVmztz20iRQyf78MYtppeEpfwsRjuqSRL56a42QMNn7RR/j6w==
   dependencies:
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.2.2"
 
-"@burner-wallet/core@^1.0.0", "@burner-wallet/core@^1.0.3", "@burner-wallet/core@^1.1.0 || ^1.0.0":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@burner-wallet/core/-/core-1.1.5.tgz#4b0ca22bbb6075db8fc314be7f5295db5ab52626"
-  integrity sha512-Dn/cmPrZIxGKe6dMtVxi/Nlt1qDXxOvgE+orhxrn/awhvrwJaNpQ5HlqghJSCcpiyd2i2luEptd3pi/ODlZ/rw==
+"@burner-wallet/core@^1.0.0", "@burner-wallet/core@^1.0.3", "@burner-wallet/core@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@burner-wallet/core/-/core-1.1.7.tgz#e8189f544df00344ed0de18c5b399a20d89194c4"
+  integrity sha512-Dk6IRmipzZvEyObT1UaO1tXwrMNQrTt6n+uQLGXSqg8KSg5XTreYqtGLbBp/7nAPgbJXYcyFkEHgvuY7rbREzA==
   dependencies:
     "@burner-wallet/assets" "^1.1.0"
     "@dmihal/tabookey-gasless" "^0.4.1"

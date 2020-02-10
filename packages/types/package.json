@@ -12,8 +12,8 @@
     "directory": "packages/types"
   },
   "dependencies": {
-    "@burner-wallet/assets": "^1.1.0 || ^1.0.0",
-    "@burner-wallet/core": "^1.1.0 || ^1.0.0",
+    "@burner-wallet/assets": "^1.0.0",
+    "@burner-wallet/core": "^1.0.0",
     "@types/react": "*",
     "@types/react-router-dom": "*",
     "i18next": "^19.0.2",
