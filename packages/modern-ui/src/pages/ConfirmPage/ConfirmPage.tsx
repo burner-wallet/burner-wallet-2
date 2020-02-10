@@ -74,7 +74,7 @@ const ConfirmPage: React.FC<RouteComponentProps> = ({ history }) => {
 
       <PluginElements position="confirm-middle" tx={history.location.state} />
 
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button disabled={sending} onClick={() => history.goBack()}>
           {t('Cancel')}
         </Button>

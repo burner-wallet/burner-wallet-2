@@ -39,7 +39,7 @@ export interface AssetsProps {
 }
 
 export interface HistoryProps {
-  account: string;
+  account?: string;
   render: (events: HistoryEvent[]) => ReactNode;
 }
 

@@ -1,23 +1,31 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { HistoryProps, HistoryEvent } from '@burner-wallet/types';
-import { withBurner, BurnerContext } from '../BurnerProvider';
+import { useBurner } from '../BurnerProvider';
 
-const History: React.FC<HistoryProps & BurnerContext> = ({ account, actions, render }) => {
+const History: React.FC<HistoryProps> = ({ account, render }) => {
+  const { actions, defaultAccount } = useBurner();
+
   const [events, setEvents] = useState<HistoryEvent[]>([]);
+  const _account = account || defaultAccount;
 
   useEffect(() => {
-    setEvents(actions.getHistoryEvents({ account }));
+    const _events = actions.getHistoryEvents({ account: _account });
+    setEvents(_events);
 
     const onHistoryEventCallback = (event: HistoryEvent) => {
-      if (event.to === account || event.from === account) {
-        setEvents([event, ...events]);
+      if (event.to.toLowerCase() === _account.toLowerCase()
+        || event.from.toLowerCase() === _account.toLowerCase()) {
+        _events.unshift(event);
+        setEvents(_events);
       }
     };
 
-    actions.onHistoryEvent(onHistoryEventCallback)
+    actions.onHistoryEvent(onHistoryEventCallback);
 
-    return () => actions.removeHistoryEventListener(onHistoryEventCallback)
-  }, [account]);
+    return () => {
+      actions.removeHistoryEventListener(onHistoryEventCallback);
+    };
+  }, [_account]);
 
   return (
     <Fragment>
@@ -26,4 +34,4 @@ const History: React.FC<HistoryProps & BurnerContext> = ({ account, actions, ren
   );
 }
 
-export default withBurner(History);
+export default History;
