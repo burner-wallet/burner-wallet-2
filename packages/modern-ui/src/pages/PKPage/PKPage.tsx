@@ -103,15 +103,13 @@ const PKPage: React.FC<BurnerContext & RouteComponentProps> = ({ history, assets
           currentBalances={_state.currentBalances}
           newBalances={_state.newBalances}
           onMoveToCurrent={async () => {
-            const originalKey = await actions.callSigner('readKey', defaultAccount);
             try {
-              await actions.callSigner('writeKey', defaultAccount, pk);
+              await actions.callSigner('enable', 'temp', pk);
               await moveAll(assets, _state.newAddress, defaultAccount);
-              await actions.callSigner('writeKey', _state.newAddress, originalKey);
+              await actions.callSigner('disable', 'temp');
               setStatus('complete');
             } catch (e) {
               console.error(e);
-              await actions.callSigner('writeKey', _state.newAddress, originalKey);
             }
           }}
           onMoveToNew={async () => {
