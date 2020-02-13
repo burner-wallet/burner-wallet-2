@@ -16,7 +16,7 @@ const History: React.FC<HistoryProps> = ({ account, render }) => {
       if (event.to.toLowerCase() === _account.toLowerCase()
         || event.from.toLowerCase() === _account.toLowerCase()) {
         _events.unshift(event);
-        setEvents(_events);
+        setEvents(Array.from(_events));
       }
     };
 
