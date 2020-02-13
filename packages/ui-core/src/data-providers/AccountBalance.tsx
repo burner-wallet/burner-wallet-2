@@ -93,13 +93,17 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({ render, asset, account 
   useEffect(() => {
     fetchData();
 
+    let running = true;
     const poll = async () => {
       await fetchData();
-      timer.current = window.setTimeout(poll, POLL_INTERVAL);
+      if (running) {
+        timer.current = window.setTimeout(poll, POLL_INTERVAL);
+      }
     };
     poll();
 
     return () => {
+      running = false;
       if (timer.current) {
         window.clearTimeout(timer.current);
       }
