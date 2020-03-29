@@ -16,3 +16,4 @@ Welcome to Burner Wallet's documentation!
    plugin-development-guide
    plugin-api
    packages
+   theming
