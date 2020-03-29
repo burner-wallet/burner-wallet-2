@@ -17,7 +17,7 @@ const BalanceCard = styled.div`
   padding: 8px 16px 8px 8px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 225px;
+  min-width: 225px;
   background: white;
 
   &:not(:first-of-type) {
