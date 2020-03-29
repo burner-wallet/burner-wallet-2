@@ -15,6 +15,14 @@ const HeaderElement = styled.header`
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  ${props => props.theme.logo && `
+    background-image: url(${props.theme.logo});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 4px center;
+    padding-left: 44px;
+  `}
 `;
 
 const Title = styled.h1`
