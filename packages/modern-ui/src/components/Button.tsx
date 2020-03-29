@@ -18,6 +18,7 @@ const buttonStyles = `
   justify-content: center;
   border: none;
   color: white;
+  outline: none;
 
   &:active {
     background: #3e30bb;
@@ -32,14 +33,30 @@ interface ButtonStyleProps {
 
 const StandardButton = styled.button<ButtonStyleProps>`
   ${buttonStyles}
-  color: ${props => props.color};
-  background: ${props => props.disabled ? '#cccccc' : props.theme.accentColor || props.background};
+  color: ${props => props.color || props.theme.accentText};
+  background: ${props => props.background || props.theme.accentColor};
+
+  &:active {
+    background: ${props => props.theme.accentDark};
+  }
+
+  &:disabled {
+    background: ${props => props.theme.accentLight};
+  }
 `;
 
 const LinkButton = styled(Link)<ButtonStyleProps>`
   ${buttonStyles}
-  color: ${props => props.color};
-  background: ${props => props.disabled ? '#cccccc' : props.theme.accentColor || props.background};
+  color: ${props => props.color || props.theme.accentText};
+  background: ${props => props.background || props.theme.accentColor};
+
+  &:active {
+    background: ${props => props.theme.accentDark};
+  }
+
+  &:disabled {
+    background: ${props => props.theme.accentLight};
+  }
 `;
 
 const Button: React.FC<ButtonProps> = ({ to, ...props }) => {

@@ -30,6 +30,7 @@
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "4.1.8",
     "clipboard": "^2.0.4",
+    "color": "^3.1.2",
     "ethereumjs-util": "^6.1.0",
     "qrcode.react": "^0.9.3",
     "react-qr-reader": "^2.2.1",

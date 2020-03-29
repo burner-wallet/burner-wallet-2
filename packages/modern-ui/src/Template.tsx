@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Color from 'color';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 
@@ -20,8 +21,16 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const makeTheme = (theme: any) => {
+  const accent = Color(theme.accentColor)
+  theme.accentLight = theme.accentLight || accent.lighten(0.5).hsl().string();
+  theme.accentDark = theme.accentDark || accent.darken(0.5).hsl().string();
+  theme.accentText = theme.accentText || accent.isDark() ? '#eeeeee' : '#111111';
+  return theme;
+}
+
 const Template: React.FC<{ theme: any }> = ({ children, theme }) => {
-  const mergedTheme = {...defaultTheme, ...theme };
+  const mergedTheme = makeTheme({...defaultTheme, ...theme });
   return (
     <Container>
       <GlobalStyles theme={mergedTheme} />
