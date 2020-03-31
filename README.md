@@ -20,11 +20,17 @@ const BurnerWallet = () =>
   />
 ```
 
-### Running the wallet
+### Building a Wallet
 
 #### Simple, customized wallet
 
-Do you want to customize your own version of the wallet? Check out the simple application in the `basic-wallet` directory.
+Do you want to customize your own version of the wallet?. This repo contains the source files for
+the Burner Wallet 2 libraries, but you don't need to download or fork this to build a Burner Wallet!
+
+Check out [sample-wallet](https://github.com/burner-wallet/sample-wallet) to build a simple,
+customized wallet. If you're interested in building a Burner Wallet plugin, check out the
+[sample-plugin](https://github.com/burner-wallet/sample-plugin) repo.
+
 
 Alternatively, visit https://burnerfactory.com to create your own wallet without writing any code!
 
