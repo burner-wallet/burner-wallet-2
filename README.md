@@ -20,11 +20,15 @@ const BurnerWallet = () =>
   />
 ```
 
+### Full documentation
+
+Visit https://burner-wallet.readthedocs.io/ for more documentation on using the Burner Wallet libraries.
+
 ### Building a Wallet
 
 #### Simple, customized wallet
 
-Do you want to customize your own version of the wallet?. This repo contains the source files for
+Do you want to customize your own version of the wallet? This repo contains the source files for
 the Burner Wallet 2 libraries, but you don't need to download or fork this to build a Burner Wallet!
 
 Check out [sample-wallet](https://github.com/burner-wallet/sample-wallet) to build a simple,
@@ -131,7 +135,3 @@ The burner-factory-plugins repo also contains a number of other plugins:
 - **[@burner-factory/order-menu-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/order-menu-plugin)**: Plugin for ordering predefined menu items. Useful for food/drink events.
 - **[@burner-factory/schedule-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/schedule-plugin)**: Displays schedules in the wallet. Useful for events.
 - **[@burner-factory/stock-market-menu-plugin](https://github.com/dmihal/burner-factory-plugins/tree/master/plugins/stock-market-menu-plugin)**: Similar to the order-menu-plugin, this allows users to order pre-defined items off a menu. However, a contract adjusts the price according to supply and demand.
-
-### API Reference
-
-API reference for plugin development is available in the Readme for the [`@burner-wallet/ui-core`](/packages/ui-core) package.
