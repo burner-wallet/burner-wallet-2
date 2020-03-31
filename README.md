@@ -68,7 +68,13 @@ const core = new BurnerCore({
 
 Are you a developer, hoping to test changes to other modules in this project (modern-ui, ui-core or various plugins)?
 
-Run `yarn start-local` in the project root. This will start a wallet on localhost:3000 that is connected to your local
+In the project root, run these commands:
+```
+yarn install
+yarn run build
+yarn start-local
+```
+This will start a wallet on http://localhost:3000 that is connected to your local
 Ganache instance (connecting to node http://localhost:8545 by default).
 
 Before the wallet server launches, a script create a pre-filled account. This account will hold 1 Ganache ETH and 100
