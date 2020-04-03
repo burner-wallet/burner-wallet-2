@@ -15,6 +15,6 @@
   "dependencies": {
     "@burner-wallet/types": "^1.0.0",
     "@types/react": "*",
-    "styled-components": "^4.4.0"
+    "styled-components": "^5.0.1"
   }
 }

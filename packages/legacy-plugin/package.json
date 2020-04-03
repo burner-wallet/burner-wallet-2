@@ -13,8 +13,6 @@
   },
   "scripts": {
     "build": "tsc",
-    "start-basic": "tsc -w",
-    "start-local": "tsc -w",
     "test": "TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha -r ts-node/register test/\\*\\*/\\*.spec.ts"
   },
   "dependencies": {

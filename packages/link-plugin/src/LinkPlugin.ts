@@ -23,7 +23,7 @@ export default class LinksPlugin implements Plugin {
 
     pluginContext.addPage('/link', SendLinkPage);
     pluginContext.addPage('/claim/:claimId(0x[a-fA-F0-9]{64})/:claimKey(0x[a-fA-F0-9]{64})', ClaimPage);
-    pluginContext.addHomeButton('Link', '/link');
+    pluginContext.addButton('apps', 'Link', '/link');
   }
 
   get pluginContext() {
