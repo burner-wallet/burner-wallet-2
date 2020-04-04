@@ -1,7 +1,27 @@
 import React, { Component, Fragment } from 'react';
 import { Asset, PluginPageContext } from '@burner-wallet/types';
+import styled from 'styled-components';
 import Exchange from '../Exchange';
-const classes = require('./ExchangePage.module.css');
+import ExchangeInput from './ExchangeInput';
+
+const FromContainer = styled.div`
+  margin-bottom: 16px;
+`;
+
+const InputContainer = styled.div`
+  margin: 10px;
+`;
+
+const Bottom = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
+const ErrorBar = styled.div`
+  margin-bottom: 4px;
+`;
 
 interface ExchangePageState {
   assetA: Asset;
@@ -9,6 +29,7 @@ interface ExchangePageState {
   amount: string;
   estimate: null | string;
   isExchanging: boolean;
+  error: string | null;
 }
 
 export default class ExchangePage extends Component<PluginPageContext, ExchangePageState> {
@@ -25,6 +46,7 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
       amount: '',
       estimate: null,
       isExchanging: false,
+      error: null,
     };
   }
 
@@ -45,12 +67,13 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
 
     const exchangeProps = { account: this.props.defaultAccount, ether: amount };
 
-    this.setState({ isExchanging: true });
+    this.setState({ isExchanging: true, error: null });
     try {
       const response = await (pair.assetA === assetA.id
         ? pair.exchangeAtoB(exchangeProps)
         : pair.exchangeBtoA(exchangeProps));
     } catch (e) {
+      this.setState({ error: e.message });
       console.error(e);
     }
     this.setState({ isExchanging: false });
@@ -123,56 +146,59 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
 
   render() {
     const { burnerComponents } = this.props;
-    const { assetA, assetB, amount, estimate, isExchanging } = this.state;
-    const { Page, AssetSelector, Button, AmountInput } = burnerComponents;
+    const { assetA, assetB, amount, estimate, isExchanging, error } = this.state;
+    const { Page, AssetSelector, Button } = burnerComponents;
 
     const assetBOptions = this.getPairOptions(assetA);
     const assetsProps = { assets: assetBOptions };
 
     return (
       <Page title="Exchange">
-        <div className={classes.fromContainer}>
-          <div>From:</div>
-          <AssetSelector
-            selected={assetA}
-            onChange={(newAsset: Asset) => this.update({ assetA: newAsset })}
+        <InputContainer>
+          <ExchangeInput
+            input={amount}
+            inputUnit={assetA.name}
+            onChange={newAmount => this.update({ amount: newAmount })}
+            output={estimate ? assetB.getDisplayValue(estimate) : ''}
+            outputUnit={assetB.name}
             disabled={isExchanging}
           />
+        </InputContainer>
 
-          <AmountInput
-            asset={assetA}
-            value={amount}
-            onChange={newVal => this.update({ amount: newVal })}
-            disabled={isExchanging}
-          />
+        <div>
+          <FromContainer>
+            <div>From:</div>
+            <AssetSelector
+              selected={assetA}
+              onChange={(newAsset: Asset) => this.update({ assetA: newAsset })}
+              disabled={isExchanging}
+            />
+          </FromContainer>
+
+          {assetBOptions.length > 0 ? (
+            <Fragment>
+              <div>To:</div>
+              <AssetSelector
+                selected={assetB}
+                onChange={(newAsset: Asset) => this.update({ assetB: newAsset })}
+                disabled={isExchanging}
+                {...assetsProps}
+              />
+            </Fragment>
+          ) : (
+            <div>No exchanges available for {assetA.name}</div>
+          )}
         </div>
 
-        {assetBOptions.length > 0 ? (
-          <Fragment>
-            <div>To:</div>
-            <AssetSelector
-              selected={assetB}
-              onChange={(newAsset: Asset) => this.update({ assetB: newAsset })}
-              disabled={isExchanging}
-              {...assetsProps}
-            />
-          </Fragment>
-        ) : (
-          <div>No exchanges available for {assetA.name}</div>
-        )}
-
-        {estimate && (
-          <div>
-            {assetB.getDisplayValue(estimate)} {assetB.name}
-          </div>
-        )}
-
-        <Button
-          onClick={() => this.runExchange()}
-          disabled={isExchanging || assetBOptions.length === 0}
-        >
-          Exchange
-        </Button>
+        <Bottom>
+          <ErrorBar>{error}</ErrorBar>
+          <Button
+            onClick={() => this.runExchange()}
+            disabled={isExchanging || assetBOptions.length === 0}
+          >
+            Exchange
+          </Button>
+        </Bottom>
       </Page>
     );
   }
