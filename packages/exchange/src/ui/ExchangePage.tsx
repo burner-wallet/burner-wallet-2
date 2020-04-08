@@ -59,6 +59,7 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
 
   async runExchange() {
     const { assetA, assetB, amount } = this.state;
+    const { actions } = this.props;
 
     const pair = this.getPair(assetA, assetB);
     if (!pair) {
@@ -69,14 +70,18 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
 
     this.setState({ isExchanging: true, error: null });
     try {
+      const loadingMessage = pair.getLoadingMessage()
+      actions.setLoading(loadingMessage)
       const response = await (pair.assetA === assetA.id
         ? pair.exchangeAtoB(exchangeProps)
         : pair.exchangeBtoA(exchangeProps));
     } catch (e) {
       this.setState({ error: e.message });
+      actions.setLoading(null);
       console.error(e);
     }
     this.setState({ isExchanging: false });
+    actions.setLoading(null);
   }
 
   async getEstimate(assetA: Asset, assetB: Asset, amount: string) {
@@ -192,12 +197,15 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
 
         <Bottom>
           <ErrorBar>{error}</ErrorBar>
-          <Button
-            onClick={() => this.runExchange()}
-            disabled={isExchanging || assetBOptions.length === 0}
-          >
-            Exchange
-          </Button>
+          {
+            !isExchanging &&
+            <Button
+              onClick={() => this.runExchange()}
+              disabled={isExchanging || assetBOptions.length === 0}
+            >
+              Exchange
+            </Button>
+          }
         </Bottom>
       </Page>
     );
