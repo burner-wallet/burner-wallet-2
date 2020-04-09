@@ -21,8 +21,8 @@ interface BridgeExchangeParams {
 }
 
 export default class Bridge extends Pair {
-    private readonly assetABridge: string;
-    private readonly assetBBridge: string;
+    protected readonly assetABridge: string;
+    protected readonly assetBBridge: string;
 
     constructor({ assetA, assetABridge, assetB, assetBBridge }: BridgePairConstructor) {
         super({ assetA, assetB });
