@@ -2,14 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { NativeAsset, ERC20Asset } from '@burner-wallet/assets';
 import BurnerCore from '@burner-wallet/core';
-import { InjectedSigner, LocalSigner } from '@burner-wallet/core/signers';
+import { LocalSigner } from '@burner-wallet/core/signers';
 import { HTTPGateway } from '@burner-wallet/core/gateways';
 import ModernUI from '@burner-wallet/modern-ui';
 import LegacyPlugin from '@burner-wallet/legacy-plugin';
 
 const core = new BurnerCore({
   signers: [
-    new InjectedSigner(),
     new LocalSigner({ privateKey: process.env.REACT_APP_PK, saveKey: false }),
   ],
   gateways: [

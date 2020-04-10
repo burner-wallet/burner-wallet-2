@@ -1,0 +1,19 @@
+{
+ "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+
+    "declaration": false,
+    "sourceMap": false,
+    "rootDir": "src",
+    "outDir": "./dist"
+ },
+ "include": [
+   "./src"
+ ]
+}

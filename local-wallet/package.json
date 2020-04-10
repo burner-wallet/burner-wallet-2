@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@burner-wallet/assets": "^1.0.0",
+    "@burner-wallet/cli": "^0.1.0",
     "@burner-wallet/core": "^1.0.0",
     "@burner-wallet/modern-ui": "^1.0.0",
     "@types/node": "12.0.4",
@@ -13,12 +14,11 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.2.0",
-    "typescript": "3.5.1",
-    "web3": "^1.2.2"
+    "typescript": "3.5.1"
   },
   "scripts": {
-    "start": "node ./scripts/run-local.js",
-    "start-local": "node ./scripts/run-local.js",
+    "start": "burner start",
+    "start-local": "burner start",
     "start-wallet": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -35,8 +35,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "axios": "^0.19.0"
   }
 }
