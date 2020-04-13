@@ -1,23 +1,10 @@
 import Pair, { ExchangeParams, ValueTypes } from './Pair';
-import { Asset } from '@burner-wallet/types';
-import promiseRetry from 'promise-retry';
-import Web3 from "web3";
-const { toBN } = Web3.utils;
-
 
 interface BridgePairConstructor {
     assetA: string;
     assetABridge: string;
     assetB: string;
     assetBBridge: string;
-}
-
-interface BridgeExchangeParams {
-    asset: Asset;
-    assetOnOtherNetwork: Asset;
-    from: string;
-    value: string;
-    to: string;
 }
 
 export default class Bridge extends Pair {
@@ -30,46 +17,19 @@ export default class Bridge extends Pair {
         this.assetBBridge = assetBBridge;
     }
 
-    exchangeAtoB({ account, value, ether }: ExchangeParams) {
+    async exchangeAtoB({ account, value, ether }: ExchangeParams) {
         const _value = this._getValue({ value, ether });
         const asset = this.getExchange().getAsset(this.assetA);
-        const assetOnOtherNetwork = this.getExchange().getAsset(this.assetB);
-        return this._exchangeAndWait({
-            asset,
-            assetOnOtherNetwork,
-            from: account,
-            value: _value,
-            to: this.assetABridge
-        });
+        const result = await asset.send({from: account, value: _value, to: this.assetABridge});
+        await this.detectExchangeAToBFinished(account, _value, result);
+        return result;
     }
 
-    exchangeBtoA({ account, value, ether }: ExchangeParams) {
+    async exchangeBtoA({ account, value, ether }: ExchangeParams) {
         const _value = this._getValue({ value, ether });
         const asset = this.getExchange().getAsset(this.assetB);
-        const assetOnOtherNetwork = this.getExchange().getAsset(this.assetA);
-        return this._exchangeAndWait({
-            asset,
-            assetOnOtherNetwork,
-            from: account,
-            value: _value,
-            to: this.assetBBridge
-        });
-    }
-
-    async _exchangeAndWait({ asset, assetOnOtherNetwork, from, value, to }: BridgeExchangeParams) {
-        const initialBalance = await assetOnOtherNetwork.getBalance(from);
-        const result = await asset.send({ from, value, to });
-        await promiseRetry(async (retry) => {
-            const updatedBalance = await assetOnOtherNetwork.getBalance(from);
-            console.log("updated balance", updatedBalance.toString())
-            if (!toBN(updatedBalance).gt(toBN(initialBalance))) {
-                retry(null);
-            }
-        }, {
-            forever: true,
-            factor: 1.2
-        });
-
+        const result = await asset.send({from: account, value: _value, to: this.assetBBridge});
+        await this.detectExchangeBToAFinished(account, _value, result);
         return result;
     }
 
@@ -83,5 +43,13 @@ export default class Bridge extends Pair {
 
     getLoadingMessage(): string {
         return 'Exchanging assets.. please wait until the bridge relays the transaction';
+    }
+
+    async detectExchangeBToAFinished(account: string, value: string, sendResult: any): Promise<any> {
+        throw new Error('detect exchange B to A finished not implemented');
+    }
+
+    async detectExchangeAToBFinished(account: string, value: string, sendResult: any): Promise<any> {
+        throw new Error('detect exchange A to B finished not implemented');
     }
 }

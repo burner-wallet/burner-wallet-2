@@ -1,4 +1,58 @@
 import Bridge from "./Bridge";
+import { EventData } from "web3-eth-contract";
+import { AbiItem } from "web3-utils";
+
+const bridgeAAbi: AbiItem[] = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "transactionHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "AffirmationCompleted",
+    "type": "event"
+  }
+]
+
+const bridgeBAbi: AbiItem[] = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "transactionHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RelayedMessage",
+    "type": "event"
+  }
+]
+
+const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
 export default class XDaiBridge extends Bridge {
   constructor() {
@@ -8,5 +62,65 @@ export default class XDaiBridge extends Bridge {
       assetB: 'dai',
       assetBBridge: '0x4aa42145Aa6Ebf72e164C9bBC74fbD3788045016'
     });
+  }
+
+  async detectExchangeBToAFinished(account: string, value: string, sendResult: any) {
+    const asset = this.getExchange().getAsset(this.assetA);
+    const web3 = asset.getWeb3();
+    const contract = new web3.eth.Contract(bridgeAAbi, this.assetABridge);
+    let fromBlock = await web3.eth.getBlockNumber()
+
+    while (true) {
+      const currentBlock = await web3.eth.getBlockNumber()
+
+      const events: EventData[] = await contract.getPastEvents('AffirmationCompleted', {
+        fromBlock,
+        toBlock: currentBlock
+      })
+
+      const confirmationEvent = events.filter(event => event.returnValues.transactionHash === sendResult.txHash)
+
+      if (confirmationEvent.length > 0) {
+        const event = confirmationEvent[0]
+        const block = await web3.eth.getBlock(event.blockNumber);
+
+        const historyEvent = {
+          id: `${event.transactionHash}-${event.logIndex}`,
+          asset: asset.id,
+          type: 'send',
+          value: event.returnValues.value.toString(),
+          from: this.assetABridge,
+          to: event.returnValues.recipient,
+          tx: event.transactionHash,
+          timestamp: block.timestamp
+        }
+        // @ts-ignore
+        asset.core.addHistoryEvent(historyEvent)
+        return;
+      }
+      fromBlock = currentBlock
+      await wait(5000);
+    }
+  }
+
+  async detectExchangeAToBFinished(account: string, value: string, sendResult: any) {
+    const web3 = this.getExchange().getAsset(this.assetB).getWeb3()
+    const contract = new web3.eth.Contract(bridgeBAbi, this.assetBBridge);
+    let fromBlock = await web3.eth.getBlockNumber()
+
+    while (true) {
+      const currentBlock = await web3.eth.getBlockNumber()
+      const events: EventData[] = await contract.getPastEvents('RelayedMessage', {
+        fromBlock,
+        toBlock: currentBlock
+      })
+      const confirmationEvent = events.filter(event => event.returnValues.transactionHash === sendResult.txHash)
+
+      if (confirmationEvent.length > 0) {
+        return;
+      }
+      fromBlock = currentBlock
+      await wait(10000);
+    }
   }
 }
