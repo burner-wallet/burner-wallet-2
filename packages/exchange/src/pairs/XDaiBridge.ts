@@ -54,6 +54,8 @@ const bridgeBAbi: AbiItem[] = [
 
 const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
+const TIMEOUT = 180000
+
 export default class XDaiBridge extends Bridge {
   constructor() {
     super({
@@ -70,7 +72,8 @@ export default class XDaiBridge extends Bridge {
     const contract = new web3.eth.Contract(bridgeAAbi, this.assetABridge);
     let fromBlock = await web3.eth.getBlockNumber()
 
-    while (true) {
+    const stopTime = Date.now() + TIMEOUT
+    while (Date.now() <= stopTime) {
       const currentBlock = await web3.eth.getBlockNumber()
 
       const events: EventData[] = await contract.getPastEvents('AffirmationCompleted', {
@@ -108,7 +111,8 @@ export default class XDaiBridge extends Bridge {
     const contract = new web3.eth.Contract(bridgeBAbi, this.assetBBridge);
     let fromBlock = await web3.eth.getBlockNumber()
 
-    while (true) {
+    const stopTime = Date.now() + TIMEOUT
+    while (Date.now() <= stopTime) {
       const currentBlock = await web3.eth.getBlockNumber()
       const events: EventData[] = await contract.getPastEvents('RelayedMessage', {
         fromBlock,
