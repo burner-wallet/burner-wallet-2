@@ -62,7 +62,7 @@ export default abstract class BurnerUICore extends Component<BurnerUIProps, Burn
 
     const loader = document.querySelector('#loader');
     if (loader) {
-      loader!.parentNode.removeChild(loader);
+      loader!.parentNode!.removeChild(loader);
     }
   }
 
