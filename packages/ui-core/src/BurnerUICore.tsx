@@ -59,6 +59,11 @@ export default abstract class BurnerUICore extends Component<BurnerUIProps, Burn
 
   componentDidMount() {
     this.plugins.onDataChange(pluginData => this.setState({ pluginData }));
+
+    const loader = document.querySelector('#loader');
+    if (loader) {
+      loader!.parentNode.removeChild(loader);
+    }
   }
 
   getCore() {
