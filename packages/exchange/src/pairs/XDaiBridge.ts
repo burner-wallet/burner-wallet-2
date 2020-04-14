@@ -84,21 +84,6 @@ export default class XDaiBridge extends Bridge {
       const confirmationEvent = events.filter(event => event.returnValues.transactionHash === sendResult.txHash)
 
       if (confirmationEvent.length > 0) {
-        const event = confirmationEvent[0]
-        const block = await web3.eth.getBlock(event.blockNumber);
-
-        const historyEvent = {
-          id: `${event.transactionHash}-${event.logIndex}`,
-          asset: asset.id,
-          type: 'send',
-          value: event.returnValues.value.toString(),
-          from: this.assetABridge,
-          to: event.returnValues.recipient,
-          tx: event.transactionHash,
-          timestamp: block.timestamp
-        }
-        // @ts-ignore
-        asset.core.addHistoryEvent(historyEvent)
         return;
       }
       fromBlock = currentBlock
