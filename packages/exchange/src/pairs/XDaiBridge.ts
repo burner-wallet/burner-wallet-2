@@ -1,39 +1,115 @@
-import Pair, { ExchangeParams, ValueTypes } from './Pair';
+import Bridge from "./Bridge";
+import { EventData } from "web3-eth-contract";
+import { AbiItem } from "web3-utils";
 
-const toXdaiBridge = '0x4aa42145Aa6Ebf72e164C9bBC74fbD3788045016';
-const toDaiBridge = '0x7301cfa0e1756b71869e93d4e4dca5c7d0eb0aa6';
+const bridgeAAbi: AbiItem[] = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "transactionHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "AffirmationCompleted",
+    "type": "event"
+  }
+]
 
-export default class XDaiBridge extends Pair {
+const bridgeBAbi: AbiItem[] = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "transactionHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RelayedMessage",
+    "type": "event"
+  }
+]
+
+const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time));
+
+const TIMEOUT = 180000
+
+export default class XDaiBridge extends Bridge {
   constructor() {
-    super({ assetA: 'xdai', assetB: 'dai' });
-  }
-
-  exchangeAtoB({ account, value, ether }: ExchangeParams) {
-    const _value = this._getValue({ value, ether });
-    const xdai = this.getExchange().getAsset('xdai');
-    return xdai.send({
-      from: account,
-      value: _value,
-      to: toDaiBridge,
+    super({
+      assetA: 'xdai',
+      assetABridge: '0x7301cfa0e1756b71869e93d4e4dca5c7d0eb0aa6',
+      assetB: 'dai',
+      assetBBridge: '0x4aa42145Aa6Ebf72e164C9bBC74fbD3788045016'
     });
   }
 
-  exchangeBtoA({ account, value, ether }: ExchangeParams) {
-    const _value = this._getValue({ value, ether });
+  async detectExchangeBToAFinished(account: string, value: string, sendResult: any) {
+    const asset = this.getExchange().getAsset(this.assetA);
+    const web3 = asset.getWeb3();
+    const contract = new web3.eth.Contract(bridgeAAbi, this.assetABridge);
+    let fromBlock = await web3.eth.getBlockNumber()
 
-    const dai = this.getExchange().getAsset(this.assetB);
-    return dai.send({
-      from: account,
-      value: _value,
-      to: toXdaiBridge,
-    });
+    const stopTime = Date.now() + TIMEOUT
+    while (Date.now() <= stopTime) {
+      const currentBlock = await web3.eth.getBlockNumber()
+
+      const events: EventData[] = await contract.getPastEvents('AffirmationCompleted', {
+        fromBlock,
+        toBlock: currentBlock
+      })
+
+      const confirmationEvent = events.filter(event => event.returnValues.transactionHash === sendResult.txHash)
+
+      if (confirmationEvent.length > 0) {
+        return;
+      }
+      fromBlock = currentBlock
+      await wait(5000);
+    }
   }
 
-  async estimateAtoB(value: ValueTypes) {
-    return this._getValue(value);
-  }
+  async detectExchangeAToBFinished(account: string, value: string, sendResult: any) {
+    const web3 = this.getExchange().getAsset(this.assetB).getWeb3()
+    const contract = new web3.eth.Contract(bridgeBAbi, this.assetBBridge);
+    let fromBlock = await web3.eth.getBlockNumber()
 
-  async estimateBtoA(value: ValueTypes) {
-    return this._getValue(value);
+    const stopTime = Date.now() + TIMEOUT
+    while (Date.now() <= stopTime) {
+      const currentBlock = await web3.eth.getBlockNumber()
+      const events: EventData[] = await contract.getPastEvents('RelayedMessage', {
+        fromBlock,
+        toBlock: currentBlock
+      })
+      const confirmationEvent = events.filter(event => event.returnValues.transactionHash === sendResult.txHash)
+
+      if (confirmationEvent.length > 0) {
+        return;
+      }
+      fromBlock = currentBlock
+      await wait(10000);
+    }
   }
 }

@@ -53,4 +53,8 @@ export default abstract class Pair {
     const web3 = this.getExchange().getWeb3(this.getExchange().getAsset(this.assetA).network);
     return web3.utils.toWei(ether as string, 'ether');
   }
+
+  getLoadingMessage(): string {
+    return 'Exchanging assets...'
+  }
 }
