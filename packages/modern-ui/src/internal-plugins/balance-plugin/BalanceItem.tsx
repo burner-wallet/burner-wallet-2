@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useRef, useLayoutEffect, useState } from 'react';
 import { Asset } from '@burner-wallet/types';
 import styled from 'styled-components';
+import { toBN } from 'web3-utils';
+
+const SPEED = 4; // The higher this number is, the slower the balance will refresh
 
 interface BalanceItemProps {
   asset: Asset;
-  usdBalance?: string | null;
   balance?: string | null;
+  growthRate: string;
 }
 
 const BalanceCard = styled.div`
@@ -34,6 +37,13 @@ const BalanceText = styled.div`
 
 const Value = styled.div`
   font-size: 48px;
+  display: flex;
+  justify-content: flex-end;
+
+  & .digit {
+    width: 30px;
+    text-align: center;
+  }
 `;
 
 const AssetName = styled.div`
@@ -47,13 +57,49 @@ const Icon = styled.div`
   background-size: contain;
 `;
 
-const BalanceItem: React.FC<BalanceItemProps> = ({ asset, usdBalance, balance }) => {
-  let value = '-';
-  if (usdBalance) {
-    value = `$${parseFloat(usdBalance).toFixed(2)}`;
-  } else if (balance) {
-    value = parseFloat(balance).toFixed(2);
+const getValue = (asset: Asset, balance?: string | null) => {
+  if (!balance) {
+    return '-';
   }
+  try {
+    const usdVal = asset.getUSDValue(balance);
+    return `$${parseFloat(usdVal).toFixed(2)}`;
+  } catch (e) {
+    const displayVal = asset.getDisplayValue(balance);
+    return parseFloat(displayVal).toFixed(2);
+  }
+};
+
+const BalanceItem: React.FC<BalanceItemProps> = ({ asset, balance, growthRate }) => {
+  const valueDiv = useRef<HTMLDivElement | null>(null);
+
+  const value = getValue(asset, balance);
+
+  useLayoutEffect(() => {
+    if (!balance || growthRate === '0') {
+      return;
+    }
+
+    const startTime = Date.now();
+    let req: any;
+    let frame = 0;
+    const updateNum = () => {
+      if (valueDiv.current && frame++ % SPEED === 0) {
+        const timeDiff = (Date.now() - startTime).toString();
+        const valueDiff = toBN(growthRate).mul(toBN(timeDiff)).div(toBN('1000'));
+        const newBalance = toBN(balance).add(valueDiff).toString();
+        const displayVal = getValue(asset, newBalance);
+
+        valueDiv.current.innerHTML = Array.from(displayVal)
+          .map((char: string) => `<div ${char !== '.' ? 'class="digit"' : ''}>${char}</div>`)
+          .join('');
+      }
+
+      req = window.requestAnimationFrame(updateNum);
+    };
+    updateNum();
+    return () => void window.cancelAnimationFrame(req);
+  }, [balance, asset, growthRate]);
 
   return (
     <BalanceCard>
@@ -61,7 +107,11 @@ const BalanceItem: React.FC<BalanceItemProps> = ({ asset, usdBalance, balance })
         <Icon style={{ backgroundImage: `url('${asset.icon}')` }} />
       )}
       <BalanceText>
-        <Value>{value}</Value>
+        <Value ref={valueDiv}>
+          {Array.from(value).map((char: string, index: number) => (
+            <div className={char !== '.' ? 'digit' : ''} key={index}>{char}</div>
+          ))}
+        </Value>
         <AssetName>{asset.name}</AssetName>
       </BalanceText>
     </BalanceCard>

@@ -22,8 +22,8 @@ const BalanceRow: React.FC<PluginElementContext> = ({ defaultAccount, assets }) 
         render={(data: AccountBalanceData | null) => (
           <BalanceItem
             asset={asset}
-            usdBalance={data && data.usdBalance}
-            balance={data && data.displayBalance}
+            balance={data && data.balance}
+            growthRate={(data && data.growthRate) || '0'}
           />
         )}
       />

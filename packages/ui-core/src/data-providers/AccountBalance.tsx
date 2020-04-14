@@ -8,6 +8,7 @@ const CACHE_EXPIRATION = 3000;
 interface BalanceCache {
   balance: string;
   maximumSendableBalance: string;
+  growthRate: string;
 }
 
 const balanceCache: { [key: string]: BalanceCache & { timestamp: number } } = {};
@@ -25,11 +26,12 @@ const getBalance = async (asset: Asset, account: string) => {
     return cachedVal;
   }
 
-  const [balance, maximumSendableBalance] = await Promise.all([
+  const [balance, maximumSendableBalance, growthRate] = await Promise.all([
     asset.getBalance(account),
     asset.getMaximumSendableBalance(account),
+    asset.getGrowthRate ? asset.getGrowthRate(account) : Promise.resolve('0'),
   ]);
-  const returnVal = { balance, maximumSendableBalance };
+  const returnVal = { balance, maximumSendableBalance, growthRate };
 
   setCache(cacheKey, returnVal);
   return returnVal;
@@ -59,7 +61,7 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({ render, asset, account 
   const fetchData = async () => {
     try {
       const _asset = getAsset();
-      const { balance, maximumSendableBalance } = await getBalance(_asset, _account);
+      const { balance, maximumSendableBalance, growthRate } = await getBalance(_asset, _account);
 
       if (!_isMounted.current) {
         return;
@@ -77,6 +79,7 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({ render, asset, account 
         maximumSendableBalance,
         displayMaximumSendableBalance: _asset.getDisplayValue(maximumSendableBalance),
         usdBalance,
+        growthRate,
       };
 
       if (!dataRef.current

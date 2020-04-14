@@ -17,6 +17,7 @@ export interface AccountBalanceData {
   maximumSendableBalance: string;
   displayMaximumSendableBalance: string;
   usdBalance: string | null;
+  growthRate: string;
 }
 
 export interface AccountKeysProps {
