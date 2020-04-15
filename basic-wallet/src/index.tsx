@@ -13,7 +13,10 @@ import { BurnerConnectPlugin } from '@burner-wallet/burner-connect-wallet';
 import 'worker-loader?name=burnerprovider.js!./burnerconnect'; // eslint-disable-line import/no-webpack-loader-syntax
 
 const core = new BurnerCore({
-  signers: [new InjectedSigner(), new LocalSigner()],
+  signers: [
+    new LocalSigner(),
+    new InjectedSigner(),
+  ],
   gateways: [
     new InjectedGateway(),
     new InfuraGateway(process.env.REACT_APP_INFURA_KEY),
@@ -22,9 +25,7 @@ const core = new BurnerCore({
   assets: [xdai, dai, eth],
 });
 
-const exchange = new Exchange({
-  pairs: [new XDaiBridge(), new Uniswap('dai')],
-});
+const exchange = new Exchange([new XDaiBridge(), new Uniswap('dai')]);
 
 const BurnerWallet = () =>
   <ModernUI

@@ -10,8 +10,8 @@ export default class Exchange implements Plugin {
   private _pluginContext: BurnerPluginContext | null;
   private pairs: Pair[];
 
-  constructor({ pairs }: ExchangeConstructor) {
-    this.pairs = pairs;
+  constructor(props: ExchangeConstructor | Pair[]) {
+    this.pairs = Array(props) ? (props as Pair[]) : (props as ExchangeConstructor).pairs;
     this._pluginContext = null;
   }
 
