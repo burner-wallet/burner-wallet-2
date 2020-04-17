@@ -1,5 +1,6 @@
 import { ComponentType } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { Location } from 'history';
 import { Asset } from '@burner-wallet/assets';
 import Web3 from 'web3';
 import { Account, Actions, BurnerContext, SendData } from './types';
@@ -14,8 +15,9 @@ export interface Plugin {
   initializePlugin(context: BurnerPluginContext): void;
 }
 
-interface PluginActionContext {
+export interface PluginActionContext {
   actions: Actions;
+  location: Location;
 }
 
 export type PluginElementContext<P = Plugin> = BasePluginContext<P> & BurnerContext;

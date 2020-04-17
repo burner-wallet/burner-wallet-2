@@ -1,9 +1,11 @@
 import React, { Component, ComponentType, useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Location } from 'history';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import BurnerCore from '@burner-wallet/core';
 import {
-  Diff, BurnerComponents, BurnerContext, BurnerPluginData, SendData, Actions, HistoryEventCallback
+  Diff, BurnerComponents, BurnerContext, BurnerPluginData, SendData, Actions, HistoryEventCallback,
+  PluginActionContext
 } from '@burner-wallet/types';
 export { BurnerContext } from '@burner-wallet/types';
 import { DEFAULT_PLUGIN_DATA } from './Plugins';
@@ -70,7 +72,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
       safeSetPK: (newPK: string) => props.history.push('/pk', { newPK }),
       scanQRCode: this.scanQRCode.bind(this),
       send: this.send.bind(this),
-      navigateTo: (location: string | number, state?: any) =>
+      navigateTo: (location: string | number | Location, state?: any) =>
         Number.isInteger(location as number)
         ? props.history.go(location as number)
         : props.history.push(location as string, state),
@@ -96,6 +98,13 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
     this.props.core.onAccountChange((accounts: string[]) => this.setState({ accounts }));
   }
 
+  getPluginActionContext(): PluginActionContext {
+    return {
+      actions: this.actions,
+      location: this.props.location,
+    };
+  }
+
   scanQRCode() {
     return new Promise<string>((resolve, reject) => {
       const completeScan = (result: string | null) => {
@@ -114,7 +123,7 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
     const { actions } = this;
     try {
       const result = await this.scanQRCode();
-      if (this.props.pluginData.tryHandleQR(result, { actions })) {
+      if (this.props.pluginData.tryHandleQR(result, this.getPluginActionContext())) {
         return;
       } else if (ADDRESS_REGEX.test(result)) {
         actions.navigateTo('/send', { to: result });
