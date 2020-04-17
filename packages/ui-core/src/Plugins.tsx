@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   AccountSearchFn, BurnerPluginContext, BurnerPluginData, Plugin, AddressToNameResolver,
   PluginActionContext, PluginElement, PluginPage, QRScannedFn, SendData, TXSentFn,
-  PluginMessageListener, BurnerContext, Diff, Translations, PluginButtonData
+  PluginMessageListener, BurnerContext, Diff, Translations, PluginButtonData, StartupFn
 } from '@burner-wallet/types';
 export { BurnerPluginData } from '@burner-wallet/types';
 import { withBurner, SubProvider } from './BurnerProvider';
@@ -31,30 +31,28 @@ export const DEFAULT_PLUGIN_DATA = {
   tryHandleQR: () => false,
   sent: () => null,
   getAddressName: () => Promise.resolve(null),
+  startup: () => null,
 };
 
 export default class Plugins {
-  private changeListeners: ((data: BurnerPluginData) => void)[];
-  private qrHandlers: QRScannedFn[];
-  private sentHandlers: TXSentFn[];
   private pluginData: BurnerPluginData;
-  private addressToNameResolvers: AddressToNameResolver[];
   private ui: BurnerUICore;
-  private messageListeners: { [topic: string]: PluginMessageListener[] };
+
+  private changeListeners: ((data: BurnerPluginData) => void)[] = [];
+  private qrHandlers: QRScannedFn[] = [];
+  private startupListeners: StartupFn[] = [];
+  private sentHandlers: TXSentFn[] = [];
+  private addressToNameResolvers: AddressToNameResolver[] = [];
+  private messageListeners: { [topic: string]: PluginMessageListener[] } = {};
 
   constructor(plugins: Plugin[], ui: BurnerUICore) {
-    this.changeListeners = [];
-    this.sentHandlers = [];
-    this.qrHandlers = [];
-    this.addressToNameResolvers = [];
-    this.messageListeners = {};
-
     this.ui = ui;
     this.pluginData = {
       ...DEFAULT_PLUGIN_DATA,
       tryHandleQR: this.tryHandleQR.bind(this),
       sent: this.sent.bind(this),
       getAddressName: this.getAddressName.bind(this),
+      startup: this.startup.bind(this),
     };
 
     plugins.forEach(plugin => plugin.initializePlugin(this.getPluginContext(plugin)));
@@ -73,8 +71,8 @@ export default class Plugins {
       addElement: (position: string, Component: PluginElement, options?: any) =>
         this.addPluginElement(plugin, position, Component, options),
       onAccountSearch: (callback: AccountSearchFn) => this.addAccountSearch(callback),
-      onQRScanned: (callback: QRScannedFn) => this.qrHandlers.push(callback),
-      onSent: (callback: TXSentFn) => this.sentHandlers.push(callback),
+      onQRScanned: (callback: QRScannedFn) => void this.qrHandlers.push(callback),
+      onSent: (callback: TXSentFn) => void this.sentHandlers.push(callback),
       addPage: (path: string, Component: PluginPage) => this.addPluginPage(plugin, path, Component),
       addButton: (position: string, title: string, path: string, options?: any) =>
         this.addPluginButton(plugin, position, title, path, options),
@@ -88,6 +86,7 @@ export default class Plugins {
       sendPluginMessage: (topic: string, ...message: any[]) =>
         (this.messageListeners[topic] || []).map((listener: PluginMessageListener) => listener(...message)),
       onPluginMessage: (topic: string, listener: PluginMessageListener) => this.addMessageListener(topic, listener),
+      onStartup: (listener: StartupFn) => void this.startupListeners.push(listener),
     };
   }
 
@@ -182,6 +181,12 @@ export default class Plugins {
       }
     }
     return false;
+  }
+
+  startup(context: PluginActionContext) {
+    for (const handler of this.startupListeners) {
+      handler(context);
+    }
   }
 
   sent(data: SendData) {

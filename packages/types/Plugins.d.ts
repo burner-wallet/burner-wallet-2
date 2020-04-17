@@ -32,6 +32,7 @@ export type AddressToNameResolver = (address: string) => Promise<string | null>;
 export type QRScannedFn = (qr: string, context: PluginActionContext) => boolean | undefined;
 export type TXSentFn = (data: SendData) => string | void | null;
 export type PluginMessageListener = (...message: any[]) => any;
+export type StartupFn = (context: PluginActionContext) => void;
 
 export type Translations = { [lang: string]: { [key: string]: string } };
 
@@ -49,6 +50,7 @@ export interface BurnerPluginContext {
   onSent: (callback: TXSentFn) => void;
   sendPluginMessage: (topic: string, ...message: any[]) => any[];
   onPluginMessage: (topic: string, listener: PluginMessageListener) => void;
+  onStartup: (callback: StartupFn) => void;
 }
 
 interface PluginPageData {
@@ -88,4 +90,5 @@ export interface BurnerPluginData {
   tryHandleQR: (qr: string, context: PluginActionContext) => boolean;
   sent: TXSentFn;
   getAddressName: (address: string) => Promise<string | null>;
+  startup: (context: PluginActionContext) => void;
 }

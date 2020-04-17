@@ -92,10 +92,10 @@ class BurnerProvider extends Component<BurnerProviderProps, BurnerProviderState>
   }
 
   componentDidMount() {
-    this.setState({
-      accounts: this.props.core.getAccounts(),
-    });
+    this.setState({ accounts: this.props.core.getAccounts() });
     this.props.core.onAccountChange((accounts: string[]) => this.setState({ accounts }));
+
+    this.props.pluginData.startup(this.getPluginActionContext());
   }
 
   getPluginActionContext(): PluginActionContext {
