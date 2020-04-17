@@ -32,17 +32,15 @@ interface ExchangePageState {
   error: string | null;
 }
 
-export default class ExchangePage extends Component<PluginPageContext, ExchangePageState> {
+export default class ExchangePage extends Component<PluginPageContext<{}, Exchange>, ExchangePageState> {
   private poll: any;
-  private exchange: Exchange;
 
-  constructor(props: PluginPageContext) {
+  constructor(props: PluginPageContext<{}, Exchange>) {
     super(props);
-    this.exchange = props.plugin as Exchange;
-    const [firstPair] = this.exchange.getPairs();
+    const [firstPair] = this.props.plugin.getPairs();
     this.state = {
-      assetA: this.exchange.getAsset(firstPair.assetA),
-      assetB: this.exchange.getAsset(firstPair.assetB),
+      assetA: this.props.plugin.getAsset(firstPair.assetA),
+      assetB: this.props.plugin.getAsset(firstPair.assetB),
       amount: '',
       estimate: null,
       isExchanging: false,
@@ -51,7 +49,7 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
   }
 
   getPair(assetA: Asset, assetB: Asset) {
-    const [pair] = this.exchange.getPairs().filter(_pair =>
+    const [pair] = this.props.plugin.getPairs().filter(_pair =>
       (_pair.assetA === assetA.id && _pair.assetB === assetB.id)
       || (_pair.assetA === assetB.id && _pair.assetB === assetA.id));
     return pair;
@@ -102,15 +100,15 @@ export default class ExchangePage extends Component<PluginPageContext, ExchangeP
   }
 
   getPairOptions(asset: Asset) {
-    const pairs = this.exchange.getPairs();
+    const pairs = this.props.plugin.getPairs();
 
     const options = [];
     for (const pair of pairs) {
       if (pair.assetA === asset.id) {
-        options.push(this.exchange.getAsset(pair.assetB));
+        options.push(this.props.plugin.getAsset(pair.assetB));
       }
       if (pair.assetB === asset.id) {
-        options.push(this.exchange.getAsset(pair.assetA));
+        options.push(this.props.plugin.getAsset(pair.assetA));
       }
     }
     return options;

@@ -4,8 +4,8 @@ import { Asset } from '@burner-wallet/assets';
 import Web3 from 'web3';
 import { Account, Actions, BurnerContext, SendData } from './types';
 
-interface BasePluginContext {
-  plugin: Plugin;
+interface BasePluginContext<P = Plugin> {
+  plugin: P;
 }
 
 export interface Plugin {
@@ -18,11 +18,12 @@ interface PluginActionContext {
   actions: Actions;
 }
 
-export type PluginPageContext<Params = {}> = RouteComponentProps<Params> & BasePluginContext & BurnerContext;
-export type PluginElementContext = BasePluginContext & BurnerContext;
+export type PluginElementContext<P = Plugin> = BasePluginContext<P> & BurnerContext;
+export type PluginPageContext<Params = {}, P = Plugin> =
+  RouteComponentProps<Params> & BasePluginContext<P> & BurnerContext;
 
-export type PluginPage = ComponentType<PluginPageContext<any>>;
-export type PluginElement = ComponentType<PluginElementContext>;
+export type PluginPage = ComponentType<PluginPageContext<any, any>>;
+export type PluginElement = ComponentType<PluginElementContext<any>>;
 
 export type AccountSearchFn = (query: string) => Promise<Account[]>;
 export type AddressToNameResolver = (address: string) => Promise<string | null>;
