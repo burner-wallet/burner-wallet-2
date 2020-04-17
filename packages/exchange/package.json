@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "css": "copyfiles -u 1 \"src/**/*.css\" dist/",
-    "build": "tsc && yarn run css",
+    "build": "tsc",
     "start-basic": "tsc -w"
   },
   "publishConfig": {
@@ -17,8 +16,5 @@
     "@types/react": "*",
     "@types/styled-components": "4.1.8",
     "styled-components": "^5.0.1"
-  },
-  "devDependencies": {
-    "copyfiles": "^2.1.0"
   }
 }

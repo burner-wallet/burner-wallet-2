@@ -20,8 +20,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
-    "@babel/preset-typescript": "^7.3.3",
-    "copyfiles": "^2.1.0"
+    "@babel/preset-typescript": "^7.3.3"
   },
   "dependencies": {
     "@burner-wallet/core": "^1.1.7",
