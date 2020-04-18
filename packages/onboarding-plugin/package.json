@@ -1,0 +1,18 @@
+{
+  "name": "@burner-wallet/onboarding-plugin",
+  "version": "0.1.0",
+  "description": "Display a screen on first launch",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start-local": "tsc -w"
+  },
+  "dependencies": {
+    "@burner-wallet/types": "^1.0.0",
+    "@types/react-swipeable-views": "^0.13.0",
+    "react-swipeable-views": "^0.13.9",
+    "styled-components": "^5.0.1"
+  }
+}
