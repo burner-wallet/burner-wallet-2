@@ -22,18 +22,30 @@ const InnerContainer = styled.div`
   margin: 0 auto;
 `;
 
-const Pages = styled.div`
+const Slides = styled.div`
   flex: 5;
   position: relative;
+
+  & .react-swipeable-view-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 `;
 
 const PageWrapper = styled.div`
-  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Bottom = styled.div`
   flex: 1;
   border-top: solid 1px #dddddd;
+  display: flex;
+  background: #fcfcfc;
 `;
 
 const Dots = styled.div`
@@ -47,41 +59,64 @@ const Dot = styled.div<{ active: boolean }>`
   height: 14px;
   width: 14px;
   border-radius: 14px;
-  background: ${props => props.active ? 'blue' : 'red'};
+  background: ${props => props.active ? '#8e8e8e' : '#cacaca'};
   display: inline-block;
   margin: 0 8px;
 `;
 
-const pages = [
-  (<div>Page 1</div>),
-  (<div>Page 2</div>),
-];
+const Col = styled.div<{ width?: number }>`
+  flex: ${props => props.width || 1};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-const OnboardingPage: React.FC<PluginPageContext<{}, OnboardingPlugin>> = ({ plugin }) => {
+
+const OnboardingPage: React.FC<PluginPageContext<{}, OnboardingPlugin>> = ({ plugin, BurnerComponents, actions }) => {
   const [pageNum, setPage] = useState(0);
 
+  const complete = () => {
+    plugin.complete();
+    actions.navigateTo('/');
+  };
+
+  const { Button } = BurnerComponents;
   return (
     <Container>
       <InnerContainer>
-        <Pages>
+        <Slides>
           <SwipeableViews onChangeIndex={(index: number) => setPage(index)} index={pageNum}>
-            {pages.map((page: any, index: number) => (
+            {plugin.slides.map((page: any, index: number) => (
               <PageWrapper key={index}>{page}</PageWrapper>
             ))}
           </SwipeableViews>
 
           <Dots>
-            {pages.map((page: any, index: number) => (
+            {plugin.slides.map((page: any, index: number) => (
               <Dot key={index} active={index === pageNum} />
             ))}
           </Dots>
-        </Pages>
+        </Slides>
         
 
         <Bottom>
-          <button onClick={() => setPage(pageNum - 1)}>prev</button>
-          <button onClick={plugin.complete}>complete</button>
-          <button onClick={() => setPage(pageNum + 1)}>next</button>
+          <Col>
+            {pageNum > 0 && (
+              <Button onClick={() => setPage(pageNum - 1)}>Back</Button>
+            )}
+          </Col>
+
+          <Col width={2}>
+            {pageNum === plugin.slides.length - 1 && (
+              <Button onClick={complete}>Get Started!</Button>
+            )}
+          </Col>
+
+          <Col>
+            {pageNum < plugin.slides.length - 1 && (
+              <Button onClick={() => setPage(pageNum + 1)}>Next</Button>
+            )}
+          </Col>
         </Bottom>
       </InnerContainer>
     </Container>

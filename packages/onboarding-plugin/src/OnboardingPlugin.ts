@@ -1,9 +1,16 @@
+import { ReactNode } from 'react';
 import { BurnerPluginContext, Plugin, PluginActionContext } from '@burner-wallet/types';
 import OnboardingPage from './ui/OnboardingPage';
 
 const STORAGE_KEY = 'burner-onboarding-complete';
 
 export default class OnboardingPlugin implements Plugin {
+  public slides: ReactNode[];
+
+  constructor(slides: ReactNode[]) {
+    this.slides = slides;
+  }
+
   initializePlugin(pluginContext: BurnerPluginContext) {
     pluginContext.addPage('/welcome', OnboardingPage);
 
