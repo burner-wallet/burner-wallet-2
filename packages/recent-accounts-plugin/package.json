@@ -11,6 +11,11 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/burner-wallet/burner-wallet-2.git",
+    "directory": "packages/recent-accounts-plugin"
+  },
   "dependencies": {
     "@burner-wallet/types": "^1.0.0"
   }

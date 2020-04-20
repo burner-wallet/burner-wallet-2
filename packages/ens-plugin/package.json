@@ -11,6 +11,11 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/burner-wallet/burner-wallet-2.git",
+    "directory": "packages/ens-plugin"
+  },
   "dependencies": {
     "@burner-wallet/types": "^1.0.0",
     "eth-ens-namehash": "^2.0.8"
