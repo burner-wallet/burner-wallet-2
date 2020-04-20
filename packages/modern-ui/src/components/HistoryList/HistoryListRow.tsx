@@ -46,7 +46,7 @@ const HistoryListRow: React.FC<HistoryListEventProps> = ({ event, account, navig
         <Row onClick={() => navigateTo(`/receipt/${asset.id}/${event.tx}`)}>
           <div>
             <span>
-              <Address address={event.to} />
+              <Address address={didReceive ? event.from : event.to} />
             </span>
             <div>
               {didReceive ? t('Received funds') : t('Sent funds')}
