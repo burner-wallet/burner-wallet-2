@@ -11,7 +11,7 @@ export default class Exchange implements Plugin {
   private pairs: Pair[];
 
   constructor(props: ExchangeConstructor | Pair[]) {
-    this.pairs = Array(props) ? (props as Pair[]) : (props as ExchangeConstructor).pairs;
+    this.pairs = Array.isArray(props) ? (props as Pair[]) : (props as ExchangeConstructor).pairs;
     this._pluginContext = null;
   }
 
