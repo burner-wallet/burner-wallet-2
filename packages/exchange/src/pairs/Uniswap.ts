@@ -77,7 +77,7 @@ export default class Uniswap extends Pair {
     const output = await contract.methods.getTokenToEthInputPrice(this._getValue(value)).call();
     return {
       estimate: output,
-      estimateMessage: null
+      estimateInfo: null
     };
   }
 
@@ -86,7 +86,7 @@ export default class Uniswap extends Pair {
     const output = await contract.methods.getEthToTokenInputPrice(this._getValue(value)).call();
     return {
       estimate: output,
-      estimateMessage: null
+      estimateInfo: null
     };
   }
 }

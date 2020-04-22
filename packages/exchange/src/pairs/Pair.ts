@@ -12,7 +12,7 @@ export interface ExchangeParams extends ValueTypes {
 
 export interface EstimateReturn {
   estimate: string;
-  estimateMessage: null | string;
+  estimateInfo: null | string;
 }
 
 interface PairConstructor {

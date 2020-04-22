@@ -23,7 +23,7 @@ const ErrorBar = styled.div`
   margin-bottom: 4px;
 `;
 
-const EstimateMessage = styled.div`
+const EstimateInfo = styled.div`
   min-height: 18px;
   margin: 8px;
 `;
@@ -33,7 +33,7 @@ interface ExchangePageState {
   assetB: Asset;
   amount: string;
   estimate: null | string;
-  estimateMessage: null | string;
+  estimateInfo: null | string;
   isExchanging: boolean;
   error: string | null;
 }
@@ -49,7 +49,7 @@ export default class ExchangePage extends Component<PluginPageContext<{}, Exchan
       assetB: this.props.plugin.getAsset(firstPair.assetB),
       amount: '',
       estimate: null,
-      estimateMessage: null,
+      estimateInfo: null,
       isExchanging: false,
       error: null,
     };
@@ -104,7 +104,7 @@ export default class ExchangePage extends Component<PluginPageContext<{}, Exchan
       console.error(e);
       return {
         estimate: null,
-        estimateMessage: null
+        estimateInfo: null
       };
     }
   }
@@ -125,7 +125,7 @@ export default class ExchangePage extends Component<PluginPageContext<{}, Exchan
   }
 
   async update({ assetA, assetB, amount }: { assetA?: Asset; assetB?: Asset; amount?: string }) {
-    const update: Partial<ExchangePageState> = { estimate: null, estimateMessage: null };
+    const update: Partial<ExchangePageState> = { estimate: null, estimateInfo: null };
     if (assetA) {
       update.assetA = assetA;
 
@@ -147,19 +147,19 @@ export default class ExchangePage extends Component<PluginPageContext<{}, Exchan
       return;
     }
 
-    const { estimate, estimateMessage } = await this.getEstimate(start.assetA, start.assetB, start.amount);
+    const { estimate, estimateInfo } = await this.getEstimate(start.assetA, start.assetB, start.amount);
 
     // Check if anything has changed while the estimate was fetching.
     if (this.state.assetA === start.assetA
       && this.state.assetB === start.assetB
       && this.state.amount === start.amount) {
-        this.setState({ estimate, estimateMessage });
+        this.setState({ estimate, estimateInfo });
     }
   }
 
   render() {
     const { burnerComponents } = this.props;
-    const { assetA, assetB, amount, estimate, isExchanging, error, estimateMessage } = this.state;
+    const { assetA, assetB, amount, estimate, isExchanging, error, estimateInfo } = this.state;
     const { Page, AssetSelector, Button } = burnerComponents;
 
     const assetBOptions = this.getPairOptions(assetA);
@@ -176,7 +176,7 @@ export default class ExchangePage extends Component<PluginPageContext<{}, Exchan
             outputUnit={assetB.name}
             disabled={isExchanging}
           />
-          <EstimateMessage>{estimateMessage}</EstimateMessage>
+          <EstimateInfo>{estimateInfo}</EstimateInfo>
         </InputContainer>
 
         <div>
