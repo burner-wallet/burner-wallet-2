@@ -10,6 +10,11 @@ export interface ExchangeParams extends ValueTypes {
   account: string;
 }
 
+export interface EstimateReturn {
+  estimate: string;
+  estimateMessage: null | string;
+}
+
 interface PairConstructor {
   assetA: string;
   assetB: string;
@@ -29,8 +34,8 @@ export default abstract class Pair {
   abstract exchangeAtoB({ account, value, ether }: ExchangeParams): Promise<void>;
   abstract exchangeBtoA({ account, value, ether }: ExchangeParams): Promise<void>;
 
-  abstract estimateAtoB(value: ValueTypes): Promise<string>;
-  abstract estimateBtoA(value: ValueTypes): Promise<string>;
+  abstract estimateAtoB(value: ValueTypes): Promise<EstimateReturn>;
+  abstract estimateBtoA(value: ValueTypes): Promise<EstimateReturn>;
 
   setExchange(newExchange: Exchange) {
     this._exchange = newExchange;

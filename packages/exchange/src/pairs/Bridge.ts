@@ -34,11 +34,17 @@ export default class Bridge extends Pair {
     }
 
     async estimateAtoB(value: ValueTypes) {
-        return this._getValue(value);
+        return {
+            estimate: this._getValue(value),
+            estimateMessage: null
+        };
     }
 
     async estimateBtoA(value: ValueTypes) {
-        return this._getValue(value);
+        return {
+            estimate: this._getValue(value),
+            estimateMessage: null
+        };
     }
 
     getLoadingMessage(): string {
