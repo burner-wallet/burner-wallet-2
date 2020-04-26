@@ -1,4 +1,4 @@
-import Web3 from 'web3';
+import { toWei } from 'web3-utils';
 import Exchange from '../Exchange';
 
 export interface ValueTypes {
@@ -12,7 +12,7 @@ export interface ExchangeParams extends ValueTypes {
 
 export interface EstimateReturn {
   estimate: string;
-  estimateInfo: null | string;
+  estimateInfo?: null | string;
 }
 
 interface PairConstructor {
@@ -55,8 +55,7 @@ export default abstract class Pair {
     if (value) {
       return value;
     }
-    const web3 = this.getExchange().getWeb3(this.getExchange().getAsset(this.assetA).network);
-    return web3.utils.toWei(ether as string, 'ether');
+    return toWei(ether as string, 'ether');
   }
 
   getLoadingMessage(): string {

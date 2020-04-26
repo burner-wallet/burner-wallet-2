@@ -153,7 +153,10 @@ export default class ExchangePage extends Component<PluginPageContext<{}, Exchan
     if (this.state.assetA === start.assetA
       && this.state.assetB === start.assetB
       && this.state.amount === start.amount) {
-        this.setState({ estimate, estimateInfo });
+        this.setState({
+          estimate,
+          estimateInfo: estimateInfo || null,
+        });
     }
   }
 
