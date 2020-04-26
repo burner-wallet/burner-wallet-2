@@ -75,12 +75,18 @@ export default class Uniswap extends Pair {
   async estimateAtoB(value: ValueTypes) {
     const contract = await this.getContract();
     const output = await contract.methods.getTokenToEthInputPrice(this._getValue(value)).call();
-    return output;
+    return {
+      estimate: output,
+      estimateInfo: null
+    };
   }
 
   async estimateBtoA(value: ValueTypes) {
     const contract = await this.getContract();
     const output = await contract.methods.getEthToTokenInputPrice(this._getValue(value)).call();
-    return output;
+    return {
+      estimate: output,
+      estimateInfo: null
+    };
   }
 }
