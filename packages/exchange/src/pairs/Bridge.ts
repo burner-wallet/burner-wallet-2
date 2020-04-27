@@ -1,4 +1,4 @@
-import Pair, { ExchangeParams, ValueTypes } from './Pair';
+import Pair, { EstimateReturn, ExchangeParams, ValueTypes } from './Pair';
 
 interface BridgePairConstructor {
     assetA: string;
@@ -33,14 +33,14 @@ export default class Bridge extends Pair {
         return result;
     }
 
-    async estimateAtoB(value: ValueTypes) {
+    async estimateAtoB(value: ValueTypes): Promise<EstimateReturn> {
         return {
             estimate: this._getValue(value),
             estimateInfo: null
         };
     }
 
-    async estimateBtoA(value: ValueTypes) {
+    async estimateBtoA(value: ValueTypes): Promise<EstimateReturn> {
         return {
             estimate: this._getValue(value),
             estimateInfo: null
