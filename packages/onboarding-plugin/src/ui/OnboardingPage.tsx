@@ -10,7 +10,7 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background: #ededed;
+  background: ${props => props.theme.background};
 `;
 
 const InnerContainer = styled.div`
@@ -43,9 +43,7 @@ const PageWrapper = styled.div`
 
 const Bottom = styled.div`
   flex: 1;
-  border-top: solid 1px #dddddd;
   display: flex;
-  background: #fcfcfc;
 `;
 
 const Dots = styled.div`
@@ -100,23 +98,27 @@ const OnboardingPage: React.FC<PluginPageContext<{}, OnboardingPlugin>> = ({ plu
         
 
         <Bottom>
-          <Col>
-            {pageNum > 0 && (
-              <Button onClick={() => setPage(pageNum - 1)}>Back</Button>
-            )}
-          </Col>
+          {plugin.showArrowButtons && (
+            <Col>
+              {pageNum > 0 && (
+                <Button onClick={() => setPage(pageNum - 1)}>Back</Button>
+              )}
+            </Col>
+          )}
 
           <Col width={2}>
-            {pageNum === plugin.slides.length - 1 && (
-              <Button onClick={complete}>Get Started!</Button>
+            {(plugin.alwaysShowSkip || pageNum === plugin.slides.length - 1) && (
+              <Button onClick={complete}>Get Started</Button>
             )}
           </Col>
 
-          <Col>
-            {pageNum < plugin.slides.length - 1 && (
-              <Button onClick={() => setPage(pageNum + 1)}>Next</Button>
-            )}
-          </Col>
+          {plugin.showArrowButtons && (
+            <Col>
+              {pageNum < plugin.slides.length - 1 && (
+                <Button onClick={() => setPage(pageNum + 1)}>Next</Button>
+              )}
+            </Col>
+          )}
         </Bottom>
       </InnerContainer>
     </Container>
