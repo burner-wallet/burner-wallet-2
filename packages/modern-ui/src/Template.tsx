@@ -3,14 +3,28 @@ import Color from 'color';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 
+export interface BurnerTheme {
+  background: string;
+  font: string;
+  titleFont: string | null;
+  accentColor: string;
+  accentLight: string;
+  accentDark: string;
+  accentText: string;
+  paperBackground: string;
+  logo: string | null;
+  pageMargin: string;
+}
+
 const defaultTheme = {
-  background: '#975422',
+  background: '#ededed',
   font:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   titleFont: null,
   accentColor: '#4E3FCE',
   paperBackground: '#f2f2f2',
-  homeButtonColor: null
+  logo: null,
+  pageMargin: '16px',
 };
 
 const Container = styled.div`

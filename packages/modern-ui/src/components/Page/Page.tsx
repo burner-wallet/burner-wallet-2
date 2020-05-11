@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import _styled, { ThemedStyledInterface } from 'styled-components';
 import { PageProps } from '@burner-wallet/types';
 import PageTitleBar from './PageTitleBar';
 import ErrorBoundary from './ErrorBoundary';
+import { BurnerTheme } from '../../Template';
+
+const styled = (_styled as ThemedStyledInterface<BurnerTheme>);
 
 const PageContainer = styled.main<{ fullscreen?: boolean }>`
-  margin: 0 var(--page-margin) var(--page-margin);
-  padding: var(--page-margin);
+  margin: 0 ${props => props.theme.pageMargin} ${props => props.theme.pageMargin};
+  padding: ${props => props.theme.pageMargin};
   display: flex;
   flex-direction: column;
   flex: 1;
