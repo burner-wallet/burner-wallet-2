@@ -1,4 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import * as styledComponents from 'styled-components';
+import { BurnerTheme } from './Template';
+const { createGlobalStyle } = styledComponents as styledComponents.ThemedStyledComponentsModule<BurnerTheme>;
 
 const GlobalStyle = createGlobalStyle`
   :root {

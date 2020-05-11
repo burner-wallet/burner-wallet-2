@@ -57,6 +57,19 @@ const Icon = styled.div`
   background-size: contain;
 `;
 
+const valueToHTML = (val: string) => {
+  const decimal = val.indexOf('.');
+  return Array.from(val)
+    .map((char: string, index: number) => {
+      let className = char === '.' ? '': 'digit';
+      if (index > (decimal + 2)) {
+        className += ' gray';
+      }
+      return `<div class="${className}">${char}</div>`;
+    })
+    .join('')
+};
+
 const getValue = (asset: Asset, balance?: string | null) => {
   if (!balance) {
     return '-';
@@ -90,9 +103,16 @@ const BalanceItem: React.FC<BalanceItemProps> = ({ asset, balance, growthRate })
         const newBalance = toBN(balance).add(valueDiff).toString();
         const displayVal = getValue(asset, newBalance);
 
-        valueDiv.current.innerHTML = Array.from(displayVal)
-          .map((char: string) => `<div ${char !== '.' ? 'class="digit"' : ''}>${char}</div>`)
-          .join('');
+        if (displayVal.length === valueDiv.current.childElementCount) {
+          Array.from(displayVal).forEach((char: string, index: number) => {
+            const textNode = valueDiv.current!.children[index].firstChild! as Text;
+            if (textNode.data !== char) {
+              textNode.data = char;
+            }
+          });
+        } else {
+          valueDiv.current.innerHTML = valueToHTML(displayVal);
+        }
       }
 
       req = window.requestAnimationFrame(updateNum);
