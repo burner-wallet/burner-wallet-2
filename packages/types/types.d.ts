@@ -70,8 +70,9 @@ export type BurnerComponents = BurnerUIComponents & DataProviders;
 export type HistoryEventCallback = (event: HistoryEvent) => void;
 
 export interface Page {
-  path: string;
+  path: string | string[];
   component: ComponentType<any>;
+  exact?: boolean;
 }
 
 export interface SendData {

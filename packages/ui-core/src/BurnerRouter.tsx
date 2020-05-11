@@ -9,11 +9,16 @@ interface BurnerRouterProps {
 
 const BurnerRouter: React.FC<BurnerRouterProps> = ({ pages, pluginData }) => (
   <Switch>
-    {pages.map(({ path, component }) => (
-      <Route path={path} component={component} key={path} exact={path === '/'} />
+    {pages.map(({ path, component, exact }) => (
+      <Route
+        path={path}
+        component={component}
+        key={JSON.stringify(path)}
+        exact={exact || path === '/'}
+      />
     ))}
     {pluginData.pages.map(({ path, Component }) => (
-      <Route path={path} key={path} component={Component} />
+      <Route path={path} key={JSON.stringify(path)} component={Component} />
     ))}
     <Redirect to="/" />
   </Switch>
