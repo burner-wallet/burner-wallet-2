@@ -14,7 +14,7 @@ const PageContainer = styled.main<{ fullscreen?: boolean }>`
   flex-direction: column;
   flex: 1;
   position: relative;
-  background: #fafafa;
+  background: ${props => props.theme.paperBackground};
 
   ${({ fullscreen }) => fullscreen ? `
     position: absolute;

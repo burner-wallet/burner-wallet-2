@@ -22,7 +22,7 @@ const defaultTheme = {
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   titleFont: null,
   accentColor: '#4E3FCE',
-  paperBackground: '#f2f2f2',
+  paperBackground: '#fafafa',
   logo: null,
   pageMargin: '16px',
 };

@@ -24,8 +24,6 @@ const GlobalStyle = createGlobalStyle`
     --l5-lh: 1.4;
     --l5-weight: 400;
 
-    --main-font: system-ui, "-apple-system", BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-
     --color-primary:  #1AAA9B;
     --color-secondary: #D2F9F5;
     --color-tertiary: #D2F9F5;
