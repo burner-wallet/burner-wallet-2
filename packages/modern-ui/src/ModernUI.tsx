@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Loading from './components/Loading';
 import Scanner from './components/Scanner';
 import Template from './Template';
+import options from './options';
 
 import internalPlugins from './internal-plugins';
 import ActivityPage from './pages/ActivityPage';
@@ -18,7 +19,15 @@ import ReceivePage from './pages/ReceivePage';
 import SendPage from './pages/SendPage';
 
 
-export default class ClassicUI extends BurnerUICore {
+export default class ModernUI extends BurnerUICore {
+  constructor(props: any) {
+    super(props);
+
+    if (props.theme && props.theme.balanceStyle) {
+      options.balanceStyle = props.theme.balanceStyle;
+    }
+  }
+
   getPages(): Page[] {
     return [
       { path: '/', component: HomePage },

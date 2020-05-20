@@ -2,6 +2,7 @@ import React, { useRef, useLayoutEffect, useState } from 'react';
 import { Asset } from '@burner-wallet/types';
 import styled from 'styled-components';
 import { toBN } from 'web3-utils';
+import options from '../../options';
 
 const SPEED = 4; // The higher this number is, the slower the balance will refresh
 
@@ -22,10 +23,7 @@ const BalanceCard = styled.div`
   border-radius: 8px;
   min-width: 225px;
   background: white;
-
-  &:not(:first-of-type) {
-    margin-left: 12px;
-  }
+  margin: ${() => options.balanceStyle === 'stack' ? '4px 0' : '16px 8px'};
 `;
 
 const BalanceText = styled.div`
