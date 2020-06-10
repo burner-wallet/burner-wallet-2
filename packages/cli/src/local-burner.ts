@@ -1,14 +1,10 @@
-#!/usr/bin/env node
-
 import { spawn } from 'child_process';
 import fs from 'fs';
 import Web3 from 'web3';
 import { testRPC } from './lib';
 import { toBuffer, privateToAddress, generateAddress, bufferToHex } from 'ethereumjs-util';
+import { parseArgsStringToArgv } from 'string-argv';
 
-process.on('unhandledRejection', e => console.error(e));
-
-const RPC = 'http://localhost:8545';
 const PK_USER = '0xecb2222da7cbca080201acf6a7bbda53a3b2bcb22e3004b83ab8c69a884becb9';
 
 const DEPLOYER_PK = '0x13179885a8731284475aa2317a35a292131772bb5aa33734a1290b8b13944409';
@@ -24,12 +20,17 @@ const getAccount = async (web3: Web3) => {
   return defaultAccount;
 }
 
-(async function() {
-  if (!await testRPC(RPC)) {
+interface LocalWalletOptions {
+  rpc: string;
+  command: string;
+}
+
+export default async function startLocalWallet(options: LocalWalletOptions) {
+  if (!await testRPC(options.rpc)) {
     throw new Error('Ganache not found on port 8545');
   }
 
-  const web3 = new Web3(new Web3.providers.HttpProvider(RPC));
+  const web3 = new Web3(new Web3.providers.HttpProvider(options.rpc));
 
   const user = web3.eth.accounts.privateKeyToAccount(PK_USER);
   const deployer = web3.eth.accounts.privateKeyToAccount(DEPLOYER_PK);
@@ -76,7 +77,9 @@ const getAccount = async (web3: Web3) => {
     await web3.eth.sendSignedTransaction(transferTx!);
   }
 
-  spawn('yarn', ['start-wallet'], {
+  const [cmd, ...args] = parseArgsStringToArgv(options.command);
+
+  spawn(cmd!, args, {
     env: {
       ...process.env,
       REACT_APP_PK: PK_USER,
@@ -84,4 +87,4 @@ const getAccount = async (web3: Web3) => {
     },
     stdio: 'inherit',
   });
-})();
+}

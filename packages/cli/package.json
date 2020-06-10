@@ -4,7 +4,7 @@
   "description": "Tools for starting a Burner Wallet connected to a local Ganache instance",
   "license": "MIT",
   "bin": {
-    "burner": "./dist/local-burner.js"
+    "burner": "./dist/cli.js"
   },
   "files": [
     "dist",
@@ -23,6 +23,11 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "web3": "^1.2.2"
+    "string-argv": "^0.3.1",
+    "web3": "^1.2.2",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "@types/yargs": "^15.0.5"
   }
 }
