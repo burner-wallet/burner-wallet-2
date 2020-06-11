@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter, HashRouter, MemoryRouter } from 'react-router-dom';
 import { Asset } from '@burner-wallet/types';
 import BurnerCore from '@burner-wallet/core';
 
@@ -10,16 +10,25 @@ import BurnerRouter from './BurnerRouter';
 import Plugins, { BurnerPluginData } from './Plugins';
 import { Plugin, BurnerUIComponents, BurnerComponents, Page } from '@burner-wallet/types';
 
+type RouterType = 'browser' | 'hash' | 'memory';
+
 interface BurnerUIProps {
   core: BurnerCore;
   plugins?: any[];
   title?: string;
   theme?: any;
+  router?: RouterType;
 }
 
 interface BurnerUIState {
   pluginData: BurnerPluginData;
 }
+
+const routers: { [router in RouterType]: React.ComponentType } = {
+  browser: BrowserRouter,
+  hash: HashRouter,
+  memory: MemoryRouter,
+};
 
 // TODO: validate pages against this
 const REQUIRED_PAGES = ['/', '/confirm', '/pk'];
@@ -30,6 +39,7 @@ export default abstract class BurnerUICore extends Component<BurnerUIProps, Burn
 
   static defaultProps = {
     plugins: [],
+    router: 'browser',
   }
 
   constructor(props: BurnerUIProps) {
@@ -81,6 +91,8 @@ export default abstract class BurnerUICore extends Component<BurnerUIProps, Burn
   }
 
   render() {
+    const Router = routers[this.props.router!];
+
     return (
       <Router>
         <BurnerProvider
